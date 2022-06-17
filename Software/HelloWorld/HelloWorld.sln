@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32611.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldWinForms", "HelloWorldWinForms\HelloWorldWinForms.csproj", "{81F1CDD3-4917-4B37-925D-A62A5B71F599}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldWeb", "HelloWorldWeb\HelloWorldWeb.csproj", "{0B0F6D16-00AE-43C1-95CE-452128B1813A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldMAUI", "HelloWorldMAUI\HelloWorldMAUI.csproj", "{EAAC35DE-4757-4406-B42F-D37D352E2744}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,16 @@ Global
 		{81F1CDD3-4917-4B37-925D-A62A5B71F599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81F1CDD3-4917-4B37-925D-A62A5B71F599}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81F1CDD3-4917-4B37-925D-A62A5B71F599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B0F6D16-00AE-43C1-95CE-452128B1813A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B0F6D16-00AE-43C1-95CE-452128B1813A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B0F6D16-00AE-43C1-95CE-452128B1813A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B0F6D16-00AE-43C1-95CE-452128B1813A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAAC35DE-4757-4406-B42F-D37D352E2744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAAC35DE-4757-4406-B42F-D37D352E2744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAAC35DE-4757-4406-B42F-D37D352E2744}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EAAC35DE-4757-4406-B42F-D37D352E2744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAAC35DE-4757-4406-B42F-D37D352E2744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAAC35DE-4757-4406-B42F-D37D352E2744}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
