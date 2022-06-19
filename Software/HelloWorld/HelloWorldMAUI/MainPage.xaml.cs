@@ -11,7 +11,7 @@
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
-           label1.Text = "MG Hello World! " + DateTime.Now.TimeOfDay.ToString();
+           label1.Text = "Hi " + DateTime.Now.TimeOfDay.ToString();
         }
     }
 }
