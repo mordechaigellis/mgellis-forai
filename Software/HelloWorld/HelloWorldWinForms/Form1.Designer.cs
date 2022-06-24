@@ -34,12 +34,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(288, 352);
+            this.button1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button1.Location = new System.Drawing.Point(264, 308);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(214, 48);
             this.button1.TabIndex = 0;
             this.button1.Text = "Click me to Say Hello";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
@@ -62,6 +63,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form1";
             this.Text = "MG - Hello World";
+            
             this.ResumeLayout(false);
 
         }

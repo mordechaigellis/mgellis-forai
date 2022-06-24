@@ -9,7 +9,9 @@ namespace HelloWorldWinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label1.Text = "Hello World my name is Michael Gellis. The current time is " + DateTime.Now.TimeOfDay.ToString();
+            label1.Text = "Hello my name is Michael Gellis. The current time is " + DateTime.Now.TimeOfDay.ToString();
         }
+
+       
     }
 }
