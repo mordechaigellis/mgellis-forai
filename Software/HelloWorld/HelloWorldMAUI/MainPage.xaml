@@ -19,7 +19,7 @@
                 x:Name="label1"
                 Text="MG Hello World!"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                FontSize="24"
                 HorizontalOptions="Center" />
             
 
