@@ -12,10 +12,14 @@ namespace LanguageBasics
 {
     public partial class frmLanguageBasics : Form
     {
+        //variables go here
         public frmLanguageBasics()
         {
             InitializeComponent();
-
+            //event subscription goes here
         }
+
+        //code goes here
     }
+    
 }

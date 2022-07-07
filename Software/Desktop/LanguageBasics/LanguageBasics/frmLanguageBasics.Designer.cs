@@ -30,7 +30,7 @@
         {
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.btnEventHandler1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnEventHandler2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.tblOutput = new System.Windows.Forms.TableLayoutPanel();
@@ -50,7 +50,7 @@
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tblMain.Controls.Add(this.btnEventHandler1, 0, 1);
-            this.tblMain.Controls.Add(this.button2, 1, 1);
+            this.tblMain.Controls.Add(this.btnEventHandler2, 1, 1);
             this.tblMain.Controls.Add(this.button3, 2, 1);
             this.tblMain.Controls.Add(this.button4, 3, 1);
             this.tblMain.Controls.Add(this.tblOutput, 0, 0);
@@ -72,18 +72,18 @@
             this.btnEventHandler1.Name = "btnEventHandler1";
             this.btnEventHandler1.Size = new System.Drawing.Size(182, 98);
             this.btnEventHandler1.TabIndex = 0;
-            this.btnEventHandler1.Text = "button1";
+            this.btnEventHandler1.Text = "Event Handler 1";
             this.btnEventHandler1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnEventHandler2
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(193, 214);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(182, 98);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEventHandler2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnEventHandler2.Location = new System.Drawing.Point(193, 214);
+            this.btnEventHandler2.Name = "btnEventHandler2";
+            this.btnEventHandler2.Size = new System.Drawing.Size(182, 98);
+            this.btnEventHandler2.TabIndex = 1;
+            this.btnEventHandler2.Text = "Event Handler 2";
+            this.btnEventHandler2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -163,7 +163,7 @@
 
         private TableLayoutPanel tblMain;
         private Button btnEventHandler1;
-        private Button button2;
+        private Button btnEventHandler2;
         private Button button3;
         private Button button4;
         private TableLayoutPanel tblOutput;
