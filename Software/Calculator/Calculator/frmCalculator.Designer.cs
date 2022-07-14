@@ -56,6 +56,7 @@
             // 
             // tblMain
             // 
+            this.tblMain.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tblMain.ColumnCount = 4;
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -101,6 +102,7 @@
             // 
             // txtFactor1
             // 
+            this.txtFactor1.BackColor = System.Drawing.SystemColors.Menu;
             this.txtFactor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtFactor1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtFactor1.Location = new System.Drawing.Point(7, 8);
@@ -111,6 +113,7 @@
             // 
             // txtOperator
             // 
+            this.txtOperator.BackColor = System.Drawing.SystemColors.Menu;
             this.txtOperator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtOperator.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtOperator.Location = new System.Drawing.Point(135, 8);
@@ -121,6 +124,7 @@
             // 
             // txtFactor2
             // 
+            this.txtFactor2.BackColor = System.Drawing.SystemColors.Menu;
             this.txtFactor2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtFactor2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtFactor2.Location = new System.Drawing.Point(263, 8);
@@ -131,6 +135,7 @@
             // 
             // txtAnswer
             // 
+            this.txtAnswer.BackColor = System.Drawing.SystemColors.Menu;
             this.txtAnswer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtAnswer.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtAnswer.Location = new System.Drawing.Point(391, 8);
@@ -141,6 +146,7 @@
             // 
             // btnClear
             // 
+            this.btnClear.BackColor = System.Drawing.Color.LightPink;
             this.tblMain.SetColumnSpan(this.btnClear, 3);
             this.btnClear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnClear.Location = new System.Drawing.Point(3, 62);
@@ -149,10 +155,11 @@
             this.btnClear.Size = new System.Drawing.Size(378, 102);
             this.btnClear.TabIndex = 0;
             this.btnClear.Text = "C";
-            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.UseVisualStyleBackColor = false;
             // 
             // btnDivide
             // 
+            this.btnDivide.BackColor = System.Drawing.Color.LightPink;
             this.btnDivide.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDivide.Location = new System.Drawing.Point(387, 62);
             this.btnDivide.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -160,10 +167,11 @@
             this.btnDivide.Size = new System.Drawing.Size(125, 102);
             this.btnDivide.TabIndex = 1;
             this.btnDivide.Text = "/";
-            this.btnDivide.UseVisualStyleBackColor = true;
+            this.btnDivide.UseVisualStyleBackColor = false;
             // 
             // btn7
             // 
+            this.btn7.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn7.Location = new System.Drawing.Point(3, 172);
             this.btn7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -171,10 +179,11 @@
             this.btn7.Size = new System.Drawing.Size(122, 102);
             this.btn7.TabIndex = 2;
             this.btn7.Text = "7";
-            this.btn7.UseVisualStyleBackColor = true;
+            this.btn7.UseVisualStyleBackColor = false;
             // 
             // btn8
             // 
+            this.btn8.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn8.Location = new System.Drawing.Point(131, 172);
             this.btn8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -182,10 +191,11 @@
             this.btn8.Size = new System.Drawing.Size(122, 102);
             this.btn8.TabIndex = 3;
             this.btn8.Text = "8";
-            this.btn8.UseVisualStyleBackColor = true;
+            this.btn8.UseVisualStyleBackColor = false;
             // 
             // btn9
             // 
+            this.btn9.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn9.Location = new System.Drawing.Point(259, 172);
             this.btn9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -193,10 +203,11 @@
             this.btn9.Size = new System.Drawing.Size(122, 102);
             this.btn9.TabIndex = 4;
             this.btn9.Text = "9";
-            this.btn9.UseVisualStyleBackColor = true;
+            this.btn9.UseVisualStyleBackColor = false;
             // 
             // btnMultiply
             // 
+            this.btnMultiply.BackColor = System.Drawing.Color.LightPink;
             this.btnMultiply.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMultiply.Location = new System.Drawing.Point(387, 172);
             this.btnMultiply.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -204,10 +215,11 @@
             this.btnMultiply.Size = new System.Drawing.Size(125, 102);
             this.btnMultiply.TabIndex = 5;
             this.btnMultiply.Text = "X";
-            this.btnMultiply.UseVisualStyleBackColor = true;
+            this.btnMultiply.UseVisualStyleBackColor = false;
             // 
             // btn4
             // 
+            this.btn4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn4.Location = new System.Drawing.Point(3, 282);
             this.btn4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -215,10 +227,11 @@
             this.btn4.Size = new System.Drawing.Size(122, 102);
             this.btn4.TabIndex = 6;
             this.btn4.Text = "4";
-            this.btn4.UseVisualStyleBackColor = true;
+            this.btn4.UseVisualStyleBackColor = false;
             // 
             // btn5
             // 
+            this.btn5.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn5.Location = new System.Drawing.Point(131, 282);
             this.btn5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -226,10 +239,11 @@
             this.btn5.Size = new System.Drawing.Size(122, 102);
             this.btn5.TabIndex = 7;
             this.btn5.Text = "5";
-            this.btn5.UseVisualStyleBackColor = true;
+            this.btn5.UseVisualStyleBackColor = false;
             // 
             // btn6
             // 
+            this.btn6.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn6.Location = new System.Drawing.Point(259, 282);
             this.btn6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -237,10 +251,11 @@
             this.btn6.Size = new System.Drawing.Size(122, 102);
             this.btn6.TabIndex = 8;
             this.btn6.Text = "6";
-            this.btn6.UseVisualStyleBackColor = true;
+            this.btn6.UseVisualStyleBackColor = false;
             // 
             // btnSubstract
             // 
+            this.btnSubstract.BackColor = System.Drawing.Color.LightPink;
             this.btnSubstract.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSubstract.Location = new System.Drawing.Point(387, 282);
             this.btnSubstract.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -248,10 +263,11 @@
             this.btnSubstract.Size = new System.Drawing.Size(125, 102);
             this.btnSubstract.TabIndex = 9;
             this.btnSubstract.Text = "-";
-            this.btnSubstract.UseVisualStyleBackColor = true;
+            this.btnSubstract.UseVisualStyleBackColor = false;
             // 
             // btn1
             // 
+            this.btn1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn1.Location = new System.Drawing.Point(3, 392);
             this.btn1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -259,10 +275,11 @@
             this.btn1.Size = new System.Drawing.Size(122, 102);
             this.btn1.TabIndex = 10;
             this.btn1.Text = "1";
-            this.btn1.UseVisualStyleBackColor = true;
+            this.btn1.UseVisualStyleBackColor = false;
             // 
             // btn2
             // 
+            this.btn2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn2.Location = new System.Drawing.Point(131, 392);
             this.btn2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -270,10 +287,11 @@
             this.btn2.Size = new System.Drawing.Size(122, 102);
             this.btn2.TabIndex = 11;
             this.btn2.Text = "2";
-            this.btn2.UseVisualStyleBackColor = true;
+            this.btn2.UseVisualStyleBackColor = false;
             // 
             // btn3
             // 
+            this.btn3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn3.Location = new System.Drawing.Point(259, 392);
             this.btn3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -281,10 +299,11 @@
             this.btn3.Size = new System.Drawing.Size(122, 102);
             this.btn3.TabIndex = 12;
             this.btn3.Text = "3";
-            this.btn3.UseVisualStyleBackColor = true;
+            this.btn3.UseVisualStyleBackColor = false;
             // 
             // btnAdd
             // 
+            this.btnAdd.BackColor = System.Drawing.Color.LightPink;
             this.btnAdd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAdd.Location = new System.Drawing.Point(387, 392);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -292,10 +311,11 @@
             this.btnAdd.Size = new System.Drawing.Size(125, 102);
             this.btnAdd.TabIndex = 13;
             this.btnAdd.Text = "+";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.UseVisualStyleBackColor = false;
             // 
             // btnSign
             // 
+            this.btnSign.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btnSign.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSign.Location = new System.Drawing.Point(3, 502);
             this.btnSign.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -303,10 +323,11 @@
             this.btnSign.Size = new System.Drawing.Size(122, 106);
             this.btnSign.TabIndex = 14;
             this.btnSign.Text = "-/+";
-            this.btnSign.UseVisualStyleBackColor = true;
+            this.btnSign.UseVisualStyleBackColor = false;
             // 
             // btn0
             // 
+            this.btn0.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn0.Location = new System.Drawing.Point(131, 502);
             this.btn0.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -314,10 +335,11 @@
             this.btn0.Size = new System.Drawing.Size(122, 106);
             this.btn0.TabIndex = 15;
             this.btn0.Text = "0";
-            this.btn0.UseVisualStyleBackColor = true;
+            this.btn0.UseVisualStyleBackColor = false;
             // 
             // btnDecimal
             // 
+            this.btnDecimal.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btnDecimal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDecimal.Location = new System.Drawing.Point(259, 502);
             this.btnDecimal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -325,10 +347,11 @@
             this.btnDecimal.Size = new System.Drawing.Size(122, 106);
             this.btnDecimal.TabIndex = 16;
             this.btnDecimal.Text = ".";
-            this.btnDecimal.UseVisualStyleBackColor = true;
+            this.btnDecimal.UseVisualStyleBackColor = false;
             // 
             // btnEquals
             // 
+            this.btnEquals.BackColor = System.Drawing.Color.LightPink;
             this.btnEquals.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEquals.Location = new System.Drawing.Point(387, 502);
             this.btnEquals.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -336,7 +359,7 @@
             this.btnEquals.Size = new System.Drawing.Size(125, 106);
             this.btnEquals.TabIndex = 17;
             this.btnEquals.Text = "=";
-            this.btnEquals.UseVisualStyleBackColor = true;
+            this.btnEquals.UseVisualStyleBackColor = false;
             // 
             // frmCalculator
             // 
