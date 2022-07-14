@@ -44,17 +44,17 @@ namespace CalculatorWinForms
 
         private void BtnDivide_Click(object? sender, EventArgs e)
         {
-            txtOperator.Text = txtOperator.Text + btnDivide.Text;
+            txtOperator.Text = btnDivide.Text;
         }
 
         private void BtnMultiply_Click(object? sender, EventArgs e)
         {
-            txtOperator.Text = txtOperator.Text + btnMultiply.Text;
+            txtOperator.Text = btnMultiply.Text;
         }
 
         private void BtnSubstract_Click(object? sender, EventArgs e)
         {
-            txtOperator.Text = txtOperator.Text + btnSubstract.Text;
+            txtOperator.Text = btnSubstract.Text;
         }
 
         private void BtnDecimal_Click(object? sender, EventArgs e)
@@ -64,7 +64,7 @@ namespace CalculatorWinForms
 
         private void BtnAdd_Click(object? sender, EventArgs e)
         {
-            txtOperator.Text = txtOperator.Text + btnAdd.Text;
+            txtOperator.Text = btnAdd.Text;
         }
 
         private void Btn0_Click(object? sender, EventArgs e)
