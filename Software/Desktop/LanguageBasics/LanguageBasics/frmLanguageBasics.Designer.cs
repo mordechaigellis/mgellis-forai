@@ -31,8 +31,8 @@
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.btnEventHandler1 = new System.Windows.Forms.Button();
             this.btnEventHandler2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnVariable1 = new System.Windows.Forms.Button();
+            this.btnVariable2 = new System.Windows.Forms.Button();
             this.tblOutput = new System.Windows.Forms.TableLayoutPanel();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.gOutput = new System.Windows.Forms.DataGridView();
@@ -51,8 +51,8 @@
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tblMain.Controls.Add(this.btnEventHandler1, 0, 1);
             this.tblMain.Controls.Add(this.btnEventHandler2, 1, 1);
-            this.tblMain.Controls.Add(this.button3, 2, 1);
-            this.tblMain.Controls.Add(this.button4, 3, 1);
+            this.tblMain.Controls.Add(this.btnVariable1, 2, 1);
+            this.tblMain.Controls.Add(this.btnVariable2, 3, 1);
             this.tblMain.Controls.Add(this.tblOutput, 0, 0);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
@@ -85,25 +85,25 @@
             this.btnEventHandler2.Text = "Event Handler 2";
             this.btnEventHandler2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnVariable1
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(382, 214);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(182, 98);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnVariable1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnVariable1.Location = new System.Drawing.Point(382, 214);
+            this.btnVariable1.Name = "btnVariable1";
+            this.btnVariable1.Size = new System.Drawing.Size(182, 98);
+            this.btnVariable1.TabIndex = 2;
+            this.btnVariable1.Text = "Variables 1";
+            this.btnVariable1.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnVariable2
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.Location = new System.Drawing.Point(571, 214);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(185, 98);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnVariable2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnVariable2.Location = new System.Drawing.Point(571, 214);
+            this.btnVariable2.Name = "btnVariable2";
+            this.btnVariable2.Size = new System.Drawing.Size(185, 98);
+            this.btnVariable2.TabIndex = 3;
+            this.btnVariable2.Text = "Variables 2";
+            this.btnVariable2.UseVisualStyleBackColor = true;
             // 
             // tblOutput
             // 
@@ -164,8 +164,8 @@
         private TableLayoutPanel tblMain;
         private Button btnEventHandler1;
         private Button btnEventHandler2;
-        private Button button3;
-        private Button button4;
+        private Button btnVariable1;
+        private Button btnVariable2;
         private TableLayoutPanel tblOutput;
         private TextBox txtOutput;
         private DataGridView gOutput;

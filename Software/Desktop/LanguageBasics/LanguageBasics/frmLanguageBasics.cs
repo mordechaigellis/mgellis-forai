@@ -18,8 +18,20 @@ namespace LanguageBasics
             InitializeComponent();
             //event subscription goes here
             btnEventHandler1.Click += BtnEventHandler1_Click;
-            btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
-            btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
+            //btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
+            //btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
+            btnVariable1.Click += BtnVariable1_Click;
+            btnVariable2.Click += BtnVariable2_Click;
+        }
+
+        private void BtnVariable2_Click(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnVariable1_Click(object? sender, EventArgs e)
+        {
+           
         }
 
         private void BtnEventHandler2_MouseLeave(object? sender, EventArgs e)
