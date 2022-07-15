@@ -22,6 +22,29 @@ namespace LanguageBasics
             //btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
             btnVariable1.Click += BtnVariable1_Click;
             btnVariable2.Click += BtnVariable2_Click;
+            btnDataConversion1.Click += BtnDataConversion1_Click;
+            btnDataConversion2.Click += BtnDataConversion2_Click;
+        }
+
+        private void BtnDataConversion2_Click(object? sender, EventArgs e)
+        {
+            int n = 0;
+            string s = txtOutput.Text;
+            bool b = int.TryParse(s, out n);
+            txtOutput.Text = "s = " + s + ", conversion worked = " + b + ", n = " + n + Environment.NewLine;
+        }
+
+        private void BtnDataConversion1_Click(object? sender, EventArgs e)
+        {
+            decimal d = 1.99m; int n = 0;string s = "100";
+            n = (int)d;
+            txtOutput.Text = "";
+            txtOutput.Text = "d = " + d + ", n = " + n + Environment.NewLine;
+
+            bool b = int.TryParse(s, out n);
+            txtOutput.Text += "s = " + s + ", b = " + b + ", n = " + n + Environment.NewLine;
+
+
         }
 
         private void BtnVariable2_Click(object? sender, EventArgs e)
@@ -70,5 +93,5 @@ namespace LanguageBasics
 
         //code goes here
     }
-    
+
 }
