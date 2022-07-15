@@ -26,12 +26,20 @@ namespace LanguageBasics
 
         private void BtnVariable2_Click(object? sender, EventArgs e)
         {
-            
+            //string bool color
+            string s = "hello "; bool b = false; Color c = Color.DeepSkyBlue;
+            txtOutput.Text += "s = " + s + ", b = " + b + ", c = " + c + Environment.NewLine;
+            txtOutput.BackColor = c;
+            s += s;
+            b = !b;
+            c = Color.FromArgb(100, 50, 25);
+            txtOutput.Text += "s = " + s + ", b = " + b + ", c = " + c + Environment.NewLine;
+            txtOutput.BackColor = c;
+
         }
 
         private void BtnVariable1_Click(object? sender, EventArgs e)
         {
-            //int decimal datetime
             int n = 10; decimal d = .99m; DateTime dt = new DateTime(1989, 4, 25);
             txtOutput.Text = "";
             txtOutput.Text += "n = " + n + ", d = " + d + ", dt = " + dt + Environment.NewLine;
