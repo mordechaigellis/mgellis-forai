@@ -62,7 +62,7 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tblMain.Size = new System.Drawing.Size(760, 529);
+            this.tblMain.Size = new System.Drawing.Size(1231, 529);
             this.tblMain.TabIndex = 0;
             // 
             // btnEventHandler1
@@ -70,7 +70,7 @@
             this.btnEventHandler1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEventHandler1.Location = new System.Drawing.Point(4, 214);
             this.btnEventHandler1.Name = "btnEventHandler1";
-            this.btnEventHandler1.Size = new System.Drawing.Size(182, 98);
+            this.btnEventHandler1.Size = new System.Drawing.Size(300, 98);
             this.btnEventHandler1.TabIndex = 0;
             this.btnEventHandler1.Text = "Event Handler 1";
             this.btnEventHandler1.UseVisualStyleBackColor = true;
@@ -78,9 +78,9 @@
             // btnEventHandler2
             // 
             this.btnEventHandler2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnEventHandler2.Location = new System.Drawing.Point(193, 214);
+            this.btnEventHandler2.Location = new System.Drawing.Point(311, 214);
             this.btnEventHandler2.Name = "btnEventHandler2";
-            this.btnEventHandler2.Size = new System.Drawing.Size(182, 98);
+            this.btnEventHandler2.Size = new System.Drawing.Size(300, 98);
             this.btnEventHandler2.TabIndex = 1;
             this.btnEventHandler2.Text = "Event Handler 2";
             this.btnEventHandler2.UseVisualStyleBackColor = true;
@@ -88,9 +88,9 @@
             // btnVariable1
             // 
             this.btnVariable1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnVariable1.Location = new System.Drawing.Point(382, 214);
+            this.btnVariable1.Location = new System.Drawing.Point(618, 214);
             this.btnVariable1.Name = "btnVariable1";
-            this.btnVariable1.Size = new System.Drawing.Size(182, 98);
+            this.btnVariable1.Size = new System.Drawing.Size(300, 98);
             this.btnVariable1.TabIndex = 2;
             this.btnVariable1.Text = "Variables 1";
             this.btnVariable1.UseVisualStyleBackColor = true;
@@ -98,9 +98,9 @@
             // btnVariable2
             // 
             this.btnVariable2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnVariable2.Location = new System.Drawing.Point(571, 214);
+            this.btnVariable2.Location = new System.Drawing.Point(925, 214);
             this.btnVariable2.Name = "btnVariable2";
-            this.btnVariable2.Size = new System.Drawing.Size(185, 98);
+            this.btnVariable2.Size = new System.Drawing.Size(302, 98);
             this.btnVariable2.TabIndex = 3;
             this.btnVariable2.Text = "Variables 2";
             this.btnVariable2.UseVisualStyleBackColor = true;
@@ -119,7 +119,7 @@
             this.tblOutput.Name = "tblOutput";
             this.tblOutput.RowCount = 1;
             this.tblOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblOutput.Size = new System.Drawing.Size(752, 203);
+            this.tblOutput.Size = new System.Drawing.Size(1223, 203);
             this.tblOutput.TabIndex = 4;
             // 
             // txtOutput
@@ -128,24 +128,24 @@
             this.txtOutput.Location = new System.Drawing.Point(3, 3);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(244, 197);
+            this.txtOutput.Size = new System.Drawing.Size(401, 197);
             this.txtOutput.TabIndex = 0;
             // 
             // gOutput
             // 
             this.gOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gOutput.Location = new System.Drawing.Point(253, 3);
+            this.gOutput.Location = new System.Drawing.Point(410, 3);
             this.gOutput.Name = "gOutput";
             this.gOutput.RowTemplate.Height = 25;
-            this.gOutput.Size = new System.Drawing.Size(244, 197);
+            this.gOutput.Size = new System.Drawing.Size(401, 197);
             this.gOutput.TabIndex = 1;
             // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(760, 529);
+            this.ClientSize = new System.Drawing.Size(1231, 529);
             this.Controls.Add(this.tblMain);
             this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(5);

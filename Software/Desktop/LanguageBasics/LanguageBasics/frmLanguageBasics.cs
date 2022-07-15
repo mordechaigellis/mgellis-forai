@@ -31,7 +31,15 @@ namespace LanguageBasics
 
         private void BtnVariable1_Click(object? sender, EventArgs e)
         {
-           
+            //int decimal datetime
+            int n = 10; decimal d = .99m; DateTime dt = new DateTime(1989, 4, 25);
+            txtOutput.Text = "";
+            txtOutput.Text += "n = " + n + ", d = " + d + ", dt = " + dt + Environment.NewLine;
+            n = n * 10000;
+            d += d;
+            dt = dt.AddDays(10000);
+            txtOutput.Text += "n = " + n + ", d = " + d + ", dt = " + dt + Environment.NewLine;
+
         }
 
         private void BtnEventHandler2_MouseLeave(object? sender, EventArgs e)
