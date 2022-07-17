@@ -31,18 +31,35 @@ namespace LanguageBasics
 
         private void BtnIf2_Click(object? sender, EventArgs e)
         {
-            
+
         }
 
         private void BtnIf1_Click(object? sender, EventArgs e)
         {
-            
+            Random rnd = new Random();
+            int n = rnd.Next(1, 8);
+            string msg = "";
+            txtOutput.Text = n + Environment.NewLine;
+            if (n == 7)
+            {
+                msg = "1st Prize";
+            }
+            else if (n > 2 && n < 7)
+            {
+                msg = "2nd Prize";
+            }
+            else
+            {
+                msg = "Try Again";
+                
+            }
+            txtOutput.Text += msg;
         }
-
+        
         private void BtnRandom_Click(object? sender, EventArgs e)
         {
             Random rnd = new Random();
-            int n = rnd.Next(0,256);
+            int n = rnd.Next(0, 256);
             txtOutput.Text = "";
             txtOutput.Text = n.ToString();
             Color c = Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256));
@@ -59,7 +76,7 @@ namespace LanguageBasics
 
         private void BtnDataConversion1_Click(object? sender, EventArgs e)
         {
-            decimal d = 1.99m; int n = 0;string s = "100";
+            decimal d = 1.99m; int n = 0; string s = "100";
             n = (int)d;
             txtOutput.Text = "";
             txtOutput.Text = "d = " + d + ", n = " + n + Environment.NewLine;
