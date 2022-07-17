@@ -24,6 +24,17 @@ namespace LanguageBasics
             btnVariable2.Click += BtnVariable2_Click;
             btnDataConversion1.Click += BtnDataConversion1_Click;
             btnDataConversion2.Click += BtnDataConversion2_Click;
+            btnRandom.Click += BtnRandom_Click;
+        }
+
+        private void BtnRandom_Click(object? sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            int n = rnd.Next(0,256);
+            txtOutput.Text = "";
+            txtOutput.Text = n.ToString();
+            Color c = Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256));
+            txtOutput.BackColor = c;
         }
 
         private void BtnDataConversion2_Click(object? sender, EventArgs e)

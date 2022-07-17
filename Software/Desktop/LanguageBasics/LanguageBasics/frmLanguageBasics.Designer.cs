@@ -38,6 +38,7 @@
             this.gOutput = new System.Windows.Forms.DataGridView();
             this.btnDataConversion1 = new System.Windows.Forms.Button();
             this.btnDataConversion2 = new System.Windows.Forms.Button();
+            this.btnRandom = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -58,6 +59,7 @@
             this.tblMain.Controls.Add(this.tblOutput, 0, 0);
             this.tblMain.Controls.Add(this.btnDataConversion1, 0, 2);
             this.tblMain.Controls.Add(this.btnDataConversion2, 1, 2);
+            this.tblMain.Controls.Add(this.btnRandom, 2, 2);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -165,6 +167,16 @@
             this.btnDataConversion2.Text = "Data Conversion 2";
             this.btnDataConversion2.UseVisualStyleBackColor = true;
             // 
+            // btnRandom
+            // 
+            this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRandom.Location = new System.Drawing.Point(696, 319);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(339, 98);
+            this.btnRandom.TabIndex = 7;
+            this.btnRandom.Text = "Random";
+            this.btnRandom.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -195,5 +207,6 @@
         private DataGridView gOutput;
         private Button btnDataConversion1;
         private Button btnDataConversion2;
+        private Button btnRandom;
     }
 }
