@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,7 +32,31 @@ namespace LanguageBasics
 
         private void BtnIf2_Click(object? sender, EventArgs e)
         {
+            //has red > 128 then forecolor blue
+            //else has blue > 128 then forecolor red
+            //else has green > 128 then forecolor yellow
+            //all other cases black
+            Random rnd = new Random();
+            Color c = Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256));
+            Color fc = Color.Black;
 
+            txtOutput.BackColor = c;
+            if (c.R > 128)
+            {
+                fc = Color.Blue;
+            }
+            else if (c.B > 128)
+            {
+                fc = Color.Red;
+            }
+            else if (c.G > 128)
+            {
+                fc = Color.Yellow;
+            }
+           
+            txtOutput.ForeColor = fc;
+            txtOutput.Text = "Backcolor: " + c + Environment.NewLine;
+            txtOutput.Text += "Forecolor: " + fc;
         }
 
         private void BtnIf1_Click(object? sender, EventArgs e)
@@ -51,11 +76,11 @@ namespace LanguageBasics
             else
             {
                 msg = "Try Again";
-                
+
             }
             txtOutput.Text += msg;
         }
-        
+
         private void BtnRandom_Click(object? sender, EventArgs e)
         {
             Random rnd = new Random();
