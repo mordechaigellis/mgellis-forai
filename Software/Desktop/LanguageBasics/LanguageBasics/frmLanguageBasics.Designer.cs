@@ -41,8 +41,6 @@
             this.btnRandom = new System.Windows.Forms.Button();
             this.btnIf1 = new System.Windows.Forms.Button();
             this.btnIf2 = new System.Windows.Forms.Button();
-            this.btnProcedure1 = new System.Windows.Forms.Button();
-            this.btnProcedure2 = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -66,8 +64,6 @@
             this.tblMain.Controls.Add(this.btnRandom, 2, 2);
             this.tblMain.Controls.Add(this.btnIf1, 0, 3);
             this.tblMain.Controls.Add(this.btnIf2, 1, 3);
-            this.tblMain.Controls.Add(this.btnProcedure1, 2, 3);
-            this.tblMain.Controls.Add(this.btnProcedure2, 3, 3);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -205,26 +201,6 @@
             this.btnIf2.Text = "If 2";
             this.btnIf2.UseVisualStyleBackColor = true;
             // 
-            // btnProcedure1
-            // 
-            this.btnProcedure1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnProcedure1.Location = new System.Drawing.Point(696, 424);
-            this.btnProcedure1.Name = "btnProcedure1";
-            this.btnProcedure1.Size = new System.Drawing.Size(339, 101);
-            this.btnProcedure1.TabIndex = 10;
-            this.btnProcedure1.Text = "Procedure 1";
-            this.btnProcedure1.UseVisualStyleBackColor = true;
-            // 
-            // btnProcedure2
-            // 
-            this.btnProcedure2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnProcedure2.Location = new System.Drawing.Point(1042, 424);
-            this.btnProcedure2.Name = "btnProcedure2";
-            this.btnProcedure2.Size = new System.Drawing.Size(342, 101);
-            this.btnProcedure2.TabIndex = 11;
-            this.btnProcedure2.Text = "Procedure 2";
-            this.btnProcedure2.UseVisualStyleBackColor = true;
-            // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -258,7 +234,5 @@
         private Button btnRandom;
         private Button btnIf1;
         private Button btnIf2;
-        private Button btnProcedure1;
-        private Button btnProcedure2;
     }
 }
