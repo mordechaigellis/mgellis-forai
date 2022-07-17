@@ -28,6 +28,18 @@ namespace LanguageBasics
             btnRandom.Click += BtnRandom_Click;
             btnIf1.Click += BtnIf1_Click;
             btnIf2.Click += BtnIf2_Click;
+            btnProcedure1.Click += BtnProcedure1_Click;
+            btnProcedure2.Click += BtnProcedure2_Click;
+        }
+
+        private void BtnProcedure2_Click(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnProcedure1_Click(object? sender, EventArgs e)
+        {
+            
         }
 
         private void BtnIf2_Click(object? sender, EventArgs e)
