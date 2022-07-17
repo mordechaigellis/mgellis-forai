@@ -39,6 +39,8 @@
             this.btnDataConversion1 = new System.Windows.Forms.Button();
             this.btnDataConversion2 = new System.Windows.Forms.Button();
             this.btnRandom = new System.Windows.Forms.Button();
+            this.btnIf1 = new System.Windows.Forms.Button();
+            this.btnIf2 = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -60,6 +62,8 @@
             this.tblMain.Controls.Add(this.btnDataConversion1, 0, 2);
             this.tblMain.Controls.Add(this.btnDataConversion2, 1, 2);
             this.tblMain.Controls.Add(this.btnRandom, 2, 2);
+            this.tblMain.Controls.Add(this.btnIf1, 0, 3);
+            this.tblMain.Controls.Add(this.btnIf2, 1, 3);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -177,6 +181,26 @@
             this.btnRandom.Text = "Random";
             this.btnRandom.UseVisualStyleBackColor = true;
             // 
+            // btnIf1
+            // 
+            this.btnIf1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnIf1.Location = new System.Drawing.Point(4, 424);
+            this.btnIf1.Name = "btnIf1";
+            this.btnIf1.Size = new System.Drawing.Size(339, 101);
+            this.btnIf1.TabIndex = 8;
+            this.btnIf1.Text = "If 1";
+            this.btnIf1.UseVisualStyleBackColor = true;
+            // 
+            // btnIf2
+            // 
+            this.btnIf2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnIf2.Location = new System.Drawing.Point(350, 424);
+            this.btnIf2.Name = "btnIf2";
+            this.btnIf2.Size = new System.Drawing.Size(339, 101);
+            this.btnIf2.TabIndex = 9;
+            this.btnIf2.Text = "If 2";
+            this.btnIf2.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -208,5 +232,7 @@
         private Button btnDataConversion1;
         private Button btnDataConversion2;
         private Button btnRandom;
+        private Button btnIf1;
+        private Button btnIf2;
     }
 }

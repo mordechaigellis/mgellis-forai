@@ -25,6 +25,18 @@ namespace LanguageBasics
             btnDataConversion1.Click += BtnDataConversion1_Click;
             btnDataConversion2.Click += BtnDataConversion2_Click;
             btnRandom.Click += BtnRandom_Click;
+            btnIf1.Click += BtnIf1_Click;
+            btnIf2.Click += BtnIf2_Click;
+        }
+
+        private void BtnIf2_Click(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnIf1_Click(object? sender, EventArgs e)
+        {
+            
         }
 
         private void BtnRandom_Click(object? sender, EventArgs e)
