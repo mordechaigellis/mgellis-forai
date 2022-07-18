@@ -47,14 +47,23 @@ namespace LanguageBasics
             DisplayMessage(s, clearbox);
         }
 
+        private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb) {
+            Random rnd = new Random();
+            Color c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
+            return c;
+        }
+
+        private Color GetRandomColor() {
+            return GetRandomColor(0, 256, 0, 256, 0, 256);
+        }
+
         private void BtnIf2_Click(object? sender, EventArgs e)
         {
             //has red > 128 then forecolor blue
             //else has blue > 128 then forecolor red
             //else has green > 128 then forecolor yellow
             //all other cases black
-            Random rnd = new Random();
-            Color c = Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256));
+            Color c = GetRandomColor();
             Color fc = Color.Black;
 
             txtOutput.BackColor = c;
@@ -104,7 +113,7 @@ namespace LanguageBasics
             int n = rnd.Next(0, 256);
             txtOutput.Text = "";
             txtOutput.Text = n.ToString();
-            Color c = Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256));
+            Color c = GetRandomColor();
             txtOutput.BackColor = c;
         }
 
@@ -137,7 +146,7 @@ namespace LanguageBasics
             txtOutput.BackColor = c;
             s += s;
             b = !b;
-            c = Color.FromArgb(100, 50, 25);
+            c = GetRandomColor(230,256,100,250,0,256);
             txtOutput.Text += "s = " + s + ", b = " + b + ", c = " + c + Environment.NewLine;
             txtOutput.BackColor = c;
 
