@@ -30,6 +30,23 @@ namespace LanguageBasics
             btnIf2.Click += BtnIf2_Click;
         }
 
+        private string ConcatMessage(string value) {
+            string s = "";
+            s = txtOutput.Text + value + Environment.NewLine;
+            return s;
+        }
+        private void DisplayMessage(string value, bool clearbox = false) {
+            if (clearbox == true) {
+                txtOutput.Text = "";
+            }
+            txtOutput.Text = ConcatMessage(value);
+        }
+        
+        private void DisplayMessage(string caption, string value, bool clearbox = false) {
+            string s = caption + " = " + value;
+            DisplayMessage(s, clearbox);
+        }
+
         private void BtnIf2_Click(object? sender, EventArgs e)
         {
             //has red > 128 then forecolor blue
@@ -55,8 +72,8 @@ namespace LanguageBasics
             }
            
             txtOutput.ForeColor = fc;
-            txtOutput.Text = "Backcolor: " + c + Environment.NewLine;
-            txtOutput.Text += "Forecolor: " + fc;
+            DisplayMessage("Backcolor" , c.ToString(), true);
+            DisplayMessage("Forecolor" , fc.ToString());
         }
 
         private void BtnIf1_Click(object? sender, EventArgs e)
@@ -64,7 +81,7 @@ namespace LanguageBasics
             Random rnd = new Random();
             int n = rnd.Next(1, 8);
             string msg = "";
-            txtOutput.Text = n + Environment.NewLine;
+            DisplayMessage(n.ToString(), true);
             if (n == 7)
             {
                 msg = "1st Prize";
@@ -78,7 +95,7 @@ namespace LanguageBasics
                 msg = "Try Again";
 
             }
-            txtOutput.Text += msg;
+            DisplayMessage(msg);
         }
 
         private void BtnRandom_Click(object? sender, EventArgs e)
