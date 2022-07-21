@@ -41,8 +41,7 @@ namespace CalculatorWinForms
             return n;
         }
 
-        private void InputFactor(string value)
-        {
+        private string GetCurrentFactorValue() {
             int n = DetermineFactor();
             string factorval = "";
             if (n == 1)
@@ -52,47 +51,51 @@ namespace CalculatorWinForms
             else if (n == 2)
             {
                 factorval = txtFactor2.Text;
+            }
+            return factorval;
+        }
+
+        private void SetCurrentFactorValue(string value)
+        {
+            int n = DetermineFactor();
+            if (n == 1)
+            {
+                txtFactor1.Text = value;
+            }
+            else if (n == 2)
+            {
+                txtFactor2.Text = value;
+            }
+            
+        }
+
+        private void InputFactor(string value)
+        {
+            string factorval = GetCurrentFactorValue();
+
+            if (value == ".")
+            {
+                if (factorval.Contains(".") == true) {
+                    value = "";
+                }
+            }
+            else if (value == "+-")
+            {
+                value = "";
+                if (factorval.StartsWith("-") == false) {
+                    factorval = "-" + factorval;
+                }
+                else
+                {
+                    factorval = factorval.Substring(1);
+                }
             }
 
             factorval = factorval + value;
 
-            if (n == 1)
-            {
-                txtFactor1.Text = factorval;
-            }
-            else if (n == 2)
-            {
-                txtFactor2.Text = factorval;
-            }
+            SetCurrentFactorValue(factorval);
         }
 
-        private void InputDecimal()
-        {
-            int n = DetermineFactor();
-            string factorval = "";
-            if (n == 1)
-            {
-                factorval = txtFactor1.Text;
-            }
-            else if (n == 2)
-            {
-                factorval = txtFactor2.Text;
-            }
-
-            if (factorval.Contains(".") == false)
-            {
-                factorval = factorval + ".";
-            }
-
-            if (n == 1)
-            {
-                txtFactor1.Text = factorval;
-            }
-            else if (n == 2)
-            {
-                txtFactor2.Text = factorval;
-            }
-        }
 
         private void CalculateAnswer()
         {
@@ -131,7 +134,7 @@ namespace CalculatorWinForms
 
         private void BtnSign_Click(object? sender, EventArgs e)
         {
-
+            InputFactor("+-");
         }
 
         private void BtnEquals_Click(object? sender, EventArgs e)
@@ -156,7 +159,7 @@ namespace CalculatorWinForms
 
         private void BtnDecimal_Click(object? sender, EventArgs e)
         {
-            InputDecimal();
+            InputFactor(".");
         }
 
         private void BtnAdd_Click(object? sender, EventArgs e)
