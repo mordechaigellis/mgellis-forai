@@ -19,8 +19,8 @@ namespace LanguageBasics
             InitializeComponent();
             //event subscription goes here
             btnEventHandler1.Click += BtnEventHandler1_Click;
-            //btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
-            //btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
+            btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
+            btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
             btnVariable1.Click += BtnVariable1_Click;
             btnVariable2.Click += BtnVariable2_Click;
             btnDataConversion1.Click += BtnDataConversion1_Click;
@@ -28,8 +28,10 @@ namespace LanguageBasics
             btnRandom.Click += BtnRandom_Click;
             btnIf1.Click += BtnIf1_Click;
             btnIf2.Click += BtnIf2_Click;
+            btnAddControl1.Click += BtnAddControl1_Click;
         }
 
+        
         private string ConcatMessage(string value)
         {
             string s = "";
@@ -61,6 +63,37 @@ namespace LanguageBasics
         private Color GetRandomColor()
         {
             return GetRandomColor(0, 256, 0, 256, 0, 256);
+        }
+
+        private Label GetRandomLabel(Form f) {
+            Random rnd = new Random();
+            Label lbl = new Label();
+            lbl.AutoSize = false;
+            lbl.BackColor = GetRandomColor();
+            lbl.Location = new Point(rnd.Next(0,f.Width - 100),rnd.Next(0,f.Height-100));
+            lbl.Size = new Size(rnd.Next(f.Width/10,f.Width - 100), rnd.Next(f.Height/10,f.Height -100));
+            return lbl;
+        }
+        private void BtnAddControl1_Click(object? sender, EventArgs e)
+        {
+            Button btn = new Button() { BackColor = GetRandomColor(), Dock = DockStyle.Fill, Text = "New Button - Click Me" };
+            tblOutput.Controls.Add(btn, 2, 0);
+            btn.Click += Btn_Click;
+            //modern art form
+            Form f = new Form();
+            f.BackColor = Color.Black;
+            f.Height = this.Height - 100;
+            f.Width = this.Width - 100;
+            f.StartPosition = FormStartPosition.CenterParent;
+            f.Show();
+            f.Controls.Add(GetRandomLabel(f));
+            f.Controls.Add(GetRandomLabel(f));
+            f.Controls.Add(GetRandomLabel(f));
+        }
+
+        private void Btn_Click(object? sender, EventArgs e)
+        {
+            DisplayMessage("New Button", "Hi there! :)");
         }
 
         private void BtnIf2_Click(object? sender, EventArgs e)
@@ -187,7 +220,7 @@ namespace LanguageBasics
 
         private void BtnEventHandler2_MouseMove(object? sender, MouseEventArgs e)
         {
-            txtOutput.Text = txtOutput.Text + "Mouse moved over BtnEventHandler2 " + DateTime.Now.TimeOfDay.ToString() + Environment.NewLine;
+            DisplayMessage("Mousemove", "X = " + e.X + " Y = " + e.Y + " Button = " + e.Button.ToString());
             btnEventHandler2.BackColor = Color.DodgerBlue;
             btnEventHandler2.ForeColor = Color.OrangeRed;
         }
