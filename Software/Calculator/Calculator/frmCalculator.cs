@@ -24,6 +24,140 @@ namespace CalculatorWinForms
             btnEquals.Click += BtnEquals_Click;
             btnClear.Click += BtnClear_Click;
         }
+
+        private int DetermineFactor()
+        {
+            int n = 0;
+
+            if (txtFactor1.Text == "" || txtOperator.Text == "")
+            {
+                n = 1;
+            }
+            else if ((txtFactor1.Text != "" || txtOperator.Text != "") && txtAnswer.Text == "")
+            {
+                n = 2;
+            }
+
+            return n;
+        }
+
+        private string GetCurrentFactorValue() {
+            int n = DetermineFactor();
+            string factorval = "";
+            if (n == 1)
+            {
+                factorval = txtFactor1.Text;
+            }
+            else if (n == 2)
+            {
+                factorval = txtFactor2.Text;
+            }
+            return factorval;
+        }
+
+        private void SetCurrentFactorValue(string value)
+        {
+            int n = DetermineFactor();
+            if (n == 1)
+            {
+                txtFactor1.Text = value;
+            }
+            else if (n == 2)
+            {
+                txtFactor2.Text = value;
+            }
+            
+        }
+
+        private void InputFactor(string value)
+        {
+            string factorval = GetCurrentFactorValue();
+
+            if (value == ".")
+            {
+                if (factorval.Contains(".") == true) {
+                    value = "";
+                }
+            }
+            else if (value == "+-")
+            {
+                value = "";
+                if (factorval.StartsWith("-") == false) {
+                    factorval = "-" + factorval;
+                }
+                else
+                {
+                    factorval = factorval.Substring(1);
+                }
+            }
+
+            factorval = factorval + value;
+
+            SetCurrentFactorValue(factorval);
+        }
+
+
+        private void CalculateAnswer()
+        {
+            decimal factor1 = 0; decimal factor2 = 0; decimal answer = 0;
+            string operatorval = txtOperator.Text;
+            bool b1 = decimal.TryParse(txtFactor1.Text, out factor1);
+            bool b2 = decimal.TryParse(txtFactor2.Text, out factor2);
+            bool displayanswer = true;
+
+            if (b1 == false) {
+                txtFactor1.Text = "";
+                displayanswer = false;
+            }
+
+            if (b2 == false)
+            {
+                txtFactor2.Text = "";
+                displayanswer = false;
+            }
+
+            if (b1 == true && b2 == true)
+            {
+                if (operatorval == "+")
+                {
+                    answer = factor1 + factor2;
+                }
+                else if (operatorval == "-")
+                {
+                    answer = factor1 - factor2;
+                }
+                else if (operatorval == "X")
+                {
+                    answer = factor1 * factor2;
+                }
+                else if (operatorval == "/")
+                {
+                    if (factor2 == 0)
+                    {
+                        txtFactor2.Text = "";
+                        displayanswer = false;
+                    }
+                    else
+                    {
+                        answer = factor1 / factor2;
+                    }
+                }
+                else
+                {
+                    txtOperator.Text = "";
+                    displayanswer = false;
+                }
+            }
+            if (displayanswer == true)
+            {
+                txtAnswer.Text = answer.ToString();
+            }
+            else
+            {
+                txtAnswer.Text = "";
+            }
+
+        }
         private void BtnClear_Click(object? sender, EventArgs e)
         {
             txtFactor1.Text = "";
@@ -34,12 +168,12 @@ namespace CalculatorWinForms
 
         private void BtnSign_Click(object? sender, EventArgs e)
         {
-           
+            InputFactor("+-");
         }
 
         private void BtnEquals_Click(object? sender, EventArgs e)
         {
-           
+            CalculateAnswer();
         }
 
         private void BtnDivide_Click(object? sender, EventArgs e)
@@ -59,7 +193,7 @@ namespace CalculatorWinForms
 
         private void BtnDecimal_Click(object? sender, EventArgs e)
         {
-
+            InputFactor(".");
         }
 
         private void BtnAdd_Click(object? sender, EventArgs e)
@@ -69,52 +203,52 @@ namespace CalculatorWinForms
 
         private void Btn0_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn0.Text;
+            InputFactor(btn0.Text);
         }
 
         private void Btn9_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn9.Text;
+            InputFactor(btn9.Text);
         }
 
         private void Btn8_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn8.Text;
+            InputFactor(btn8.Text);
         }
 
         private void Btn7_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn7.Text;
+            InputFactor(btn7.Text);
         }
 
         private void Btn6_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn6.Text;
+            InputFactor(btn6.Text);
         }
 
         private void Btn5_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn5.Text;
+            InputFactor(btn5.Text);
         }
 
         private void Btn4_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn4.Text;
+            InputFactor(btn4.Text);
         }
 
         private void Btn3_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn3.Text;
+            InputFactor(btn3.Text);
         }
 
         private void Btn2_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn2.Text;
+            InputFactor(btn2.Text);
         }
 
         private void Btn1_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + btn1.Text;
+            InputFactor(btn1.Text);
         }
     }
 }
