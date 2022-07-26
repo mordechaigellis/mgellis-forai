@@ -30,30 +30,36 @@ namespace LanguageBasics
             btnIf2.Click += BtnIf2_Click;
         }
 
-        private string ConcatMessage(string value) {
+        private string ConcatMessage(string value)
+        {
             string s = "";
             s = txtOutput.Text + value + Environment.NewLine;
             return s;
         }
-        private void DisplayMessage(string value, bool clearbox = false) {
-            if (clearbox == true) {
+        private void DisplayMessage(string value, bool clearbox = false)
+        {
+            if (clearbox == true)
+            {
                 txtOutput.Text = "";
             }
             txtOutput.Text = ConcatMessage(value);
         }
-        
-        private void DisplayMessage(string caption, string value, bool clearbox = false) {
+
+        private void DisplayMessage(string caption, string value, bool clearbox = false)
+        {
             string s = caption + " = " + value;
             DisplayMessage(s, clearbox);
         }
 
-        private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb) {
+        private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
+        {
             Random rnd = new Random();
             Color c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
             return c;
         }
 
-        private Color GetRandomColor() {
+        private Color GetRandomColor()
+        {
             return GetRandomColor(0, 256, 0, 256, 0, 256);
         }
 
@@ -79,10 +85,10 @@ namespace LanguageBasics
             {
                 fc = Color.Yellow;
             }
-           
+
             txtOutput.ForeColor = fc;
-            DisplayMessage("Backcolor" , c.ToString(), true);
-            DisplayMessage("Forecolor" , fc.ToString());
+            DisplayMessage("Backcolor", c.ToString(), true);
+            DisplayMessage("Forecolor", fc.ToString());
         }
 
         private void BtnIf1_Click(object? sender, EventArgs e)
@@ -97,13 +103,22 @@ namespace LanguageBasics
             }
             else if (n > 2 && n < 7)
             {
-                msg = "2nd Prize";
+                if (DateTime.Now.TimeOfDay.Seconds >= 1 && DateTime.Now.TimeOfDay.Seconds <= 20)
+                {
+                    msg = "1st Prize";
+                }
+                else
+                {
+                    msg = "2nd Prize";
+                }
             }
             else
             {
                 msg = "Try Again";
 
             }
+            DisplayMessage(msg);
+            msg = msg.Substring(4);
             DisplayMessage(msg);
         }
 
@@ -146,7 +161,7 @@ namespace LanguageBasics
             txtOutput.BackColor = c;
             s += s;
             b = !b;
-            c = GetRandomColor(230,256,100,250,0,256);
+            c = GetRandomColor(230, 256, 100, 250, 0, 256);
             txtOutput.Text += "s = " + s + ", b = " + b + ", c = " + c + Environment.NewLine;
             txtOutput.BackColor = c;
 
