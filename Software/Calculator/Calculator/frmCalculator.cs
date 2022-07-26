@@ -103,6 +103,19 @@ namespace CalculatorWinForms
             string operatorval = txtOperator.Text;
             bool b1 = decimal.TryParse(txtFactor1.Text, out factor1);
             bool b2 = decimal.TryParse(txtFactor2.Text, out factor2);
+            bool displayanswer = true;
+
+            if (b1 == false) {
+                txtFactor1.Text = "";
+                displayanswer = false;
+            }
+
+            if (b2 == false)
+            {
+                txtFactor2.Text = "";
+                displayanswer = false;
+            }
+
             if (b1 == true && b2 == true)
             {
                 if (operatorval == "+")
@@ -119,10 +132,31 @@ namespace CalculatorWinForms
                 }
                 else if (operatorval == "/")
                 {
-                    answer = factor1 / factor2;
+                    if (factor2 == 0)
+                    {
+                        txtFactor2.Text = "";
+                        displayanswer = false;
+                    }
+                    else
+                    {
+                        answer = factor1 / factor2;
+                    }
                 }
+                else
+                {
+                    txtOperator.Text = "";
+                    displayanswer = false;
+                }
+            }
+            if (displayanswer == true)
+            {
                 txtAnswer.Text = answer.ToString();
             }
+            else
+            {
+                txtAnswer.Text = "";
+            }
+
         }
         private void BtnClear_Click(object? sender, EventArgs e)
         {

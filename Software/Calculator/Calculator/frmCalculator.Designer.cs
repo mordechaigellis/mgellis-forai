@@ -140,6 +140,7 @@
             this.txtAnswer.Location = new System.Drawing.Point(342, 6);
             this.txtAnswer.Margin = new System.Windows.Forms.Padding(6);
             this.txtAnswer.Name = "txtAnswer";
+            this.txtAnswer.ReadOnly = true;
             this.txtAnswer.Size = new System.Drawing.Size(103, 35);
             this.txtAnswer.TabIndex = 21;
             // 
