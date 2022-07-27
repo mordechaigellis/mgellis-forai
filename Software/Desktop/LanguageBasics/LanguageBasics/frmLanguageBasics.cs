@@ -86,9 +86,25 @@ namespace LanguageBasics
             f.Width = this.Width - 100;
             f.StartPosition = FormStartPosition.CenterParent;
             f.Show();
-            f.Controls.Add(GetRandomLabel(f));
-            f.Controls.Add(GetRandomLabel(f));
-            f.Controls.Add(GetRandomLabel(f));
+            Label lbl1 = GetRandomLabel(f);
+            lbl1.Click += RandomLabel_Click;
+            f.Controls.Add(lbl1);
+            
+            Label lbl2 = GetRandomLabel(f);
+            f.Controls.Add(lbl2);
+            lbl2.Click += RandomLabel_Click;
+            
+            Label lbl3 = GetRandomLabel(f);
+            f.Controls.Add(lbl3);
+            lbl3.Click += RandomLabel_Click;
+        }
+
+      
+
+        private void RandomLabel_Click(object? sender, EventArgs e)
+        {
+            Label l = (Label)sender;
+            l.BackColor = GetRandomColor();
         }
 
         private void Btn_Click(object? sender, EventArgs e)
@@ -220,7 +236,7 @@ namespace LanguageBasics
 
         private void BtnEventHandler2_MouseMove(object? sender, MouseEventArgs e)
         {
-            DisplayMessage("Mousemove", "X = " + e.X + " Y = " + e.Y + " Button = " + e.Button.ToString());
+            DisplayMessage("MouseMove", "Button = " + e.Button.ToString() +  " Location = " + e.Location.ToString());            
             btnEventHandler2.BackColor = Color.DodgerBlue;
             btnEventHandler2.ForeColor = Color.OrangeRed;
         }
