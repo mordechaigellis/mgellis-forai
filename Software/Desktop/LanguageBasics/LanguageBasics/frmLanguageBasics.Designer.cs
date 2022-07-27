@@ -42,6 +42,7 @@
             this.btnIf1 = new System.Windows.Forms.Button();
             this.btnIf2 = new System.Windows.Forms.Button();
             this.btnAddControl1 = new System.Windows.Forms.Button();
+            this.btnAddControl2 = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -66,6 +67,7 @@
             this.tblMain.Controls.Add(this.btnIf1, 0, 3);
             this.tblMain.Controls.Add(this.btnIf2, 1, 3);
             this.tblMain.Controls.Add(this.btnAddControl1, 2, 3);
+            this.tblMain.Controls.Add(this.btnAddControl2, 3, 3);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -213,6 +215,16 @@
             this.btnAddControl1.Text = "Add Control 1";
             this.btnAddControl1.UseVisualStyleBackColor = true;
             // 
+            // btnAddControl2
+            // 
+            this.btnAddControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddControl2.Location = new System.Drawing.Point(571, 424);
+            this.btnAddControl2.Name = "btnAddControl2";
+            this.btnAddControl2.Size = new System.Drawing.Size(184, 101);
+            this.btnAddControl2.TabIndex = 11;
+            this.btnAddControl2.Text = "Add Control 2";
+            this.btnAddControl2.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -247,5 +259,6 @@
         private Button btnIf1;
         private Button btnIf2;
         private Button btnAddControl1;
+        private Button btnAddControl2;
     }
 }

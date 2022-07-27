@@ -29,9 +29,9 @@ namespace LanguageBasics
             btnIf1.Click += BtnIf1_Click;
             btnIf2.Click += BtnIf2_Click;
             btnAddControl1.Click += BtnAddControl1_Click;
+            btnAddControl2.Click += BtnAddControl2_Click;
         }
 
-        
         private string ConcatMessage(string value)
         {
             string s = "";
@@ -74,6 +74,44 @@ namespace LanguageBasics
             lbl.Size = new Size(rnd.Next(f.Width/10,f.Width - 100), rnd.Next(f.Height/10,f.Height -100));
             return lbl;
         }
+
+        private void BtnAddControl2_Click(object? sender, EventArgs e)
+        {
+            Label lbl = new Label() { Text ="Vacant. For Rent", Dock = DockStyle.Fill, BackColor = GetRandomColor()};
+            tblMain.Controls.Add(lbl, 3, 2);
+            //////////
+            Form f = new Form();
+            f.BackColor = Color.Black;
+            f.Height = this.Height - 100;
+            f.Width = this.Width - 100;
+
+            f.MouseMove += F_MouseMove;
+            f.DoubleClick += F_DoubleClick;
+            f.Show();
+
+        }
+
+        private void F_DoubleClick(object? sender, EventArgs e)
+        {
+            Form f = (Form)sender;
+            f.Controls.Clear();
+        }
+
+        private void F_MouseMove(object? sender, MouseEventArgs e)
+        {
+            Form f = (Form)sender;
+            if (e.Button != MouseButtons.None) {
+                Color c = Color.Blue;
+                if (e.Button == MouseButtons.Left) {
+                    c = GetRandomColor();
+                }
+                Label lbl = new Label() { BackColor = c, Height = 10, Width = 10, AutoSize = false };
+                lbl.Location = e.Location;
+                f.Controls.Add(lbl);
+
+            }
+        }
+
         private void BtnAddControl1_Click(object? sender, EventArgs e)
         {
             Button btn = new Button() { BackColor = GetRandomColor(), Dock = DockStyle.Fill, Text = "New Button - Click Me" };
