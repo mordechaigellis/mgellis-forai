@@ -44,6 +44,11 @@
             this.btnAddControl1 = new System.Windows.Forms.Button();
             this.btnAddControl2 = new System.Windows.Forms.Button();
             this.btnData = new System.Windows.Forms.Button();
+            this.btnObject = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnNull = new System.Windows.Forms.Button();
+            this.btnString = new System.Windows.Forms.Button();
+            this.btnValueRefType = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -70,23 +75,30 @@
             this.tblMain.Controls.Add(this.btnAddControl1, 2, 3);
             this.tblMain.Controls.Add(this.btnAddControl2, 3, 3);
             this.tblMain.Controls.Add(this.btnData, 3, 2);
+            this.tblMain.Controls.Add(this.btnObject, 0, 4);
+            this.tblMain.Controls.Add(this.btnNew, 1, 4);
+            this.tblMain.Controls.Add(this.btnNull, 2, 4);
+            this.tblMain.Controls.Add(this.btnString, 3, 4);
+            this.tblMain.Controls.Add(this.btnValueRefType, 0, 5);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
-            this.tblMain.RowCount = 4;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tblMain.RowCount = 6;
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.57061F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28531F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28531F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28531F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28531F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28816F));
             this.tblMain.Size = new System.Drawing.Size(759, 529);
             this.tblMain.TabIndex = 0;
             // 
             // btnEventHandler1
             // 
             this.btnEventHandler1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnEventHandler1.Location = new System.Drawing.Point(4, 214);
+            this.btnEventHandler1.Location = new System.Drawing.Point(4, 154);
             this.btnEventHandler1.Name = "btnEventHandler1";
-            this.btnEventHandler1.Size = new System.Drawing.Size(182, 98);
+            this.btnEventHandler1.Size = new System.Drawing.Size(182, 68);
             this.btnEventHandler1.TabIndex = 0;
             this.btnEventHandler1.Text = "Event Handler 1";
             this.btnEventHandler1.UseVisualStyleBackColor = true;
@@ -94,9 +106,9 @@
             // btnEventHandler2
             // 
             this.btnEventHandler2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnEventHandler2.Location = new System.Drawing.Point(193, 214);
+            this.btnEventHandler2.Location = new System.Drawing.Point(193, 154);
             this.btnEventHandler2.Name = "btnEventHandler2";
-            this.btnEventHandler2.Size = new System.Drawing.Size(182, 98);
+            this.btnEventHandler2.Size = new System.Drawing.Size(182, 68);
             this.btnEventHandler2.TabIndex = 1;
             this.btnEventHandler2.Text = "Event Handler 2";
             this.btnEventHandler2.UseVisualStyleBackColor = true;
@@ -104,9 +116,9 @@
             // btnVariable1
             // 
             this.btnVariable1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnVariable1.Location = new System.Drawing.Point(382, 214);
+            this.btnVariable1.Location = new System.Drawing.Point(382, 154);
             this.btnVariable1.Name = "btnVariable1";
-            this.btnVariable1.Size = new System.Drawing.Size(182, 98);
+            this.btnVariable1.Size = new System.Drawing.Size(182, 68);
             this.btnVariable1.TabIndex = 2;
             this.btnVariable1.Text = "Variables 1";
             this.btnVariable1.UseVisualStyleBackColor = true;
@@ -114,9 +126,9 @@
             // btnVariable2
             // 
             this.btnVariable2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnVariable2.Location = new System.Drawing.Point(571, 214);
+            this.btnVariable2.Location = new System.Drawing.Point(571, 154);
             this.btnVariable2.Name = "btnVariable2";
-            this.btnVariable2.Size = new System.Drawing.Size(184, 98);
+            this.btnVariable2.Size = new System.Drawing.Size(184, 68);
             this.btnVariable2.TabIndex = 3;
             this.btnVariable2.Text = "Variables 2";
             this.btnVariable2.UseVisualStyleBackColor = true;
@@ -135,7 +147,7 @@
             this.tblOutput.Name = "tblOutput";
             this.tblOutput.RowCount = 1;
             this.tblOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblOutput.Size = new System.Drawing.Size(751, 203);
+            this.tblOutput.Size = new System.Drawing.Size(751, 143);
             this.tblOutput.TabIndex = 4;
             // 
             // txtOutput
@@ -144,7 +156,7 @@
             this.txtOutput.Location = new System.Drawing.Point(3, 3);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(244, 197);
+            this.txtOutput.Size = new System.Drawing.Size(244, 137);
             this.txtOutput.TabIndex = 0;
             // 
             // gOutput
@@ -154,15 +166,15 @@
             this.gOutput.Location = new System.Drawing.Point(253, 3);
             this.gOutput.Name = "gOutput";
             this.gOutput.RowTemplate.Height = 25;
-            this.gOutput.Size = new System.Drawing.Size(244, 197);
+            this.gOutput.Size = new System.Drawing.Size(244, 137);
             this.gOutput.TabIndex = 1;
             // 
             // btnDataConversion1
             // 
             this.btnDataConversion1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDataConversion1.Location = new System.Drawing.Point(4, 319);
+            this.btnDataConversion1.Location = new System.Drawing.Point(4, 229);
             this.btnDataConversion1.Name = "btnDataConversion1";
-            this.btnDataConversion1.Size = new System.Drawing.Size(182, 98);
+            this.btnDataConversion1.Size = new System.Drawing.Size(182, 68);
             this.btnDataConversion1.TabIndex = 5;
             this.btnDataConversion1.Text = "Data Conversion 1";
             this.btnDataConversion1.UseVisualStyleBackColor = true;
@@ -170,9 +182,9 @@
             // btnDataConversion2
             // 
             this.btnDataConversion2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDataConversion2.Location = new System.Drawing.Point(193, 319);
+            this.btnDataConversion2.Location = new System.Drawing.Point(193, 229);
             this.btnDataConversion2.Name = "btnDataConversion2";
-            this.btnDataConversion2.Size = new System.Drawing.Size(182, 98);
+            this.btnDataConversion2.Size = new System.Drawing.Size(182, 68);
             this.btnDataConversion2.TabIndex = 6;
             this.btnDataConversion2.Text = "Data Conversion 2";
             this.btnDataConversion2.UseVisualStyleBackColor = true;
@@ -180,9 +192,9 @@
             // btnRandom
             // 
             this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRandom.Location = new System.Drawing.Point(382, 319);
+            this.btnRandom.Location = new System.Drawing.Point(382, 229);
             this.btnRandom.Name = "btnRandom";
-            this.btnRandom.Size = new System.Drawing.Size(182, 98);
+            this.btnRandom.Size = new System.Drawing.Size(182, 68);
             this.btnRandom.TabIndex = 7;
             this.btnRandom.Text = "Random";
             this.btnRandom.UseVisualStyleBackColor = true;
@@ -190,9 +202,9 @@
             // btnIf1
             // 
             this.btnIf1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnIf1.Location = new System.Drawing.Point(4, 424);
+            this.btnIf1.Location = new System.Drawing.Point(4, 304);
             this.btnIf1.Name = "btnIf1";
-            this.btnIf1.Size = new System.Drawing.Size(182, 101);
+            this.btnIf1.Size = new System.Drawing.Size(182, 68);
             this.btnIf1.TabIndex = 8;
             this.btnIf1.Text = "If 1";
             this.btnIf1.UseVisualStyleBackColor = true;
@@ -200,9 +212,9 @@
             // btnIf2
             // 
             this.btnIf2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnIf2.Location = new System.Drawing.Point(193, 424);
+            this.btnIf2.Location = new System.Drawing.Point(193, 304);
             this.btnIf2.Name = "btnIf2";
-            this.btnIf2.Size = new System.Drawing.Size(182, 101);
+            this.btnIf2.Size = new System.Drawing.Size(182, 68);
             this.btnIf2.TabIndex = 9;
             this.btnIf2.Text = "If 2";
             this.btnIf2.UseVisualStyleBackColor = true;
@@ -210,9 +222,9 @@
             // btnAddControl1
             // 
             this.btnAddControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddControl1.Location = new System.Drawing.Point(382, 424);
+            this.btnAddControl1.Location = new System.Drawing.Point(382, 304);
             this.btnAddControl1.Name = "btnAddControl1";
-            this.btnAddControl1.Size = new System.Drawing.Size(182, 101);
+            this.btnAddControl1.Size = new System.Drawing.Size(182, 68);
             this.btnAddControl1.TabIndex = 10;
             this.btnAddControl1.Text = "Add Control 1";
             this.btnAddControl1.UseVisualStyleBackColor = true;
@@ -220,9 +232,9 @@
             // btnAddControl2
             // 
             this.btnAddControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddControl2.Location = new System.Drawing.Point(571, 424);
+            this.btnAddControl2.Location = new System.Drawing.Point(571, 304);
             this.btnAddControl2.Name = "btnAddControl2";
-            this.btnAddControl2.Size = new System.Drawing.Size(184, 101);
+            this.btnAddControl2.Size = new System.Drawing.Size(184, 68);
             this.btnAddControl2.TabIndex = 11;
             this.btnAddControl2.Text = "Add Control 2";
             this.btnAddControl2.UseVisualStyleBackColor = true;
@@ -230,12 +242,62 @@
             // btnData
             // 
             this.btnData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnData.Location = new System.Drawing.Point(571, 319);
+            this.btnData.Location = new System.Drawing.Point(571, 229);
             this.btnData.Name = "btnData";
-            this.btnData.Size = new System.Drawing.Size(184, 98);
+            this.btnData.Size = new System.Drawing.Size(184, 68);
             this.btnData.TabIndex = 12;
             this.btnData.Text = "Show Data in Grid";
             this.btnData.UseVisualStyleBackColor = true;
+            // 
+            // btnObject
+            // 
+            this.btnObject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnObject.Location = new System.Drawing.Point(4, 379);
+            this.btnObject.Name = "btnObject";
+            this.btnObject.Size = new System.Drawing.Size(182, 68);
+            this.btnObject.TabIndex = 13;
+            this.btnObject.Text = "object data type";
+            this.btnObject.UseVisualStyleBackColor = true;
+            // 
+            // btnNew
+            // 
+            this.btnNew.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnNew.Location = new System.Drawing.Point(193, 379);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(182, 68);
+            this.btnNew.TabIndex = 14;
+            this.btnNew.Text = "instantiating with New";
+            this.btnNew.UseVisualStyleBackColor = true;
+            // 
+            // btnNull
+            // 
+            this.btnNull.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnNull.Location = new System.Drawing.Point(382, 379);
+            this.btnNull.Name = "btnNull";
+            this.btnNull.Size = new System.Drawing.Size(182, 68);
+            this.btnNull.TabIndex = 15;
+            this.btnNull.Text = "working with null";
+            this.btnNull.UseVisualStyleBackColor = true;
+            // 
+            // btnString
+            // 
+            this.btnString.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnString.Location = new System.Drawing.Point(571, 379);
+            this.btnString.Name = "btnString";
+            this.btnString.Size = new System.Drawing.Size(184, 68);
+            this.btnString.TabIndex = 16;
+            this.btnString.Text = "working with strings";
+            this.btnString.UseVisualStyleBackColor = true;
+            // 
+            // btnValueRefType
+            // 
+            this.btnValueRefType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnValueRefType.Location = new System.Drawing.Point(4, 454);
+            this.btnValueRefType.Name = "btnValueRefType";
+            this.btnValueRefType.Size = new System.Drawing.Size(182, 71);
+            this.btnValueRefType.TabIndex = 17;
+            this.btnValueRefType.Text = "working with value and ref types";
+            this.btnValueRefType.UseVisualStyleBackColor = true;
             // 
             // frmLanguageBasics
             // 
@@ -273,5 +335,10 @@
         private Button btnAddControl1;
         private Button btnAddControl2;
         private Button btnData;
+        private Button btnObject;
+        private Button btnNew;
+        private Button btnNull;
+        private Button btnString;
+        private Button btnValueRefType;
     }
 }

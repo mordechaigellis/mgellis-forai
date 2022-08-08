@@ -32,6 +32,36 @@ namespace LanguageBasics
             btnAddControl1.Click += BtnAddControl1_Click;
             btnAddControl2.Click += BtnAddControl2_Click;
             btnData.Click += BtnData_Click;
+            btnObject.Click += BtnObject_Click;
+            btnNull.Click += BtnNull_Click;
+            btnNew.Click += BtnNew_Click;
+            btnString.Click += BtnString_Click;
+            btnValueRefType.Click += BtnValueRefType_Click;
+        }
+
+        private void BtnValueRefType_Click(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnString_Click(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnNew_Click(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnNull_Click(object? sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnObject_Click(object? sender, EventArgs e)
+        {
+            
         }
 
         private string ConcatMessage(string value)
