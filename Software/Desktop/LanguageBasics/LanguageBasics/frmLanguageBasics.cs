@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -47,6 +48,11 @@ namespace LanguageBasics
             s = txtOutput.Text + value + Environment.NewLine;
             return s;
         }
+
+        private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")]string valuename = "") {
+            txtOutput.Text = ConcatMessage(valuename + " = " + value);
+        }
+
         private void DisplayMessage(string value, bool clearbox = false)
         {
             if (clearbox == true)
@@ -328,11 +334,15 @@ namespace LanguageBasics
         {
             int n = 10; decimal d = .99m; DateTime dt = new DateTime(1989, 4, 25);
             txtOutput.Text = "";
-            txtOutput.Text += "n = " + n + ", d = " + d + ", dt = " + dt + Environment.NewLine;
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(d.ToString());
+            DisplayValueAndCaption(dt.ToString());
             n = n * 10000;
             d += d;
             dt = dt.AddDays(10000);
-            txtOutput.Text += "n = " + n + ", d = " + d + ", dt = " + dt + Environment.NewLine;
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(d.ToString());
+            DisplayValueAndCaption(dt.ToString());
 
         }
 
