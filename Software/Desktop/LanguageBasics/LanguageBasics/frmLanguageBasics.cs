@@ -142,7 +142,13 @@ namespace LanguageBasics
 
         private void BtnObject_Click(object? sender, EventArgs e)
         {
-
+            object o = new object();
+            DisplayValueAndCaption(o.ToString());
+            int x = 100;
+            o = x;
+            DisplayValueAndCaption(o.ToString());
+            o = btnObject;
+            DisplayValueAndCaption(o.ToString());
         }
         private void BtnData_Click(object? sender, EventArgs e)
         {
