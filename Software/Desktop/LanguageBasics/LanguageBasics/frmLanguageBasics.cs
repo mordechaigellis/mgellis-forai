@@ -39,7 +39,7 @@ namespace LanguageBasics
             btnValueRefType.Click += BtnValueRefType_Click;
         }
 
-     
+      
 
         private string ConcatMessage(string value)
         {
