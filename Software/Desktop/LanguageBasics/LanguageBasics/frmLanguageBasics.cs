@@ -40,7 +40,7 @@ namespace LanguageBasics
             btnValueRefType.Click += BtnValueRefType_Click;
         }
 
-      
+
 
         private string ConcatMessage(string value)
         {
@@ -49,7 +49,8 @@ namespace LanguageBasics
             return s;
         }
 
-        private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")]string valuename = "") {
+        private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")] string valuename = "")
+        {
             txtOutput.Text = ConcatMessage(valuename + " = " + value);
         }
 
@@ -94,7 +95,8 @@ namespace LanguageBasics
         private string GetConnectionString(bool localdb = true)
         {
             string s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
-            if (localdb == false) {
+            if (localdb == false)
+            {
                 s = "Server=tcp:dev-charliecpu.database.windows.net,1433;Initial Catalog=RecordKeeperDB;Persist Security Info=False;User ID=cpuadmin;Password=CPU123!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             }
             return s;
@@ -122,9 +124,30 @@ namespace LanguageBasics
 
         private void BtnValueRefType_Click(object? sender, EventArgs e)
         {
+            int n = 100;
+            int x = n;
+            n = n * 100;
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(x.ToString());
 
+            Button btn = btnValueRefType;
+            Button btn2 = btn;
+            btn.Text = "I was changed";
+            btn2.BackColor = Color.LightYellow;
+            btnValueRefType.FlatStyle = FlatStyle.Popup;
+            n = 1;
+            x = 1;
+            DoubleIt(n, ref x);
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(x.ToString());
         }
 
+        private void DoubleIt(int n, ref int x)
+        {
+            n = n * 2;
+            DisplayMessage("n inside DoubleIt", n.ToString());
+            x = x * 2;
+        }
         private void BtnString_Click(object? sender, EventArgs e)
         {
 
@@ -149,7 +172,8 @@ namespace LanguageBasics
             {
                 DisplayValueAndCaption(o.ToString());
             }
-            else {
+            else
+            {
                 DisplayMessage("o is null");
             }
             int? n = null;
@@ -157,9 +181,6 @@ namespace LanguageBasics
 
             string s = null;
             DisplayValueAndCaption(s);
-
-            
-
         }
 
         private void BtnObject_Click(object? sender, EventArgs e)
