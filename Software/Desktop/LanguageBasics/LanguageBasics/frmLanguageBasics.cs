@@ -154,7 +154,11 @@ namespace LanguageBasics
         }
         private void BtnString_Click(object? sender, EventArgs e)
         {
-
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Hi ");
+            sb.Append("How are you? ");
+            sb.Append(DateTime.Now.TimeOfDay);
+            DisplayValueAndCaption(sb.ToString());
         }
 
         private void BtnNew_Click(object? sender, EventArgs e)
