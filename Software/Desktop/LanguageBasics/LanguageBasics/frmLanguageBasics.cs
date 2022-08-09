@@ -21,8 +21,8 @@ namespace LanguageBasics
             InitializeComponent();
             //event subscription goes here
             btnEventHandler1.Click += BtnEventHandler1_Click;
-            btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
-            btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
+            //btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
+            //btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
             btnVariable1.Click += BtnVariable1_Click;
             btnVariable2.Click += BtnVariable2_Click;
             btnDataConversion1.Click += BtnDataConversion1_Click;
@@ -132,11 +132,33 @@ namespace LanguageBasics
 
         private void BtnNew_Click(object? sender, EventArgs e)
         {
-
+            int n = new int();
+            DisplayValueAndCaption(n.ToString());
+            DateTime dt = new DateTime();
+            DisplayValueAndCaption(dt.ToString());
+            string s = new string("hello");
+            bool b = s.Contains("x");
+            string val = string.Join("-", "a", "b");
+            DisplayValueAndCaption(val);
         }
 
         private void BtnNull_Click(object? sender, EventArgs e)
         {
+            object o = null;
+            if (o != null)
+            {
+                DisplayValueAndCaption(o.ToString());
+            }
+            else {
+                DisplayMessage("o is null");
+            }
+            int? n = null;
+            DisplayValueAndCaption(n.ToString());
+
+            string s = null;
+            DisplayValueAndCaption(s);
+
+            
 
         }
 
