@@ -137,16 +137,20 @@ namespace LanguageBasics
             btnValueRefType.FlatStyle = FlatStyle.Popup;
             n = 1;
             x = 1;
-            DoubleIt(n, ref x);
+            int y;
+            
+            DoubleIt(n, out y, btn);
             DisplayValueAndCaption(n.ToString());
-            DisplayValueAndCaption(x.ToString());
+            DisplayValueAndCaption(y.ToString());
         }
 
-        private void DoubleIt(int n, ref int x)
+        private void DoubleIt(int n, out int x, Button btn)
         {
             n = n * 2;
             DisplayMessage("n inside DoubleIt", n.ToString());
+            x = 1;
             x = x * 2;
+            btn.Text += btn.Text;
         }
         private void BtnString_Click(object? sender, EventArgs e)
         {
