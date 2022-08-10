@@ -203,27 +203,27 @@ namespace CalculatorWinForms
 
         private void Btn0_Click(object? sender, EventArgs e)
         {
-            InputFactor(btn0.Text);
+            InputFactor("0");
         }
 
         private void Btn9_Click(object? sender, EventArgs e)
         {
-            InputFactor(btn9.Text);
+            InputFactor("9");
         }
 
         private void Btn8_Click(object? sender, EventArgs e)
         {
-            InputFactor(btn8.Text);
+            InputFactor("8");
         }
 
         private void Btn7_Click(object? sender, EventArgs e)
         {
-            InputFactor(btn7.Text);
+            InputFactor("7");
         }
 
         private void Btn6_Click(object? sender, EventArgs e)
         {
-            InputFactor(btn6.Text);
+            InputFactor("6");
         }
 
         private void Btn5_Click(object? sender, EventArgs e)
