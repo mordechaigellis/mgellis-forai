@@ -18,6 +18,8 @@ namespace LanguageBasics
     {
         int nform = 0;
         int noutputincrementer = 0;
+        private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12}
+        private enum DBServerTypeEnum { Local, Azure}
         public frmLanguageBasics()
         {
             InitializeComponent();
@@ -49,16 +51,27 @@ namespace LanguageBasics
             this.Text = "Language Basics - " + noutputincrementer;
         }
 
-        private string ConcatMessage(string value)
+        private string ConcatMessage(string value, LineSeparatorEnum lineseparatortype = LineSeparatorEnum.NewLine)
         {
             string s = "";
-            s = txtOutput.Text + value + Environment.NewLine;
+            string lineseparator = Environment.NewLine;
+
+            if (lineseparatortype == LineSeparatorEnum.Colon)
+            {
+                lineseparator = ":";
+            }
+            else if (lineseparatortype == LineSeparatorEnum.TripleDash) {
+                lineseparator = "---";
+            }
+
+            s = txtOutput.Text + value + lineseparator;
+
             return s;
         }
 
         private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")] string valuename = "")
         {
-            txtOutput.Text = ConcatMessage(valuename + " = " + value);
+            txtOutput.Text = ConcatMessage(valuename + " = " + value, LineSeparatorEnum.TripleDash);
             IncrementOutputMessageVariable();
         }
 
@@ -101,10 +114,10 @@ namespace LanguageBasics
             return lbl;
         }
 
-        private string GetConnectionString(bool localdb = true)
+        private string GetConnectionString(DBServerTypeEnum dbservertype = DBServerTypeEnum.Local)
         {
             string s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
-            if (localdb == false)
+            if (dbservertype == DBServerTypeEnum.Azure)
             {
                 s = "Server=tcp:dev-charliecpu.database.windows.net,1433;Initial Catalog=RecordKeeperDB;Persist Security Info=False;User ID=cpuadmin;Password=CPU123!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             }
@@ -115,7 +128,7 @@ namespace LanguageBasics
         {
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = GetConnectionString(true);
+            conn.ConnectionString = GetConnectionString(DBServerTypeEnum.Azure);
             conn.Open();
             //DisplayMessage("Conn Status", conn.State.ToString());
             SqlCommand cmd = new SqlCommand();
@@ -133,7 +146,10 @@ namespace LanguageBasics
 
         private void BtnScope2_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            LineSeparatorEnum x = LineSeparatorEnum.Colon;
+            txtOutput.Text = x.ToString() + Environment.NewLine;
+            
+            txtOutput.Text += (int)x;
         }
 
         private void BtnScope1_Click(object? sender, EventArgs e)
