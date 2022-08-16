@@ -38,8 +38,9 @@ namespace LanguageBasics
             btnNew.Click += BtnNew_Click;
             btnString.Click += BtnString_Click;
             btnValueRefType.Click += BtnValueRefType_Click;
+            btnScope1.Click += BtnScope1_Click;
+            btnScope2.Click += BtnScope2_Click;
         }
-
 
 
         private string ConcatMessage(string value)
@@ -120,6 +121,16 @@ namespace LanguageBasics
         {
             DataTable dt = GetDataTable("select Num, FirstName, LastName from president");
             gOutput.DataSource = dt;
+        }
+
+        private void BtnScope2_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void BtnScope1_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void BtnValueRefType_Click(object? sender, EventArgs e)

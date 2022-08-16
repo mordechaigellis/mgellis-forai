@@ -49,6 +49,8 @@
             this.btnNull = new System.Windows.Forms.Button();
             this.btnString = new System.Windows.Forms.Button();
             this.btnValueRefType = new System.Windows.Forms.Button();
+            this.btnScope1 = new System.Windows.Forms.Button();
+            this.btnScope2 = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -80,6 +82,8 @@
             this.tblMain.Controls.Add(this.btnNull, 2, 4);
             this.tblMain.Controls.Add(this.btnString, 3, 4);
             this.tblMain.Controls.Add(this.btnValueRefType, 0, 5);
+            this.tblMain.Controls.Add(this.btnScope1, 1, 5);
+            this.tblMain.Controls.Add(this.btnScope2, 2, 5);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -300,6 +304,26 @@
             this.btnValueRefType.Text = "working with value and ref types";
             this.btnValueRefType.UseVisualStyleBackColor = true;
             // 
+            // btnScope1
+            // 
+            this.btnScope1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnScope1.Location = new System.Drawing.Point(193, 460);
+            this.btnScope1.Name = "btnScope1";
+            this.btnScope1.Size = new System.Drawing.Size(182, 65);
+            this.btnScope1.TabIndex = 18;
+            this.btnScope1.Text = "Scope 1";
+            this.btnScope1.UseVisualStyleBackColor = true;
+            // 
+            // btnScope2
+            // 
+            this.btnScope2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnScope2.Location = new System.Drawing.Point(382, 460);
+            this.btnScope2.Name = "btnScope2";
+            this.btnScope2.Size = new System.Drawing.Size(182, 65);
+            this.btnScope2.TabIndex = 19;
+            this.btnScope2.Text = "Scope 2";
+            this.btnScope2.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -341,5 +365,7 @@
         private Button btnNull;
         private Button btnString;
         private Button btnValueRefType;
+        private Button btnScope1;
+        private Button btnScope2;
     }
 }
