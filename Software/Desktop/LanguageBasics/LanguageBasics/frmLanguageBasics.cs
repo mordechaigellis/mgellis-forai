@@ -15,7 +15,7 @@ namespace LanguageBasics
 {
     public partial class frmLanguageBasics : Form
     {
-        //variables go here
+        int nform = 0;
         public frmLanguageBasics()
         {
             InitializeComponent();
@@ -130,7 +130,13 @@ namespace LanguageBasics
 
         private void BtnScope1_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            int nlocal = 0;
+            nlocal = nlocal + 1;
+            nform = nform + 1;
+
+            DisplayValueAndCaption(nlocal.ToString());
+            DisplayValueAndCaption(nform.ToString());
+
         }
 
         private void BtnValueRefType_Click(object? sender, EventArgs e)
