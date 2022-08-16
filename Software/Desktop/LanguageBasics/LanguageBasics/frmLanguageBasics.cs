@@ -10,12 +10,14 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Specialized;
 
 namespace LanguageBasics
 {
     public partial class frmLanguageBasics : Form
     {
         int nform = 0;
+        int noutputincrementer = 0;
         public frmLanguageBasics()
         {
             InitializeComponent();
@@ -42,6 +44,10 @@ namespace LanguageBasics
             btnScope2.Click += BtnScope2_Click;
         }
 
+        private void IncrementOutputMessageVariable() {
+            noutputincrementer = noutputincrementer + 1;
+            this.Text = "Language Basics - " + noutputincrementer;
+        }
 
         private string ConcatMessage(string value)
         {
@@ -53,6 +59,7 @@ namespace LanguageBasics
         private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")] string valuename = "")
         {
             txtOutput.Text = ConcatMessage(valuename + " = " + value);
+            IncrementOutputMessageVariable();
         }
 
         private void DisplayMessage(string value, bool clearbox = false)
@@ -62,6 +69,7 @@ namespace LanguageBasics
                 txtOutput.Text = "";
             }
             txtOutput.Text = ConcatMessage(value);
+            IncrementOutputMessageVariable();
         }
 
         private void DisplayMessage(string caption, string value, bool clearbox = false)
@@ -363,8 +371,7 @@ namespace LanguageBasics
         {
             Random rnd = new Random();
             int n = rnd.Next(0, 256);
-            txtOutput.Text = "";
-            txtOutput.Text = n.ToString();
+            DisplayValueAndCaption(n.ToString());
             Color c = GetRandomColor();
             txtOutput.BackColor = c;
         }
@@ -375,6 +382,7 @@ namespace LanguageBasics
             string s = txtOutput.Text;
             bool b = int.TryParse(s, out n);
             txtOutput.Text = "s = " + s + ", conversion worked = " + b + ", n = " + n + Environment.NewLine;
+            IncrementOutputMessageVariable();
         }
 
         private void BtnDataConversion1_Click(object? sender, EventArgs e)
@@ -383,10 +391,10 @@ namespace LanguageBasics
             n = (int)d;
             txtOutput.Text = "";
             txtOutput.Text = "d = " + d + ", n = " + n + Environment.NewLine;
-
+            IncrementOutputMessageVariable();
             bool b = int.TryParse(s, out n);
             txtOutput.Text += "s = " + s + ", b = " + b + ", n = " + n + Environment.NewLine;
-
+            IncrementOutputMessageVariable();
 
         }
 
@@ -436,6 +444,7 @@ namespace LanguageBasics
         private void BtnEventHandler1_Click(object? sender, EventArgs e)
         {
             txtOutput.Text = txtOutput.Text + "BtnEventHandler1 was clicked " + DateTime.Now.TimeOfDay.ToString() + Environment.NewLine;
+            IncrementOutputMessageVariable();
         }
 
         //code goes here
