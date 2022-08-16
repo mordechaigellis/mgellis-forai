@@ -93,8 +93,8 @@ namespace LanguageBasics
 
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
-            Random rnd = new Random();
-            Color c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
+            Random rnd = new();
+            var c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
             return c;
         }
 
@@ -116,7 +116,7 @@ namespace LanguageBasics
 
         private string GetConnectionString(DBServerTypeEnum dbservertype = DBServerTypeEnum.Local)
         {
-            string s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
+            var s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
             if (dbservertype == DBServerTypeEnum.Azure)
             {
                 s = "Server=tcp:dev-charliecpu.database.windows.net,1433;Initial Catalog=RecordKeeperDB;Persist Security Info=False;User ID=cpuadmin;Password=CPU123!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
@@ -126,15 +126,15 @@ namespace LanguageBasics
 
         private DataTable GetDataTable(string sqlstatement)  //- take a SQL statement and return a DataTable
         {
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection();
+            DataTable dt = new();
+            SqlConnection conn = new();
             conn.ConnectionString = GetConnectionString(DBServerTypeEnum.Azure);
             conn.Open();
             //DisplayMessage("Conn Status", conn.State.ToString());
-            SqlCommand cmd = new SqlCommand();
+            var cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = sqlstatement;
-            SqlDataReader dr = cmd.ExecuteReader();
+            var dr = cmd.ExecuteReader();
             dt.Load(dr);
             return dt;
         }
