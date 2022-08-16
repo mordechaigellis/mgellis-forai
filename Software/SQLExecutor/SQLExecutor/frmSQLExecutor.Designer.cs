@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tabMain = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblDatabase = new System.Windows.Forms.Label();
             this.tblServer = new System.Windows.Forms.TableLayoutPanel();
             this.optLocalDB = new System.Windows.Forms.RadioButton();
@@ -41,10 +38,12 @@
             this.optRecipe = new System.Windows.Forms.RadioButton();
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.btnRunQuery = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabMain = new System.Windows.Forms.TabControl();
             this.tblMain.SuspendLayout();
-            this.tabMain.SuspendLayout();
             this.tblServer.SuspendLayout();
             this.tblDatabase.SuspendLayout();
+            this.tabMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // tblMain
@@ -69,38 +68,6 @@
             this.tblMain.Size = new System.Drawing.Size(966, 554);
             this.tblMain.TabIndex = 0;
             this.tblMain.Paint += new System.Windows.Forms.PaintEventHandler(this.tblMain_Paint);
-            // 
-            // tabMain
-            // 
-            this.tblMain.SetColumnSpan(this.tabMain, 2);
-            this.tabMain.Controls.Add(this.tabPage1);
-            this.tabMain.Controls.Add(this.tabPage2);
-            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabMain.Location = new System.Drawing.Point(3, 223);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(960, 328);
-            this.tabMain.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(952, 295);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(952, 281);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // lblDatabase
             // 
@@ -205,6 +172,27 @@
             this.btnRunQuery.Text = "Run Query";
             this.btnRunQuery.UseVisualStyleBackColor = true;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(952, 295);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabMain
+            // 
+            this.tblMain.SetColumnSpan(this.tabMain, 2);
+            this.tabMain.Controls.Add(this.tabPage1);
+            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.Location = new System.Drawing.Point(3, 223);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(960, 328);
+            this.tabMain.TabIndex = 0;
+            // 
             // frmSQLExecutor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -215,11 +203,11 @@
             this.Text = "SQL Executor";
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
-            this.tabMain.ResumeLayout(false);
             this.tblServer.ResumeLayout(false);
             this.tblServer.PerformLayout();
             this.tblDatabase.ResumeLayout(false);
             this.tblDatabase.PerformLayout();
+            this.tabMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -227,9 +215,6 @@
         #endregion
 
         private TableLayoutPanel tblMain;
-        private TabControl tabMain;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
         private Label lblDatabase;
         private TableLayoutPanel tblServer;
         private RadioButton optLocalDB;
@@ -239,5 +224,7 @@
         private RadioButton optRecipe;
         private TextBox txtQuery;
         private Button btnRunQuery;
+        private TabControl tabMain;
+        private TabPage tabPage1;
     }
 }

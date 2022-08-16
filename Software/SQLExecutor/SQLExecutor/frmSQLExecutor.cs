@@ -17,9 +17,6 @@ namespace SQLExecutor
             InitializeComponent();
         }
 
-        private void tblMain_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
     }
 }
