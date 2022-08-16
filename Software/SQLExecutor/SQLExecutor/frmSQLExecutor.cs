@@ -16,6 +16,7 @@ namespace SQLExecutor
         public frmSQLExecutor()
         {
             InitializeComponent();
+            btnRunQuery.Click += btnRunQuery_Click;
         }
 
         private string GetConnectionString()
@@ -33,7 +34,7 @@ namespace SQLExecutor
             return s;
         }
 
-        private DataTable GetDataTable()  //- take a SQL statement and return a DataTable
+        private DataTable GetDataTable()
         {
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection();
@@ -46,21 +47,21 @@ namespace SQLExecutor
             dt.Load(dr);
             return dt;
         }
-        private void ShowDataInGrid()
+        private void ShowData()
         {
             TabPage p;
             p = new TabPage((tabMain.TabPages.Count + 1).ToString());
-            DataGridView g = new DataGridView() { Dock = DockStyle.Fill };
-            p.Controls.Add(g);
+            DataGridView grid = new DataGridView() { Dock = DockStyle.Fill };
+            p.Controls.Add(grid);
             tabMain.TabPages.Add(p);
             tabMain.SelectedTab = p;
             DataTable dt = GetDataTable();
-            g.DataSource = dt;
+            grid.DataSource = dt;
         }
 
-        private void btnRunQuery_Click(object sender, EventArgs e)
+        private void btnRunQuery_Click(object? sender, EventArgs e)
         {
-            ShowDataInGrid();
+            ShowData();
         }
     }
 }

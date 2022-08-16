@@ -73,18 +73,19 @@
             this.tblMain.SetColumnSpan(this.tabMain, 2);
             this.tabMain.Controls.Add(this.tabPage1);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabMain.Location = new System.Drawing.Point(3, 191);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(954, 277);
-            this.tabMain.TabIndex = 0;
+            this.tabMain.TabIndex = 5;
             // 
             // tabPage1
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(946, 244);
+            this.tabPage1.Size = new System.Drawing.Size(946, 241);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -92,10 +93,11 @@
             // lblDatabase
             // 
             this.lblDatabase.AutoSize = true;
+            this.lblDatabase.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblDatabase.Location = new System.Drawing.Point(3, 0);
             this.lblDatabase.Name = "lblDatabase";
-            this.lblDatabase.Size = new System.Drawing.Size(72, 20);
-            this.lblDatabase.TabIndex = 1;
+            this.lblDatabase.Size = new System.Drawing.Size(81, 23);
+            this.lblDatabase.TabIndex = 0;
             this.lblDatabase.Text = "Database";
             // 
             // tblServer
@@ -117,9 +119,10 @@
             // 
             this.optLocalDB.AutoSize = true;
             this.optLocalDB.Checked = true;
+            this.optLocalDB.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.optLocalDB.Location = new System.Drawing.Point(3, 3);
             this.optLocalDB.Name = "optLocalDB";
-            this.optLocalDB.Size = new System.Drawing.Size(89, 24);
+            this.optLocalDB.Size = new System.Drawing.Size(97, 27);
             this.optLocalDB.TabIndex = 0;
             this.optLocalDB.TabStop = true;
             this.optLocalDB.Text = "Local DB";
@@ -128,9 +131,10 @@
             // optAzure
             // 
             this.optAzure.AutoSize = true;
+            this.optAzure.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.optAzure.Location = new System.Drawing.Point(364, 3);
             this.optAzure.Name = "optAzure";
-            this.optAzure.Size = new System.Drawing.Size(68, 24);
+            this.optAzure.Size = new System.Drawing.Size(75, 27);
             this.optAzure.TabIndex = 1;
             this.optAzure.Text = "Azure";
             this.optAzure.UseVisualStyleBackColor = true;
@@ -155,9 +159,10 @@
             // 
             this.optRecordKeeper.AutoSize = true;
             this.optRecordKeeper.Checked = true;
+            this.optRecordKeeper.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.optRecordKeeper.Location = new System.Drawing.Point(3, 3);
             this.optRecordKeeper.Name = "optRecordKeeper";
-            this.optRecordKeeper.Size = new System.Drawing.Size(124, 24);
+            this.optRecordKeeper.Size = new System.Drawing.Size(137, 27);
             this.optRecordKeeper.TabIndex = 0;
             this.optRecordKeeper.TabStop = true;
             this.optRecordKeeper.Text = "RecordKeeper";
@@ -166,9 +171,10 @@
             // optRecipe
             // 
             this.optRecipe.AutoSize = true;
+            this.optRecipe.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.optRecipe.Location = new System.Drawing.Point(3, 70);
             this.optRecipe.Name = "optRecipe";
-            this.optRecipe.Size = new System.Drawing.Size(75, 24);
+            this.optRecipe.Size = new System.Drawing.Size(81, 27);
             this.optRecipe.TabIndex = 1;
             this.optRecipe.Text = "Recipe";
             this.optRecipe.UseVisualStyleBackColor = true;
@@ -176,15 +182,18 @@
             // txtQuery
             // 
             this.txtQuery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtQuery.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtQuery.Location = new System.Drawing.Point(234, 50);
+            this.txtQuery.Multiline = true;
             this.txtQuery.Name = "txtQuery";
-            this.txtQuery.Size = new System.Drawing.Size(723, 27);
+            this.txtQuery.Size = new System.Drawing.Size(723, 88);
             this.txtQuery.TabIndex = 4;
             this.txtQuery.Text = "Type Query Here";
             // 
             // btnRunQuery
             // 
             this.btnRunQuery.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnRunQuery.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnRunQuery.Location = new System.Drawing.Point(863, 144);
             this.btnRunQuery.Name = "btnRunQuery";
             this.btnRunQuery.Size = new System.Drawing.Size(94, 41);
