@@ -43,11 +43,12 @@ namespace LanguageBasics
             btnString.Click += BtnString_Click;
             btnValueRefType.Click += BtnValueRefType_Click;
             btnScope1.Click += BtnScope1_Click;
-            btnSwitch.Click += BtnSwitch_Click;            
+            btnSwitch.Click += BtnSwitch_Click;
+            btnTernary1.Click += BtnTernary1_Click;
+            btnTernary2.Click += BtnTernary2_Click;
         }
 
        
-
         private void IncrementOutputMessageVariable() {
             noutputincrementer = noutputincrementer + 1;
             this.Text = "Language Basics - " + noutputincrementer;
@@ -78,7 +79,7 @@ namespace LanguageBasics
 
         private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")] string valuename = "")
         {
-            txtOutput.Text = ConcatMessage(valuename + " = " + value, LineSeparatorEnum.TripleLine);
+            txtOutput.Text = ConcatMessage(valuename + " = " + value, LineSeparatorEnum.NewLine);
             IncrementOutputMessageVariable();
         }
 
@@ -151,6 +152,17 @@ namespace LanguageBasics
             gOutput.DataSource = dt;
         }
 
+        private void BtnTernary2_Click(object? sender, EventArgs e)
+        {
+           
+
+        }
+
+        private void BtnTernary1_Click(object? sender, EventArgs e)
+        {
+            DisplayValueAndCaption(DateTime.Now.Second.ToString());
+            tblMain.BackColor = DateTime.Now.Second < 30 ? Color.Yellow : Color.Blue;
+        }
         private void BtnSwitch_Click(object? sender, EventArgs e)
         {
             /*
