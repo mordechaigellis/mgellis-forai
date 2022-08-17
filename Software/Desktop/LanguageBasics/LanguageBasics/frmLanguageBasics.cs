@@ -153,7 +153,34 @@ namespace LanguageBasics
 
         private void BtnSwitch_Click(object? sender, EventArgs e)
         {
-         
+            /*
+            Generate and display a random number from 1 to 7.
+            If 7 then display 1st prize
+            If between 3 and 6 then 2nd prize
+            All other cases display “Try again”
+             */
+            Random rnd = new();
+            int n = rnd.Next(1, 8);
+            DisplayValueAndCaption(n.ToString());
+            string msg = "";
+
+            switch (n) {
+                case 7:
+                    msg = "1st Prize";
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    msg = "2nd Prize";
+                    break;
+                default:
+                    msg = "Try Again";
+                    break;
+            }
+
+
+            DisplayValueAndCaption(msg);
         }
         private void BtnScope1_Click(object? sender, EventArgs e)
         {
