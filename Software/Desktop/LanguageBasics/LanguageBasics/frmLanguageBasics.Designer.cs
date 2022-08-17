@@ -50,7 +50,7 @@
             this.btnString = new System.Windows.Forms.Button();
             this.btnValueRefType = new System.Windows.Forms.Button();
             this.btnScope1 = new System.Windows.Forms.Button();
-            this.btnScope2 = new System.Windows.Forms.Button();
+            this.btnSwitch = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -83,7 +83,7 @@
             this.tblMain.Controls.Add(this.btnString, 3, 4);
             this.tblMain.Controls.Add(this.btnValueRefType, 0, 5);
             this.tblMain.Controls.Add(this.btnScope1, 1, 5);
-            this.tblMain.Controls.Add(this.btnScope2, 2, 5);
+            this.tblMain.Controls.Add(this.btnSwitch, 2, 5);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -314,15 +314,15 @@
             this.btnScope1.Text = "Scope 1";
             this.btnScope1.UseVisualStyleBackColor = true;
             // 
-            // btnScope2
+            // btnSwitch
             // 
-            this.btnScope2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnScope2.Location = new System.Drawing.Point(382, 460);
-            this.btnScope2.Name = "btnScope2";
-            this.btnScope2.Size = new System.Drawing.Size(182, 65);
-            this.btnScope2.TabIndex = 19;
-            this.btnScope2.Text = "Scope 2";
-            this.btnScope2.UseVisualStyleBackColor = true;
+            this.btnSwitch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSwitch.Location = new System.Drawing.Point(382, 460);
+            this.btnSwitch.Name = "btnSwitch";
+            this.btnSwitch.Size = new System.Drawing.Size(182, 65);
+            this.btnSwitch.TabIndex = 19;
+            this.btnSwitch.Text = "Switch";
+            this.btnSwitch.UseVisualStyleBackColor = true;
             // 
             // frmLanguageBasics
             // 
@@ -366,6 +366,6 @@
         private Button btnString;
         private Button btnValueRefType;
         private Button btnScope1;
-        private Button btnScope2;
+        private Button btnSwitch;
     }
 }

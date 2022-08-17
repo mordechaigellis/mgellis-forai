@@ -43,8 +43,10 @@ namespace LanguageBasics
             btnString.Click += BtnString_Click;
             btnValueRefType.Click += BtnValueRefType_Click;
             btnScope1.Click += BtnScope1_Click;
-            btnScope2.Click += BtnScope2_Click;
+            btnSwitch.Click += BtnSwitch_Click;            
         }
+
+       
 
         private void IncrementOutputMessageVariable() {
             noutputincrementer = noutputincrementer + 1;
@@ -149,14 +151,10 @@ namespace LanguageBasics
             gOutput.DataSource = dt;
         }
 
-        private void BtnScope2_Click(object? sender, EventArgs e)
+        private void BtnSwitch_Click(object? sender, EventArgs e)
         {
-            LineSeparatorEnum x = LineSeparatorEnum.Colon;
-            txtOutput.Text = x.ToString() + Environment.NewLine;
-            
-            txtOutput.Text += (int)x;
+         
         }
-
         private void BtnScope1_Click(object? sender, EventArgs e)
         {
             int nlocal = 0;
