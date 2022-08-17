@@ -18,7 +18,7 @@ namespace LanguageBasics
     {
         int nform = 0;
         int noutputincrementer = 0;
-        private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12}
+        private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12, TripleLine = 13}
         private enum DBServerTypeEnum { Local, Azure}
         public frmLanguageBasics()
         {
@@ -54,16 +54,21 @@ namespace LanguageBasics
         private string ConcatMessage(string value, LineSeparatorEnum lineseparatortype = LineSeparatorEnum.NewLine)
         {
             string s = "";
-            string lineseparator = Environment.NewLine;
+            string lineseparator = "";
 
-            if (lineseparatortype == LineSeparatorEnum.Colon)
-            {
-                lineseparator = ":";
+            switch (lineseparatortype) {
+                case LineSeparatorEnum.Colon:
+                    lineseparator = ":";
+                    break;
+                case LineSeparatorEnum.TripleDash:
+                case LineSeparatorEnum.TripleLine:
+                    lineseparator = "---";
+                    break;
+                default:
+                    lineseparator = Environment.NewLine;
+                    break;
             }
-            else if (lineseparatortype == LineSeparatorEnum.TripleDash) {
-                lineseparator = "---";
-            }
-
+            
             s = txtOutput.Text + value + lineseparator;
 
             return s;
@@ -71,7 +76,7 @@ namespace LanguageBasics
 
         private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")] string valuename = "")
         {
-            txtOutput.Text = ConcatMessage(valuename + " = " + value, LineSeparatorEnum.TripleDash);
+            txtOutput.Text = ConcatMessage(valuename + " = " + value, LineSeparatorEnum.TripleLine);
             IncrementOutputMessageVariable();
         }
 
