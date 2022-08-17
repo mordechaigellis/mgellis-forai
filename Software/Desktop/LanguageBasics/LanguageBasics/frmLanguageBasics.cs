@@ -154,7 +154,9 @@ namespace LanguageBasics
 
         private void BtnTernary2_Click(object? sender, EventArgs e)
         {
-           
+            Random rnd = new();
+            int n = rnd.Next(1, 3);
+            txtOutput.Text = n == 1 ? "Heads" : "Tails";
 
         }
 
