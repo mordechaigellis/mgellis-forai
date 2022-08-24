@@ -48,9 +48,8 @@ namespace LanguageBasics
             btnTernary2.Click += BtnTernary2_Click;
             btnFor1.Click += BtnFor1_Click;
             btnFor2.Click += BtnFor2_Click;
+            btnForEach1.Click += BtnForEach1_Click;
         }
-
-
 
         private void IncrementOutputMessageVariable()
         {
@@ -106,7 +105,7 @@ namespace LanguageBasics
 
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
-            Random rnd = new();
+           Random rnd = new();
             var c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
             return c;
         }
@@ -156,6 +155,15 @@ namespace LanguageBasics
             DataTable dt = GetDataTable("select Num, FirstName, LastName from president");
             gOutput.DataSource = dt;
         }
+
+        private void BtnForEach1_Click(object? sender, EventArgs e)
+        {
+            DataTable dt = GetDataTable("select recordname from worldrecord");
+            foreach (DataRow dr in dt.Rows) {
+                DisplayValueAndCaption(dr[0].ToString());
+            }
+        }
+
         private void BtnFor2_Click(object? sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();

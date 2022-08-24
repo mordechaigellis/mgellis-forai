@@ -55,7 +55,7 @@
             this.btnTernary2 = new System.Windows.Forms.Button();
             this.btnFor1 = new System.Windows.Forms.Button();
             this.btnFor2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnForEach1 = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -93,7 +93,7 @@
             this.tblMain.Controls.Add(this.btnTernary2, 0, 6);
             this.tblMain.Controls.Add(this.btnFor1, 1, 6);
             this.tblMain.Controls.Add(this.btnFor2, 2, 6);
-            this.tblMain.Controls.Add(this.button1, 3, 6);
+            this.tblMain.Controls.Add(this.btnForEach1, 3, 6);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -375,14 +375,15 @@
             this.btnFor2.Text = "For Loop 2";
             this.btnFor2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnForEach1
             // 
-            this.button1.Location = new System.Drawing.Point(571, 470);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnForEach1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnForEach1.Location = new System.Drawing.Point(571, 470);
+            this.btnForEach1.Name = "btnForEach1";
+            this.btnForEach1.Size = new System.Drawing.Size(184, 55);
+            this.btnForEach1.TabIndex = 24;
+            this.btnForEach1.Text = "Foreach 1";
+            this.btnForEach1.UseVisualStyleBackColor = true;
             // 
             // frmLanguageBasics
             // 
@@ -431,6 +432,6 @@
         private Button btnTernary2;
         private Button btnFor1;
         private Button btnFor2;
-        private Button button1;
+        private Button btnForEach1;
     }
 }
