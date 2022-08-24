@@ -18,8 +18,8 @@ namespace LanguageBasics
     {
         int nform = 0;
         int noutputincrementer = 0;
-        private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12, TripleLine = 13}
-        private enum DBServerTypeEnum { Local, Azure}
+        private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12, TripleLine = 13 }
+        private enum DBServerTypeEnum { Local, Azure }
         public frmLanguageBasics()
         {
             InitializeComponent();
@@ -46,10 +46,14 @@ namespace LanguageBasics
             btnSwitch.Click += BtnSwitch_Click;
             btnTernary1.Click += BtnTernary1_Click;
             btnTernary2.Click += BtnTernary2_Click;
+            btnFor1.Click += BtnFor1_Click;
+            btnFor2.Click += BtnFor2_Click;
         }
 
-       
-        private void IncrementOutputMessageVariable() {
+
+
+        private void IncrementOutputMessageVariable()
+        {
             noutputincrementer = noutputincrementer + 1;
             this.Text = "Language Basics - " + noutputincrementer;
         }
@@ -59,7 +63,8 @@ namespace LanguageBasics
             string s = "";
             string lineseparator = "";
 
-            switch (lineseparatortype) {
+            switch (lineseparatortype)
+            {
                 case LineSeparatorEnum.Colon:
                     lineseparator = ":";
                     break;
@@ -71,7 +76,7 @@ namespace LanguageBasics
                     lineseparator = Environment.NewLine;
                     break;
             }
-            
+
             s = txtOutput.Text + value + lineseparator;
 
             return s;
@@ -151,7 +156,27 @@ namespace LanguageBasics
             DataTable dt = GetDataTable("select Num, FirstName, LastName from president");
             gOutput.DataSource = dt;
         }
+        private void BtnFor2_Click(object? sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            Random rnd = new Random();
+            for (int i = 1; i < 11; i++) {
+                int n = rnd.Next(65, 91);
+                sb.Append((char)n);
+            }
 
+            DisplayValueAndCaption(sb.ToString());
+        }
+
+        private void BtnFor1_Click(object? sender, EventArgs e)
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                string s = "";
+                s = "Loop Variable: " + i;
+                DisplayValueAndCaption(s);
+            }
+        }
         private void BtnTernary2_Click(object? sender, EventArgs e)
         {
             Random rnd = new();
@@ -178,7 +203,8 @@ namespace LanguageBasics
             DisplayValueAndCaption(n.ToString());
             string msg = "";
 
-            switch (n) {
+            switch (n)
+            {
                 case 7:
                     msg = "1st Prize";
                     break;
@@ -223,7 +249,7 @@ namespace LanguageBasics
             n = 1;
             x = 1;
             int y;
-            
+
             DoubleIt(n, out y, btn);
             DisplayValueAndCaption(n.ToString());
             DisplayValueAndCaption(y.ToString());

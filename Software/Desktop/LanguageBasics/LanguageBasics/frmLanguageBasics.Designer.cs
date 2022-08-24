@@ -53,6 +53,9 @@
             this.btnSwitch = new System.Windows.Forms.Button();
             this.btnTernary1 = new System.Windows.Forms.Button();
             this.btnTernary2 = new System.Windows.Forms.Button();
+            this.btnFor1 = new System.Windows.Forms.Button();
+            this.btnFor2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -88,6 +91,9 @@
             this.tblMain.Controls.Add(this.btnSwitch, 2, 5);
             this.tblMain.Controls.Add(this.btnTernary1, 3, 5);
             this.tblMain.Controls.Add(this.btnTernary2, 0, 6);
+            this.tblMain.Controls.Add(this.btnFor1, 1, 6);
+            this.tblMain.Controls.Add(this.btnFor2, 2, 6);
+            this.tblMain.Controls.Add(this.button1, 3, 6);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -349,6 +355,35 @@
             this.btnTernary2.Text = "?: 2";
             this.btnTernary2.UseVisualStyleBackColor = true;
             // 
+            // btnFor1
+            // 
+            this.btnFor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnFor1.Location = new System.Drawing.Point(193, 470);
+            this.btnFor1.Name = "btnFor1";
+            this.btnFor1.Size = new System.Drawing.Size(182, 55);
+            this.btnFor1.TabIndex = 22;
+            this.btnFor1.Text = "For Loop 1";
+            this.btnFor1.UseVisualStyleBackColor = true;
+            // 
+            // btnFor2
+            // 
+            this.btnFor2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnFor2.Location = new System.Drawing.Point(382, 470);
+            this.btnFor2.Name = "btnFor2";
+            this.btnFor2.Size = new System.Drawing.Size(182, 55);
+            this.btnFor2.TabIndex = 23;
+            this.btnFor2.Text = "For Loop 2";
+            this.btnFor2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(571, 470);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -394,5 +429,8 @@
         private Button btnSwitch;
         private Button btnTernary1;
         private Button btnTernary2;
+        private Button btnFor1;
+        private Button btnFor2;
+        private Button button1;
     }
 }
