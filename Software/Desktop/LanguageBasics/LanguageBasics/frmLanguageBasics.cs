@@ -80,7 +80,7 @@ namespace LanguageBasics
                     break;
             }
 
-            s = txtOutput.Text + value + lineseparator;
+            s = value + lineseparator + txtOutput.Text ;
 
             return s;
         }
@@ -160,14 +160,33 @@ namespace LanguageBasics
             gOutput.DataSource = dt;
         }
 
+        private string GenerateRandomWord() {
+            StringBuilder sb = new StringBuilder();
+            Random rnd = new Random();
+            for (int i = 1; i < 11; i++)
+            {
+                int n = rnd.Next(65, 91);
+                sb.Append((char)n);
+            }
+            return sb.ToString();
+        }
+      
         private void BtnWhile2_Click(object? sender, EventArgs e)
         {
-
+            DateTime starttime = DateTime.Now;
+            while ((DateTime.Now - starttime).TotalSeconds <= 20) {
+                DisplayMessage(GenerateRandomWord());
+                Application.DoEvents();
+            }
         }
 
         private void BtnWhile1_Click(object? sender, EventArgs e)
         {
-
+            DateTime starttime = DateTime.Now;
+            while ((DateTime.Now - starttime).TotalSeconds <= 15) {
+                DisplayMessage(DateTime.Now.ToString("HH:mm:ss:fff"));
+                Application.DoEvents();
+            }
         }
 
         private void BtnForEach2_Click(object? sender, EventArgs e)
@@ -198,14 +217,7 @@ namespace LanguageBasics
 
         private void BtnFor2_Click(object? sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            Random rnd = new Random();
-            for (int i = 1; i < 11; i++) {
-                int n = rnd.Next(65, 91);
-                sb.Append((char)n);
-            }
-
-            DisplayValueAndCaption(sb.ToString());
+            DisplayValueAndCaption(GenerateRandomWord());
         }
 
         private void BtnFor1_Click(object? sender, EventArgs e)
