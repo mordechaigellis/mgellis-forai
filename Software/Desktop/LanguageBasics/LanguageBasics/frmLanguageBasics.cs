@@ -18,6 +18,8 @@ namespace LanguageBasics
     {
         int nform = 0;
         int noutputincrementer = 0;
+        System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer() { Interval = 1};
+        System.Windows.Forms.Timer tmrrandomword = new();
         private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12, TripleLine = 13 }
         private enum DBServerTypeEnum { Local, Azure }
         public frmLanguageBasics()
@@ -52,8 +54,13 @@ namespace LanguageBasics
             btnForEach2.Click += BtnForEach2_Click;
             btnWhile1.Click += BtnWhile1_Click;
             btnWhile2.Click += BtnWhile2_Click;
+            btnTimer1.Click += BtnTimer1_Click;
+            btnTimer2.Click += BtnTimer2_Click;
+            tmr.Tick += Tmr_Tick;
+            tmrrandomword.Tick += Tmrrandomword_Tick;
         }
 
+        
 
         private void IncrementOutputMessageVariable()
         {
@@ -170,7 +177,29 @@ namespace LanguageBasics
             }
             return sb.ToString();
         }
-      
+
+        private void ShowCurrentTime() {
+            DisplayMessage(DateTime.Now.ToString("HH:mm:ss:fff"));
+        }
+
+        private void Tmrrandomword_Tick(object? sender, EventArgs e)
+        {
+            DisplayMessage(GenerateRandomWord());
+        }
+        private void Tmr_Tick(object? sender, EventArgs e)
+        {
+            ShowCurrentTime();   
+        }
+
+        private void BtnTimer2_Click(object? sender, EventArgs e)
+        {
+            tmrrandomword.Enabled = !tmrrandomword.Enabled;
+        }
+
+        private void BtnTimer1_Click(object? sender, EventArgs e)
+        {
+            tmr.Enabled = !tmr.Enabled;
+        }
         private void BtnWhile2_Click(object? sender, EventArgs e)
         {
             DateTime starttime = DateTime.Now;
@@ -184,7 +213,7 @@ namespace LanguageBasics
         {
             DateTime starttime = DateTime.Now;
             while ((DateTime.Now - starttime).TotalSeconds <= 15) {
-                DisplayMessage(DateTime.Now.ToString("HH:mm:ss:fff"));
+                ShowCurrentTime();
                 Application.DoEvents();
             }
         }
