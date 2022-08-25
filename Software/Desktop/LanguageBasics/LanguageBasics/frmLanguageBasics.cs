@@ -49,7 +49,11 @@ namespace LanguageBasics
             btnFor1.Click += BtnFor1_Click;
             btnFor2.Click += BtnFor2_Click;
             btnForEach1.Click += BtnForEach1_Click;
+            btnForEach2.Click += BtnForEach2_Click;
+            btnWhile1.Click += BtnWhile1_Click;
+            btnWhile2.Click += BtnWhile2_Click;
         }
+
 
         private void IncrementOutputMessageVariable()
         {
@@ -154,6 +158,34 @@ namespace LanguageBasics
         {
             DataTable dt = GetDataTable("select Num, FirstName, LastName from president");
             gOutput.DataSource = dt;
+        }
+
+        private void BtnWhile2_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnWhile1_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnForEach2_Click(object? sender, EventArgs e)
+        {
+            foreach (Control c in this.Controls) {
+                c.BackColor = GetRandomColor();
+            }
+           
+            foreach (Control c in tblMain.Controls)
+            {
+                c.BackColor = GetRandomColor();
+            }
+
+            foreach (Control c in tblOutput.Controls)
+            {
+                c.BackColor = GetRandomColor();
+            }
+
         }
 
         private void BtnForEach1_Click(object? sender, EventArgs e)

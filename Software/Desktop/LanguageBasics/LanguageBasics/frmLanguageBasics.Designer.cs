@@ -57,6 +57,8 @@
             this.btnFor2 = new System.Windows.Forms.Button();
             this.btnForEach1 = new System.Windows.Forms.Button();
             this.btnForEach2 = new System.Windows.Forms.Button();
+            this.btnWhile1 = new System.Windows.Forms.Button();
+            this.btnWhile2 = new System.Windows.Forms.Button();
             this.tblMain.SuspendLayout();
             this.tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gOutput)).BeginInit();
@@ -96,6 +98,8 @@
             this.tblMain.Controls.Add(this.btnFor2, 2, 6);
             this.tblMain.Controls.Add(this.btnForEach1, 3, 6);
             this.tblMain.Controls.Add(this.btnForEach2, 0, 7);
+            this.tblMain.Controls.Add(this.btnWhile1, 1, 7);
+            this.tblMain.Controls.Add(this.btnWhile2, 2, 7);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
@@ -398,6 +402,26 @@
             this.btnForEach2.Text = "Foreach 2";
             this.btnForEach2.UseVisualStyleBackColor = true;
             // 
+            // btnWhile1
+            // 
+            this.btnWhile1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnWhile1.Location = new System.Drawing.Point(193, 477);
+            this.btnWhile1.Name = "btnWhile1";
+            this.btnWhile1.Size = new System.Drawing.Size(182, 48);
+            this.btnWhile1.TabIndex = 26;
+            this.btnWhile1.Text = "While 1";
+            this.btnWhile1.UseVisualStyleBackColor = true;
+            // 
+            // btnWhile2
+            // 
+            this.btnWhile2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnWhile2.Location = new System.Drawing.Point(382, 477);
+            this.btnWhile2.Name = "btnWhile2";
+            this.btnWhile2.Size = new System.Drawing.Size(182, 48);
+            this.btnWhile2.TabIndex = 27;
+            this.btnWhile2.Text = "While 2";
+            this.btnWhile2.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -447,5 +471,7 @@
         private Button btnFor2;
         private Button btnForEach1;
         private Button btnForEach2;
+        private Button btnWhile1;
+        private Button btnWhile2;
     }
 }
