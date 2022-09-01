@@ -5,22 +5,22 @@ namespace CalculatorWinForms
         public frmCalculator()
         {
             InitializeComponent();
-            btn1.Click += Btn1_Click;
-            btn2.Click += Btn2_Click;
-            btn3.Click += Btn3_Click;
-            btn4.Click += Btn4_Click;
-            btn5.Click += Btn5_Click;
-            btn6.Click += Btn6_Click;
-            btn7.Click += Btn7_Click;
-            btn8.Click += Btn8_Click;
-            btn9.Click += Btn9_Click;
-            btn0.Click += Btn0_Click;
+            btn1.Click += BtnFactor_Click;
+            btn2.Click += BtnFactor_Click;
+            btn3.Click += BtnFactor_Click;
+            btn4.Click += BtnFactor_Click;
+            btn5.Click += BtnFactor_Click;
+            btn6.Click += BtnFactor_Click;
+            btn7.Click += BtnFactor_Click;
+            btn8.Click += BtnFactor_Click;
+            btn9.Click += BtnFactor_Click;
+            btn0.Click += BtnFactor_Click;
             btnAdd.Click += BtnAdd_Click;
             btnSubstract.Click += BtnSubstract_Click;
             btnMultiply.Click += BtnMultiply_Click;
             btnDivide.Click += BtnDivide_Click;
-            btnDecimal.Click += BtnDecimal_Click;
-            btnSign.Click += BtnSign_Click;
+            btnDecimal.Click += BtnFactor_Click;
+            btnSign.Click += BtnFactor_Click;
             btnEquals.Click += BtnEquals_Click;
             btnClear.Click += BtnClear_Click;
         }
@@ -79,7 +79,7 @@ namespace CalculatorWinForms
                     value = "";
                 }
             }
-            else if (value == "+-")
+            else if (value == "-/+")
             {
                 value = "";
                 if (factorval.StartsWith("-") == false) {
@@ -166,10 +166,6 @@ namespace CalculatorWinForms
             txtAnswer.Text = "";
         }
 
-        private void BtnSign_Click(object? sender, EventArgs e)
-        {
-            InputFactor("+-");
-        }
 
         private void BtnEquals_Click(object? sender, EventArgs e)
         {
@@ -191,64 +187,17 @@ namespace CalculatorWinForms
             txtOperator.Text = btnSubstract.Text;
         }
 
-        private void BtnDecimal_Click(object? sender, EventArgs e)
-        {
-            InputFactor(".");
-        }
 
         private void BtnAdd_Click(object? sender, EventArgs e)
         {
             txtOperator.Text = btnAdd.Text;
         }
 
-        private void Btn0_Click(object? sender, EventArgs e)
+        private void BtnFactor_Click(object? sender, EventArgs e)
         {
-            InputFactor("0");
+            Button btn = (Button)sender;
+            InputFactor(btn.Text);
         }
 
-        private void Btn9_Click(object? sender, EventArgs e)
-        {
-            InputFactor("9");
-        }
-
-        private void Btn8_Click(object? sender, EventArgs e)
-        {
-            InputFactor("8");
-        }
-
-        private void Btn7_Click(object? sender, EventArgs e)
-        {
-            InputFactor("7");
-        }
-
-        private void Btn6_Click(object? sender, EventArgs e)
-        {
-            InputFactor("6");
-        }
-
-        private void Btn5_Click(object? sender, EventArgs e)
-        {
-            InputFactor(btn5.Text);
-        }
-
-        private void Btn4_Click(object? sender, EventArgs e)
-        {
-            InputFactor(btn4.Text);
-        }
-
-        private void Btn3_Click(object? sender, EventArgs e)
-        {
-            InputFactor(btn3.Text);
-        }
-
-        private void Btn2_Click(object? sender, EventArgs e)
-        {
-            InputFactor(btn2.Text);
-        }
-
-        private void Btn1_Click(object? sender, EventArgs e)
-        {
-            InputFactor(btn1.Text);
-        }
     }
 }
