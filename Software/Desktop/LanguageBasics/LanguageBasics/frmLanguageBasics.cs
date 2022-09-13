@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Specialized;
+using System.Reflection;
 
 namespace LanguageBasics
 {
@@ -18,7 +19,7 @@ namespace LanguageBasics
     {
         int nform = 0;
         int noutputincrementer = 0;
-        System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer() { Interval = 1};
+        System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer() { Interval = 1 };
         System.Windows.Forms.Timer tmrrandomword = new();
         private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12, TripleLine = 13 }
         private enum DBServerTypeEnum { Local, Azure }
@@ -89,7 +90,7 @@ namespace LanguageBasics
                     break;
             }
 
-            s = value + lineseparator + txtOutput.Text ;
+            s = value + lineseparator + txtOutput.Text;
 
             return s;
         }
@@ -116,13 +117,14 @@ namespace LanguageBasics
             DisplayMessage(s, clearbox);
         }
 
-        private void DisplayHeader(string caption, bool clearbox = false) {
+        private void DisplayHeader(string caption, bool clearbox = false)
+        {
             DisplayMessage("-----------" + caption + "-----------^^");
         }
 
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
-           Random rnd = new();
+            Random rnd = new();
             var c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
             return c;
         }
@@ -173,7 +175,8 @@ namespace LanguageBasics
             gOutput.DataSource = dt;
         }
 
-        private string GenerateRandomWord() {
+        private string GenerateRandomWord()
+        {
             StringBuilder sb = new StringBuilder();
             Random rnd = new Random();
             for (int i = 1; i < 11; i++)
@@ -184,7 +187,8 @@ namespace LanguageBasics
             return sb.ToString();
         }
 
-        private void ShowCurrentTime() {
+        private void ShowCurrentTime()
+        {
             DisplayMessage(DateTime.Now.ToString("HH:mm:ss:fff"));
         }
 
@@ -194,7 +198,7 @@ namespace LanguageBasics
         }
         private void Tmr_Tick(object? sender, EventArgs e)
         {
-            ShowCurrentTime();   
+            ShowCurrentTime();
         }
 
         private void BtnTimer2_Click(object? sender, EventArgs e)
@@ -209,7 +213,8 @@ namespace LanguageBasics
         private void BtnWhile2_Click(object? sender, EventArgs e)
         {
             DateTime starttime = DateTime.Now;
-            while ((DateTime.Now - starttime).TotalSeconds <= 20) {
+            while ((DateTime.Now - starttime).TotalSeconds <= 20)
+            {
                 DisplayMessage(GenerateRandomWord());
                 Application.DoEvents();
             }
@@ -218,7 +223,8 @@ namespace LanguageBasics
         private void BtnWhile1_Click(object? sender, EventArgs e)
         {
             DateTime starttime = DateTime.Now;
-            while ((DateTime.Now - starttime).TotalSeconds <= 15) {
+            while ((DateTime.Now - starttime).TotalSeconds <= 15)
+            {
                 ShowCurrentTime();
                 Application.DoEvents();
             }
@@ -226,10 +232,11 @@ namespace LanguageBasics
 
         private void BtnForEach2_Click(object? sender, EventArgs e)
         {
-            foreach (Control c in this.Controls) {
+            foreach (Control c in this.Controls)
+            {
                 c.BackColor = GetRandomColor();
             }
-           
+
             foreach (Control c in tblMain.Controls)
             {
                 c.BackColor = GetRandomColor();
@@ -245,7 +252,8 @@ namespace LanguageBasics
         private void BtnForEach1_Click(object? sender, EventArgs e)
         {
             DataTable dt = GetDataTable("select recordname from worldrecord");
-            foreach (DataRow dr in dt.Rows) {
+            foreach (DataRow dr in dt.Rows)
+            {
                 DisplayValueAndCaption(dr[0].ToString());
             }
         }
@@ -631,13 +639,71 @@ namespace LanguageBasics
 
         }
 
+        private void ShowWordList(List<string> lstword) {
+            foreach (var s in lstword) {
+                DisplayValueAndCaption(s);
+            }
+        }
+
         private void BtnList2_Click(object? sender, EventArgs e)
         {
+            List<string> lstword = new() { "apple", "boy", "candy", "dog", "egg" };
+            DisplayHeader("Enumerate through the list");
+            ShowWordList(lstword);
+            DisplayHeader("Add another word");
+            lstword.Add("frog");
+            ShowWordList(lstword);
+            DisplayHeader("Remove a word");
+            lstword.Remove("apple");
+            ShowWordList(lstword);
+            DisplayHeader("Get a word by index");
+            string s = lstword[1];
+            DisplayValueAndCaption(s);
+            DisplayHeader("Count the items in list");
+            DisplayValueAndCaption(lstword.Count().ToString());
+            DisplayHeader("Clear the list");
+            lstword.Clear();
+            ShowWordList(lstword);
 
         }
 
+
+        private void ShowButtonList(List<Button> lstbtn, Color colorval)
+        {
+            foreach (Button btn in lstbtn)
+            {
+                DisplayValueAndCaption(btn.Text);
+                btn.BackColor = colorval;
+            }
+
+        }
         private void BtnList1_Click(object? sender, EventArgs e)
         {
+            List<Button> lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
+
+            //Enumerate through the list
+            DisplayHeader("Enumerate through the list");
+            ShowButtonList(lstbtn, Color.Red);
+            //Add another button
+            DisplayHeader("Add another button");
+            lstbtn.Add(btnAddControl1);
+            ShowButtonList(lstbtn, Color.Green);
+            //Remove a button
+            DisplayHeader("Remove a button");
+            lstbtn.Remove(btnEnumerable1);
+            ShowButtonList(lstbtn, Color.Purple);
+            //Get a button by index
+            DisplayHeader("Get a button by index");
+            Button btn = lstbtn[0];
+            DisplayValueAndCaption(btn.Text);
+            btn.BackColor = Color.Yellow;
+            //Count the items in list
+            DisplayHeader("Count the items in list");
+            DisplayValueAndCaption(lstbtn.Count().ToString());
+            //Clear the list
+            DisplayHeader("Clear the list");
+            lstbtn.Clear();
+            ShowButtonList(lstbtn, Color.Beige);
 
         }
 
