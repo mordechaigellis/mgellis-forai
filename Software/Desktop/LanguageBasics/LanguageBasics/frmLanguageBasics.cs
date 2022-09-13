@@ -58,9 +58,11 @@ namespace LanguageBasics
             btnTimer2.Click += BtnTimer2_Click;
             tmr.Tick += Tmr_Tick;
             tmrrandomword.Tick += Tmrrandomword_Tick;
+            btnList1.Click += BtnList1_Click;
+            btnList2.Click += BtnList2_Click;
+            btnEnumerable1.Click += BtnEnumerable1_Click;
+            btnEnumerable2.Click += BtnEnumerable2_Click;
         }
-
-        
 
         private void IncrementOutputMessageVariable()
         {
@@ -618,7 +620,27 @@ namespace LanguageBasics
             IncrementOutputMessageVariable();
         }
 
-        //code goes here
+
+        private void BtnEnumerable2_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnEnumerable1_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnList2_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnList1_Click(object? sender, EventArgs e)
+        {
+
+        }
+
     }
 
 }
