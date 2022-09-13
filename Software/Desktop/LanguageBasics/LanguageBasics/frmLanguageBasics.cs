@@ -114,6 +114,10 @@ namespace LanguageBasics
             DisplayMessage(s, clearbox);
         }
 
+        private void DisplayHeader(string caption, bool clearbox = false) {
+            DisplayMessage("-----------" + caption + "-----------^^");
+        }
+
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
            Random rnd = new();
