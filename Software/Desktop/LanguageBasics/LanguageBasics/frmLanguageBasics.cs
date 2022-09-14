@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Collections.Specialized;
-using System.Reflection;
+using gnuciDictionary;
 
 namespace LanguageBasics
 {
@@ -21,6 +12,8 @@ namespace LanguageBasics
         int noutputincrementer = 0;
         System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer() { Interval = 1 };
         System.Windows.Forms.Timer tmrrandomword = new();
+        List<Button> lstbtn;
+        List<string> lstword = new() { "apple", "boy", "candy", "dog", "egg" };
         private enum LineSeparatorEnum { NewLine = 10, TripleDash = 11, Colon = 12, TripleLine = 13 }
         private enum DBServerTypeEnum { Local, Azure }
         public frmLanguageBasics()
@@ -63,6 +56,8 @@ namespace LanguageBasics
             btnList2.Click += BtnList2_Click;
             btnEnumerable1.Click += BtnEnumerable1_Click;
             btnEnumerable2.Click += BtnEnumerable2_Click;
+
+            lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
         }
 
         private void IncrementOutputMessageVariable()
@@ -631,23 +626,59 @@ namespace LanguageBasics
 
         private void BtnEnumerable2_Click(object? sender, EventArgs e)
         {
-
+            DisplayHeader("Display all items in the list");
+            lstword.ForEach(s => DisplayValueAndCaption(s));
+            DisplayHeader("Display the count items with that letter");
+            DisplayValueAndCaption(lstword.Count(s => s.ToLower().Contains("e")).ToString());
+            DisplayHeader("Display true / false if any items contain that letter uppercase");
+            DisplayValueAndCaption(lstword.Exists(s=> s.Contains("E")).ToString());
+            DisplayHeader("In one line of code change the all items that contain that letter.");
+            lstword.
+                Where(s => s.ToLower().Contains("e"))
+                .ToList()
+                .ForEach(s => DisplayValueAndCaption(s.Replace("e", "8")));
+            DisplayHeader("Create a function that takes a button as a parameter and have that function change the button in 3 ways.Call that function in a for each using the shorthand method.");
+            lstword.ForEach(ChangeWord);
         }
 
+        private void ChangeWord(string word) {
+            DisplayValueAndCaption(string.Concat(word.ToUpper().Replace("E", "0").Reverse()));
+        }
         private void BtnEnumerable1_Click(object? sender, EventArgs e)
         {
+            DisplayHeader("Display all items in the list");
+            lstbtn.ForEach(btn => DisplayValueAndCaption(btn.Text));
 
+            DisplayHeader("Display the count items with that letter");
+            DisplayValueAndCaption(lstbtn.Count(btn => btn.Text.ToLower().Contains("o")).ToString());
+            DisplayHeader("Display true / false if any items contain that letter uppercase");
+            DisplayValueAndCaption(lstbtn.Exists(btn => btn.Text.Contains("O")).ToString());
+            DisplayHeader("In one line of code change the all items that contain that letter.");
+            lstbtn.Where(btn => btn.Text.Contains("o")).ToList().ForEach(btn => btn.BackColor = Color.Orange);
+            DisplayHeader("Create a function that takes a button as a parameter and have that function change the button in 3 ways.Call that function in a for each using the shorthand method.");
+            lstbtn.ForEach(ChangeButton);
         }
 
-        private void ShowWordList(List<string> lstword) {
-            foreach (var s in lstword) {
+        private void ChangeButton(Button btn)
+        {
+            btn.BackColor = GetRandomColor();
+            btn.ForeColor = GetRandomColor();
+            btn.Dock = DockStyle.None;
+            //btn.Height = btn.Height - 5;
+            btn.Text = String.Concat(btn.Text.Reverse());
+
+        }
+        private void ShowWordList(List<string> lst)
+        {
+            foreach (var s in lst)
+            {
                 DisplayValueAndCaption(s);
             }
         }
 
         private void BtnList2_Click(object? sender, EventArgs e)
         {
-            List<string> lstword = new() { "apple", "boy", "candy", "dog", "egg" };
+
             DisplayHeader("Enumerate through the list");
             ShowWordList(lstword);
             DisplayHeader("Add another word");
@@ -668,9 +699,9 @@ namespace LanguageBasics
         }
 
 
-        private void ShowButtonList(List<Button> lstbtn, Color colorval)
+        private void ShowButtonList(List<Button> lst, Color colorval)
         {
-            foreach (Button btn in lstbtn)
+            foreach (Button btn in lst)
             {
                 DisplayValueAndCaption(btn.Text);
                 btn.BackColor = colorval;
@@ -679,7 +710,7 @@ namespace LanguageBasics
         }
         private void BtnList1_Click(object? sender, EventArgs e)
         {
-            List<Button> lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
+
 
             //Enumerate through the list
             DisplayHeader("Enumerate through the list");
@@ -704,7 +735,11 @@ namespace LanguageBasics
             DisplayHeader("Clear the list");
             lstbtn.Clear();
             ShowButtonList(lstbtn, Color.Beige);
-
+            ////
+            List<Word> lstw = gnuciDictionary.EnglishDictionary.GetAllWords().ToList();
+            DisplayValueAndCaption(lstw.Count().ToString());
+            DisplayValueAndCaption(lstw[101].Value);
+            DisplayValueAndCaption(lstw[101].Definition);
         }
 
     }
