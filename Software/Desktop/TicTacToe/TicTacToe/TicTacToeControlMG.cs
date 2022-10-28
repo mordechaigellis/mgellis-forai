@@ -26,16 +26,19 @@ namespace TicTacToe
         }
 
         private void DoTurn(Button btn) {
-            btn.Text = currentturn.ToString();
+            if (btn.Text == "")
+            {
+                btn.Text = currentturn.ToString();
 
-            //switch turn
-            if (currentturn == TurnEnum.X)
-            {
-                currentturn = TurnEnum.O;
-            }
-            else
-            {
-                currentturn = TurnEnum.X;
+                //switch turn
+                if (currentturn == TurnEnum.X)
+                {
+                    currentturn = TurnEnum.O;
+                }
+                else
+                {
+                    currentturn = TurnEnum.X;
+                }
             }
         }
 
