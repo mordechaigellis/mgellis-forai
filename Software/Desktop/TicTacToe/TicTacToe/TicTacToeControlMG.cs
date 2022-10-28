@@ -25,21 +25,25 @@ namespace TicTacToe
             lstbuttons.ForEach(b => b.Click += SpotButton_Click);
         }
 
+        private void DoTurn(Button btn) {
+            btn.Text = currentturn.ToString();
+
+            //switch turn
+            if (currentturn == TurnEnum.X)
+            {
+                currentturn = TurnEnum.O;
+            }
+            else
+            {
+                currentturn = TurnEnum.X;
+            }
+        }
+
         private void SpotButton_Click(object? sender, EventArgs e)
         {
             if (sender is Button)
             {
-                Button btn = (Button)sender;
-                btn.Text = currentturn.ToString();
-
-                //switch turn
-                if (currentturn == TurnEnum.X)
-                {
-                    currentturn = TurnEnum.O;
-                }
-                else {
-                    currentturn = TurnEnum.X;
-                }
+                DoTurn((Button)sender);
             }
 
         }
