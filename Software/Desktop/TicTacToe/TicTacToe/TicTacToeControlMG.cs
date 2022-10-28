@@ -12,6 +12,8 @@ namespace TicTacToe
 {
     public partial class TicTacToeControlMG : TicTacToeControl
     {
+        enum TurnEnum { X, O};
+        TurnEnum currentturn = TurnEnum.X;
 
         List<Button> lstbuttons;
         public TicTacToeControlMG()
@@ -25,9 +27,24 @@ namespace TicTacToe
 
         private void SpotButton_Click(object? sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            btn.Text = "X";
+            if (sender is Button)
+            {
+                Button btn = (Button)sender;
+                btn.Text = currentturn.ToString();
+
+                //switch turn
+                if (currentturn == TurnEnum.X)
+                {
+                    currentturn = TurnEnum.O;
+                }
+                else {
+                    currentturn = TurnEnum.X;
+                }
+            }
 
         }
+        
+        //move the turn taking and alternating in to a procedure call DoTurn
+        //do not allow a user to click on a button that is already taken
     }
 }
