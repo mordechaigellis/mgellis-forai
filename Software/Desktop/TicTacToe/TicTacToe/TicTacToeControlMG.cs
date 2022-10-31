@@ -39,9 +39,14 @@ namespace TicTacToe
                 {
                     currentturn = TurnEnum.X;
                 }
+                DisplayCurrentTurn();
             }
         }
 
+
+        private void DisplayCurrentTurn() {
+            lblStatus.Text = "Current Turn: " + currentturn.ToString();
+        }
         private void SpotButton_Click(object? sender, EventArgs e)
         {
             if (sender is Button)
@@ -50,8 +55,6 @@ namespace TicTacToe
             }
 
         }
-        
-        //move the turn taking and alternating in to a procedure call DoTurn
-        //do not allow a user to click on a button that is already taken
+        //display the current turn
     }
 }

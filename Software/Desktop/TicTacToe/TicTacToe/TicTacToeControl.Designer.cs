@@ -61,8 +61,8 @@
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 3;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.09534F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.90466F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.64433F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.35567F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.Size = new System.Drawing.Size(692, 451);
             this.tblMain.TabIndex = 0;
@@ -77,22 +77,23 @@
             this.tblToolbar.Controls.Add(this.btnStart, 0, 0);
             this.tblToolbar.Controls.Add(this.optTwoPlayer, 1, 0);
             this.tblToolbar.Controls.Add(this.optPlayComputer, 2, 0);
-            this.tblToolbar.Controls.Add(this.lblStatus, 3, 0);
+            this.tblToolbar.Controls.Add(this.lblStatus, 0, 1);
             this.tblToolbar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblToolbar.Location = new System.Drawing.Point(3, 3);
             this.tblToolbar.Name = "tblToolbar";
-            this.tblToolbar.RowCount = 1;
-            this.tblToolbar.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblToolbar.Size = new System.Drawing.Size(686, 47);
+            this.tblToolbar.RowCount = 2;
+            this.tblToolbar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblToolbar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblToolbar.Size = new System.Drawing.Size(686, 74);
             this.tblToolbar.TabIndex = 0;
             // 
             // btnStart
             // 
             this.btnStart.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnStart.AutoSize = true;
-            this.btnStart.Location = new System.Drawing.Point(3, 9);
+            this.btnStart.Location = new System.Drawing.Point(3, 3);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(88, 35);
+            this.btnStart.Size = new System.Drawing.Size(88, 31);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "&Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -101,7 +102,7 @@
             // 
             this.optTwoPlayer.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.optTwoPlayer.AutoSize = true;
-            this.optTwoPlayer.Location = new System.Drawing.Point(97, 12);
+            this.optTwoPlayer.Location = new System.Drawing.Point(97, 4);
             this.optTwoPlayer.Name = "optTwoPlayer";
             this.optTwoPlayer.Size = new System.Drawing.Size(97, 29);
             this.optTwoPlayer.TabIndex = 1;
@@ -113,7 +114,7 @@
             // 
             this.optPlayComputer.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.optPlayComputer.AutoSize = true;
-            this.optPlayComputer.Location = new System.Drawing.Point(200, 12);
+            this.optPlayComputer.Location = new System.Drawing.Point(200, 4);
             this.optPlayComputer.Name = "optPlayComputer";
             this.optPlayComputer.Size = new System.Drawing.Size(254, 29);
             this.optPlayComputer.TabIndex = 2;
@@ -125,10 +126,11 @@
             // 
             this.lblStatus.BackColor = System.Drawing.Color.LightYellow;
             this.lblStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tblToolbar.SetColumnSpan(this.lblStatus, 4);
             this.lblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblStatus.Location = new System.Drawing.Point(460, 0);
+            this.lblStatus.Location = new System.Drawing.Point(3, 37);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(223, 53);
+            this.lblStatus.Size = new System.Drawing.Size(680, 37);
             this.lblStatus.TabIndex = 3;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -148,13 +150,13 @@
             this.tblSpots.Controls.Add(this.btn8, 1, 2);
             this.tblSpots.Controls.Add(this.btn9, 2, 2);
             this.tblSpots.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblSpots.Location = new System.Drawing.Point(3, 56);
+            this.tblSpots.Location = new System.Drawing.Point(3, 83);
             this.tblSpots.Name = "tblSpots";
             this.tblSpots.RowCount = 3;
             this.tblSpots.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tblSpots.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tblSpots.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblSpots.Size = new System.Drawing.Size(686, 351);
+            this.tblSpots.Size = new System.Drawing.Size(686, 324);
             this.tblSpots.TabIndex = 1;
             // 
             // btn1
@@ -162,7 +164,7 @@
             this.btn1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn1.Location = new System.Drawing.Point(3, 3);
             this.btn1.Name = "btn1";
-            this.btn1.Size = new System.Drawing.Size(222, 111);
+            this.btn1.Size = new System.Drawing.Size(222, 102);
             this.btn1.TabIndex = 0;
             this.btn1.UseVisualStyleBackColor = true;
             // 
@@ -171,7 +173,7 @@
             this.btn2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn2.Location = new System.Drawing.Point(231, 3);
             this.btn2.Name = "btn2";
-            this.btn2.Size = new System.Drawing.Size(222, 111);
+            this.btn2.Size = new System.Drawing.Size(222, 102);
             this.btn2.TabIndex = 1;
             this.btn2.UseVisualStyleBackColor = true;
             // 
@@ -180,61 +182,61 @@
             this.btn3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn3.Location = new System.Drawing.Point(459, 3);
             this.btn3.Name = "btn3";
-            this.btn3.Size = new System.Drawing.Size(224, 111);
+            this.btn3.Size = new System.Drawing.Size(224, 102);
             this.btn3.TabIndex = 2;
             this.btn3.UseVisualStyleBackColor = true;
             // 
             // btn4
             // 
             this.btn4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn4.Location = new System.Drawing.Point(3, 120);
+            this.btn4.Location = new System.Drawing.Point(3, 111);
             this.btn4.Name = "btn4";
-            this.btn4.Size = new System.Drawing.Size(222, 111);
+            this.btn4.Size = new System.Drawing.Size(222, 102);
             this.btn4.TabIndex = 3;
             this.btn4.UseVisualStyleBackColor = true;
             // 
             // btn5
             // 
             this.btn5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn5.Location = new System.Drawing.Point(231, 120);
+            this.btn5.Location = new System.Drawing.Point(231, 111);
             this.btn5.Name = "btn5";
-            this.btn5.Size = new System.Drawing.Size(222, 111);
+            this.btn5.Size = new System.Drawing.Size(222, 102);
             this.btn5.TabIndex = 4;
             this.btn5.UseVisualStyleBackColor = true;
             // 
             // btn6
             // 
             this.btn6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn6.Location = new System.Drawing.Point(459, 120);
+            this.btn6.Location = new System.Drawing.Point(459, 111);
             this.btn6.Name = "btn6";
-            this.btn6.Size = new System.Drawing.Size(224, 111);
+            this.btn6.Size = new System.Drawing.Size(224, 102);
             this.btn6.TabIndex = 5;
             this.btn6.UseVisualStyleBackColor = true;
             // 
             // btn7
             // 
             this.btn7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn7.Location = new System.Drawing.Point(3, 237);
+            this.btn7.Location = new System.Drawing.Point(3, 219);
             this.btn7.Name = "btn7";
-            this.btn7.Size = new System.Drawing.Size(222, 111);
+            this.btn7.Size = new System.Drawing.Size(222, 102);
             this.btn7.TabIndex = 6;
             this.btn7.UseVisualStyleBackColor = true;
             // 
             // btn8
             // 
             this.btn8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn8.Location = new System.Drawing.Point(231, 237);
+            this.btn8.Location = new System.Drawing.Point(231, 219);
             this.btn8.Name = "btn8";
-            this.btn8.Size = new System.Drawing.Size(222, 111);
+            this.btn8.Size = new System.Drawing.Size(222, 102);
             this.btn8.TabIndex = 7;
             this.btn8.UseVisualStyleBackColor = true;
             // 
             // btn9
             // 
             this.btn9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn9.Location = new System.Drawing.Point(459, 237);
+            this.btn9.Location = new System.Drawing.Point(459, 219);
             this.btn9.Name = "btn9";
-            this.btn9.Size = new System.Drawing.Size(224, 111);
+            this.btn9.Size = new System.Drawing.Size(224, 102);
             this.btn9.TabIndex = 8;
             this.btn9.UseVisualStyleBackColor = true;
             // 
