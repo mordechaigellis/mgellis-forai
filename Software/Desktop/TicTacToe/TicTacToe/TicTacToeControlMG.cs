@@ -12,32 +12,37 @@ namespace TicTacToe
 {
     public partial class TicTacToeControlMG : TicTacToeControl
     {
-        enum TurnEnum { X, O};
+        enum TurnEnum { X, O };
         TurnEnum currentturn = TurnEnum.X;
 
+        enum GameStatusEnum { NotStarted, Playing, Tie, Winner }
+        GameStatusEnum gamestatus =  GameStatusEnum.NotStarted ;
+
         List<Button> lstbuttons;
-        bool gameactive = false;
+
         public TicTacToeControlMG()
         {
             InitializeComponent();
             lblName.Text = "MG";
-            lstbuttons = new() { btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9};
+            lstbuttons = new() { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9 };
 
             lstbuttons.ForEach(b => b.Click += SpotButton_Click);
             btnStart.Click += BtnStart_Click;
             DisplayGameStatus();
         }
 
-        private void StartGame() {
+        private void StartGame()
+        {
             lstbuttons.ForEach(b => b.Text = "");
-            gameactive = true;
+            gamestatus = GameStatusEnum.Playing;
             currentturn = TurnEnum.X;
             DisplayGameStatus();
         }
 
 
-        private void DoTurn(Button btn) {
-            if (btn.Text == "" && gameactive == true)
+        private void DoTurn(Button btn)
+        {
+            if (btn.Text == "" && gamestatus ==  GameStatusEnum.Playing)
             {
                 btn.Text = currentturn.ToString();
 
@@ -50,18 +55,31 @@ namespace TicTacToe
                 {
                     currentturn = TurnEnum.X;
                 }
+                DetectTie();
                 DisplayGameStatus();
             }
         }
 
-        private void DisplayGameStatus() {
+        private void DetectTie() {
+            if (lstbuttons.Where(b => b.Text == "").Count() == 0) {
+                gamestatus = GameStatusEnum.Tie;
+            }
+        }
+
+        private void DisplayGameStatus()
+        {
             string msg = "Click Start to begin Game";
 
-            if(gameactive == true)
+            switch (gamestatus)
             {
-                msg = "Current Turn: " + currentturn.ToString();
+                case GameStatusEnum.Playing:
+                    msg = "Current Turn: " + currentturn.ToString();
+                    break;
+                case GameStatusEnum.Tie:
+                    msg = "Tie";
+                    break;
             }
-            
+
             lblStatus.Text = msg;
         }
         private void SpotButton_Click(object? sender, EventArgs e)
@@ -79,6 +97,6 @@ namespace TicTacToe
         }
 
         //detect tie
-        
+
     }
 }
