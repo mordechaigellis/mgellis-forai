@@ -16,7 +16,7 @@ namespace TicTacToe
         TurnEnum currentturn = TurnEnum.X;
 
         enum GameStatusEnum { NotStarted, Playing, Tie, Winner }
-        GameStatusEnum gamestatus =  GameStatusEnum.NotStarted ;
+        GameStatusEnum gamestatus = GameStatusEnum.NotStarted;
 
         List<Button> lstbuttons;
 
@@ -43,35 +43,72 @@ namespace TicTacToe
 
         private void DoTurn(Button btn)
         {
-            if (btn.Text == "" && gamestatus ==  GameStatusEnum.Playing)
+            if (btn.Text == "" && gamestatus == GameStatusEnum.Playing)
             {
                 btn.Text = currentturn.ToString();
+                /*
+     1,2,3
+     4,5,6
+     7,8,9
+      */
+                DetectWinner(btn1, btn2, btn3);
+                DetectWinner(btn4, btn5, btn6);
+                DetectWinner(btn7, btn8, btn9);
 
-                //switch turn
-                if (currentturn == TurnEnum.X)
+                DetectWinner(btn1, btn4, btn7);
+                DetectWinner(btn2, btn5, btn8);
+                DetectWinner(btn3, btn6, btn9);
+
+                DetectWinner(btn1, btn5, btn9);
+                DetectWinner(btn3, btn5, btn7);
+
+                if (gamestatus == GameStatusEnum.Playing)
                 {
-                    currentturn = TurnEnum.O;
+                    DetectTie();
+                    //switch turn
+                    if (currentturn == TurnEnum.X)
+                    {
+                        currentturn = TurnEnum.O;
+                    }
+                    else
+                    {
+                        currentturn = TurnEnum.X;
+                    }
                 }
-                else
-                {
-                    currentturn = TurnEnum.X;
-                }
-                DetectTie();
+
                 DisplayGameStatus();
             }
         }
 
-        private void DetectTie() {
-            if (lstbuttons.Where(b => b.Text == "").Count() == 0) {
+        private void DetectWinner(Button b1, Button b2, Button b3)
+        {
+            if (b1.Text == currentturn.ToString() && b2.Text == currentturn.ToString() && b3.Text == currentturn.ToString())
+            {
+                Color c = Color.Yellow;
+                gamestatus = GameStatusEnum.Winner;
+                b1.BackColor = c;
+                b2.BackColor = c;
+                b3.BackColor = c;
+
+            }
+        }
+
+
+        private void DetectTie()
+        {
+            if (lstbuttons.Where(b => b.Text == "").Count() == 0)
+            {
                 gamestatus = GameStatusEnum.Tie;
                 SetButtonsBackcolor();
             }
         }
 
-        private void SetButtonsBackcolor() {
+        private void SetButtonsBackcolor()
+        {
             Color c = Button.DefaultBackColor;
 
-            switch (gamestatus) {
+            switch (gamestatus)
+            {
                 case GameStatusEnum.Tie:
                     c = Color.White;
                     break;
@@ -90,6 +127,9 @@ namespace TicTacToe
                 case GameStatusEnum.Tie:
                     msg = "Tie";
                     break;
+                case GameStatusEnum.Winner:
+                    msg = "Winner is: " + currentturn.ToString();
+                    break;
             }
 
             lblStatus.Text = msg;
@@ -107,8 +147,5 @@ namespace TicTacToe
         {
             StartGame();
         }
-
-        //detect winner
-
     }
 }
