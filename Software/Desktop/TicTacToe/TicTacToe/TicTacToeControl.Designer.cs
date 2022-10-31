@@ -102,6 +102,7 @@
             // 
             this.optTwoPlayer.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.optTwoPlayer.AutoSize = true;
+            this.optTwoPlayer.Checked = true;
             this.optTwoPlayer.Location = new System.Drawing.Point(97, 4);
             this.optTwoPlayer.Name = "optTwoPlayer";
             this.optTwoPlayer.Size = new System.Drawing.Size(97, 29);
@@ -118,7 +119,6 @@
             this.optPlayComputer.Name = "optPlayComputer";
             this.optPlayComputer.Size = new System.Drawing.Size(254, 29);
             this.optPlayComputer.TabIndex = 2;
-            this.optPlayComputer.TabStop = true;
             this.optPlayComputer.Text = "Play &Against the Computer";
             this.optPlayComputer.UseVisualStyleBackColor = true;
             // 
