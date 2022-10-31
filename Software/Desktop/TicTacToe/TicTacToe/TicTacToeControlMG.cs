@@ -20,14 +20,33 @@ namespace TicTacToe
 
         List<Button> lstbuttons;
 
+        List<List<Button>> lstwinningsets;
+        Color defaultbackcolor;
         public TicTacToeControlMG()
         {
             InitializeComponent();
             lblName.Text = "MG";
+            defaultbackcolor = btn1.BackColor;
             lstbuttons = new() { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9 };
 
             lstbuttons.ForEach(b => b.Click += SpotButton_Click);
             btnStart.Click += BtnStart_Click;
+            /*
+1,2,3
+4,5,6
+7,8,9
+*/
+            lstwinningsets = new() {
+                new() { btn1, btn2, btn3},
+                new() {btn4, btn5, btn6},
+                new() {btn7, btn8, btn9},
+                new() {btn1, btn4, btn7},
+                new() {btn2, btn5, btn8},
+                new() {btn3, btn6, btn9},
+                new() {btn1, btn5, btn9},
+                new() {btn3, btn5, btn7}
+            };
+
             DisplayGameStatus();
         }
 
@@ -37,7 +56,7 @@ namespace TicTacToe
             gamestatus = GameStatusEnum.Playing;
             currentturn = TurnEnum.X;
             DisplayGameStatus();
-            SetButtonsBackcolor();
+            SetButtonsBackcolor(lstbuttons);
         }
 
 
@@ -46,22 +65,9 @@ namespace TicTacToe
             if (btn.Text == "" && gamestatus == GameStatusEnum.Playing)
             {
                 btn.Text = currentturn.ToString();
-                /*
-     1,2,3
-     4,5,6
-     7,8,9
-      */
-                DetectWinner(btn1, btn2, btn3);
-                DetectWinner(btn4, btn5, btn6);
-                DetectWinner(btn7, btn8, btn9);
-
-                DetectWinner(btn1, btn4, btn7);
-                DetectWinner(btn2, btn5, btn8);
-                DetectWinner(btn3, btn6, btn9);
-
-                DetectWinner(btn1, btn5, btn9);
-                DetectWinner(btn3, btn5, btn7);
-
+         
+                lstwinningsets.ForEach(l => DetectWinner(l));
+           
                 if (gamestatus == GameStatusEnum.Playing)
                 {
                     DetectTie();
@@ -80,16 +86,14 @@ namespace TicTacToe
             }
         }
 
-        private void DetectWinner(Button b1, Button b2, Button b3)
+        private void DetectWinner(List<Button> lst)
         {
-            if (b1.Text == currentturn.ToString() && b2.Text == currentturn.ToString() && b3.Text == currentturn.ToString())
+            if (lst.Where(b => b.Text == currentturn.ToString()).Count() == lst.Count())
             {
                 Color c = Color.Yellow;
                 gamestatus = GameStatusEnum.Winner;
-                b1.BackColor = c;
-                b2.BackColor = c;
-                b3.BackColor = c;
-
+                SetButtonsBackcolor(lst);
+                
             }
         }
 
@@ -99,21 +103,24 @@ namespace TicTacToe
             if (lstbuttons.Where(b => b.Text == "").Count() == 0)
             {
                 gamestatus = GameStatusEnum.Tie;
-                SetButtonsBackcolor();
+                SetButtonsBackcolor(lstbuttons);
             }
         }
 
-        private void SetButtonsBackcolor()
+        private void SetButtonsBackcolor(List<Button> lst)
         {
-            Color c = Button.DefaultBackColor;
+            Color c = defaultbackcolor;
 
             switch (gamestatus)
             {
                 case GameStatusEnum.Tie:
                     c = Color.White;
                     break;
+                case GameStatusEnum.Winner:
+                    c = Color.Yellow;
+                    break;
             }
-            lstbuttons.ForEach(b => b.BackColor = c);
+            lst.ForEach(b => b.BackColor = c);
         }
         private void DisplayGameStatus()
         {
