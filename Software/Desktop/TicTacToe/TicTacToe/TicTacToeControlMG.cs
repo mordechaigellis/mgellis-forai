@@ -16,6 +16,7 @@ namespace TicTacToe
         TurnEnum currentturn = TurnEnum.X;
 
         List<Button> lstbuttons;
+        bool gameactive = false;
         public TicTacToeControlMG()
         {
             InitializeComponent();
@@ -23,10 +24,20 @@ namespace TicTacToe
             lstbuttons = new() { btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9};
 
             lstbuttons.ForEach(b => b.Click += SpotButton_Click);
+            btnStart.Click += BtnStart_Click;
+            DisplayGameStatus();
         }
 
+        private void StartGame() {
+            lstbuttons.ForEach(b => b.Text = "");
+            gameactive = true;
+            currentturn = TurnEnum.X;
+            DisplayGameStatus();
+        }
+
+
         private void DoTurn(Button btn) {
-            if (btn.Text == "")
+            if (btn.Text == "" && gameactive == true)
             {
                 btn.Text = currentturn.ToString();
 
@@ -39,13 +50,19 @@ namespace TicTacToe
                 {
                     currentturn = TurnEnum.X;
                 }
-                DisplayCurrentTurn();
+                DisplayGameStatus();
             }
         }
 
+        private void DisplayGameStatus() {
+            string msg = "Click Start to begin Game";
 
-        private void DisplayCurrentTurn() {
-            lblStatus.Text = "Current Turn: " + currentturn.ToString();
+            if(gameactive == true)
+            {
+                msg = "Current Turn: " + currentturn.ToString();
+            }
+            
+            lblStatus.Text = msg;
         }
         private void SpotButton_Click(object? sender, EventArgs e)
         {
@@ -55,6 +72,13 @@ namespace TicTacToe
             }
 
         }
-        //display the current turn
+
+        private void BtnStart_Click(object? sender, EventArgs e)
+        {
+            StartGame();
+        }
+
+        //detect tie
+        
     }
 }
