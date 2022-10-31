@@ -37,6 +37,7 @@ namespace TicTacToe
             gamestatus = GameStatusEnum.Playing;
             currentturn = TurnEnum.X;
             DisplayGameStatus();
+            SetButtonsBackcolor();
         }
 
 
@@ -63,9 +64,20 @@ namespace TicTacToe
         private void DetectTie() {
             if (lstbuttons.Where(b => b.Text == "").Count() == 0) {
                 gamestatus = GameStatusEnum.Tie;
+                SetButtonsBackcolor();
             }
         }
 
+        private void SetButtonsBackcolor() {
+            Color c = Button.DefaultBackColor;
+
+            switch (gamestatus) {
+                case GameStatusEnum.Tie:
+                    c = Color.White;
+                    break;
+            }
+            lstbuttons.ForEach(b => b.BackColor = c);
+        }
         private void DisplayGameStatus()
         {
             string msg = "Click Start to begin Game";
@@ -96,7 +108,7 @@ namespace TicTacToe
             StartGame();
         }
 
-        //detect tie
+        //detect winner
 
     }
 }
