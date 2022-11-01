@@ -91,17 +91,17 @@ namespace TicTacToe
                         //offense
                         DoOffenseDefense(TurnEnum.O);
                         //if still the computer's turn because there was no offense move
-                        if (currentturn == TurnEnum.O)
+                        if (currentturn == TurnEnum.O && gamestatus == GameStatusEnum.Playing)
                         {
                             //defense
                             DoOffenseDefense(TurnEnum.X);
                         }
 
-                        if (currentturn == TurnEnum.O) {
+                        if (currentturn == TurnEnum.O &&  gamestatus == GameStatusEnum.Playing) {
                             DoPriorityButton();
                         }
 
-                        if (currentturn == TurnEnum.O) {
+                        if (currentturn == TurnEnum.O &&  gamestatus == GameStatusEnum.Playing) {
                             DoRandomButton();
                         }
                     }
