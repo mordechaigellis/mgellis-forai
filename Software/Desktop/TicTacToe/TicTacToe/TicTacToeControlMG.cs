@@ -21,6 +21,7 @@ namespace TicTacToe
         List<Button> lstbuttons;
 
         List<List<Button>> lstwinningsets;
+        List<Button> lstrankedbuttons;
         Color defaultbackcolor;
 
         bool playcomputer = false;
@@ -48,7 +49,8 @@ namespace TicTacToe
                 new() {btn1, btn5, btn9},
                 new() {btn3, btn5, btn7}
             };
-           
+
+            lstrankedbuttons = new() { btn5, btn1, btn3, btn7, btn9 };
             DisplayGameStatus();
         }
 
@@ -88,8 +90,15 @@ namespace TicTacToe
 
                         if (playcomputer == true && currentturn == TurnEnum.O)
                         {
-                            DoComputerTurn();
+                            DoComputerTurnOffenseDefense(TurnEnum.O);
 
+                            if (playcomputer == true && currentturn == TurnEnum.O)
+                            {
+                                DoComputerTurnOffenseDefense(TurnEnum.X);
+                                if (playcomputer == true && currentturn == TurnEnum.O) {
+                                    DoComputerTurnByRank();
+                                }
+                            }
                         }
                     }
                 }
@@ -98,11 +107,11 @@ namespace TicTacToe
             }
         }
 
-        private void DoComputerTurn()
+        private void DoComputerTurnOffenseDefense(TurnEnum turn)
         {
             //if playcomputer and its the computer turn DoComputerTurn - choose the button to go, call DoTurn
             var lst = lstwinningsets.Find(l =>
-                l.Count(b => b.Text == TurnEnum.O.ToString()) == 2
+                l.Count(b => b.Text == turn.ToString()) == 2
                 &&
                 l.Count(b => b.Text == "") == 1
             );
@@ -113,6 +122,16 @@ namespace TicTacToe
                 DoTurn(btn);
             }
         }
+
+        private void DoComputerTurnByRank() {
+            var btn = lstrankedbuttons.FirstOrDefault(b => b.Text == "");
+            if (btn != null)
+            {
+                DoTurn(btn);
+            }
+
+        }
+
         private void DetectWinner(List<Button> lst)
         {
             if (lst.Where(b => b.Text == currentturn.ToString()).Count() == lst.Count())
