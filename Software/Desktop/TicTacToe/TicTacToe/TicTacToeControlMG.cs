@@ -21,10 +21,7 @@ namespace TicTacToe
         List<Button> lstbuttons;
 
         List<List<Button>> lstwinningsets;
-        List<Button> lstrankedbuttons;
         Color defaultbackcolor;
-
-        bool playcomputer = false;
         public TicTacToeControlMG()
         {
             InitializeComponent();
@@ -32,7 +29,7 @@ namespace TicTacToe
             defaultbackcolor = btn1.BackColor;
             lstbuttons = new() { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9 };
 
-            lstbuttons.ForEach(b => {b.Enabled = false; b.Click += SpotButton_Click; });
+            lstbuttons.ForEach(b => b.Click += SpotButton_Click);
             btnStart.Click += BtnStart_Click;
             /*
 1,2,3
@@ -50,17 +47,15 @@ namespace TicTacToe
                 new() {btn3, btn5, btn7}
             };
 
-            lstrankedbuttons = new() { btn5, btn1, btn3, btn7, btn9 };
             DisplayGameStatus();
         }
 
         private void StartGame()
         {
-            lstbuttons.ForEach(b => {b.Enabled = true; b.Text = ""; });
+            lstbuttons.ForEach(b => b.Text = "");
             gamestatus = GameStatusEnum.Playing;
             currentturn = TurnEnum.X;
             DisplayGameStatus();
-            playcomputer = optPlayComputer.Checked;
             SetButtonsBackcolor(lstbuttons);
         }
 
@@ -77,77 +72,17 @@ namespace TicTacToe
                 {
                     DetectTie();
                     //switch turn
-                    if (gamestatus == GameStatusEnum.Playing)
+                    if (currentturn == TurnEnum.X)
                     {
-                        if (currentturn == TurnEnum.X)
-                        {
-                            currentturn = TurnEnum.O;
-                        }
-                        else
-                        {
-                            currentturn = TurnEnum.X;
-                        }
-
-                        if (IsComputerTurn())
-                        {
-                            //first attempt offense
-                            DoComputerTurnOffenseDefense(TurnEnum.O);
-
-                            if (IsComputerTurn())
-                            {
-                                //if no offense then defense
-                                DoComputerTurnOffenseDefense(TurnEnum.X);
-                                if (IsComputerTurn())
-                                {
-                                    //if no defense then get button with highest rank
-                                    DoComputerTurnByRank();
-                                    if (IsComputerTurn())
-                                    {
-                                        //if no ranked button then pick random blank button
-                                        DoComputerTurnByRandomButton();
-                                    }
-                                }
-                            }
-                        }
+                        currentturn = TurnEnum.O;
+                    }
+                    else
+                    {
+                        currentturn = TurnEnum.X;
                     }
                 }
 
                 DisplayGameStatus();
-            }
-        }
-
-        private bool IsComputerTurn() {
-            return playcomputer == true && gamestatus == GameStatusEnum.Playing && currentturn == TurnEnum.O;
-        }
-        private void DoComputerTurnOffenseDefense(TurnEnum turn)
-        {
-            //if playcomputer and its the computer turn DoComputerTurn - choose the button to go, call DoTurn
-            var lst = lstwinningsets.Find(l =>
-                l.Count(b => b.Text == turn.ToString()) == 2
-                &&
-                l.Count(b => b.Text == "") == 1
-            );
-
-            if (lst != null)
-            {
-                var btn = lst.First(b => b.Text == "");
-                DoTurn(btn);
-            }
-        }
-
-        private void DoComputerTurnByRank() {
-            var btn = lstrankedbuttons.FirstOrDefault(b => b.Text == "");
-            if (btn != null)
-            {
-                DoTurn(btn);
-            }
-        }
-
-        private void DoComputerTurnByRandomButton() {
-            var lst = lstbuttons.Where(b => b.Text == "").ToList();
-            if (lst.Count > 0) {
-                var btn = lst[new Random().Next(0, lst.Count)];
-                DoTurn(btn);
             }
         }
 
@@ -161,6 +96,7 @@ namespace TicTacToe
 
             }
         }
+
 
         private void DetectTie()
         {
