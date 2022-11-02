@@ -22,6 +22,8 @@ namespace TicTacToe
 
         List<List<Button>> lstwinningsets;
         Color defaultbackcolor;
+        bool playcomputer = false;
+
         public TicTacToeControlMG()
         {
             InitializeComponent();
@@ -55,6 +57,7 @@ namespace TicTacToe
             lstbuttons.ForEach(b => b.Text = "");
             gamestatus = GameStatusEnum.Playing;
             currentturn = TurnEnum.X;
+            playcomputer = optPlayComputer.Checked;
             DisplayGameStatus();
             SetButtonsBackcolor(lstbuttons);
         }
@@ -72,18 +75,32 @@ namespace TicTacToe
                 {
                     DetectTie();
                     //switch turn
-                    if (currentturn == TurnEnum.X)
+                    if (gamestatus == GameStatusEnum.Playing)
                     {
-                        currentturn = TurnEnum.O;
-                    }
-                    else
-                    {
-                        currentturn = TurnEnum.X;
+                        if (currentturn == TurnEnum.X)
+                        {
+                            currentturn = TurnEnum.O;
+                        }
+                        else
+                        {
+                            currentturn = TurnEnum.X;
+                        }
+
+                        if (currentturn == TurnEnum.O && playcomputer == true) {
+                            DoComputerTurn();
+                        }
                     }
                 }
 
                 DisplayGameStatus();
             }
+        }
+
+        private void DoComputerTurn() {
+            var lst = lstbuttons.Where(b => b.Text == "").ToList();
+            var btn = lst[new Random().Next(0,lst.Count())];
+            DoTurn(btn);
+            
         }
 
         private void DetectWinner(List<Button> lst)
@@ -138,6 +155,8 @@ namespace TicTacToe
                     msg = "Winner is: " + currentturn.ToString();
                     break;
             }
+
+            msg = (playcomputer ? optPlayComputer.Text : optTwoPlayer.Text) + " - " +  msg;
 
             lblStatus.Text = msg;
         }
