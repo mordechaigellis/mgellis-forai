@@ -19,8 +19,9 @@ namespace TicTacToe
         GameStatusEnum gamestatus = GameStatusEnum.NotStarted;
 
         List<Button> lstbuttons;
-
         List<List<Button>> lstwinningsets;
+        List<Button> lstrankedbuttons;
+
         Color defaultbackcolor;
         bool playcomputer = false;
 
@@ -48,6 +49,8 @@ namespace TicTacToe
                 new() {btn1, btn5, btn9},
                 new() {btn3, btn5, btn7}
             };
+
+            lstrankedbuttons = new() { btn5, btn1, btn3, btn7, btn9 };
 
             DisplayGameStatus();
         }
@@ -85,10 +88,24 @@ namespace TicTacToe
                         {
                             currentturn = TurnEnum.X;
                         }
+                        if (playcomputer == true)
+                        {
+                            if (currentturn == TurnEnum.O)
+                            {
+                                DoComputerTurnOffense();
 
-                        if (currentturn == TurnEnum.O && playcomputer == true) {
-                            DoComputerTurn();
+                                if (currentturn == TurnEnum.O && gamestatus == GameStatusEnum.Playing)
+                                {
+                                    DoComputerTurnRank();
+
+                                    if (currentturn == TurnEnum.O && gamestatus == GameStatusEnum.Playing)
+                                    {
+                                        DoComputerTurnRandom();
+                                    }
+                                }
+                            }
                         }
+                       
                     }
                 }
 
@@ -96,11 +113,34 @@ namespace TicTacToe
             }
         }
 
-        private void DoComputerTurn() {
-            var lst = lstbuttons.Where(b => b.Text == "").ToList();
-            var btn = lst[new Random().Next(0,lst.Count())];
-            DoTurn(btn);
+        private void DoComputerTurnOffense() {
+            //find first set that has two buttongs with computer letter and one blank
+            //get the blank button out of the set
+            var lst = lstwinningsets.FirstOrDefault(l => 
+                l.Count(b => b.Text == TurnEnum.O.ToString()) == 2
+                &&
+                l.Count(b => b.Text == "") == 1
+                );
+
+            if (lst != null) {
+                var btn = lst.First(b => b.Text == "");
+                DoTurn(btn);
+            }
             
+        }
+
+        private void DoComputerTurnRank() {
+            var btn = lstrankedbuttons.FirstOrDefault(b => b.Text == "");
+            if (btn != null) {
+                DoTurn(btn);
+            }
+        }
+
+        private void DoComputerTurnRandom()
+        {
+            var lst = lstbuttons.Where(b => b.Text == "").ToList();
+            var btn = lst[new Random().Next(0, lst.Count())];
+            DoTurn(btn);
         }
 
         private void DetectWinner(List<Button> lst)
@@ -156,7 +196,7 @@ namespace TicTacToe
                     break;
             }
 
-            msg = (playcomputer ? optPlayComputer.Text : optTwoPlayer.Text) + " - " +  msg;
+            msg = (playcomputer ? optPlayComputer.Text : optTwoPlayer.Text) + " - " + msg;
 
             lblStatus.Text = msg;
         }
