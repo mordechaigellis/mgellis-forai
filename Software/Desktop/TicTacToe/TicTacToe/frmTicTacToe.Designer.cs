@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTicTacToe));
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.ctlTicTacToeMG = new TicTacToe.TicTacToeControlMG();
             this.ctlTicTacToeYou = new TicTacToe.TicTacToeControlYou();
@@ -75,8 +76,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 577);
             this.Controls.Add(this.tblMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmTicTacToe";
-            this.Text = "frmTicTacToe";
+            this.Text = "Tic Tac Toe";
             this.tblMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
