@@ -18,14 +18,24 @@ namespace RecordKeeperWinForm
         {
             InitializeComponent();
             btnSearch.Click += BtnSearch_Click;
+            gPresident.CellDoubleClick += GPresident_CellDoubleClick;
             FormatGrid();
         }
+
+
         private void SearchForPresident(string lastname)
         {
             string sql = "select PresidentId, Num, LastName, FirstName from president p where p.lastname like '%" + lastname + "%'";
             Debug.Print(sql);
-            DataTable dt = GetDataTable(sql);
+            DataTable dt = SQLUtility.GetDataTable(sql);
             gPresident.DataSource = dt;
+            gPresident.Columns["PresidentId"].Visible = false;
+        }
+
+        private void ShowPresidentForm(int rowindex) {
+            int id = (int)gPresident.Rows[rowindex].Cells["PresidentId"].Value;
+            frmPresident frm = new frmPresident();
+            frm.ShowForm(id);
         }
 
         private void FormatGrid() {
@@ -34,31 +44,18 @@ namespace RecordKeeperWinForm
             gPresident.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             gPresident.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
+
+        private void GPresident_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            ShowPresidentForm(e.RowIndex);
+        }
+
+
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
             SearchForPresident(txtLastName.Text);
         }
 
-        private string GetConnectionString()
-        {
-            var s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
-
-            return s;
-        }
-
-        private DataTable GetDataTable(string sqlstatement)  //- take a SQL statement and return a DataTable
-        {
-            DataTable dt = new();
-            SqlConnection conn = new();
-            conn.ConnectionString = GetConnectionString();
-            conn.Open();
-
-            var cmd = new SqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = sqlstatement;
-            var dr = cmd.ExecuteReader();
-            dt.Load(dr);
-            return dt;
-        }
+       
     }
 }

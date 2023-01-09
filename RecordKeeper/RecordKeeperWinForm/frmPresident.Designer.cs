@@ -240,7 +240,7 @@
             this.ClientSize = new System.Drawing.Size(582, 474);
             this.Controls.Add(this.tblMain);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmPresident";
             this.Text = "President";
             this.tblMain.ResumeLayout(false);
