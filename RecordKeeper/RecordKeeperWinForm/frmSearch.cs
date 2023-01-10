@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+using CPUFramework;
 namespace RecordKeeperWinForm
 {
     public partial class frmSearch : Form
@@ -26,7 +17,7 @@ namespace RecordKeeperWinForm
         private void SearchForPresident(string lastname)
         {
             string sql = "select PresidentId, Num, LastName, FirstName from president p where p.lastname like '%" + lastname + "%'";
-            Debug.Print(sql);
+            
             DataTable dt = SQLUtility.GetDataTable(sql);
             gPresident.DataSource = dt;
             gPresident.Columns["PresidentId"].Visible = false;
@@ -55,7 +46,5 @@ namespace RecordKeeperWinForm
         {
             SearchForPresident(txtLastName.Text);
         }
-
-       
     }
 }
