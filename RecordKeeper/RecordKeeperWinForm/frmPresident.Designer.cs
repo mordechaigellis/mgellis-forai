@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPresident));
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaptionParty = new System.Windows.Forms.Label();
             this.lblCaptionNum = new System.Windows.Forms.Label();
@@ -45,7 +46,13 @@
             this.txtDateDied = new System.Windows.Forms.TextBox();
             this.txtTermStart = new System.Windows.Forms.TextBox();
             this.txtTermEnd = new System.Windows.Forms.TextBox();
+            this.tsMain = new System.Windows.Forms.ToolStrip();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tblMain.SuspendLayout();
+            this.tsMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // tblMain
@@ -69,8 +76,7 @@
             this.tblMain.Controls.Add(this.txtDateDied, 1, 5);
             this.tblMain.Controls.Add(this.txtTermStart, 1, 6);
             this.tblMain.Controls.Add(this.txtTermEnd, 1, 7);
-            this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblMain.Location = new System.Drawing.Point(0, 0);
+            this.tblMain.Location = new System.Drawing.Point(0, 41);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 8;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -81,7 +87,7 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.Size = new System.Drawing.Size(582, 474);
+            this.tblMain.Size = new System.Drawing.Size(582, 433);
             this.tblMain.TabIndex = 0;
             // 
             // lblCaptionParty
@@ -232,12 +238,55 @@
             this.txtTermEnd.Size = new System.Drawing.Size(484, 29);
             this.txtTermEnd.TabIndex = 15;
             // 
+            // tsMain
+            // 
+            this.tsMain.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnSave,
+            this.toolStripSeparator1,
+            this.btnDelete,
+            this.toolStripSeparator2});
+            this.tsMain.Location = new System.Drawing.Point(0, 0);
+            this.tsMain.Name = "tsMain";
+            this.tsMain.Size = new System.Drawing.Size(582, 28);
+            this.tsMain.TabIndex = 1;
+            this.tsMain.Text = "toolStrip1";
+            // 
+            // btnSave
+            // 
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(47, 25);
+            this.btnSave.Text = "&Save";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(58, 25);
+            this.btnDelete.Text = "&Delete";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
+            // 
             // frmPresident
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 474);
+            this.Controls.Add(this.tsMain);
             this.Controls.Add(this.tblMain);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -245,7 +294,10 @@
             this.Text = "President";
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
+            this.tsMain.ResumeLayout(false);
+            this.tsMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -268,5 +320,10 @@
         private TextBox txtDateDied;
         private TextBox txtTermStart;
         private TextBox txtTermEnd;
+        private ToolStrip tsMain;
+        private ToolStripButton btnSave;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnDelete;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }
