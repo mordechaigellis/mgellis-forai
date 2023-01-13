@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using CPUFramework;
 namespace RecordKeeperWinForm
@@ -17,7 +18,7 @@ namespace RecordKeeperWinForm
         public void ShowForm(int presidentid) {
             string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
             dtpresident = SQLUtility.GetDataTable(sql);
-          //  SetControlBinding(lblParty, dtpresident);
+            SetControlBinding(lblPartyName, dtpresident);
             SetControlBinding(lblNum, dtpresident);
             SetControlBinding(txtLastName, dtpresident);
             SetControlBinding(txtFirstName, dtpresident);
@@ -46,6 +47,11 @@ namespace RecordKeeperWinForm
 
         private void Save() {
             SQLUtility.DebugPrintDataTable(dtpresident);
+            DataRow r = dtpresident.Rows[0];
+            string sql = $"update president set FirstName = '{r["FirstName"]}' where PresidentId = ";
+
+
+            Debug.Print(sql);
         }
 
         private void Delete() { 

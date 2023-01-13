@@ -38,7 +38,7 @@
             this.lblCaptionDateDied = new System.Windows.Forms.Label();
             this.lblCaptionTermStart = new System.Windows.Forms.Label();
             this.lblCaptionTermEnd = new System.Windows.Forms.Label();
-            this.lblParty = new System.Windows.Forms.Label();
+            this.lblPartyName = new System.Windows.Forms.Label();
             this.lblNum = new System.Windows.Forms.Label();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
@@ -68,7 +68,7 @@
             this.tblMain.Controls.Add(this.lblCaptionDateDied, 0, 5);
             this.tblMain.Controls.Add(this.lblCaptionTermStart, 0, 6);
             this.tblMain.Controls.Add(this.lblCaptionTermEnd, 0, 7);
-            this.tblMain.Controls.Add(this.lblParty, 1, 0);
+            this.tblMain.Controls.Add(this.lblPartyName, 1, 0);
             this.tblMain.Controls.Add(this.lblNum, 1, 1);
             this.tblMain.Controls.Add(this.txtFirstName, 1, 2);
             this.tblMain.Controls.Add(this.txtLastName, 1, 3);
@@ -170,15 +170,15 @@
             this.lblCaptionTermEnd.TabIndex = 7;
             this.lblCaptionTermEnd.Text = "Term End";
             // 
-            // lblParty
+            // lblPartyName
             // 
-            this.lblParty.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblParty.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblParty.Location = new System.Drawing.Point(95, 0);
-            this.lblParty.Name = "lblParty";
-            this.lblParty.Size = new System.Drawing.Size(484, 40);
-            this.lblParty.TabIndex = 8;
+            this.lblPartyName.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblPartyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPartyName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPartyName.Location = new System.Drawing.Point(95, 0);
+            this.lblPartyName.Name = "lblPartyName";
+            this.lblPartyName.Size = new System.Drawing.Size(484, 40);
+            this.lblPartyName.TabIndex = 8;
             // 
             // lblNum
             // 
@@ -312,7 +312,7 @@
         private Label lblCaptionDateDied;
         private Label lblCaptionTermStart;
         private Label lblCaptionTermEnd;
-        private Label lblParty;
+        private Label lblPartyName;
         private Label lblNum;
         private TextBox txtFirstName;
         private TextBox txtLastName;
