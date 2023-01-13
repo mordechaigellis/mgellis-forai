@@ -19,11 +19,7 @@ namespace RecordKeeperWinForm
             string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
             dtpresident = SQLUtility.GetDataTable(sql);
             DataTable dtparties = SQLUtility.GetDataTable("select PartyId, PartyName from party");
-            lstPartyName.DataSource = dtparties;
-            lstPartyName.ValueMember = "PartyId";
-            lstPartyName.DisplayMember = "PartyName";
-            lstPartyName.DataBindings.Add("SelectedValue", dtpresident, "PartyId");
-            //SetControlBinding(lblPartyName, dtpresident);
+            SetListBinding(lstPartyName,dtparties,"Party");
             SetControlBinding(lblNum, dtpresident);
             SetControlBinding(txtLastName, dtpresident);
             SetControlBinding(txtFirstName, dtpresident);
@@ -34,7 +30,12 @@ namespace RecordKeeperWinForm
             this.Show();
         }
 
-
+        public void SetListBinding(ComboBox lst, DataTable dt, string tablename) {
+            lst.DataSource = dt;
+            lst.ValueMember = tablename + "Id";
+            lst.DisplayMember = lst.Name.Substring(3);
+            lst.DataBindings.Add("SelectedValue", dtpresident, lst.ValueMember,false, DataSourceUpdateMode.OnPropertyChanged);
+        }
         public void SetControlBinding(Control ctrl, DataTable dt) {
             string propertyname = "";
             string columnname = "";
