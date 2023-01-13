@@ -38,7 +38,6 @@
             this.lblCaptionDateDied = new System.Windows.Forms.Label();
             this.lblCaptionTermStart = new System.Windows.Forms.Label();
             this.lblCaptionTermEnd = new System.Windows.Forms.Label();
-            this.lblPartyName = new System.Windows.Forms.Label();
             this.lblNum = new System.Windows.Forms.Label();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
@@ -46,6 +45,7 @@
             this.txtDateDied = new System.Windows.Forms.TextBox();
             this.txtTermStart = new System.Windows.Forms.TextBox();
             this.txtTermEnd = new System.Windows.Forms.TextBox();
+            this.lstPartyName = new System.Windows.Forms.ComboBox();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -68,7 +68,6 @@
             this.tblMain.Controls.Add(this.lblCaptionDateDied, 0, 5);
             this.tblMain.Controls.Add(this.lblCaptionTermStart, 0, 6);
             this.tblMain.Controls.Add(this.lblCaptionTermEnd, 0, 7);
-            this.tblMain.Controls.Add(this.lblPartyName, 1, 0);
             this.tblMain.Controls.Add(this.lblNum, 1, 1);
             this.tblMain.Controls.Add(this.txtFirstName, 1, 2);
             this.tblMain.Controls.Add(this.txtLastName, 1, 3);
@@ -76,6 +75,7 @@
             this.tblMain.Controls.Add(this.txtDateDied, 1, 5);
             this.tblMain.Controls.Add(this.txtTermStart, 1, 6);
             this.tblMain.Controls.Add(this.txtTermEnd, 1, 7);
+            this.tblMain.Controls.Add(this.lstPartyName, 1, 0);
             this.tblMain.Location = new System.Drawing.Point(0, 41);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 8;
@@ -170,16 +170,6 @@
             this.lblCaptionTermEnd.TabIndex = 7;
             this.lblCaptionTermEnd.Text = "Term End";
             // 
-            // lblPartyName
-            // 
-            this.lblPartyName.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPartyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPartyName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPartyName.Location = new System.Drawing.Point(95, 0);
-            this.lblPartyName.Name = "lblPartyName";
-            this.lblPartyName.Size = new System.Drawing.Size(484, 40);
-            this.lblPartyName.TabIndex = 8;
-            // 
             // lblNum
             // 
             this.lblNum.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -237,6 +227,14 @@
             this.txtTermEnd.Name = "txtTermEnd";
             this.txtTermEnd.Size = new System.Drawing.Size(484, 29);
             this.txtTermEnd.TabIndex = 15;
+            // 
+            // lstPartyName
+            // 
+            this.lstPartyName.FormattingEnabled = true;
+            this.lstPartyName.Location = new System.Drawing.Point(95, 3);
+            this.lstPartyName.Name = "lstPartyName";
+            this.lstPartyName.Size = new System.Drawing.Size(202, 29);
+            this.lstPartyName.TabIndex = 16;
             // 
             // tsMain
             // 
@@ -312,7 +310,6 @@
         private Label lblCaptionDateDied;
         private Label lblCaptionTermStart;
         private Label lblCaptionTermEnd;
-        private Label lblPartyName;
         private Label lblNum;
         private TextBox txtFirstName;
         private TextBox txtLastName;
@@ -325,5 +322,6 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton btnDelete;
         private ToolStripSeparator toolStripSeparator2;
+        private ComboBox lstPartyName;
     }
 }

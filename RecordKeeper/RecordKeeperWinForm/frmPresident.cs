@@ -18,7 +18,12 @@ namespace RecordKeeperWinForm
         public void ShowForm(int presidentid) {
             string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
             dtpresident = SQLUtility.GetDataTable(sql);
-            SetControlBinding(lblPartyName, dtpresident);
+            DataTable dtparties = SQLUtility.GetDataTable("select PartyId, PartyName from party");
+            lstPartyName.DataSource = dtparties;
+            lstPartyName.ValueMember = "PartyId";
+            lstPartyName.DisplayMember = "PartyName";
+            lstPartyName.DataBindings.Add("SelectedValue", dtpresident, "PartyId");
+            //SetControlBinding(lblPartyName, dtpresident);
             SetControlBinding(lblNum, dtpresident);
             SetControlBinding(txtLastName, dtpresident);
             SetControlBinding(txtFirstName, dtpresident);
@@ -28,6 +33,7 @@ namespace RecordKeeperWinForm
             SetControlBinding(txtTermEnd, dtpresident);
             this.Show();
         }
+
 
         public void SetControlBinding(Control ctrl, DataTable dt) {
             string propertyname = "";
@@ -46,10 +52,10 @@ namespace RecordKeeperWinForm
         }
 
         private void Save() {
-            //SQLUtility.DebugPrintDataTable(dtpresident);
+            SQLUtility.DebugPrintDataTable(dtpresident);
             DataRow r = dtpresident.Rows[0];
             string sql = string.Join(Environment.NewLine,$"update president set",
-                //$"PartyName = '{r["PartyName"]}',",
+                $"PartyId = '{r["PartyId"]}',",
                 $"FirstName = '{r["FirstName"]}',",
                 $"LastName = '{r["LastName"]}',",
                 $"DateBorn = '{r["DateBorn"]}',",
