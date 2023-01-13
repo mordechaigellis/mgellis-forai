@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Diagnostics.Contracts;
 using CPUFramework;
 namespace RecordKeeperWinForm
 {
@@ -16,15 +17,31 @@ namespace RecordKeeperWinForm
         public void ShowForm(int presidentid) {
             string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
             dtpresident = SQLUtility.GetDataTable(sql);
-            lblParty.DataBindings.Add("Text", dtpresident, "PartyName");
-            lblNum.DataBindings.Add("Text", dtpresident, "Num");
-            txtLastName.DataBindings.Add("Text", dtpresident, "LastName");
-            txtFirstName.DataBindings.Add("Text", dtpresident, "FirstName");
-            txtDateBorn.DataBindings.Add("Text", dtpresident, "DateBorn");
-            txtDateDied.DataBindings.Add("Text", dtpresident, "DateDied");
-            txtTermStart.DataBindings.Add("Text", dtpresident, "TermStart");
-            txtTermEnd.DataBindings.Add("Text", dtpresident, "TermEnd");
+          //  SetControlBinding(lblParty, dtpresident);
+            SetControlBinding(lblNum, dtpresident);
+            SetControlBinding(txtLastName, dtpresident);
+            SetControlBinding(txtFirstName, dtpresident);
+            SetControlBinding(txtDateBorn, dtpresident);
+            SetControlBinding(txtDateDied, dtpresident);
+            SetControlBinding(txtTermStart, dtpresident);
+            SetControlBinding(txtTermEnd, dtpresident);
             this.Show();
+        }
+
+        public void SetControlBinding(Control ctrl, DataTable dt) {
+            string propertyname = "";
+            string columnname = "";
+            string controlname = ctrl.Name.ToLower();
+
+            if (controlname.StartsWith("txt") || controlname.StartsWith("lbl")) {
+                propertyname = "Text";
+                columnname = controlname.Substring(3);
+            }
+
+            if (propertyname != "" && columnname != "")
+            {
+                ctrl.DataBindings.Add(propertyname, dt, columnname, true, DataSourceUpdateMode.OnPropertyChanged);
+            }
         }
 
         private void Save() {
