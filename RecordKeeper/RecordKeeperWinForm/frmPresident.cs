@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
+using System.Transactions;
 using CPUFramework;
 using CPUWindowsFormFramework;
 namespace RecordKeeperWinForm
@@ -20,8 +21,7 @@ namespace RecordKeeperWinForm
         {
             string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
             dtpresident = SQLUtility.GetDataTable(sql);
-            if (presidentid == 0)
-            {
+            if (presidentid == 0) {
                 dtpresident.Rows.Add();
             }
             DataTable dtparties = SQLUtility.GetDataTable("select PartyId, PartyName from party");
@@ -40,30 +40,25 @@ namespace RecordKeeperWinForm
         private void Save()
         {
             SQLUtility.DebugPrintDataTable(dtpresident);
-            DataRow r = dtpresident.Rows[0];
-            int id = (int)r["PresidentId"];
-            string sql = "";
-
-            if (id > 0)
+            if (dtpresident.Rows.Count > 0)
             {
-                sql = string.Join(Environment.NewLine, $"update president set",
+                DataRow r = dtpresident.Rows[0];
+                string sql = string.Join(Environment.NewLine, $"update president set",
                     $"PartyId = '{r["PartyId"]}',",
-                    $"Num = '{r["Num"]}',",
                     $"FirstName = '{r["FirstName"]}',",
                     $"LastName = '{r["LastName"]}',",
                     $"DateBorn = '{r["DateBorn"]}',",
                     $"TermStart = '{r["TermStart"]}'",
                     $"where PresidentId = {r["PresidentId"]}");
+
+                Debug.Print("--------------");
+
+                SQLUtility.GetDataTable(sql);
             }
             else
             {
-                sql = "insert president(PartyId, Num, FirstName, LastName, DateBorn, TermStart) ";
-                sql += $"select '{r["PartyId"]}', {r["Num"]}, '{r["FirstName"]}', '{r["LastName"]}', '{r["DateBorn"]}', {r["TermStart"]}";
+                MessageBox.Show("President table has zero rows, cannot save.","Record Keeper", MessageBoxButtons.OK);
             }
-
-            Debug.Print("--------------");
-
-            SQLUtility.ExecuteSQL(sql);
         }
 
         private void Delete()

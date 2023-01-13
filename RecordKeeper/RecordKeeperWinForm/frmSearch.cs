@@ -12,9 +12,10 @@ namespace RecordKeeperWinForm
             btnSearch.Click += BtnSearch_Click;
             gPresident.CellDoubleClick += GPresident_CellDoubleClick;
             btnNew.Click += BtnNew_Click;
-            WindowsFormsUtility.FormatGridForSearchResults(gPresident);
+            FormatGrid();
         }
 
+        
         private void SearchForPresident(string lastname)
         {
             string sql = "select PresidentId, Num, LastName, FirstName from president p where p.lastname like '%" + lastname + "%'";
@@ -41,11 +42,11 @@ namespace RecordKeeperWinForm
             ShowPresidentForm(e.RowIndex);
         }
 
-
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
             SearchForPresident(txtLastName.Text);
         }
+
         private void BtnNew_Click(object? sender, EventArgs e)
         {
             ShowPresidentForm(-1);

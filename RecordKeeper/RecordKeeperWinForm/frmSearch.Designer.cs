@@ -73,7 +73,7 @@
             this.tblSearch.Name = "tblSearch";
             this.tblSearch.RowCount = 1;
             this.tblSearch.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblSearch.Size = new System.Drawing.Size(359, 37);
+            this.tblSearch.Size = new System.Drawing.Size(337, 37);
             this.tblSearch.TabIndex = 0;
             // 
             // lblLastName
@@ -121,7 +121,7 @@
             this.btnNew.AutoSize = true;
             this.btnNew.Location = new System.Drawing.Point(282, 3);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(74, 31);
+            this.btnNew.Size = new System.Drawing.Size(52, 31);
             this.btnNew.TabIndex = 3;
             this.btnNew.Text = "&New";
             this.btnNew.UseVisualStyleBackColor = true;
