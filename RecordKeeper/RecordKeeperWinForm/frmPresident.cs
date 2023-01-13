@@ -21,35 +21,70 @@ namespace RecordKeeperWinForm
         {
             string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
             dtpresident = SQLUtility.GetDataTable(sql);
-            if (presidentid == 0) {
+            if (presidentid == 0)
+            {
                 dtpresident.Rows.Add();
             }
             DataTable dtparties = SQLUtility.GetDataTable("select PartyId, PartyName from party");
-            WindowsFormsUtility.SetListBinding(lstPartyName, dtparties, "Party");
-            WindowsFormsUtility.SetControlBinding(txtNum, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtLastName, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtFirstName, dtpresident);
-            WindowsFormsUtility.SetControlBinding(dtpDateBorn, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtDateDied, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtTermStart, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtTermEnd, dtpresident);
+            SetListBinding(lstPartyName, dtparties, "Party");
+            SetControlBinding(lblNum, dtpresident);
+            SetControlBinding(txtLastName, dtpresident);
+            SetControlBinding(txtFirstName, dtpresident);
+            SetControlBinding(txtDateBorn, dtpresident);
+            SetControlBinding(txtDateDied, dtpresident);
+            SetControlBinding(txtTermStart, dtpresident);
+            SetControlBinding(txtTermEnd, dtpresident);
             this.Show();
         }
 
-   
+        public void SetListBinding(ComboBox lst, DataTable dt, string tablename)
+        {
+            lst.DataSource = dt;
+            lst.ValueMember = tablename + "Id";
+            lst.DisplayMember = lst.Name.Substring(3);
+            lst.DataBindings.Add("SelectedValue", dtpresident, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+        }
+        public void SetControlBinding(Control ctrl, DataTable dt)
+        {
+            string propertyname = "";
+            string columnname = "";
+            string controlname = ctrl.Name.ToLower();
+
+            if (controlname.StartsWith("txt") || controlname.StartsWith("lbl"))
+            {
+                propertyname = "Text";
+                columnname = controlname.Substring(3);
+            }
+
+            if (propertyname != "" && columnname != "")
+            {
+                ctrl.DataBindings.Add(propertyname, dt, columnname, true, DataSourceUpdateMode.OnPropertyChanged);
+            }
+        }
+
         private void Save()
         {
             SQLUtility.DebugPrintDataTable(dtpresident);
+            string sql = "";
             if (dtpresident.Rows.Count > 0)
             {
                 DataRow r = dtpresident.Rows[0];
-                string sql = string.Join(Environment.NewLine, $"update president set",
-                    $"PartyId = '{r["PartyId"]}',",
-                    $"FirstName = '{r["FirstName"]}',",
-                    $"LastName = '{r["LastName"]}',",
-                    $"DateBorn = '{r["DateBorn"]}',",
-                    $"TermStart = '{r["TermStart"]}'",
-                    $"where PresidentId = {r["PresidentId"]}");
+                int id = (int)r["PresidentId"];
+                if (id > 0)
+                {
+                    sql = string.Join(Environment.NewLine, $"update president set",
+                                       $"PartyId = '{r["PartyId"]}',",
+                                       $"FirstName = '{r["FirstName"]}',",
+                                       $"LastName = '{r["LastName"]}',",
+                                       $"DateBorn = '{r["DateBorn"]}',",
+                                       $"TermStart = '{r["TermStart"]}'",
+                                       $"where PresidentId = {r["PresidentId"]}");
+                }
+                else
+                {
+                   
+                }
+
 
                 Debug.Print("--------------");
 
@@ -57,16 +92,13 @@ namespace RecordKeeperWinForm
             }
             else
             {
-                MessageBox.Show("President table has zero rows, cannot save.","Record Keeper", MessageBoxButtons.OK);
+                MessageBox.Show("President table has zero rows, cannot save.", "Record Keeper", MessageBoxButtons.OK);
             }
         }
 
         private void Delete()
         {
-            int id = (int)dtpresident.Rows[0]["PresidentId"];
-            string sql = "delete president where PresidentId = " + id;
-            SQLUtility.ExecuteSQL(sql);
-            this.Close();
+
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)
