@@ -46,12 +46,19 @@ namespace RecordKeeperWinForm
         }
 
         private void Save() {
-            SQLUtility.DebugPrintDataTable(dtpresident);
+            //SQLUtility.DebugPrintDataTable(dtpresident);
             DataRow r = dtpresident.Rows[0];
-            string sql = $"update president set FirstName = '{r["FirstName"]}' where PresidentId = ";
+            string sql = string.Join(Environment.NewLine,$"update president set",
+                //$"PartyName = '{r["PartyName"]}',",
+                $"FirstName = '{r["FirstName"]}',",
+                $"LastName = '{r["LastName"]}',",
+                $"DateBorn = '{r["DateBorn"]}',",
+                $"TermStart = '{r["TermStart"]}'",
+                $"where PresidentId = {r["PresidentId"]}");
 
-
-            Debug.Print(sql);
+            Debug.Print("--------------");
+            
+            SQLUtility.GetDataTable(sql);
         }
 
         private void Delete() { 
