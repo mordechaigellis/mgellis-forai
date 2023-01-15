@@ -15,38 +15,49 @@ namespace RecordKeeperWinForm
         }
 
 
-        public void ShowForm(int presidentid) {
+        public void ShowForm(int presidentid)
+        {
             string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
             dtpresident = SQLUtility.GetDataTable(sql);
-            if (presidentid == 0) {
+            if (presidentid == 0)
+            {
                 dtpresident.Rows.Add();
             }
             DataTable dtparties = SQLUtility.GetDataTable("select PartyId, PartyName from party");
-            SetListBinding(lstPartyName,dtparties,"Party");
-            SetControlBinding(lblNum, dtpresident);
+            SetListBinding(lstPartyName, dtparties, "Party");
+            SetControlBinding(txtNum, dtpresident);
             SetControlBinding(txtLastName, dtpresident);
             SetControlBinding(txtFirstName, dtpresident);
-            SetControlBinding(txtDateBorn, dtpresident);
+            SetControlBinding(dtpDateBorn, dtpresident);
             SetControlBinding(txtDateDied, dtpresident);
             SetControlBinding(txtTermStart, dtpresident);
             SetControlBinding(txtTermEnd, dtpresident);
             this.Show();
         }
 
-        public void SetListBinding(ComboBox lst, DataTable dt, string tablename) {
+        public void SetListBinding(ComboBox lst, DataTable dt, string tablename)
+        {
             lst.DataSource = dt;
             lst.ValueMember = tablename + "Id";
             lst.DisplayMember = lst.Name.Substring(3);
-            lst.DataBindings.Add("SelectedValue", dtpresident, lst.ValueMember,false, DataSourceUpdateMode.OnPropertyChanged);
+            lst.DataBindings.Add("SelectedValue", dtpresident, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
         }
-        public void SetControlBinding(Control ctrl, DataTable dt) {
+        public void SetControlBinding(Control ctrl, DataTable dt)
+        {
             string propertyname = "";
-            string columnname = "";
             string controlname = ctrl.Name.ToLower();
-
-            if (controlname.StartsWith("txt") || controlname.StartsWith("lbl")) {
-                propertyname = "Text";
-                columnname = controlname.Substring(3);
+            string controltype = controlname.Substring(0, 3);
+            string columnname = controlname.Substring(3);
+         
+            switch (controltype)
+            {
+                case "txt":
+                case "lbl":
+                    propertyname = "Text";
+                    break;
+                case "dtp":
+                    propertyname = "Value";
+                    break;
             }
 
             if (propertyname != "" && columnname != "")
@@ -55,7 +66,8 @@ namespace RecordKeeperWinForm
             }
         }
 
-        private void Save() {
+        private void Save()
+        {
             SQLUtility.DebugPrintDataTable(dtpresident);
             DataRow r = dtpresident.Rows[0];
             int id = (int)r["PresidentId"];
@@ -65,25 +77,27 @@ namespace RecordKeeperWinForm
             {
                 sql = string.Join(Environment.NewLine, $"update president set",
                     $"PartyId = '{r["PartyId"]}',",
+                    $"Num = '{r["Num"]}',",
                     $"FirstName = '{r["FirstName"]}',",
                     $"LastName = '{r["LastName"]}',",
                     $"DateBorn = '{r["DateBorn"]}',",
                     $"TermStart = '{r["TermStart"]}'",
                     $"where PresidentId = {r["PresidentId"]}");
             }
-            else {
-                r["Num"] = 99;
+            else
+            {
                 sql = "insert president(PartyId, Num, FirstName, LastName, DateBorn, TermStart) ";
                 sql += $"select '{r["PartyId"]}', {r["Num"]}, '{r["FirstName"]}', '{r["LastName"]}', '{r["DateBorn"]}', {r["TermStart"]}";
             }
 
             Debug.Print("--------------");
-            
+
             SQLUtility.GetDataTable(sql);
         }
 
-        private void Delete() { 
-        
+        private void Delete()
+        {
+
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)
