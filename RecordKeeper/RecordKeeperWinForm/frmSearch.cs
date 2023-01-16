@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Diagnostics;
 using CPUFramework;
+using CPUWindowsFormFramework;
 namespace RecordKeeperWinForm
 {
     public partial class frmSearch : Form
@@ -11,7 +12,7 @@ namespace RecordKeeperWinForm
             btnSearch.Click += BtnSearch_Click;
             gPresident.CellDoubleClick += GPresident_CellDoubleClick;
             btnNew.Click += BtnNew_Click;
-            FormatGrid();
+            WindowsFormsUtility.FormatGridForSearchResults(gPresident);
         }
 
         private void SearchForPresident(string lastname)
@@ -33,12 +34,7 @@ namespace RecordKeeperWinForm
             frm.ShowForm(id);
         }
 
-        private void FormatGrid() {
-            gPresident.AllowUserToAddRows = false;
-            gPresident.ReadOnly = true;
-            gPresident.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            gPresident.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        }
+       
 
         private void GPresident_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {

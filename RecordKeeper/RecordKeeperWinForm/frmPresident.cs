@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using CPUFramework;
+using CPUWindowsFormFramework;
 namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
@@ -24,48 +25,18 @@ namespace RecordKeeperWinForm
                 dtpresident.Rows.Add();
             }
             DataTable dtparties = SQLUtility.GetDataTable("select PartyId, PartyName from party");
-            SetListBinding(lstPartyName, dtparties, "Party");
-            SetControlBinding(txtNum, dtpresident);
-            SetControlBinding(txtLastName, dtpresident);
-            SetControlBinding(txtFirstName, dtpresident);
-            SetControlBinding(dtpDateBorn, dtpresident);
-            SetControlBinding(txtDateDied, dtpresident);
-            SetControlBinding(txtTermStart, dtpresident);
-            SetControlBinding(txtTermEnd, dtpresident);
+            WindowsFormsUtility.SetListBinding(lstPartyName, dtparties, "Party");
+            WindowsFormsUtility.SetControlBinding(txtNum, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtLastName, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtFirstName, dtpresident);
+            WindowsFormsUtility.SetControlBinding(dtpDateBorn, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtDateDied, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtTermStart, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtTermEnd, dtpresident);
             this.Show();
         }
 
-        public void SetListBinding(ComboBox lst, DataTable dt, string tablename)
-        {
-            lst.DataSource = dt;
-            lst.ValueMember = tablename + "Id";
-            lst.DisplayMember = lst.Name.Substring(3);
-            lst.DataBindings.Add("SelectedValue", dtpresident, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
-        }
-        public void SetControlBinding(Control ctrl, DataTable dt)
-        {
-            string propertyname = "";
-            string controlname = ctrl.Name.ToLower();
-            string controltype = controlname.Substring(0, 3);
-            string columnname = controlname.Substring(3);
-         
-            switch (controltype)
-            {
-                case "txt":
-                case "lbl":
-                    propertyname = "Text";
-                    break;
-                case "dtp":
-                    propertyname = "Value";
-                    break;
-            }
-
-            if (propertyname != "" && columnname != "")
-            {
-                ctrl.DataBindings.Add(propertyname, dt, columnname, true, DataSourceUpdateMode.OnPropertyChanged);
-            }
-        }
-
+   
         private void Save()
         {
             SQLUtility.DebugPrintDataTable(dtpresident);
