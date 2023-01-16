@@ -92,12 +92,15 @@ namespace RecordKeeperWinForm
 
             Debug.Print("--------------");
 
-            SQLUtility.GetDataTable(sql);
+            SQLUtility.ExecuteSQL(sql);
         }
 
         private void Delete()
         {
-
+            int id = (int)dtpresident.Rows[0]["PresidentId"];
+            string sql = "delete president where PresidentId = " + id;
+            SQLUtility.ExecuteSQL(sql);
+            this.Close();
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)
