@@ -1,8 +1,7 @@
 ﻿using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
-using System.Transactions;
-using CPUFramework;
+
 using CPUWindowsFormFramework;
 using RecordKeeperSystem;
 

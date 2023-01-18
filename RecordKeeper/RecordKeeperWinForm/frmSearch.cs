@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Diagnostics;
-using CPUFramework;
 using CPUWindowsFormFramework;
 using RecordKeeperSystem;
 namespace RecordKeeperWinForm
