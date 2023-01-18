@@ -4,6 +4,8 @@ using System.Diagnostics.Contracts;
 using System.Transactions;
 using CPUFramework;
 using CPUWindowsFormFramework;
+using RecordKeeperSystem;
+
 namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
@@ -19,21 +21,20 @@ namespace RecordKeeperWinForm
 
         public void ShowForm(int presidentid)
         {
-            string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
-            dtpresident = SQLUtility.GetDataTable(sql);
+            dtpresident = President.Load(presidentid);
             if (presidentid == 0)
             {
                 dtpresident.Rows.Add();
             }
-            DataTable dtparties = SQLUtility.GetDataTable("select PartyId, PartyName from party");
-            SetListBinding(lstPartyName, dtparties, "Party");
-            SetControlBinding(lblNum, dtpresident);
-            SetControlBinding(txtLastName, dtpresident);
-            SetControlBinding(txtFirstName, dtpresident);
-            SetControlBinding(txtDateBorn, dtpresident);
-            SetControlBinding(txtDateDied, dtpresident);
-            SetControlBinding(txtTermStart, dtpresident);
-            SetControlBinding(txtTermEnd, dtpresident);
+            DataTable dtparties = President.GetPartyList();
+            WindowsFormsUtility.SetListBinding(lstPartyName, dtparties, "Party");
+            WindowsFormsUtility.SetControlBinding(txtNum, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtLastName, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtFirstName, dtpresident);
+            WindowsFormsUtility.SetControlBinding(dtpDateBorn, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtDateDied, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtTermStart, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtTermEnd, dtpresident);
             this.Show();
         }
 
@@ -64,41 +65,13 @@ namespace RecordKeeperWinForm
 
         private void Save()
         {
-            SQLUtility.DebugPrintDataTable(dtpresident);
-            string sql = "";
-            if (dtpresident.Rows.Count > 0)
-            {
-                DataRow r = dtpresident.Rows[0];
-                int id = (int)r["PresidentId"];
-                if (id > 0)
-                {
-                    sql = string.Join(Environment.NewLine, $"update president set",
-                                       $"PartyId = '{r["PartyId"]}',",
-                                       $"FirstName = '{r["FirstName"]}',",
-                                       $"LastName = '{r["LastName"]}',",
-                                       $"DateBorn = '{r["DateBorn"]}',",
-                                       $"TermStart = '{r["TermStart"]}'",
-                                       $"where PresidentId = {r["PresidentId"]}");
-                }
-                else
-                {
-                   
-                }
-
-
-                Debug.Print("--------------");
-
-                SQLUtility.GetDataTable(sql);
-            }
-            else
-            {
-                MessageBox.Show("President table has zero rows, cannot save.", "Record Keeper", MessageBoxButtons.OK);
-            }
+            President.Save(dtpresident);
         }
 
         private void Delete()
         {
-
+            President.Delete(dtpresident);
+            this.Close();
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)

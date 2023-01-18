@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using CPUFramework;
 using CPUWindowsFormFramework;
+using RecordKeeperSystem;
 namespace RecordKeeperWinForm
 {
     public partial class frmSearch : Form
@@ -18,9 +19,7 @@ namespace RecordKeeperWinForm
 
         private void SearchForPresident(string lastname)
         {
-            string sql = "select PresidentId, Num, LastName, FirstName from president p where p.lastname like '%" + lastname + "%'";
-            
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            DataTable dt = President.SearchPresidents(lastname);
             gPresident.DataSource = dt;
             gPresident.Columns["PresidentId"].Visible = false;
         }
