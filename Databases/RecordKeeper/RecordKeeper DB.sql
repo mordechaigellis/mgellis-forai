@@ -13,26 +13,21 @@ create table dbo.Invention(
 		constraint ck_Invention_InventionName_cannot_be_blank check(InventionName<> '') unique,
 	InventionDesc varchar (max) not null 
 		constraint ck_Invention_InventionDesc_cannot_be_blank check(InventionDesc<> ''),
-	YearInvented int not null 
-		constraint ck_Invention_YearInvented_before_present check(YearInvented < Getdate()),
+	YearInvented int not null,
 	InventorFirstName varchar (100) not null 
 		constraint ck_Invention_InventorFirstName_cannot_be_blank check(InventorFirstName<> ''),
 	InventorLastName varchar (100) not null 
 		constraint ck_Invention_InventorLastName_cannot_be_blank check(InventorLastName<> ''),
 	Country varchar (50) not null 
 		constraint ck_Invention_Country_cannot_be_blank check(Country<> ''),
-	YearBorn int not null 
-		constraint ck_Invention_YearBorn_before_present check(YearBorn < Getdate()),
-	YearDied int 
-		 constraint ck_Invention_YearDied_before_present check(YearDied < Getdate()),
-	
-	Code as concat(YearInvented,substring(InventorFirstName,1,1),substring(InventorLastName,1,1)) persisted 
+	YearBorn int not null,
+	YearDied int,	
+	Code as replace(concat(YearInvented,substring(InventorFirstName,1,1),substring(InventorLastName,1,1), substring(upper(InventionName),1,15)),' ','') persisted 
 		constraint u_invention_code_must_be_unique unique,
-		constraint c_invention_code_cannot_be_blank check (Code > ''),
-
-	constraint ck_Invention_YearDied_Past_YearBorn check(YearDied > YearBorn)
+		constraint c_invention_code_cannot_be_blank check (Code > '')
 	)
 go
+
 drop table if exists WorldRecord
 go
 create table dbo.WorldRecord(
@@ -50,11 +45,10 @@ create table dbo.WorldRecord(
 		constraint ck_WorldRecord_Amount_greater_than_0 check(Amount > 0), 
 	UnitOfMeasure varchar (100) not null 
 		constraint ck_WorldRecord_UnitofMeasure_cannot_be_blank check(UnitofMeasure<> ''),
-	YearAchieved int not null
-	 	constraint ck_WorldRecord_YearAchieved_before_present check(YearAchieved < Getdate()),
+	YearAchieved int not null,
 	Country varchar (50) not null
 		constraint ck_WorldRecord_Country_cannot_be_blank check(Country <> ''),
-	Code varchar (10) not null 
+	Code as concat(substring(replace(RecordName,' ', ''),1,20),YearAchieved) persisted 
 		constraint c_WorldRecord_code_cannot_be_blank check (Code > '')
 		constraint u_WorldRecord_code_must_be_unique unique
 	)
@@ -63,8 +57,7 @@ drop table if exists Medalist
 go
 create table dbo.Medalist(
 	MedalistId int not null identity primary key,
-	OlympicYear int not null
-		constraint c_medalist_year_before_present check(OlympicYear < GetDate()),
+	OlympicYear int not null,
 	Season varchar (50) not null
 		constraint c_medalist_season_cannot_be_blank check(Season > ''),
 	OlympicLocation varchar (100) not null
@@ -81,9 +74,8 @@ create table dbo.Medalist(
 		constraint c_medalist_last_name_cannot_be_blank check (LastName > ''),
 	Country varchar (50) not null
 		constraint c_medalist_country_cannot_be_blank check (Country > ''),
-	YearBorn int not null
-		constraint c_medalist_year_born_before_present check(YearBorn < GetDate()),
-	Code varchar (10) not null 
+	YearBorn int not null,
+	Code as concat(substring(upper(FirstName),1,3),substring(upper(LastName),1,2), substring(Medal,1,1), substring(Sport,1,1),OlympicYear) persisted
 		constraint c_medalist_code_cannot_be_blank check (Code > '')
 		constraint u_medalist_code_must_be_unique unique
 )
@@ -146,418 +138,418 @@ union select 'Lysozyme', 'Lysozyme, also known as muramidase or N-acetylmuramide
 union select 'Letter Copying Press', 'The press features a fixed frame and a movable horizontal plate (the platen) raised and lowered by a large screw. To copy a handmade letter or drawing, an office clerk laid a sheet of dampened tissue paper over the original and placed them together in the press. Under pressure from the lowered platen, ink would transfer from the original to the tissue, creating a reverse copy that could be read through the thin paper. By placing waterproof oiled paper between multiple layers of tissue and originals, copies of several documents could be made at the same time. As industry and commerce boomed in the nineteenth century, trade developed at a rapid pace, and business documents had to be reproduced equally fast. The copying press facilitated this process by eliminating the need for copy clerks to produce handwritten or hand-drawn copies. Copying presses were fixtures in offices until at least 1900, although in the second half of the nineteenth century, they were gradually replaced by two newer inventions: the typewriter and carbon paper.', 1780,  'James', 'Watt', 'Great Britain', 1736, 1819   
 go
 
-insert WorldRecord (Category, RecordName, RecordDesc, FullName, Amount, UnitOfMeasure, YearAchieved, Country, Code) 
-select 'Animals', 'Largest horn circumference on a steer ever', 'The largest horn circumference on a steer measured 95.25 cm (37.5 in) on 6 May 2003 and belong to Lurch, an African watusi steer owned by Janice Wolf (USA) of Gassville, Arkansas, USA. Sadly, Lurch died at 3 p.m. on 22 May 2010 of a cancer at the base of one of the horns. The body has has been released to a local taxidermist, who will produce a full-sized taxidermy of the steer.', 'Lurch', 95.25, 'Centimetres', 2003, 'USA', 'ALL2003U'
-union select 'Animals', 'Longest tail on a dog', 'The longest tail on a dog measures 76.8 cm (30.2 in), achieved by Keon who is owned by Ilse Loodts (both Belgium), in Westerlo, Belgium, on 18 August 2015.Keon is an Irish wolfhound.', 'Keon', 76.8, 'Centimetres', 2015, 'Belgium', 'ALK2015B'
-union select 'Animals', 'Shortest living domestic cat', 'The shortest cat is Lilieput, a nine-year-old female munchkin cat, who measured 13.34 cm (5.25 in) from the floor to the shoulders on 19 July 2013, and is owned by Christel Young (USA) of Napa, California, USA.', 'Lilieput', 13.34 , 'Centimetres', 2013, 'USA', 'ASL2013U'
-union select 'Animals', 'Oldest koala in captivity ever', 'The oldest koala in captivity ever is Midori (b. February 1997) who is at least 24 years old and lives in Awaji Farm Park England Hill, in Minamiawaji, Hyogo, Japan, as verified on 1 March 2021.Midori has been living at Awaji Farm Park England Hill since 2003, when she and three other koalas from Yanchep National Park were gifted by the Western Australia State Government. Midori also holds the title for the oldest living koala in captivity.', 'Minami Awaji Agricultural Park Co., LTD., Midori', 24, 'Years', 2021, 'Japan', 'AOM2021J'
-union select 'Animals', 'Most rings placed on a target by a parrot in one minute', 'The most rings placed on a target by a parrot in one minute is 19 and was achieved by Skipper Blue the Macaw and her trainer Wendy Horton (both USA) in Los Angeles, California, USA, on 13 November 2016. Skipper Blue attempted this record as a part of celebrations for Guinness World Records Day 2016.', 'Skipper Blue The Macaw, Wendy Horton', 19, 'Total Number', 2016, 'USA', 'AMS2016U'
-union select 'Animals', 'Highest jump by a dog', 'The highest jump by a dog is 191.7 cm (75.5 in), and was achieved by Feather (USA) in Frederick, Maryland, USA, on 14 September 2017', 'Feather ', 191.7, 'Centimetres', 2017, 'USA', 'AHF2017U'
-union select 'Animals', 'Most tennis balls held in the mouth', 'The world record for the most tennis balls held in the mouth by a dog at one time is five. Augie, a golden retriever owned by the Miller family in Dallas, Texas, USA, successfully gathered and held all five regulation-sized tennis balls on 6 July 2003', 'Augie', 5, 'Total Number', 2003, 'USA', 'AMA2005U'
-union select 'Animals', 'Fastest time to pop 100 balloons by a dog', 'The fastest time to pop 100 balloons by a dog is 28.22 sec, and was achieved by Loughren Christmas Star (Toby) and Christie Springs (both Canada) in Calgary, Alberta, Canada, on 9 April 2017', 'Loughren Christmas Star (Toby) and Christie Springs', 28.22, 'Seconds', 2017, 'Canada', 'AFL2017C'
-union select 'Animals', 'Heaviest Spider', 'A goliath bird-eater named Rosi is the heaviest spider specimen that Guinness World Records has measured. In 2007, she weighed 175 grams (6.1 ounces), which is seven times the weight of the average mouse.', 'Rosi', 175 , 'Grams', 2007, 'USA', 'AHR2007U'
-union select 'Arts and Crafts', 'Largest display of origami elephants', 'The largest display of origami elephants consists of 78,564 elephants, achieved by Wildlife Conservation Society (USA), at the Bronx Zoo in New York, New York, USA, on 17 November 2016.', 'Wildlife Conservation Society', 78564, 'Total Number', 2016, 'USA', 'ALW2016U'
-union select 'Arts and Crafts', 'Largest bobbin lace', 'The largest bobbin lace measures 53.262 Metres Squared (573.3 ft Squared) and was created by Municipio De Vila Do Conde (Portugal), in Vila do Conde, Portugal, on 2 August 2015.The enormous bobbin lace was woven by ''The Rendilheiras'', the ladies who work with the bobbins and took over one year to complete. Since 1991, Vila do Conde has a Museum devoted to the bobbin lace, at the House of Vinhal.', 'Municipio De Vila Do Conde', 53.262, 'Square Metres', 2015, 'Portugal', 'ALM2015P'
-union select 'Arts and Crafts', 'Tallest fruit sculpture', 'The largest fruit sculpture is 5.95 m (19 ft 6 in) and was constructed by SAADEDDIN Co. (Saudi Arabia), in Jeddah, Saudi Arabia, on 23 November 2016.', 'Saeddedin Co', 5.95 , 'Metres', 2016 , 'Saudi Arabia', 'ALS2016S'
-union select 'Arts and Crafts', 'Largest margarine sculpture', 'The largest margarine sculpture is 1506.800 kg (3321.925 lbs) and was achieved by Devwrat Anand Jategaonkar (India), in Mumbai India on 23 February 2017.', 'Devwrat Anand Jategaonkar', 1506.800 , 'Kilograms', 2017 , 'India', 'ALD2017I'
-union select 'Arts and Crafts', 'Largest anamorphic pavement art', 'The largest anamorphic pavement art measures 2,807.39 m Squared (30,218.49 ft Squared) and was achieved by Yang Yongchun and Nine Color Rose Town (both China) in Lijiang, Yunnan, China, on 1 October 2016. The painting measured 391.93 m (1,285 ft 10 in) in length, also breaking the record for the longest anamorphic pavement art.', 'Yang Yongchun, Lijiang Nine Color Rose Town', 2807.39 , 'Square Meteres', 2016, 'China', 'ALY2016C'
-union select 'Arts and Crafts', 'Largest fabric marbling painting', 'The largest fabric marbling painting measures 100 m Squared (1076 ft Squared 56 in Squared), created by Vilayetler Hizmetler Birligi Kindergarten (Turkey), in Antakya, Hatay, Turkey, on 31 May 2017. The artwork measures 50 m (164.042 ft) in length, and 2 m (6.56168 ft) in width. It was created by 400 kindergarten students, with the purpose of raising awareness for the importance of art education in pre-schools.', 'Vilayetler Hizmetler Birligi Kindergarten', 100, 'Square Metres', 2017, 'Turkey', 'ALV2017T'
-union select 'Arts and Crafts', 'Largest display of crochet sculptures', 'The largest display of crochet sculptures is 58,917 items and was achieved by Mother India''s Crochet Queens (India), in Chennai, India, on 21 January 2018.The crochet sculptures were made by members of MICQ from India as well as Indians living in other countries. They were all collected by Mrs. Subashri Natarajan in Chennai for the display.', 'Mother India''s Crochet Queens', 58917, 'Total Number', 2018, 'India', 'ALM2018I'
-union select 'Dedication and Collections', 'Most straws stuffed in the mouth (hands off)', 'The most straws stuffed in the mouth (hands off) is 650, achieved by Nataraj Karate (India), in Salem, Tamil Nadu, India, on 25 August 2018. This is the seventeenth successful attempt at setting this record.', 'Karate Nataraj', 650, 'Total Number',  2018, 'India', 'DMK2018I'
-union select 'Dedication and Collections', 'Longest duration balancing on four fingers', 'The longest duration balancing on four fingers is 19.23 sec and was achieved by Wang Weibao (China) on the set of Zheng Da Zong Yi - Guinness World Records Special in Beijing, China, on 9 November 2008.', 'Wang Wang Wei Bao', 19.23, 'Seconds', 2008, 'China', 'DLW2008C'
-union select 'Dedication and Collections', 'Largest collection of traffic cones', 'David Morgan (UK) has a collection of 137 different traffic cones. He owns a cone from about two thirds of all types ever made.', 'David Morgan', 137, 'Total Number', 2000, 'United Kingdom', 'DLD2000U'
-union select 'Dedication and Collections', 'Longest career as an ice-cream man', 'The longest career as an ice cream man is 67 years, achieved by Allan Ganz (b. 13 July 1937, USA), who has been working as an ice cream man continuously from 1947 to 2014, in Peabody, Massachusetts, USA, at the age of 76. He began selling ice cream with his dad, Louis Ganz, at the age of 10, and they sold ice cream together in the cities of Everett and Malden, Massachusetts, USA. Allan bought his own ice cream truck in 1977 and has sold ice cream in Peabody, Massachusetts, USA, for the last 37 years.', 'Allan Ganz', 67, 'Years', 2014, 'USA', 'DLA2014U'
-union select 'Dedication and Collections', 'Longest Moto X Dirt-to-Dirt backflip', 'The longest Moto X dirt-to-dirt back flip measures 30.48 m (100 ft) and was completed by Jeremy Stenberg and Nate Adams during the Moto X Freestyle Finals at X Games 11 in Los Angeles, California, USA on 6 August 2005.', 'Nate Adams, Jeremy Stenberg', 30.48, 'Metres', 2005, 'USA', 'DLN2005U'
-union select 'Food', 'Largest collection of hamburger related items', 'The largest collection of hamburger related items belongs to Harry Sperl, (a.k.a. Hamburger Harry, Germany) and consists of 3,724 items, verified in Daytona Beach, Florida, USA, on 20 September 2014.', 'Hamburger Harry', 3724 , 'Total Number', 2014 , 'USA', 'FLH2014U'
-union select 'Food', 'Longest noodle', 'The longest noodle measures 3,084 m (10,119 ft 1.92 in) and was achieved by Xiangnian Food Co., Ltd. in Nanyang, Henan, China, on 28 October 2017.', 'Xiangnian Food Co., LTD',3084.32 , 'Metres', 2017, 'China', 'FLX2017C'
-union select 'Food', 'Most expensive hot dog commercially available', 'The most expensive hot dog is $169 (101.69 Pounds; 122.96 Euro) and was sold by Tokyo Dog (USA) in Seattle, Washington, USA, on 23 February 2014.', 'Tokyo Dog', 169, 'US Dollars', 2014, 'USA', 'FMT2014U'
-union select 'Food', 'Largest serving of pancakes', 'The largest serving of pancakes is 12,716 achieved by JSC MAKFA (Russia), in Moscow, Russia, on 25 February 2017.', 'JSC Mafka', 12716 , 'Total Number', 2017, 'Russian Federation', 'FLJ2017R'
-union select 'Food', 'Largest M&M''s mosaic (logo)', 'The largest M&M''s mosaic (logo) measures 49.59 m Squared(533 ft Squared 115 in Squared) and was created by Mars Incorporated (Bulgaria) in Sofia, Bulgaria, as verified on 29 September 2017.The mosaic logo formed the M&M''s logo, was constructed by 27 people and took 17 hours 30 minutes to assemble. It consisted of approximately 291,490 M&M''s.', 'Mars Incorporated', 49.5919 , 'Square Metres', 2017, 'Bulgaria', 'FLM2017B'
-union select 'Food', 'Heaviest carrot', 'The heaviest carrot weighs 10.17 kg (22.44 lb) and was grown by Christopher Qualley of Otsego, Minnesota, USA, as verified on 9 September 2017.', 'Christopher Qualley', 10.17, 'Kilograms', 2017, 'USA', 'FHC2017U'
-union select 'Food', 'Most Ice Cream scoops on a single cone', 'At the annual Gelatimo ice-cream festival in Forno di Zoldo, Italy, Dimitri Panciera achieved the Guinness World Records title for the most ice-cream scoops balanced on a cone at 125 scoops.', 'Dimitri Panciera', 125, 'Scoops', 2013, 'Italy', 'FMD2013I'
-union select 'Mass Participation', 'Largest human mattress dominoes', 'The largest human mattress dominoes consists of 2,019 people, and was achieved by Globo Comunicacao e Participacoes S.A. and Ortobom (both Brazil) at Riocentro, in Rio de Janeiro, Rio de Janeiro, Brazil, on 6 August 2019. The whole record attempt lasted 11 minutes and 13 seconds. After the record attempt, all the 2,019 mattresses were donated to charities.', 'Ortobom, Globo Comunicacao E Participacoes S.A.', 2019 , 'People', 2019, 'Brazil', 'MLO2019B'
-union select 'Mass Participation', 'Longest head massage chain', 'The longest head massage chain consists of 578 participants and was achieved by Bajaj Almond Drops Hair Oil (India) in Mumbai, India, on 26 October 2017. All the participants were women, who applied the Bajaj almond drops hair oil to the lady in front and then performed 4 head massage actions. The official attempt made the otherwise normal activity quite exciting for the participants.', 'Bajaj Almond Drops Hair Oil', 578, 'People', 2017, 'India', 'MLB2017I'
-union select 'Mass Participation', 'Largest human DNA helix', 'The largest human DNA helix involved 4,000 participants, achieved by the Medical University of Varna (Bulgaria), in Varna, Bulgaria, on 23 April 2016. The record breaking human DNA helix was formed on South Beach in Varna, Bulgaria, on the coast of the Black Sea.', 'Medical University Of Varna', 4000, 'People', 2016, 'Bulgaria', 'MLM2016B'
-union select 'Money', 'Most expensive glove sold at auction', 'The most expensive glove sold at auction was sold for $420,000 (267,879 Pounds) and was bought by Ponte 16 Resort (China) in New York, New York, USA, on 21 November 2009. The glove belonged to Michael Jackson and is now on display at the MJ Gallery at Ponte 16 in Macau, China. The auction was conducted by Julien''s Auctions (USA) at the Hard Rock Cafe at Times Square in Manhattan.', 'Ponte 16 Resort', 420000, 'UK Pounds', 2009, 'China', 'MMP2009C'
-union select 'Money', 'Largest human currency symbol', 'The largest human currency symbol consists of 1,717 participants, achieved by Rotaract club of A.C.Tech-Anna University & Nam Bharatha Sevai (NBS) (both India), in Tamil Nadu, India, on 11 March 2018. The currency symbol created was an Indian Rupee.', 'Rotaract Club Of A.C.Tech-Anna University, Nam Bharatha Sevai (Nbs)', 1717 , 'People', 2018, 'India', 'MLR2018I'
-union select 'Nature', 'Largest tree hug', 'The largest tree hug consists of 4,620 people, achieved by Asianet News Network Pvt. Ltd. (India) at JNTBGRI, in Thiruvananthapuram, India, on 21 March 2017.', 'Asianet News Netwrk Pvt. LTD.', 4620, 'People', 2017, 'India', 'NLA2017I'
-union select 'Nature', 'Longest Reef', 'The Great Barrier Reef off Queensland, north-eastern Australia is 2027km 1260miles in length. It is not actually a single reef but consists of thousands of separate reefs. On three occasions, between 1962 and 1971, 1979 and 1991 and between 1995 and the present, corals on large areas of the central section of the reef have been devastated by the crown-of-thorns starfish (Acanthaster planci).', 'The Great Barrier Reef', 2027, 'Kilometres', 2021, 'Australia', 'NLT2021A'
-union select 'Size', 'Largest mobile humanoid robot', 'The largest mobile humanoid robot is 18 m (59 ft), achieved by Incorporated Association GUNDAM GLOBAL CHALLENGE (Japan) in Yokohama, Kanagawa, Japan, as of 3 December 2020. The outsized humanoid''s design is based on the RX-78-2 Gundam, first introduced in the original 1979 animated series (Mobile Suit Gundam). As well as its towering height, the robot weighs a reported 25 tons (22 tonnes). Testing videos show the Gundam moving individual digits and bending down onto one knee. Plans for the gigantic mobile Gundam began in 2014 with the launch of the ''Gundam Global Challenge'' project, created in celebration of the anime series 40th anniversary.', 'Incorporated Association Gundam Global Challenge', 18, 'Metres', 2020, 'Japan', 'SLI2020J'
-union select 'Size', 'Longest monster truck', 'The longest monster truck was created by Brad and Jen Campbell (both USA) of Big Toyz Racing and is currently operated by Russ Mann (USA). The truck measured 9.75 m (32 ft) long at Last Stop in White Hills, Arizona, USA on 10 July 2014. The truck was built to serve as a "limo" for Las Vegas tourists.', 'Jean and Brad Campbell', 9.75, 'Metres', 2014, 'USA', 'SLJ2014U'
-union select 'Size', 'Largest order Rubiks / magic cube', 'The largest order Rubiks / magic cube is 33x33x33 and was achieved by Gregoire Pfennig (France) in Belfort, France, on 2 December 2017. Gregoire has been designing his own Rubiks cubes for about eight years.The record is a fully functional Rubik''s Cube, with 6153 move-able parts, weighing 3.15 kg (6.59 lb) and measuring 20.5 cm (7.95 in) to an edge. 20 g (0.7 oz) of superglue was used to glue the stickers to the cube.', 'Gregoire Pfennig', 20.5, 'Inches', 2017, 'France', 'SLG2017F'
-union select 'Size', 'Largest cowboy boot sculpture', 'The tallest cowboy boot sculpture measures 10.74 m (35 ft 3 in) in height and was constructed by Bob Wade (USA) as measured in San Antonio, Texas, USA on 4 November 2014.The boots also measure 10.16 m (33 ft 4 in) in length and 2.74 m (9 ft) in width.', 'Bob Wade', 10.74, 'Metres', 2014, 'USA', 'SLB2014U'
-union select 'Size', 'Largest marker pen', 'The largest marker pen measures 2.74 m x 0.31 m (8 ft 11.87 in x 1 ft 0.20 in), and was achieved by Muhammed Dileef (India) in Kerala, India, on 5 September 2020. Muhammed decided to break this record as a way to inspire and motivate a new generation to read.', 'Muhammed Dileef', 2.745, 'Metres', 2020, 'India', 'SLM2020I'
-union select 'Size', 'Heaviest telephone', 'The worlds largest operational telephone was exhibited at a festival on 16 Sep 1988 to celebrate the 80th birthday of Centraal Beheer, an insurance company based in Apeldoorn, Netherlands. It was 2.47m 8ft 1in high and 6.06m 19ft 11in long, and weighed 3.5tonnes. The handset, being 7.14m 23ft 5in long, had to be lifted by crane in order to make a call.', 'Unknown', 3.5, 'Tonnes', 1988 , 'United Kingdom', 'SLU1988U'
-union select 'Size', 'Largest working rifle', 'The largest working rifle is 10.18 m (33 ft 4 in) long and belongs to James A. DeCaine (USA). It was measured in Ishpemimg, Michigan, USA, on 1 September 2008.', 'James A. Decaine', 10.18, 'Metres', 2008, 'USA', 'SLJ2008U'
-union select 'Size', 'Largest hot dog cart', 'The largest hot dog cart measures 2.81 m (9 ft 3 in) in width, 7.06 m (23 ft 2 in) in length, 3.72 m (12 ft 2.75 in) in height from the ground to the handle, and the wheels'' diameter is 1.86 m (6 ft 1.5 in). This was achieved by Marcus Daily (USA), in Union, Missouri, USA, on 28 October 2013.', 'Marcus Daily', 7.06, 'Metres', 2015, 'USA', 'SLM2015U'
-union select 'Size', 'Largest hiking / work boot', 'The largest hiking boot measures 7.14 m (23 ft 5 in) long, 2.50 m (8 ft 2 in) wide and 4.2 m (13 ft 9 in) tall and was made by Schuh Marke (Germany). It was presented in Hauenstein, Germany, on 30 September 2006.', 'Marcus Appelman', 7.14, 'Metres', 2006, 'Germany', 'SLM2006G'
-union select 'Speed', 'Fastest Window Cleaner', 'Terry Burrows (UK) cleaned three standard 114.3 x 114.3 cm (45 x 45 in) office windows set in a frame with a 300 mm (11.75 in) long squeegee and 9 litres (2 gal; US 2.37 gal) of water in 9.14 sec at the National Window Cleaning Competition in Blackpool, UK, on 9 October 2009.', 'Terry Burrows', 9.14 , 'Seconds', 2009, 'United Kingdom', 'SFT2009U'
-union select 'Speed', 'Fastest side wheelie lap of the Nurburgring Nordschleife (car)', 'The fastest side wheelie lap of the Nurburgring Nordschleife in a car is 45 minutes and 59.11 seconds and was achieved by Han Yue (China) in Nurburg, Rhineland-Palatinate, Germany, on 3 November 2016. At the time of achieving this record, Han Yue was also the record holder for tightest gap driven through by two cars on two wheels and most donuts (spins) around a car driving on two wheels in one minute.', 'Han Yue', 4559.11, 'Minutes', 2016, 'Germany', 'SFH2016G'
-union select 'Speed', 'Fastest mobile bed', 'The fastest mobile bed reaches a maximum speed of 83.8 mph (135 km/h) and was created by Hotels.com, driven by Tom Onslow-Cole (UK), at Emirates Motor Sports Complex, in Umm Al Quwain, UAE, on 13 December 2016.Custom-built bed based on a Ford Mustang GT.', 'Tom Onslow-Cole Hotels.Com', 83.8, 'KM/H', 2016, 'United Arab Emirates', 'SFT2016U'
-union select 'Size', 'Longest Personal Name', 'The longest personal name is 747 characters long, and belongs to Hubert Blaine Wolfeschlegelsteinhausenbergerdorff Sr. (b. 4 August 1914, Germany) who passed away on 24 October 1997, in Philidelphia, Pennsylvania USA, as verified on 1 January 2021.', 'Hubert B. Wolfe + 666 Sr.', 747, 'Characters', 1914 , 'Germany', 'SLH1914G'
-union select 'Size', 'Longest Place Name', 'A 1,000-foot hill near the township Porangahau holds the Guinness World Record for longest place name with 85 characters. Locals call it Taumata or Taumata Hill.', 'Nation of New Zealand', 85, 'Characters', 1500 , 'New Zealand', 'SLN1500N'
-union select 'Structures', 'Oldest hedge maze', 'The oldest surviving hedge maze is located at Hampton Court Palace, Surrey, UK and was built for King William III and Mary II of England. It was designed by royal gardeners George London and Henry Wise (both UK) and planted in 1690 using hornbeam (Carpinus betulus) to form the hedges. The maze covers an area of 0.2 ha (0.5 acres), with a total path length of 800 m (0.5 miles).', 'Hampton Court Palace', 331, 'Years', 2021, 'United Kingdom', 'SOH2021U'
-union select 'Structures', 'Largest playing card structure', 'The largest playing card structure was a replica of The Venetian Macao, The Plaza Macao and Sands Macao. It measured 10.39 m (34 ft 1.05 in) long, 2.88 m (9 ft 5.39 in) tall and 3.54 m (11 ft 7.37 in) wide, and was created by Bryan Berg (USA) in Macau, China, on 10 March 2010. It took Bryan Berg 44 days to complete the structure which was made of 218,792 cards.', 'Bryan Berg', 218792, 'Cards', 2010, 'China', 'SLB2010C'
-union select 'Structures', 'Longest floating walkway', 'The longest floating walkway measures 5.13 km (3.19 miles) and was achieved by Chengdu VENI Tourism Development Corp. and Shanghai Qihua Water Engineering Construction Co., Ltd (both China) in Luodian, Guizhou, China on 30 December 2016. The walkway is made of individual interlocking plastic blocks and held in place by anchors spread across the structure.', 'Chengdu Veni Tourism Development Corp. Shanghai Qihua Water Engineering Construction Co.,LTD', 5.13 , 'Kilometres', 2016, 'China', 'SLC2016C'
-union select 'Structures', 'Tallest man-made structure on land', 'The tallest man-made structure on land is the Burj Khalifa (Khalifa Tower) which measures 828 m (2,716 ft 6 in) tall. The Burj Khalifa officially opened on 04 January 2010 and was developed by Emaar Properties and architects Skidmore, Owings & Merrill LLP.', 'Burj Khalifa Tower', 828 , 'Metres', 2010, 'United Arab Emirates', 'STB2010U'
-union select 'Technology', 'Most robots dancing simultaneously', 'The most robots dancing simultaneously is 1,372 and was achieved by TIM S.p.A. (Italy) in Rome, Italy, on 1 February 2018. The Alpha 1S robot is just under 40 cm (15.7 in) tall, made of aluminium alloy with plastic coating and has 16 degrees of freedom.', 'TIM S.P.A', 1372 , 'Total Number', 2018, 'Italy', 'TMT2018I'
-union select 'Technology', 'First robot table tennis tutor', 'In October 2015, Japan''s Omron Corporation introduced its robotic table tennis tutor. Sensors above the table tennis table monitor the position of the ball 80 times per second, enabling the robot to show via a projected image where it will return the ball off its bat and even where it will bounce to. The aim is to help teach the game to human players,with the robot''s software capable of assessing all aspects of the ball''s motion when bouncing off the table and through the air. Developing the control algorithm required for the robot to position the bat and return the ball took many hours of effort: with timing precision down to one thousandth of a second, the robot is programmed to make an effort to return the ball by extending its arm even in response to a badly played ball by its human pupil that would be impossible to play. Sportsmanship in the robot programming is an important aspect for the Japanese development team.', 'Ping Pong Robot', 1, 'First', 2015, 'Japan', 'TFP2015J'
-union select 'Transportation', 'Longest bicycle', 'The longest bicycle is 47.5 m (155 ft 8 in) long, and was achieved by Bernie Ryan (Australia) as measured and ridden in Paynesville, Victoria, Australia, on 14 November 2020. This previous holder of this record was also from Australia from an attempt in 2015.', 'Bernie Ryan', 47.5 , 'Metres', 2020, 'Australia', 'TLB2020A'
-union select 'Transportation', 'Largest model train set', 'The largest model train set is 15,715 m (51,558 ft 4.78 in) and was achieved by Miniatur Wunderland (Germany) in Hamburg, Germany, on 14 August 2019.The Miniatur Wunderland broke this record with the opening of the new route section ''Monaco Provence''.', 'Miniatur Wunderland', 15715 , 'Metres', 2019, 'Germany', 'TLM2019G'
-union select 'Transportation', 'Largest loop the loop in a car', 'The largest loop the loop in a car measures 19.49 m (63 ft 11 in) and was achieved by Terry Grant (UK) during Riyadh season, in Riyadh, Saudi Arabia, on 25 November 2019. The record was attempted by the same person, Terry Grant, who broke his own record during the Riyadh season festival in Riyadh.', 'Terry Grant', 19.49 , 'Metres', 2019, 'Saudi Arabia', 'TLT2019S'
-union select 'Transportation', 'Longest ramp jump by a truck cab', 'The longest ramp jump by a truck cab measured 50.60 m (166 ft), and was completed by Gregg Godfrey (USA), at Evel Knievel Days Event, in Butte, Montana, USA, on 24 July 2015. Gregg Godfrey previously held this record at 15.39 m.', 'Gregg Godfrey', 50.6, 'Metres', 2015, 'USA', 'TLG2015U'
+insert WorldRecord (Category, RecordName, RecordDesc, FullName, Amount, UnitOfMeasure, YearAchieved, Country) 
+select 'Animals', 'Largest horn circumference on a steer ever', 'The largest horn circumference on a steer measured 95.25 cm (37.5 in) on 6 May 2003 and belong to Lurch, an African watusi steer owned by Janice Wolf (USA) of Gassville, Arkansas, USA. Sadly, Lurch died at 3 p.m. on 22 May 2010 of a cancer at the base of one of the horns. The body has has been released to a local taxidermist, who will produce a full-sized taxidermy of the steer.', 'Lurch', 95.25, 'Centimetres', 2003, 'USA'
+union select 'Animals', 'Longest tail on a dog', 'The longest tail on a dog measures 76.8 cm (30.2 in), achieved by Keon who is owned by Ilse Loodts (both Belgium), in Westerlo, Belgium, on 18 August 2015.Keon is an Irish wolfhound.', 'Keon', 76.8, 'Centimetres', 2015, 'Belgium'
+union select 'Animals', 'Shortest living domestic cat', 'The shortest cat is Lilieput, a nine-year-old female munchkin cat, who measured 13.34 cm (5.25 in) from the floor to the shoulders on 19 July 2013, and is owned by Christel Young (USA) of Napa, California, USA.', 'Lilieput', 13.34 , 'Centimetres', 2013, 'USA'
+union select 'Animals', 'Oldest koala in captivity ever', 'The oldest koala in captivity ever is Midori (b. February 1997) who is at least 24 years old and lives in Awaji Farm Park England Hill, in Minamiawaji, Hyogo, Japan, as verified on 1 March 2021.Midori has been living at Awaji Farm Park England Hill since 2003, when she and three other koalas from Yanchep National Park were gifted by the Western Australia State Government. Midori also holds the title for the oldest living koala in captivity.', 'Minami Awaji Agricultural Park Co., LTD., Midori', 24, 'Years', 2021, 'Japan'
+union select 'Animals', 'Most rings placed on a target by a parrot in one minute', 'The most rings placed on a target by a parrot in one minute is 19 and was achieved by Skipper Blue the Macaw and her trainer Wendy Horton (both USA) in Los Angeles, California, USA, on 13 November 2016. Skipper Blue attempted this record as a part of celebrations for Guinness World Records Day 2016.', 'Skipper Blue The Macaw, Wendy Horton', 19, 'Total Number', 2016, 'USA'
+union select 'Animals', 'Highest jump by a dog', 'The highest jump by a dog is 191.7 cm (75.5 in), and was achieved by Feather (USA) in Frederick, Maryland, USA, on 14 September 2017', 'Feather ', 191.7, 'Centimetres', 2017, 'USA'
+union select 'Animals', 'Most tennis balls held in the mouth', 'The world record for the most tennis balls held in the mouth by a dog at one time is five. Augie, a golden retriever owned by the Miller family in Dallas, Texas, USA, successfully gathered and held all five regulation-sized tennis balls on 6 July 2003', 'Augie', 5, 'Total Number', 2003, 'USA'
+union select 'Animals', 'Fastest time to pop 100 balloons by a dog', 'The fastest time to pop 100 balloons by a dog is 28.22 sec, and was achieved by Loughren Christmas Star (Toby) and Christie Springs (both Canada) in Calgary, Alberta, Canada, on 9 April 2017', 'Loughren Christmas Star (Toby) and Christie Springs', 28.22, 'Seconds', 2017, 'Canada'
+union select 'Animals', 'Heaviest Spider', 'A goliath bird-eater named Rosi is the heaviest spider specimen that Guinness World Records has measured. In 2007, she weighed 175 grams (6.1 ounces), which is seven times the weight of the average mouse.', 'Rosi', 175 , 'Grams', 2007, 'USA'
+union select 'Arts and Crafts', 'Largest display of origami elephants', 'The largest display of origami elephants consists of 78,564 elephants, achieved by Wildlife Conservation Society (USA), at the Bronx Zoo in New York, New York, USA, on 17 November 2016.', 'Wildlife Conservation Society', 78564, 'Total Number', 2016, 'USA'
+union select 'Arts and Crafts', 'Largest bobbin lace', 'The largest bobbin lace measures 53.262 Metres Squared (573.3 ft Squared) and was created by Municipio De Vila Do Conde (Portugal), in Vila do Conde, Portugal, on 2 August 2015.The enormous bobbin lace was woven by ''The Rendilheiras'', the ladies who work with the bobbins and took over one year to complete. Since 1991, Vila do Conde has a Museum devoted to the bobbin lace, at the House of Vinhal.', 'Municipio De Vila Do Conde', 53.262, 'Square Metres', 2015, 'Portugal'
+union select 'Arts and Crafts', 'Tallest fruit sculpture', 'The largest fruit sculpture is 5.95 m (19 ft 6 in) and was constructed by SAADEDDIN Co. (Saudi Arabia), in Jeddah, Saudi Arabia, on 23 November 2016.', 'Saeddedin Co', 5.95 , 'Metres', 2016 , 'Saudi Arabia'
+union select 'Arts and Crafts', 'Largest margarine sculpture', 'The largest margarine sculpture is 1506.800 kg (3321.925 lbs) and was achieved by Devwrat Anand Jategaonkar (India), in Mumbai India on 23 February 2017.', 'Devwrat Anand Jategaonkar', 1506.800 , 'Kilograms', 2017 , 'India'
+union select 'Arts and Crafts', 'Largest anamorphic pavement art', 'The largest anamorphic pavement art measures 2,807.39 m Squared (30,218.49 ft Squared) and was achieved by Yang Yongchun and Nine Color Rose Town (both China) in Lijiang, Yunnan, China, on 1 October 2016. The painting measured 391.93 m (1,285 ft 10 in) in length, also breaking the record for the longest anamorphic pavement art.', 'Yang Yongchun, Lijiang Nine Color Rose Town', 2807.39 , 'Square Meteres', 2016, 'China'
+union select 'Arts and Crafts', 'Largest fabric marbling painting', 'The largest fabric marbling painting measures 100 m Squared (1076 ft Squared 56 in Squared), created by Vilayetler Hizmetler Birligi Kindergarten (Turkey), in Antakya, Hatay, Turkey, on 31 May 2017. The artwork measures 50 m (164.042 ft) in length, and 2 m (6.56168 ft) in width. It was created by 400 kindergarten students, with the purpose of raising awareness for the importance of art education in pre-schools.', 'Vilayetler Hizmetler Birligi Kindergarten', 100, 'Square Metres', 2017, 'Turkey'
+union select 'Arts and Crafts', 'Largest display of crochet sculptures', 'The largest display of crochet sculptures is 58,917 items and was achieved by Mother India''s Crochet Queens (India), in Chennai, India, on 21 January 2018.The crochet sculptures were made by members of MICQ from India as well as Indians living in other countries. They were all collected by Mrs. Subashri Natarajan in Chennai for the display.', 'Mother India''s Crochet Queens', 58917, 'Total Number', 2018, 'India'
+union select 'Dedication and Collections', 'Most straws stuffed in the mouth (hands off)', 'The most straws stuffed in the mouth (hands off) is 650, achieved by Nataraj Karate (India), in Salem, Tamil Nadu, India, on 25 August 2018. This is the seventeenth successful attempt at setting this record.', 'Karate Nataraj', 650, 'Total Number',  2018, 'India'
+union select 'Dedication and Collections', 'Longest duration balancing on four fingers', 'The longest duration balancing on four fingers is 19.23 sec and was achieved by Wang Weibao (China) on the set of Zheng Da Zong Yi - Guinness World Records Special in Beijing, China, on 9 November 2008.', 'Wang Wang Wei Bao', 19.23, 'Seconds', 2008, 'China'
+union select 'Dedication and Collections', 'Largest collection of traffic cones', 'David Morgan (UK) has a collection of 137 different traffic cones. He owns a cone from about two thirds of all types ever made.', 'David Morgan', 137, 'Total Number', 2000, 'United Kingdom'
+union select 'Dedication and Collections', 'Longest career as an ice-cream man', 'The longest career as an ice cream man is 67 years, achieved by Allan Ganz (b. 13 July 1937, USA), who has been working as an ice cream man continuously from 1947 to 2014, in Peabody, Massachusetts, USA, at the age of 76. He began selling ice cream with his dad, Louis Ganz, at the age of 10, and they sold ice cream together in the cities of Everett and Malden, Massachusetts, USA. Allan bought his own ice cream truck in 1977 and has sold ice cream in Peabody, Massachusetts, USA, for the last 37 years.', 'Allan Ganz', 67, 'Years', 2014, 'USA'
+union select 'Dedication and Collections', 'Longest Moto X Dirt-to-Dirt backflip', 'The longest Moto X dirt-to-dirt back flip measures 30.48 m (100 ft) and was completed by Jeremy Stenberg and Nate Adams during the Moto X Freestyle Finals at X Games 11 in Los Angeles, California, USA on 6 August 2005.', 'Nate Adams, Jeremy Stenberg', 30.48, 'Metres', 2005, 'USA'
+union select 'Food', 'Largest collection of hamburger related items', 'The largest collection of hamburger related items belongs to Harry Sperl, (a.k.a. Hamburger Harry, Germany) and consists of 3,724 items, verified in Daytona Beach, Florida, USA, on 20 September 2014.', 'Hamburger Harry', 3724 , 'Total Number', 2014 , 'USA'
+union select 'Food', 'Longest noodle', 'The longest noodle measures 3,084 m (10,119 ft 1.92 in) and was achieved by Xiangnian Food Co., Ltd. in Nanyang, Henan, China, on 28 October 2017.', 'Xiangnian Food Co., LTD',3084.32 , 'Metres', 2017, 'China'
+union select 'Food', 'Most expensive hot dog commercially available', 'The most expensive hot dog is $169 (101.69 Pounds; 122.96 Euro) and was sold by Tokyo Dog (USA) in Seattle, Washington, USA, on 23 February 2014.', 'Tokyo Dog', 169, 'US Dollars', 2014, 'USA'
+union select 'Food', 'Largest serving of pancakes', 'The largest serving of pancakes is 12,716 achieved by JSC MAKFA (Russia), in Moscow, Russia, on 25 February 2017.', 'JSC Mafka', 12716 , 'Total Number', 2017, 'Russian Federation'
+union select 'Food', 'Largest M&M''s mosaic (logo)', 'The largest M&M''s mosaic (logo) measures 49.59 m Squared(533 ft Squared 115 in Squared) and was created by Mars Incorporated (Bulgaria) in Sofia, Bulgaria, as verified on 29 September 2017.The mosaic logo formed the M&M''s logo, was constructed by 27 people and took 17 hours 30 minutes to assemble. It consisted of approximately 291,490 M&M''s.', 'Mars Incorporated', 49.5919 , 'Square Metres', 2017, 'Bulgaria'
+union select 'Food', 'Heaviest carrot', 'The heaviest carrot weighs 10.17 kg (22.44 lb) and was grown by Christopher Qualley of Otsego, Minnesota, USA, as verified on 9 September 2017.', 'Christopher Qualley', 10.17, 'Kilograms', 2017, 'USA'
+union select 'Food', 'Most Ice Cream scoops on a single cone', 'At the annual Gelatimo ice-cream festival in Forno di Zoldo, Italy, Dimitri Panciera achieved the Guinness World Records title for the most ice-cream scoops balanced on a cone at 125 scoops.', 'Dimitri Panciera', 125, 'Scoops', 2013, 'Italy'
+union select 'Mass Participation', 'Largest human mattress dominoes', 'The largest human mattress dominoes consists of 2,019 people, and was achieved by Globo Comunicacao e Participacoes S.A. and Ortobom (both Brazil) at Riocentro, in Rio de Janeiro, Rio de Janeiro, Brazil, on 6 August 2019. The whole record attempt lasted 11 minutes and 13 seconds. After the record attempt, all the 2,019 mattresses were donated to charities.', 'Ortobom, Globo Comunicacao E Participacoes S.A.', 2019 , 'People', 2019, 'Brazil'
+union select 'Mass Participation', 'Longest head massage chain', 'The longest head massage chain consists of 578 participants and was achieved by Bajaj Almond Drops Hair Oil (India) in Mumbai, India, on 26 October 2017. All the participants were women, who applied the Bajaj almond drops hair oil to the lady in front and then performed 4 head massage actions. The official attempt made the otherwise normal activity quite exciting for the participants.', 'Bajaj Almond Drops Hair Oil', 578, 'People', 2017, 'India'
+union select 'Mass Participation', 'Largest human DNA helix', 'The largest human DNA helix involved 4,000 participants, achieved by the Medical University of Varna (Bulgaria), in Varna, Bulgaria, on 23 April 2016. The record breaking human DNA helix was formed on South Beach in Varna, Bulgaria, on the coast of the Black Sea.', 'Medical University Of Varna', 4000, 'People', 2016, 'Bulgaria'
+union select 'Money', 'Most expensive glove sold at auction', 'The most expensive glove sold at auction was sold for $420,000 (267,879 Pounds) and was bought by Ponte 16 Resort (China) in New York, New York, USA, on 21 November 2009. The glove belonged to Michael Jackson and is now on display at the MJ Gallery at Ponte 16 in Macau, China. The auction was conducted by Julien''s Auctions (USA) at the Hard Rock Cafe at Times Square in Manhattan.', 'Ponte 16 Resort', 420000, 'UK Pounds', 2009, 'China'
+union select 'Money', 'Largest human currency symbol', 'The largest human currency symbol consists of 1,717 participants, achieved by Rotaract club of A.C.Tech-Anna University & Nam Bharatha Sevai (NBS) (both India), in Tamil Nadu, India, on 11 March 2018. The currency symbol created was an Indian Rupee.', 'Rotaract Club Of A.C.Tech-Anna University, Nam Bharatha Sevai (Nbs)', 1717 , 'People', 2018, 'India'
+union select 'Nature', 'Largest tree hug', 'The largest tree hug consists of 4,620 people, achieved by Asianet News Network Pvt. Ltd. (India) at JNTBGRI, in Thiruvananthapuram, India, on 21 March 2017.', 'Asianet News Netwrk Pvt. LTD.', 4620, 'People', 2017, 'India'
+union select 'Nature', 'Longest Reef', 'The Great Barrier Reef off Queensland, north-eastern Australia is 2027km 1260miles in length. It is not actually a single reef but consists of thousands of separate reefs. On three occasions, between 1962 and 1971, 1979 and 1991 and between 1995 and the present, corals on large areas of the central section of the reef have been devastated by the crown-of-thorns starfish (Acanthaster planci).', 'The Great Barrier Reef', 2027, 'Kilometres', 2021, 'Australia'
+union select 'Size', 'Largest mobile humanoid robot', 'The largest mobile humanoid robot is 18 m (59 ft), achieved by Incorporated Association GUNDAM GLOBAL CHALLENGE (Japan) in Yokohama, Kanagawa, Japan, as of 3 December 2020. The outsized humanoid''s design is based on the RX-78-2 Gundam, first introduced in the original 1979 animated series (Mobile Suit Gundam). As well as its towering height, the robot weighs a reported 25 tons (22 tonnes). Testing videos show the Gundam moving individual digits and bending down onto one knee. Plans for the gigantic mobile Gundam began in 2014 with the launch of the ''Gundam Global Challenge'' project, created in celebration of the anime series 40th anniversary.', 'Incorporated Association Gundam Global Challenge', 18, 'Metres', 2020, 'Japan'
+union select 'Size', 'Longest monster truck', 'The longest monster truck was created by Brad and Jen Campbell (both USA) of Big Toyz Racing and is currently operated by Russ Mann (USA). The truck measured 9.75 m (32 ft) long at Last Stop in White Hills, Arizona, USA on 10 July 2014. The truck was built to serve as a "limo" for Las Vegas tourists.', 'Jean and Brad Campbell', 9.75, 'Metres', 2014, 'USA'
+union select 'Size', 'Largest order Rubiks / magic cube', 'The largest order Rubiks / magic cube is 33x33x33 and was achieved by Gregoire Pfennig (France) in Belfort, France, on 2 December 2017. Gregoire has been designing his own Rubiks cubes for about eight years.The record is a fully functional Rubik''s Cube, with 6153 move-able parts, weighing 3.15 kg (6.59 lb) and measuring 20.5 cm (7.95 in) to an edge. 20 g (0.7 oz) of superglue was used to glue the stickers to the cube.', 'Gregoire Pfennig', 20.5, 'Inches', 2017, 'France'
+union select 'Size', 'Largest cowboy boot sculpture', 'The tallest cowboy boot sculpture measures 10.74 m (35 ft 3 in) in height and was constructed by Bob Wade (USA) as measured in San Antonio, Texas, USA on 4 November 2014.The boots also measure 10.16 m (33 ft 4 in) in length and 2.74 m (9 ft) in width.', 'Bob Wade', 10.74, 'Metres', 2014, 'USA'
+union select 'Size', 'Largest marker pen', 'The largest marker pen measures 2.74 m x 0.31 m (8 ft 11.87 in x 1 ft 0.20 in), and was achieved by Muhammed Dileef (India) in Kerala, India, on 5 September 2020. Muhammed decided to break this record as a way to inspire and motivate a new generation to read.', 'Muhammed Dileef', 2.745, 'Metres', 2020, 'India'
+union select 'Size', 'Heaviest telephone', 'The worlds largest operational telephone was exhibited at a festival on 16 Sep 1988 to celebrate the 80th birthday of Centraal Beheer, an insurance company based in Apeldoorn, Netherlands. It was 2.47m 8ft 1in high and 6.06m 19ft 11in long, and weighed 3.5tonnes. The handset, being 7.14m 23ft 5in long, had to be lifted by crane in order to make a call.', 'Unknown', 3.5, 'Tonnes', 1988 , 'United Kingdom'
+union select 'Size', 'Largest working rifle', 'The largest working rifle is 10.18 m (33 ft 4 in) long and belongs to James A. DeCaine (USA). It was measured in Ishpemimg, Michigan, USA, on 1 September 2008.', 'James A. Decaine', 10.18, 'Metres', 2008, 'USA'
+union select 'Size', 'Largest hot dog cart', 'The largest hot dog cart measures 2.81 m (9 ft 3 in) in width, 7.06 m (23 ft 2 in) in length, 3.72 m (12 ft 2.75 in) in height from the ground to the handle, and the wheels'' diameter is 1.86 m (6 ft 1.5 in). This was achieved by Marcus Daily (USA), in Union, Missouri, USA, on 28 October 2013.', 'Marcus Daily', 7.06, 'Metres', 2015, 'USA'
+union select 'Size', 'Largest hiking / work boot', 'The largest hiking boot measures 7.14 m (23 ft 5 in) long, 2.50 m (8 ft 2 in) wide and 4.2 m (13 ft 9 in) tall and was made by Schuh Marke (Germany). It was presented in Hauenstein, Germany, on 30 September 2006.', 'Marcus Appelman', 7.14, 'Metres', 2006, 'Germany'
+union select 'Speed', 'Fastest Window Cleaner', 'Terry Burrows (UK) cleaned three standard 114.3 x 114.3 cm (45 x 45 in) office windows set in a frame with a 300 mm (11.75 in) long squeegee and 9 litres (2 gal; US 2.37 gal) of water in 9.14 sec at the National Window Cleaning Competition in Blackpool, UK, on 9 October 2009.', 'Terry Burrows', 9.14 , 'Seconds', 2009, 'United Kingdom'
+union select 'Speed', 'Fastest side wheelie lap of the Nurburgring Nordschleife (car)', 'The fastest side wheelie lap of the Nurburgring Nordschleife in a car is 45 minutes and 59.11 seconds and was achieved by Han Yue (China) in Nurburg, Rhineland-Palatinate, Germany, on 3 November 2016. At the time of achieving this record, Han Yue was also the record holder for tightest gap driven through by two cars on two wheels and most donuts (spins) around a car driving on two wheels in one minute.', 'Han Yue', 4559.11, 'Minutes', 2016, 'Germany'
+union select 'Speed', 'Fastest mobile bed', 'The fastest mobile bed reaches a maximum speed of 83.8 mph (135 km/h) and was created by Hotels.com, driven by Tom Onslow-Cole (UK), at Emirates Motor Sports Complex, in Umm Al Quwain, UAE, on 13 December 2016.Custom-built bed based on a Ford Mustang GT.', 'Tom Onslow-Cole Hotels.Com', 83.8, 'KM/H', 2016, 'United Arab Emirates'
+union select 'Size', 'Longest Personal Name', 'The longest personal name is 747 characters long, and belongs to Hubert Blaine Wolfeschlegelsteinhausenbergerdorff Sr. (b. 4 August 1914, Germany) who passed away on 24 October 1997, in Philidelphia, Pennsylvania USA, as verified on 1 January 2021.', 'Hubert B. Wolfe + 666 Sr.', 747, 'Characters', 1914 , 'Germany'
+union select 'Size', 'Longest Place Name', 'A 1,000-foot hill near the township Porangahau holds the Guinness World Record for longest place name with 85 characters. Locals call it Taumata or Taumata Hill.', 'Nation of New Zealand', 85, 'Characters', 1500 , 'New Zealand'
+union select 'Structures', 'Oldest hedge maze', 'The oldest surviving hedge maze is located at Hampton Court Palace, Surrey, UK and was built for King William III and Mary II of England. It was designed by royal gardeners George London and Henry Wise (both UK) and planted in 1690 using hornbeam (Carpinus betulus) to form the hedges. The maze covers an area of 0.2 ha (0.5 acres), with a total path length of 800 m (0.5 miles).', 'Hampton Court Palace', 331, 'Years', 2021, 'United Kingdom'
+union select 'Structures', 'Largest playing card structure', 'The largest playing card structure was a replica of The Venetian Macao, The Plaza Macao and Sands Macao. It measured 10.39 m (34 ft 1.05 in) long, 2.88 m (9 ft 5.39 in) tall and 3.54 m (11 ft 7.37 in) wide, and was created by Bryan Berg (USA) in Macau, China, on 10 March 2010. It took Bryan Berg 44 days to complete the structure which was made of 218,792 cards.', 'Bryan Berg', 218792, 'Cards', 2010, 'China'
+union select 'Structures', 'Longest floating walkway', 'The longest floating walkway measures 5.13 km (3.19 miles) and was achieved by Chengdu VENI Tourism Development Corp. and Shanghai Qihua Water Engineering Construction Co., Ltd (both China) in Luodian, Guizhou, China on 30 December 2016. The walkway is made of individual interlocking plastic blocks and held in place by anchors spread across the structure.', 'Chengdu Veni Tourism Development Corp. Shanghai Qihua Water Engineering Construction Co.,LTD', 5.13 , 'Kilometres', 2016, 'China'
+union select 'Structures', 'Tallest man-made structure on land', 'The tallest man-made structure on land is the Burj Khalifa (Khalifa Tower) which measures 828 m (2,716 ft 6 in) tall. The Burj Khalifa officially opened on 04 January 2010 and was developed by Emaar Properties and architects Skidmore, Owings & Merrill LLP.', 'Burj Khalifa Tower', 828 , 'Metres', 2010, 'United Arab Emirates'
+union select 'Technology', 'Most robots dancing simultaneously', 'The most robots dancing simultaneously is 1,372 and was achieved by TIM S.p.A. (Italy) in Rome, Italy, on 1 February 2018. The Alpha 1S robot is just under 40 cm (15.7 in) tall, made of aluminium alloy with plastic coating and has 16 degrees of freedom.', 'TIM S.P.A', 1372 , 'Total Number', 2018, 'Italy'
+union select 'Technology', 'First robot table tennis tutor', 'In October 2015, Japan''s Omron Corporation introduced its robotic table tennis tutor. Sensors above the table tennis table monitor the position of the ball 80 times per second, enabling the robot to show via a projected image where it will return the ball off its bat and even where it will bounce to. The aim is to help teach the game to human players,with the robot''s software capable of assessing all aspects of the ball''s motion when bouncing off the table and through the air. Developing the control algorithm required for the robot to position the bat and return the ball took many hours of effort: with timing precision down to one thousandth of a second, the robot is programmed to make an effort to return the ball by extending its arm even in response to a badly played ball by its human pupil that would be impossible to play. Sportsmanship in the robot programming is an important aspect for the Japanese development team.', 'Ping Pong Robot', 1, 'First', 2015, 'Japan'
+union select 'Transportation', 'Longest bicycle', 'The longest bicycle is 47.5 m (155 ft 8 in) long, and was achieved by Bernie Ryan (Australia) as measured and ridden in Paynesville, Victoria, Australia, on 14 November 2020. This previous holder of this record was also from Australia from an attempt in 2015.', 'Bernie Ryan', 47.5 , 'Metres', 2020, 'Australia'
+union select 'Transportation', 'Largest model train set', 'The largest model train set is 15,715 m (51,558 ft 4.78 in) and was achieved by Miniatur Wunderland (Germany) in Hamburg, Germany, on 14 August 2019.The Miniatur Wunderland broke this record with the opening of the new route section ''Monaco Provence''.', 'Miniatur Wunderland', 15715 , 'Metres', 2019, 'Germany'
+union select 'Transportation', 'Largest loop the loop in a car', 'The largest loop the loop in a car measures 19.49 m (63 ft 11 in) and was achieved by Terry Grant (UK) during Riyadh season, in Riyadh, Saudi Arabia, on 25 November 2019. The record was attempted by the same person, Terry Grant, who broke his own record during the Riyadh season festival in Riyadh.', 'Terry Grant', 19.49 , 'Metres', 2019, 'Saudi Arabia'
+union select 'Transportation', 'Longest ramp jump by a truck cab', 'The longest ramp jump by a truck cab measured 50.60 m (166 ft), and was completed by Gregg Godfrey (USA), at Evel Knievel Days Event, in Butte, Montana, USA, on 24 July 2015. Gregg Godfrey previously held this record at 15.39 m.', 'Gregg Godfrey', 50.6, 'Metres', 2015, 'USA'
 go
 
-insert Medalist (OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn, Code)
-select 1896, 'Summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Gold', 'Robert', 'Garrett', 'United States', 1875, 'ADGRG96'
-union select 1896, 'Summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Silver', 'Panagiotis', 'Paraskevopoulos', 'Greece', 1875, 'ADSPP96'
-union select 1896, 'Summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Bronze', 'Sotirios', 'Versis', 'Greece', 1879, 'ADBSV96'
-union select 1896, 'Summer', 'Athens, Greece', 'Cycling', '10 Km', 'Gold', 'Paul', 'Masson', 'France', 1876, 'CTGPM96'
-union select 1896, 'Summer', 'Athens, Greece', 'Cycling', '10 Km', 'Silver', 'Léon', 'Flameng', 'France', 1877, 'CTSLF96'
-union select 1896, 'Summer', 'Athens, Greece', 'Cycling', '10 Km', 'Bronze', 'Adolf', 'Schmal', 'Austria', 1872, 'CTBAS96'
-union select 1896, 'Summer', 'Athens, Greece', 'Fencing', 'Sabre', 'Gold', 'Ioannis', 'Georgiadis', 'Greece', 1876, 'FSGIG96'
-union select 1896, 'Summer', 'Athens, Greece', 'Fencing', 'Sabre', 'Silver', 'Tilemachos', 'Karakalos', 'Greece', 1866, 'FSSTK96'
-union select 1896, 'Summer', 'Athens, Greece', 'Fencing', 'Sabre', 'Bronze', 'Holger', 'Nielsen', 'Denmark', 1866, 'FSBHN96'
-union select 1896, 'Summer', 'Athens, Greece', 'Swimming', 'Sailors 100 M Freestyle', 'Gold', 'Ioannis', 'Malokinis', 'Greece', 1880, 'SSGIM96'
-union select 1896, 'Summer', 'Athens, Greece', 'Swimming', 'Sailors 100 M Freestyle', 'Silver', 'Spyridon', 'Chazapis', 'Greece', 1872, 'SSSSC96'
-union select 1896, 'Summer', 'Athens, Greece', 'Swimming', 'Sailors 100 M Freestyle', 'Bronze', 'Dimitrios', 'Drivas', 'Greece', 1872, 'SSBDD96'
-union select 1900, 'Summer', 'Paris, France', 'Archery', 'Au Chapelet 50 Metres', 'Gold', 'Eugène', 'Mougin', 'France', 1852, 'AAGEM00'
-union select 1900, 'Summer', 'Paris, France', 'Archery', 'Au Chapelet 50 Metres', 'Silver', 'Henri', 'Helle', 'France', 1873, 'AASHH00'
-union select 1900, 'Summer', 'Paris, France', 'Athletics', '2500 Metres Steeplechase', 'Gold', 'George', 'Orton', 'Canada', 1873, 'ATGGO00'
-union select 1900, 'Summer', 'Paris, France', 'Athletics', '2500 Metres Steeplechase', 'Silver', 'Sidney', 'Robinson', 'Great Britian', 1876, 'ATSSR00'
-union select 1900, 'Summer', 'Paris, France', 'Athletics', '2500 Metres Steeplechase', 'Bronze', 'Jean', 'Chastanié', 'France',1875, 'ATVJC00'
-union select 1900, 'Summer', 'Paris, France', 'Croquet', 'Singles, One Ball', 'Gold', 'Gaston', 'Aumoitte', 'France', 1884, 'CSGGA00'
-union select 1900, 'Summer', 'Paris, France', 'Croquet', 'Singles, One Ball', 'Silver', 'Georges', 'Johin', 'France', 1877, 'CS0SGJ0'
-union select 1900, 'Summer', 'Paris, France', 'Croquet', 'Singles, One Ball', 'Bronze', 'Chrétien', 'Waydelich', 'France', 1841, 'CSBCW00'
-union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Men''s Double York Round', 'Gold', 'George', 'Bryant', 'United States', 1878, 'AMGBU04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Men''s Double York Round', 'Silver', 'Robert', 'Williams', 'United States', 1841, 'AMSRW04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Men''s Double York Round', 'Bronze', 'William', 'Thompson', 'United States', 1848, 'AMBWT04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Women''s Double Columbia Round', 'Gold', 'Matilda', 'Howell', 'United States', 1859, 'AWGMH04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Women''s Double Columbia Round', 'Silver', 'Emma', 'Cooke', 'United States', 1848, 'AWSEC04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Women''s Double Columbia Round', 'Bronze', 'Eliza', 'Pollock', 'United States', 1840, 'AWBEP04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Fencing', 'Foil, Individual', 'Gold', 'Ramón', 'Fonst', 'Cuba', 1883, 'FFGRF04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Fencing', 'Foil, Individual', 'Silver', 'Albertson', 'Van Zo Post', 'Cuba', 1866, 'FFSAV04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Fencing', 'Foil, Individual', 'Bronze', 'Charles', 'Tatham', 'Cuba', 1854, 'FFBCT04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Gymnastics', 'Club Swinging', 'Gold', 'Edward', 'Hennig', 'United States', 1879, 'GCGEH04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Gymnastics', 'Club Swinging', 'Silver', 'Emil', 'Voigt', 'United States', 1879, 'GCSEV04'
-union select 1904, 'Summer', 'St. Louis, United States', 'Gymnastics', 'Club Swinging', 'Bronze', 'Ralph', 'Wilson', 'United States', 1880, 'GCBRW04'
-union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', '10 Miles Walk', 'Gold', 'George', 'Larner', 'Great Britian', 1875, 'ATGGL08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', '10 Miles Walk', 'Silver', 'Ernest', 'Webb', 'Great Britian', 1874, 'ATSEW08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', '10 Miles Walk', 'Bronze', 'Edward', 'Spencer', 'Great Britian', 1881, 'ATBES08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', 'Freestyle Javelin', 'Gold', 'Eric', 'Lemming', 'Sweden', 1880, 'AFGEL08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', 'Freestyle Javelin', 'Silver', 'Michalis', 'Dorizas', 'Greece', 1886, 'AFSMD08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', 'Freestyle Javelin', 'Bronze', 'Arne', 'Halse', 'Norway', 1887, 'AFBAH08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Boxing', 'Heavyweight', 'Gold', 'Albert', 'Oldman', 'Great Britian', 1883, 'BHGAO08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Boxing', 'Heavyweight', 'Silver', 'Sidney', 'Evans', 'Great Britian', 1881, 'BHSSE08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Boxing', 'Heavyweight', 'Bronze', 'Frank', 'Parks', 'Great Britian', 1875, 'BHBFK08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Tennis', 'Women''s Indoor Singles', 'Gold', 'Gwendoline', 'Eastlake-Smith', 'Great Britian', 1883, 'TWGGE08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Tennis', 'Women''s Indoor Singles', 'Silver', 'Alice', 'Greene', 'Great Britian', 1879, 'TWSAG08'
-union select 1908, 'Summer', 'London, United Kingdom', 'Tennis', 'Women''s Indoor Singles', 'Bronze', 'Märtha', 'Adlerstråhle', 'Sweden', 1868, 'TWBMA08'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Athletics', '110 Metres Hurdles', 'Gold', 'Fred', 'Kelly', 'United States', 1891, 'AOGFK12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Athletics', '110 Metres Hurdles', 'Silver', 'James', 'Wendell', 'United States', 1890, 'AOSJW12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Athletics', '110 Metres Hurdles', 'Bronze', 'Martin', 'Hawkins', 'United States', 1888, 'AOBMH12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Cycling', 'Individual Time Trial', 'Gold', 'Rudolph', 'Lewis', 'South Africa', 1887, 'CIGRL12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Cycling', 'Individual Time Trial', 'Silver', 'Freddie', 'Grubb', 'Great Britian', 1887, 'CISFG12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Cycling', 'Individual Time Trial', 'Bronze', 'Carl', 'Schutte', 'United States', 1887, 'CIBCS12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Shooting', '300 M Military Rifle, three positions', 'Gold', 'Sándor', 'Prokopp', 'Hungary', 1887, 'STGSP12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Shooting', '300 M Military Rifle, three positions', 'Silver', 'Carl', 'Osburn', 'United States', 1884, 'STSCO12'
-union select 1912, 'Summer', 'Stockholm, Sweden', 'Shooting', '300 M Military Rifle, three positions', 'Bronze', 'Engebret', 'Skogen', 'Norway', 1887, 'STBES12'
-union select 1924, 'Winter', 'Chamonix, France', 'Figure Skating', 'Ladies'' Singles', 'Gold', 'Herma', 'Szabo', 'Austria', 1902, 'FLGHS24'
-union select 1924, 'Winter', 'Chamonix, France', 'Figure Skating', 'Ladies'' Singles', 'Silver', 'Beatrix', 'Loughran', 'United States', 1900, 'FLSBL24'
-union select 1924, 'Winter', 'Chamonix, France', 'Figure Skating', 'Ladies'' Singles', 'Bronze', 'Ethel', 'Muckelt', 'Great Britian', 1885, 'FLBEM24'
-union select 1924, 'Winter', 'Chamonix, France', 'Speed Skating', '5000 Metres', 'Gold', 'Clas', 'Thunberg', 'Finland', 1893, 'SFGCT24'
-union select 1924, 'Winter', 'Chamonix, France', 'Speed Skating', '5000 Metres', 'Silver', 'Julius', 'Skutnabb', 'Finland', 1889, 'SFSJS24'
-union select 1924, 'Winter', 'Chamonix, France', 'Speed Skating', '5000 Metres', 'Bronze', 'Roald', 'Larsen', 'Norway', 1898, 'SFBRL24'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Gold', 'Johan', 'Grøttumsbråten', 'Norway', 1899, 'CEGJG28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Silver', 'Ole', 'Hegge', 'Norway', 1898, 'CESOH28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Bronze', 'Reidar', 'Ødegaard', 'Norway', 1901, 'CEBRO28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Skeleton', 'Men''s Individual', 'Gold', 'Jennison', 'Heaton', 'United States', 1904, 'SM2GJH8'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Skeleton', 'Men''s Individual', 'Silver', 'John', 'Heaton', 'United States', 1908, 'SMSJH28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Skeleton', 'Men''s Individual', 'Bronze', 'David', 'Carnegie', 'Great Britian', 1901, 'SMBDC28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Alf', 'Andersen', 'Norway', 1906, 'SMGAA28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Sigmund', 'Ruud', 'Norway', 1907, 'SMSSR28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Rudolf', 'Burkert', 'Czechoslovakia', 1904, 'SMBRB28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Speed Skating', '5000 Metres', 'Gold', 'Ivar', 'Ballangrud', 'Norway', 1904, 'SFGIB28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Speed Skating', '5000 Metres', 'Silver', 'Julius', 'Skutnabb', 'Finland', 1889, 'SFSJS28'
-union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Speed Skating', '5000 Metres', 'Bronze', 'Bernt', 'Evensen', 'Norway', 1905, 'SFBBE28'
-union select 1932, 'Summer', 'Los Angeles, California', 'Athletics', 'Women''s 100 M', 'Gold', 'Stanisława', 'Walasiewicz', 'Poland', 1911, 'AWGSW32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Athletics', 'Women''s 100 M', 'Silver', 'Hilda', 'Strike', 'Canada', 1910, 'AWSHS32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Athletics', 'Women''s 100 M', 'Bronze', 'Wilhelmina', 'von Bremen', 'United States', 1909, 'AWBWV32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Boxing', 'Featherweight', 'Gold', 'Carmelo', 'Robledo', 'Argentina', 1912, 'BFGCR32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Boxing', 'Featherweight', 'Silver', 'Josef', 'Schleinkofer', 'Germany', 1910, 'BFSJS32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Boxing', 'Featherweight', 'Bronze', 'Allan', 'Carlsson', 'Sweden', 1910, 'BFBAC32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Cycling', 'Individual Time Trial', 'Gold', 'Attilio', 'Pavesi', 'Italy', 1910, 'CIGAP32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Cycling', 'Individual Time Trial', 'Silver', 'Guglielmo', 'Segato', 'Italy', 1906, 'CISGS32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Cycling', 'Individual Time Trial', 'Bronze', 'Bernhard', 'Britz', 'Sweden', 1906, 'CIBBB32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Diving', '10 Metre Platform', 'Gold', 'Dorothy', 'Poynton-Hill', 'United States', 1915, 'DTGDP32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Diving', '10 Metre Platform', 'Silver', 'Georgia', 'Coleman', 'United States', 1912, 'DTSGC32'
-union select 1932, 'Summer', 'Los Angeles, California', 'Diving', '10 Metre Platform', 'Bronze', 'Marion', 'Roper', 'United States', 1910, 'DTBMR32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Birger', 'Ruud', 'Norway', 1911, 'SMGBR32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Hans', 'Beck', 'Norway', 1911, 'SMSHB32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Kaare', 'Walberg', 'Norway', 1912, 'SMBKW32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Nordic Combined', 'Men''s Individual', 'Gold', 'Johan', 'Grøttumsbråten', 'Norway', 1899, 'NMGJG32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Nordic Combined', 'Men''s Individual', 'Silver', 'Ole', 'Stenen', 'Norway', 1903, 'NMSOS32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Nordic Combined', 'Men''s Individual', 'Bronze', 'Hans', 'Vinjarengen', 'Norway', 1905, 'NMBHV32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Figure Skating', 'Men''s Singles', 'Gold', 'Karl', 'Schäfer', 'Austria', 1909, 'FMGKS32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Figure Skating', 'Men''s Singles', 'Silver', 'Gillis', 'Grafström', 'Sweden', 1893, 'FMSGG32'
-union select 1932, 'Winter', 'Lake Placid, New York', 'Figure Skating', 'Men''s Singles', 'Bronze', 'Montgomery', 'Wilson', 'Canada', 1909, 'FMBMW32'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '50 Km', 'Gold', 'Elis', 'Wiklund', 'Sweden', 1909, 'CFGEW36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '50 Km', 'Silver', 'Axel', 'Wikström', 'Sweden', 1907, 'CFSAW36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '50 Km', 'Bronze', 'Nils-Joel', 'Englund', 'Sweden', 1907, 'CFBNE36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Figure Skating', 'Ladies'' Singles', 'Gold', 'Sonja', 'Henie', 'Norway', 1912, 'FLGSH36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Figure Skating', 'Ladies'' Singles', 'Silver', 'Cecilia', 'Colledge', 'Great Britian', 1920, 'FLSCC36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Figure Skating', 'Ladies'' Singles', 'Bronze', 'Vivi-Anne', 'Hultén', 'Sweden', 1911, 'FLBVH36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '18 Km', 'Gold', 'Erik', 'Larsson', 'Sweden', 1912, 'CEGEL36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '18 Km', 'Silver', 'Oddbjørn', 'Hagen', 'Norway', 1908, 'CESOH36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '18 Km', 'Bronze', 'Pekka', 'Niemi', 'Finland', 1909, 'CEBKN36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Alpine Skiing', 'Women''s Combined', 'Gold', 'Christl', 'Cranz', 'Germany', 1914, 'AWGCC36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Alpine Skiing', 'Women''s Combined', 'Silver', 'Käthe', 'Grasegger', 'Germany', 1917, 'AWSKG36'
-union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Alpine Skiing', 'Women''s Combined', 'Bronze', 'Laila', 'Schou Nilsen', 'Norway', 1919, 'AWBLS36'
-union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Men''s 100 M', 'Gold', 'Harrison', 'Dillard', 'United States', 1923, 'AMGHD48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Men''s 100 M', 'Silver', 'Barney', 'Ewell', 'United States', 1918, 'AMSBE48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Men''s 100 M', 'Bronze', 'Lloyd', 'La Beach', 'Panama', 1922, 'AMBLL48' 
-union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Women''s 80 M Hurdles', 'Gold', 'Fanny', 'Blankers-Koen', 'Netherlands', 1918, 'AWGFB48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Women''s 80 M Hurdles', 'Silver', 'Maureen', 'Gardner', 'Great Britian', 1928, 'AWSMG48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Women''s 80 M Hurdles', 'Bronze', 'Shirley', 'Strickland', 'Western Australia', 1925, 'AW48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Boxing', 'Flyweight', 'Gold', 'Pascual', 'Pérez', 'Argentina',1926 , 'BFGPP48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Boxing', 'Flyweight', 'Silver', 'Spartaco', 'Bandinelli', 'Italy', 1921, 'BFSSB48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Boxing', 'Flyweight', 'Bronze', 'Han', 'Soo-ann', 'South Korea', 1926, 'BFBHS48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Diving', 'Women''s 3 Metre Springboard', 'Gold', 'Vicki', 'Draves', 'United States', 1924, 'DWGVD48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Diving', 'Women''s 3 Metre Springboard', 'Silver', 'Zoe Ann', 'Olsen-Jensen', 'United States', 1931, 'DWSZO48'
-union select 1948, 'Summer', 'London, United Kingdom', 'Diving', 'Women''s 3 Metre Springboard', 'Bronze', 'Patsy', 'Elsener', 'United States', 1929, 'DWBPE48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Hedy', 'Schlunegger', 'Switzerland', 1923, 'AWGHS48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Trude', 'Beiser', 'Austria', 1927, 'AWTBA48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Resi', 'Hammerer', 'Austria', 1925, 'AWBRH48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Gold', 'Martin', 'Lundström', 'Sweden', 1918, 'CEGML48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Silver', 'Nils', 'Östensson', 'Sweden', 1918, 'CESNO48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Bronze', 'Gunnar', 'Eriksson', 'Sweden', 1921, 'CEBGE48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Figure Skating', 'Men''s Singles', 'Gold', 'Dick', 'Button', 'United States', 1929, 'FMGDB48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Figure Skating', 'Men''s Singles', 'Silver', 'Hans', 'Gerschwiler', 'Switzerland', 1920, 'FMSHG48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Figure Skating', 'Men''s Singles', 'Bronze', 'Edi', 'Rada', 'Austria', 1922, 'FMBER48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Petter', 'Hugsted', 'Norway', 1921, 'SMGPH48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Birger', 'Ruud', 'Norway', 1911, 'SMSBR48'
-union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Thorleif', 'Schjelderup', 'Norway', 1920, 'SMBTS48'
-union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Men''s Giant Slalom', 'Gold', 'Stein', 'Eriksen', 'Norway', 1927, 'AMGSE52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Men''s Giant Slalom', 'Silver', 'Christian', 'Pravda', 'Austria', 1927, 'AMSCP52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Men''s Giant Slalom', 'Bronze', 'Toni', 'Spiss', 'Austria', 1930, 'AMBTS52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Women''s Slalom', 'Gold', 'Andrea Mead', 'Lawrence', 'United States', 1932, 'AWGAL52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Women''s Slalom', 'Silver', 'Ossi', 'Reichert', 'Germany', 1925, 'AWSOR52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Women''s Slalom', 'Bronze', 'Annemarie', 'Buchner', 'Germany', 1924, 'AWBAB52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Nordic Combined', 'Men''s Individual', 'Gold', 'Simon', 'Slåttvik', 'Norway', 1917, 'NMGSS52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Nordic Combined', 'Men''s Individual', 'Silver', 'Heikki', 'Hasu', 'Finland', 1926, 'NMSHH52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Nordic Combined', 'Men''s Individual', 'Bronze', 'Sverre', 'Stenersen', 'Norway', 1926, 'NMBSS52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Speed Skating', '5000 Metres', 'Gold', 'Hjalmar', 'Andersen', 'Norway', 1923, 'SFGHA52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Speed Skating', '5000 Metres', 'Silver', 'Kees', 'Broekman', 'Netherlands', 1927, 'SFSKB52'
-union select 1952, 'Winter', 'Oslo, Norway', 'Speed Skating', '5000 Metres', 'Bronze', 'Sverre Ingolf', 'Haugli', 'Norway', 1925, 'SFBSH52'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Madeleine', 'Berthod', 'Switzerland', 1931, 'AWGMB56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Frieda', 'Dänzer', 'Switzerland', 1930, 'AWSFD56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Lucile', 'Wheeler', 'Canada', 1935, 'AWBLW56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Antti', 'Hyvärinen', 'Finland', 1932, 'SMGAH56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Aulis', 'Kallakorpi', 'Finland', 1929, 'SMSAK56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Harry', 'Glaß', 'Germany', 1930, 'SMBHG56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Nordic Combined', 'Men''s Individual', 'Gold', 'Sverre', 'Stenersen', 'Norway', 1926, 'NMGSS56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Nordic Combined', 'Men''s Individual', 'Silver', 'Bengt', 'Eriksson', 'Sweden', 1931, 'NMSBE56'
-union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Nordic Combined', 'Men''s Individual', 'Bronze', 'Franciszek', 'Gąsienica Groń', 'Poland', 1931, 'NMBFG56'
-union select 1960, 'Summer', 'Rome, Italy', 'Athletics', 'Marathon', 'Gold', 'Abebe', 'Bikila', 'Ethiopia', 1932, 'AMGAB60'
-union select 1960, 'Summer', 'Rome, Italy', 'Athletics', 'Marathon', 'Silver', 'Rhadi', 'Ben Abdesselam', 'Morocco', 1929, 'AMSRB60'
-union select 1960, 'Summer', 'Rome, Italy', 'Athletics', 'Marathon', 'Bronze', 'Barry', 'Magee', 'New Zealand', 1934, 'AMBBM60'
-union select 1960, 'Summer', 'Rome, Italy', 'Canoeing', 'C-1 1000 M', 'Gold', 'János', 'Parti', 'Hungary', 1932, 'CCGJP60'
-union select 1960, 'Summer', 'Rome, Italy', 'Canoeing', 'C-1 1000 M', 'Silver', 'Aleksandr', 'Silayev', 'Soviet Union', 1928, 'CCSAS60'
-union select 1960, 'Summer', 'Rome, Italy', 'Canoeing', 'C-1 1000 M', 'Bronze', 'Leon', 'Rotman', 'Romania', 1934, 'CCBLR60'
-union select 1960, 'Summer', 'Rome, Italy', 'Cycling', 'Road Race', 'Gold', ' Viktor', 'Kapitonov', 'Soviet Union', 1933, 'CRGVK60'
-union select 1960, 'Summer', 'Rome, Italy', 'Cycling', 'Road Race', 'Silver', 'Livio', 'Trapè', 'Italy', 1937, 'CRSLT60'
-union select 1960, 'Summer', 'Rome, Italy', 'Cycling', 'Road Race', 'Bronze', 'Willy', 'Vanden Berghen', 'Belgium', 1939, 'CRBWV60'
-union select 1960, 'Summer', 'Rome, Italy', 'Gymnastics', 'Vault', 'Gold', 'Margarita', 'Nikolaeva', 'Soviet Union', 1935, 'GVGMN60'
-union select 1960, 'Summer', 'Rome, Italy', 'Gymnastics', 'Vault', 'Silver', 'Sofia', 'Muratova', 'Soviet Union', 1929, 'GVSSM60'
-union select 1960, 'Summer', 'Rome, Italy', 'Gymnastics', 'Vault', 'Bronze', 'Larisa', 'Latynina', 'Soviet Union', 1934, 'GVBLL60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Alpine Skiing', 'Men''s Downhill', 'Gold', 'Jean', 'Vuarnet', 'France', 1933, 'AMGJV60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Alpine Skiing', 'Men''s Downhill', 'Silver', 'Hans-Peter', 'Lanig', 'Germany', 1935, 'AMSHL60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Alpine Skiing', 'Men''s Downhill', 'Bronze', 'Guy', 'Périllat', 'France', 1940, 'AMBGP60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Biathlon', 'Men''s 20 Km', 'Gold', 'Klas', 'Lestander', 'Sweden', 1931, 'BMGKL60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Biathlon', 'Men''s 20 Km', 'Silver', 'Antti', 'Tyrväinen', 'Finland', 1933, 'BMSAT60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Biathlon', 'Men''s 20 Km', 'Bronze', 'Aleksandr', 'Privalov', 'Soviet Union', 1933, 'BMBAP60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Cross-country Skiing', 'Women''s 10 Km', 'Gold', 'Maria', 'Gusakova', 'Soviet Union', 1931, 'CWGMG60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Cross-country Skiing', 'Women''s 10 Km', 'Silver', 'Lyubov', 'Kozyreva', 'Soviet Union', 1929, 'CWSLK60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Cross-country Skiing', 'Women''s 10 Km', 'Bronze', 'Radya', 'Yeroshina', 'Soviet Union', 1930, 'CWBRY60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Helmut', 'Recknagel', 'Germany',1937 , 'SMGHR60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Niilo', 'Halonen', 'Finland', 1940, 'SMSNH60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Otto', 'Leodolter', 'Austria', 1936, 'SMBOL60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Speed Skating', 'Men''s 500 Metres', 'Gold', 'Yevgeny', 'Grishin', 'Soviet Union',1931, 'SMGYG60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Speed Skating', 'Men''s 500 Metres', 'Silver', 'Bill', 'Disney', 'United States', 1932, 'SMSBD60'
-union select 1960, 'Winter', 'Squaw Valley, California', 'Speed Skating', 'Men''s 500 Metres', 'Bronze', 'Rafayel', 'Grach', 'Soviet Union', 1932, 'SMBRG60'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Athletics', '200 M', 'Gold', 'Henry', 'Carr', 'United States', 1941, 'TAGHC64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Athletics', '200 M', 'Silver', 'Paul', 'Drayton', 'United States', 1939, 'TASPD64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Athletics', '200 M', 'Bronze', 'Edwin', 'Roberts', 'Trinidad and Tobago', 1941, 'TABER64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Canoeing', 'K-1 1000 Metres', 'Gold', 'Rolf', 'Peterson', 'Sweden', 1944, 'CKGRP64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Canoeing', 'K-1 1000 Metres', 'Silver', 'Mihály', 'Hesz', 'Hungary', 1943, 'CKSMH64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Canoeing', 'K-1 1000 Metres', 'Bronze', 'Aurel', 'Vernescu', 'Romania', 1939, 'CKBAV64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Cycling', 'Individual Road Race', 'Gold', 'Mario', 'Zanin', 'Italy', 1940, 'CIGMZ64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Cycling', 'Individual Road Race', 'Silver', 'Kjell', 'Rodian', 'Denmark', 1942, 'CISKR64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Cycling', 'Individual Road Race', 'Bronze', 'Walter', 'Godefroot', 'Belgium', 1943, 'CIBWG64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Diving', '3 M Springboard', 'Gold', 'Kenneth', 'Sitzberger', 'United States', 1945, 'DTGKS64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Diving', '3 M Springboard', 'Silver', 'Frank', 'Gorman', 'United States', 1937, 'DTSFG64'
-union select 1964, 'Summer', 'Tokyo, Japan', 'Diving', '3 M Springboard', 'Bronze', 'Lawrence', 'Andreasen', 'United States', 1945, 'DTBLA64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Ski Jumping', 'Men''s Normal Hill', 'Gold', 'Veikko', 'Kankkonen', 'Finland', 1940, 'SMGVK64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Ski Jumping', 'Men''s Normal Hill', 'Silver', 'Toralf', 'Engan', 'Norway', 1936, 'SMSTE64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Ski Jumping', 'Men''s Normal Hill', 'Bronze', 'Torgeir', 'Brandtzæg', 'Norway', 1941, 'SMBTB64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Biathlon', 'Men''s 20 Km', 'Gold', 'Vladimir', 'Melanin', 'Soviet Union', 1933, 'BMGVM64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Biathlon', 'Men''s 20 Km', 'Silver', 'Aleksandr', 'Privalov', 'Soviet Union', 1933, 'BMSAP64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Biathlon', 'Men''s 20 Km', 'Bronze', 'Olav', 'Jordet', 'Norway', 1939, 'BMBOJ64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Cross-country Skiing', 'Women''s 10 Km', 'Gold', 'Klavdiya', 'Boyarskikh', 'Soviet Union', 1939, 'CWGKB64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Cross-country Skiing', 'Women''s 10 Km', 'Silver', 'Yevdokiya', 'Mekshilo', 'Soviet Union', 1931, 'CWSYM64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Cross-country Skiing', 'Women''s 10 Km', 'Bronze', 'Maria', 'Gusakova', 'Soviet Union', 1931, 'CWBMG64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Speed Skating', 'Women''s 1500 metres', 'Gold', 'Lidiya', 'Skoblikova', 'Soviet Union', 1939, 'SWGLS64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Speed Skating', 'Women''s 1500 metres', 'Silver', 'Kaija', 'Mustonen', 'Finland', 1941, 'SWSKM64'
-union select 1964, 'Winter', 'Innsbruck, Austria', 'Speed Skating', 'Women''s 1500 metres', 'Bronze', 'Berta', 'Kolokoltseva', 'Soviet Union', 1937, 'SWBBK64'
-union select 1968, 'Winter', 'Grenoble, France', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Olga', 'Pall', 'Austria', 1947, 'AWGOP68'
-union select 1968, 'Winter', 'Grenoble, France', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Isabelle', 'Mir', 'France', 1949, 'AWSIM68'
-union select 1968, 'Winter', 'Grenoble, France', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Christl', 'Haas', 'Austria', 1943, 'AWBCH68'
-union select 1968, 'Winter', 'Grenoble, France', 'Figure Skating', 'Ladies'' Singles', 'Gold', 'Peggy', 'Fleming', 'United States', 1948, 'FLGPF68'
-union select 1968, 'Winter', 'Grenoble, France', 'Figure Skating', 'Ladies'' Singles', 'Silver', 'Gabriele', 'Seyfert', 'East Germany', 1948, 'FLSGS68'
-union select 1968, 'Winter', 'Grenoble, France', 'Figure Skating', 'Ladies'' Singles', 'Bronze', 'Hana', 'Mašková', 'Czechoslovakia', 1949, 'FLBHM68'
-union select 1968, 'Winter', 'Grenoble, France', 'Speed Skating', 'Men''s 10000 Metres', 'Gold', 'Johnny', 'Höglin', 'Sweden', 1943, 'SMGJH68'
-union select 1968, 'Winter', 'Grenoble, France', 'Speed Skating', 'Men''s 10000 Metres', 'Silver', 'Fred', 'Anton Maier', 'Norway', 1938, 'SMSFA68'
-union select 1968, 'Winter', 'Grenoble, France', 'Speed Skating', 'Men''s 10000 Metres', 'Bronze', 'Örjan', 'Sandler', 'Sweden', 1940, 'SMBOS68'
-union select 1968, 'Winter', 'Grenoble, France', 'Cross-country Skiing', 'Men''s 15 Km', 'Gold', 'Harald', 'Grønningen', 'Norway', 1934, 'CMGHG68'
-union select 1968, 'Winter', 'Grenoble, France', 'Cross-country Skiing', 'Men''s 15 Km', 'Silver', 'Eero', 'Mäntyranta', 'Finland', 1937, 'CMSEM37'
-union select 1968, 'Winter', 'Grenoble, France', 'Cross-country Skiing', 'Men''s 15 Km', 'Bronze', 'Gunnar', 'Larsson', 'Sweden', 1944, 'CMBGL44'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Biathlon', 'Men''s Individual', 'Gold', 'Magnar', 'Solberg', 'Norway', 1937, 'BMGMS72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Biathlon', 'Men''s Individual', 'Silver', 'Hansjörg', 'Knauthe', 'East Germany', 1944, 'BMSHK72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Biathlon', 'Men''s Individual', 'Bronze', 'Lars-Göran', 'Arwidson', 'Sweden', 1946, 'BMBLA72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Cross-country Skiing', '10 Km', 'Gold', 'Galina', 'Kulakova', 'Soviet Union', 1942, 'CTGGK72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Cross-country Skiing', '10 Km', 'Silver', 'Alevtina', 'Olyunina', 'Soviet Union', 1942, 'CTSAO72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Cross-country Skiing', '10 Km', 'Bronze', 'Marjatta', 'Kajosmaa', 'Finland', 1938, 'CTBMK72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Men''s Singles', 'Gold', 'Wolfgang', 'Scheidel', 'East Germany', 1943, 'LMGWS72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Men''s Singles', 'Silver', 'Harald', 'Ehrig', 'East Germany', 1949, 'LMSHE72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Men''s Singles', 'Bronze', 'Wolfram', 'Fiedler', 'East Germany', 1951, 'LMBWF72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Women''s Singles', 'Gold', 'Anna-Maria', 'Müller', 'East Germany', 1949, 'LWGAM72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Women''s Singles', 'Silver', 'Ute', 'Rührold', 'East Germany', 1954, 'LWSUR72'
-union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Women''s Singles', 'Bronze', 'Margit', 'Schumann', 'East Germany', 1952, 'LWBMS72'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Swimming', '100 M Freestyle', 'Gold', 'Kornelia', 'Ender', 'East Germany', 1958, 'SOGKE76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Swimming', '100 M Freestyle', 'Silver', 'Petra', 'Priemer', 'East Germany', 1961, 'SOSPP76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Swimming', '100 M Freestyle', 'Bronze', 'Enith', 'Brigitha', 'Netherlands', 1955, 'SOBEB76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Archery', 'Mens''', 'Gold', 'Darrell', 'Pace', 'United States', 1956, 'AMGDP76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Archery', 'Mens''', 'Silver', 'Hiroshi', 'Michinaga', 'Japan', 1956, 'AMSHM76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Archery', 'Mens''', 'Bronze', 'Giancarlo', 'Ferrari', 'Italy', 1942, 'AMBGF76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Athletics', '100 M', 'Gold', 'Hasely', 'Crawford', 'Trinidad and Tobago', 1950, 'AOGHC76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Athletics', '100 M', 'Silver', 'Don', 'Quarrie', 'Jamaica', 1951, 'AOSDQ76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Athletics', '100 M', 'Bronze', 'Valeriy', 'Borzov', 'Soviet Union', 1949, 'AOBVB76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Gymnastics', 'Uneven Bars', 'Gold', 'Nadia', 'Comăneci', 'Romania', 1961, 'GUGNC76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Gymnastics', 'Uneven Bars', 'Silver', 'Teodora', 'Ungureanu', 'Romania', 1960, 'GUSTU76'
-union select 1976, 'Summer', 'Montreal, Quebec', 'Gymnastics', 'Uneven Bars', 'Bronze', 'Márta', 'Egervári', 'Hungary', 1956, 'GUBME76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Men''s Singles', 'Gold', 'John', 'Curry', 'Great Britian', 1949, 'FMGJC76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Men''s Singles', 'Silver', 'Vladimir', 'Kovalyov', 'Soviet Union', 1953, 'FMSVK76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Men''s Singles', 'Bronze', 'Toller', 'Cranston', 'Canada', 1949, 'FMBTC76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Women''s Singles', 'Gold', 'Dorothy', 'Hamill', 'United States', 1956, 'FWGDH76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Women''s Singles', 'Silver', 'Dianne', 'de Leeuw', 'Netherlands', 1955, 'FWSDD76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Women''s Singles', 'Bronze', 'Christine', 'Errath', 'East Germany', 1956, 'FWBCE76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Men''s Singles', 'Gold', 'Dettlef', 'Günther', 'East Germany', 1954, 'LMGDG76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Men''s Singles', 'Silver', 'Josef', 'Fendt', 'West Germany', 1947, 'LMSJF76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Men''s Singles', 'Bronze', 'Hans', 'Rinn', 'East Germany', 1953, 'LMBHR76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Women''s Singles', 'Gold', 'Margit', 'Schumann', 'East Germany', 1952, 'LWGMS76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Women''s Singles', 'Silver', 'Ute', 'Rührold', 'East Germany', 1954, 'LWSUR76'
-union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Women''s Singles', 'Bronze', 'Elisabeth', 'Demleitner', 'West Germany', 1952, 'LWBED76'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Men''s 5,000 Metres', 'Gold', 'Eric', 'Heiden', 'United States', 1958, 'SMGEH80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Men''s 5,000 Metres', 'Silver', 'Kay', 'Stenshjemmet', 'Norway', 1953, 'SMSKS80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Men''s 5,000 Metres', 'Bronze', 'Tom Erik', 'Oxholm', 'Norway', 1959, 'SMBTO80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Women''s 1,500 Metres', 'Gold', 'Annie', 'Borckink', 'Netherlands', 1951, 'SWGAB80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Women''s 1,500 Metres', 'Silver', 'Ria', 'Visser', 'Netherlands', 1961, 'SWSRV80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Women''s 1,500 Metres', 'Bronze', 'Sabine', 'Becker', 'East Germany', 1959, 'SWBSB80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Downhill', 'Gold', 'Leonhard', 'Stock', 'Austria', 1958, 'AMGLS80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Downhill', 'Silver', 'Peter', 'Wirnsberger', 'Austria', 1958, 'AMSPW80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Downhill', 'Bronze', 'Steve', 'Podborski', 'Canada', 1957, 'AMBSP80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Annemarie', 'Moser-Pröll', 'Austria', 1953, 'AWGAM80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Hanni', 'Wenzel', 'Liechtenstein', 1956, 'AWSHW80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Marie-Theres', 'Nadig', 'Switzerland', 1954, 'AWBMN80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Slalom', 'Gold', 'Ingemar', 'Stenmark', 'Sweden', 1956, 'AMGIS80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Slalom', 'Silver', 'Phil', 'Mahre', 'United States', 1957, 'AMSPM80'
-union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Slalom', 'Bronze', 'Jacques', 'Lüthy', 'Switzerland', 1959, 'AMBJL80'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Alpine Skiing', 'Men''s Giant Slalom', 'Gold', 'Max', 'Julen', 'Switzerland', 1961, 'AMGMJ84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Alpine Skiing', 'Men''s Giant Slalom', 'Silver', 'Jure', 'Franko', 'Yugoslavia', 1962, 'AMSJF84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Alpine Skiing', 'Men''s Giant Slalom', 'Bronze', 'Andreas', 'Wenzel', 'Liechtenstein', 1958, 'AMBAW84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Luge', 'Women''s Singles', 'Gold', 'Steffi', 'Martin', 'East Germany', 1962, 'LWGSM84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Luge', 'Women''s Singles', 'Silver', 'Bettina', 'Schmidt', 'East Germany', 1960, 'LWSBS84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Luge', 'Women''s Singles', 'Bronze', 'Ute', 'Oberhoffner', 'East Germany', 1961, 'LWBUO84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Speed Skating', 'Men''s 1,000 Metres', 'Gold', 'Gaétan', 'Boucher', 'Canada', 1958, 'SMGGB84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Speed Skating', 'Men''s 1,000 Metres', 'Silver', 'Sergey', 'Khlebnikov', 'Soviet Union', 1955, 'SMSSK84'
-union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Speed Skating', 'Men''s 1,000 Metres', 'Bronze', 'Kai Arne', 'Engelstad', 'Norway', 1954, 'SMBKE84'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Men''s 100 Metre Freestyle', 'Gold', 'Alexander', 'Popov', 'Unified Team', 1971, 'SMGAP92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Men''s 100 Metre Freestyle', 'Silver', 'Gustavo', 'Borges', 'Brazil', 1972, 'SMSGB92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Men''s 100 Metre Freestyle', 'Bronze', 'Stéphan', 'Caron', 'France', 1966, 'SMBSC92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Women''s 200 Metre Breaststroke', 'Gold', 'Kyoko', 'Iwasaki', 'Japan', 1978, 'SWGKI92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Women''s 200 Metre Breaststroke', 'Silver', 'Lin', 'Li', 'China', 1970, 'SWSLL92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Women''s 200 Metre Breaststroke', 'Bronze', 'Anita', 'Nall', 'United States', 1976, 'SWBAN92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Archery', 'Women''s Individual', 'Gold', 'Cho', 'Youn-jeong', 'South Korea', 1969, 'AWGCY92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Archery', 'Women''s Individual', 'Silver', 'Kim', 'Soo-nyung', 'South Korea', 1971, 'AWSKS92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Archery', 'Women''s Individual', 'Bronze', 'Natalia', 'Valeeva', 'Unified Team', 1969, 'AWBNV92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Athletics', 'Men''s 800 M', 'Gold', 'William', 'Tanui', 'Kenya', 1964, 'AMGWT92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Athletics', 'Men''s 800 M', 'Silver', 'Nixon', 'Kiprotich', 'Kenya', 1962, 'AMSNK92'
-union select 1992, 'Summer', 'Barcelona, Spain', 'Athletics', 'Men''s 800 M', 'Bronze', 'Johnny', 'Gray', 'United States', 1960, 'AMBJG92'
-union select 1998, 'Winter', 'Nagano, Japan', 'Alpine Skiing', 'Women''s Combined', 'Gold', 'Katja', 'Seizinger', 'Germany', 1972, 'AWGKS98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Alpine Skiing', 'Women''s Combined', 'Silver', 'Martina', 'Ertl-Renz', 'Germany', 1973, 'AWSME98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Alpine Skiing', 'Women''s Combined', 'Bronze', 'Hilde', 'Gerg', 'Germany', 1975, 'AWBHG98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Biathlon', 'Men''s 20 Km', 'Gold', 'Halvard', 'Hanevold', 'Norway', 1969, 'BMGHH98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Biathlon', 'Men''s 20 Km', 'Silver', 'Pieralberto', 'Carrara', 'Italy', 1966, 'BMSPC98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Biathlon', 'Men''s 20 Km', 'Bronze', 'Alexei', 'Aidarov', 'Belarus', 1974, 'BMBAA98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Women''s Combined 5 Km + 10 km pursuit', 'Gold', 'Larisa', 'Lazutina', 'Russia', 1965, 'CWGLL98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Women''s Combined 5 Km + 10 km pursuit', 'Silver', 'Olga', 'Danilova', 'Russia', 1970, 'CWSOD98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Women''s Combined 5 Km + 10 km pursuit', 'Bronze', 'Kateřina', 'Neumannová', 'Czech Republic', 1973, 'CWBKN98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Men''s 50 Km freestyle', 'Gold', 'Bjørn', 'Dæhlie', 'Norway', 1967, 'CMGBD98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Men''s 50 Km freestyle', 'Silver', 'Niklas', 'Jonsson', 'Sweden', 1969, 'CMSNJ98'
-union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Men''s 50 Km freestyle', 'Bronze', 'Christian', 'Hoffmann', 'Austria', 1974, 'CMBCH98'
-union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '200 Metres', 'Gold', 'Konstantinos', 'Kenteris', 'Greece', 1973, 'ATGKK00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '200 Metres', 'Silver', 'Darren', 'Campbell', 'Great Britian', 1973, 'ATSDC00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '200 Metres', 'Bronze', 'Ato', 'Boldon', 'Trinidad and Tobago', 1973, 'ATBAB00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '5000 Metres', 'Gold', 'Million', 'Wolde', 'Ethiopia', 1979, 'AFGMW00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '5000 Metres', 'Silver', 'Ali', 'Saïdi-Sief', 'Algeria', 1978, 'AFSAS00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '5000 Metres', 'Bronze', 'Brahim', 'Lahlafi', 'Morocco', 1968, 'AFBBL00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Road', 'Men''s Marathon', 'Gold', 'Gezahegne', 'Abera', 'Ethiopia', 1978, 'RMGGA00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Road', 'Men''s Marathon', 'Silver', 'Erick', 'Wainaina', 'Kenya', 1973, 'RMSEW00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Road', 'Men''s Marathon', 'Bronze', 'Tesfaye', 'Tola', 'Ethiopia', 1974, 'RMBTT00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Field', 'High Jump', 'Gold', 'Sergey', 'Klyugin', 'Russia', 1974, 'FHGSK00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Field', 'High Jump', 'Silver', 'Javier', 'Sotomayor', 'Cuba', 1967, 'FHSJS00'
-union select 2000, 'Summer', 'Sydney, Australia', 'Field', 'High Jump', 'Bronze', 'Abderrahmane', 'Hammad', 'Algeria', 1977, 'FHBAH00'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Alpine Skiing', 'Women''s Super-G', 'Gold', 'Daniela', 'Ceccarelli', 'Italy', 1975, 'AWGDC02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Alpine Skiing', 'Women''s Super-G', 'Silver', 'Janica', 'Kostelić', 'Croatia', 1982, 'AWSJK02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Alpine Skiing', 'Women''s Super-G', 'Bronze', 'Karen', 'Putzer', 'Italy', 1978, 'AWBKP02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Figure Skating', 'Women''s Singles', 'Gold', 'Sarah', 'Hughes', 'United States', 1985, 'FWGSH02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Figure Skating', 'Women''s Singles', 'Silver', 'Irina', 'Slutskaya', 'Russia', 1979, 'FWSIS02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Figure Skating', 'Women''s Singles', 'Bronze', 'Michelle', 'Kwan', 'United States', 1980, 'FWBMK02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Men''s Moguls', 'Gold', 'Janne', 'Lahtela', 'Finland', 1974, 'FMGJL02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Men''s Moguls', 'Silver', 'Travis', 'Mayer', 'United States', 1982, 'FMSTM02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Women''s Aerials', 'Gold', 'Alisa', 'Camplin', 'Australia', 1974, 'FWGAC02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Women''s Aerials', 'Silver', 'Veronica', 'Brenner', 'Canada', 1974, 'FWSVB02'
-union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Women''s Aerials', 'Bronze', 'Deidra', 'Dionne', 'Canada', 1982, 'FWBDD02'
-union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Men''s Individual', 'Gold', 'Marco', 'Galiazzo', 'Italy', 1983, 'AMGMG04'
-union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Men''s Individual', 'Silver', 'Hiroshi', 'Yamamoto', 'Japan', 1962, 'AMSHY04'
-union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Men''s Individual', 'Bronze', 'Tim', 'Cuddihy', 'Australia', 1987, 'AMBTC04'
-union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Women''s Individual', 'Gold', 'Park', 'Sung-hyun', 'South Korea', 1983, 'AWGPS04'
-union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Women''s Individual', 'Silver', 'Lee', 'Sung-jin', 'South Korea', 1985, 'AW0SLS4'
-union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Women''s Individual', 'Bronze', 'Alison', 'Williamson', 'Great Britian', 1971, 'AWBAW04'
-union select 2004, 'Summer', 'Athens, Greece', 'Road', 'Women''s Marathon', 'Gold', 'Mizuki', 'Noguchi', 'Japan', 1978, 'RWGMN04'
-union select 2004, 'Summer', 'Athens, Greece', 'Road', 'Women''s Marathon', 'Silver', 'Catherine', 'Ndereba', 'Kenya', 1972, 'RWSCN04'
-union select 2004, 'Summer', 'Athens, Greece', 'Road', 'Women''s Marathon', 'Bronze', 'Deena', 'Kastor', 'United States', 1973, 'RWBDK04'
-union select 2004, 'Summer', 'Athens, Greece', 'Field', 'Long Jump', 'Gold', 'Dwight', 'Phillips', 'United States', 1977, 'FLGDP04'
-union select 2004, 'Summer', 'Athens, Greece', 'Field', 'Long Jump', 'Silver', 'John', 'Moffitt', 'United States', 1980, 'FLSJM04'
-union select 2004, 'Summer', 'Athens, Greece', 'Field', 'Long Jump', 'Bronze', 'Joan Lino', 'Martínez', 'Spain', 1978, 'FLBJM04'
-union select 2006, 'Winter', 'Turin, Italy', 'Biathlon', 'Men''s Sprint', 'Gold', 'Sven', 'Fischer', 'Germany', 1971, 'BMGSF06'
-union select 2006, 'Winter', 'Turin, Italy', 'Biathlon', 'Men''s Sprint', 'Silver', 'Halvard', 'Hanevold', 'Norway', 1969, 'BMSHH06'
-union select 2006, 'Winter', 'Turin, Italy', 'Biathlon', 'Men''s Sprint', 'Bronze', 'Frode', 'Andresen', 'Norway', 1973, 'BMBFA06'
-union select 2006, 'Winter', 'Turin, Italy', 'Cross-country Skiing', 'Women''s 30 Km', 'Gold', 'Kateřina', 'Neumannová', 'Czech Republic', 1973, 'CW0GKN6'
-union select 2006, 'Winter', 'Turin, Italy', 'Cross-country Skiing', 'Women''s 30 Km', 'Silver', 'Yuliya', 'Chepalova', 'Russia', 1976, 'CWSYC06'
-union select 2006, 'Winter', 'Turin, Italy', 'Cross-country Skiing', 'Women''s 30 Km', 'Bronze', 'Justyna', 'Kowalczyk-Tekieli', 'Poland', 1983, 'CWBJK06'
-union select 2006, 'Winter', 'Turin, Italy', 'Luge', 'Women''s Singles', 'Gold', 'Sylke', 'Otto', 'Germany', 1969, 'LWGSO06'
-union select 2006, 'Winter', 'Turin, Italy', 'Luge', 'Women''s Singles', 'Silver', 'Silke', 'Kraushaar-Pielach', 'Germany', 1970, 'LWSSK06'
-union select 2006, 'Winter', 'Turin, Italy', 'Luge', 'Women''s Singles', 'Bronze', 'Tatjana', 'Hüfner', 'Germany', 1983, 'LWBTH06'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Athletics', 'Women''s Javelin Throw', 'Gold', 'Barbora', 'Špotáková', 'Czech Republic', 1981, 'AWGBS08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Athletics', 'Women''s Javelin Throw', 'Silver', 'Mariya', 'Abakumova', 'Russia', 1986, 'AWSMA08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Athletics', 'Women''s Javelin Throw', 'Bronze', 'Christina', 'Obergföll', 'Germany', 1981, 'AWBCO08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Cycling', 'Men''s Time Trial', 'Gold', 'Fabian', 'Cancellara', 'Switzerland', 1981, 'CMGFC08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Cycling', 'Men''s Time Trial', 'Silver', 'Gustav', 'Larsson', 'Sweden', 1980, 'CMSGL08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Cycling', 'Men''s Time Trial', 'Bronze', 'Levi', 'Leipheimer', 'United States', 1973, 'CMBLL08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Men''s', 'Gold', 'Lu', 'Chunlong', 'China', 1989, 'TMGLC08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Men''s', 'Silver', 'Jason', 'Burnett', 'Canada', 1986, 'TMSJB08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Men''s', 'Bronze', 'Dong', 'Dong', 'China', 1989, 'TMBDD08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Women''s', 'Gold', 'He', 'Wenna', 'China', 1989, 'TWGHW08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Women''s', 'Silver', 'Karen', 'Cockburn', 'Canada', 1980, 'TWSKC08'
-union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Women''s', 'Bronze', 'Ekaterina', 'Khilko', 'Uzbekistan', 1982, 'TWBEK08'
+insert Medalist (OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn)
+select 1896, 'Summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Gold', 'Robert', 'Garrett', 'United States', 1875
+union select 1896, 'Summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Silver', 'Panagiotis', 'Paraskevopoulos', 'Greece', 1875
+union select 1896, 'Summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Bronze', 'Sotirios', 'Versis', 'Greece', 1879
+union select 1896, 'Summer', 'Athens, Greece', 'Cycling', '10 Km', 'Gold', 'Paul', 'Masson', 'France', 1876
+union select 1896, 'Summer', 'Athens, Greece', 'Cycling', '10 Km', 'Silver', 'Léon', 'Flameng', 'France', 1877
+union select 1896, 'Summer', 'Athens, Greece', 'Cycling', '10 Km', 'Bronze', 'Adolf', 'Schmal', 'Austria', 1872
+union select 1896, 'Summer', 'Athens, Greece', 'Fencing', 'Sabre', 'Gold', 'Ioannis', 'Georgiadis', 'Greece', 1876
+union select 1896, 'Summer', 'Athens, Greece', 'Fencing', 'Sabre', 'Silver', 'Tilemachos', 'Karakalos', 'Greece', 1866
+union select 1896, 'Summer', 'Athens, Greece', 'Fencing', 'Sabre', 'Bronze', 'Holger', 'Nielsen', 'Denmark', 1866
+union select 1896, 'Summer', 'Athens, Greece', 'Swimming', 'Sailors 100 M Freestyle', 'Gold', 'Ioannis', 'Malokinis', 'Greece', 1880
+union select 1896, 'Summer', 'Athens, Greece', 'Swimming', 'Sailors 100 M Freestyle', 'Silver', 'Spyridon', 'Chazapis', 'Greece', 1872
+union select 1896, 'Summer', 'Athens, Greece', 'Swimming', 'Sailors 100 M Freestyle', 'Bronze', 'Dimitrios', 'Drivas', 'Greece', 1872
+union select 1900, 'Summer', 'Paris, France', 'Archery', 'Au Chapelet 50 Metres', 'Gold', 'Eugène', 'Mougin', 'France', 1852
+union select 1900, 'Summer', 'Paris, France', 'Archery', 'Au Chapelet 50 Metres', 'Silver', 'Henri', 'Helle', 'France', 1873
+union select 1900, 'Summer', 'Paris, France', 'Athletics', '2500 Metres Steeplechase', 'Gold', 'George', 'Orton', 'Canada', 1873
+union select 1900, 'Summer', 'Paris, France', 'Athletics', '2500 Metres Steeplechase', 'Silver', 'Sidney', 'Robinson', 'Great Britian', 1876
+union select 1900, 'Summer', 'Paris, France', 'Athletics', '2500 Metres Steeplechase', 'Bronze', 'Jean', 'Chastanié', 'France',1875
+union select 1900, 'Summer', 'Paris, France', 'Croquet', 'Singles, One Ball', 'Gold', 'Gaston', 'Aumoitte', 'France', 1884
+union select 1900, 'Summer', 'Paris, France', 'Croquet', 'Singles, One Ball', 'Silver', 'Georges', 'Johin', 'France', 1877
+union select 1900, 'Summer', 'Paris, France', 'Croquet', 'Singles, One Ball', 'Bronze', 'Chrétien', 'Waydelich', 'France', 1841
+union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Men''s Double York Round', 'Gold', 'George', 'Bryant', 'United States', 1878
+union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Men''s Double York Round', 'Silver', 'Robert', 'Williams', 'United States', 1841
+union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Men''s Double York Round', 'Bronze', 'William', 'Thompson', 'United States', 1848
+union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Women''s Double Columbia Round', 'Gold', 'Matilda', 'Howell', 'United States', 1859
+union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Women''s Double Columbia Round', 'Silver', 'Emma', 'Cooke', 'United States', 1848
+union select 1904, 'Summer', 'St. Louis, United States', 'Archery', 'Women''s Double Columbia Round', 'Bronze', 'Eliza', 'Pollock', 'United States', 1840
+union select 1904, 'Summer', 'St. Louis, United States', 'Fencing', 'Foil, Individual', 'Gold', 'Ramón', 'Fonst', 'Cuba', 1883
+union select 1904, 'Summer', 'St. Louis, United States', 'Fencing', 'Foil, Individual', 'Silver', 'Albertson', 'Van Zo Post', 'Cuba', 1866
+union select 1904, 'Summer', 'St. Louis, United States', 'Fencing', 'Foil, Individual', 'Bronze', 'Charles', 'Tatham', 'Cuba', 1854
+union select 1904, 'Summer', 'St. Louis, United States', 'Gymnastics', 'Club Swinging', 'Gold', 'Edward', 'Hennig', 'United States', 1879
+union select 1904, 'Summer', 'St. Louis, United States', 'Gymnastics', 'Club Swinging', 'Silver', 'Emil', 'Voigt', 'United States', 1879
+union select 1904, 'Summer', 'St. Louis, United States', 'Gymnastics', 'Club Swinging', 'Bronze', 'Ralph', 'Wilson', 'United States', 1880
+union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', '10 Miles Walk', 'Gold', 'George', 'Larner', 'Great Britian', 1875
+union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', '10 Miles Walk', 'Silver', 'Ernest', 'Webb', 'Great Britian', 1874
+union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', '10 Miles Walk', 'Bronze', 'Edward', 'Spencer', 'Great Britian', 1881
+union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', 'Freestyle Javelin', 'Gold', 'Eric', 'Lemming', 'Sweden', 1880
+union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', 'Freestyle Javelin', 'Silver', 'Michalis', 'Dorizas', 'Greece', 1886
+union select 1908, 'Summer', 'London, United Kingdom', 'Athletics', 'Freestyle Javelin', 'Bronze', 'Arne', 'Halse', 'Norway', 1887
+union select 1908, 'Summer', 'London, United Kingdom', 'Boxing', 'Heavyweight', 'Gold', 'Albert', 'Oldman', 'Great Britian', 1883
+union select 1908, 'Summer', 'London, United Kingdom', 'Boxing', 'Heavyweight', 'Silver', 'Sidney', 'Evans', 'Great Britian', 1881
+union select 1908, 'Summer', 'London, United Kingdom', 'Boxing', 'Heavyweight', 'Bronze', 'Frank', 'Parks', 'Great Britian', 1875
+union select 1908, 'Summer', 'London, United Kingdom', 'Tennis', 'Women''s Indoor Singles', 'Gold', 'Gwendoline', 'Eastlake-Smith', 'Great Britian', 1883
+union select 1908, 'Summer', 'London, United Kingdom', 'Tennis', 'Women''s Indoor Singles', 'Silver', 'Alice', 'Greene', 'Great Britian', 1879
+union select 1908, 'Summer', 'London, United Kingdom', 'Tennis', 'Women''s Indoor Singles', 'Bronze', 'Märtha', 'Adlerstråhle', 'Sweden', 1868
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Athletics', '110 Metres Hurdles', 'Gold', 'Fred', 'Kelly', 'United States', 1891
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Athletics', '110 Metres Hurdles', 'Silver', 'James', 'Wendell', 'United States', 1890
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Athletics', '110 Metres Hurdles', 'Bronze', 'Martin', 'Hawkins', 'United States', 1888
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Cycling', 'Individual Time Trial', 'Gold', 'Rudolph', 'Lewis', 'South Africa', 1887
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Cycling', 'Individual Time Trial', 'Silver', 'Freddie', 'Grubb', 'Great Britian', 1887
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Cycling', 'Individual Time Trial', 'Bronze', 'Carl', 'Schutte', 'United States', 1887
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Shooting', '300 M Military Rifle, three positions', 'Gold', 'Sándor', 'Prokopp', 'Hungary', 1887
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Shooting', '300 M Military Rifle, three positions', 'Silver', 'Carl', 'Osburn', 'United States', 1884
+union select 1912, 'Summer', 'Stockholm, Sweden', 'Shooting', '300 M Military Rifle, three positions', 'Bronze', 'Engebret', 'Skogen', 'Norway', 1887
+union select 1924, 'Winter', 'Chamonix, France', 'Figure Skating', 'Ladies'' Singles', 'Gold', 'Herma', 'Szabo', 'Austria', 1902
+union select 1924, 'Winter', 'Chamonix, France', 'Figure Skating', 'Ladies'' Singles', 'Silver', 'Beatrix', 'Loughran', 'United States', 1900
+union select 1924, 'Winter', 'Chamonix, France', 'Figure Skating', 'Ladies'' Singles', 'Bronze', 'Ethel', 'Muckelt', 'Great Britian', 1885
+union select 1924, 'Winter', 'Chamonix, France', 'Speed Skating', '5000 Metres', 'Gold', 'Clas', 'Thunberg', 'Finland', 1893
+union select 1924, 'Winter', 'Chamonix, France', 'Speed Skating', '5000 Metres', 'Silver', 'Julius', 'Skutnabb', 'Finland', 1889
+union select 1924, 'Winter', 'Chamonix, France', 'Speed Skating', '5000 Metres', 'Bronze', 'Roald', 'Larsen', 'Norway', 1898
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Gold', 'Johan', 'Grøttumsbråten', 'Norway', 1899
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Silver', 'Ole', 'Hegge', 'Norway', 1898
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Bronze', 'Reidar', 'Ødegaard', 'Norway', 1901
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Skeleton', 'Men''s Individual', 'Gold', 'Jennison', 'Heaton', 'United States', 1904
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Skeleton', 'Men''s Individual', 'Silver', 'John', 'Heaton', 'United States', 1908
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Skeleton', 'Men''s Individual', 'Bronze', 'David', 'Carnegie', 'Great Britian', 1901
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Alf', 'Andersen', 'Norway', 1906
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Sigmund', 'Ruud', 'Norway', 1907
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Rudolf', 'Burkert', 'Czechoslovakia', 1904
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Speed Skating', '5000 Metres', 'Gold', 'Ivar', 'Ballangrud', 'Norway', 1904
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Speed Skating', '5000 Metres', 'Silver', 'Julius', 'Skutnabb', 'Finland', 1889
+union select 1928, 'Winter', 'St. Moritz, Switzerland', 'Speed Skating', '5000 Metres', 'Bronze', 'Bernt', 'Evensen', 'Norway', 1905
+union select 1932, 'Summer', 'Los Angeles, California', 'Athletics', 'Women''s 100 M', 'Gold', 'Stanisława', 'Walasiewicz', 'Poland', 1911
+union select 1932, 'Summer', 'Los Angeles, California', 'Athletics', 'Women''s 100 M', 'Silver', 'Hilda', 'Strike', 'Canada', 1910
+union select 1932, 'Summer', 'Los Angeles, California', 'Athletics', 'Women''s 100 M', 'Bronze', 'Wilhelmina', 'von Bremen', 'United States', 1909
+union select 1932, 'Summer', 'Los Angeles, California', 'Boxing', 'Featherweight', 'Gold', 'Carmelo', 'Robledo', 'Argentina', 1912
+union select 1932, 'Summer', 'Los Angeles, California', 'Boxing', 'Featherweight', 'Silver', 'Josef', 'Schleinkofer', 'Germany', 1910
+union select 1932, 'Summer', 'Los Angeles, California', 'Boxing', 'Featherweight', 'Bronze', 'Allan', 'Carlsson', 'Sweden', 1910
+union select 1932, 'Summer', 'Los Angeles, California', 'Cycling', 'Individual Time Trial', 'Gold', 'Attilio', 'Pavesi', 'Italy', 1910
+union select 1932, 'Summer', 'Los Angeles, California', 'Cycling', 'Individual Time Trial', 'Silver', 'Guglielmo', 'Segato', 'Italy', 1906
+union select 1932, 'Summer', 'Los Angeles, California', 'Cycling', 'Individual Time Trial', 'Bronze', 'Bernhard', 'Britz', 'Sweden', 1906
+union select 1932, 'Summer', 'Los Angeles, California', 'Diving', '10 Metre Platform', 'Gold', 'Dorothy', 'Poynton-Hill', 'United States', 1915
+union select 1932, 'Summer', 'Los Angeles, California', 'Diving', '10 Metre Platform', 'Silver', 'Georgia', 'Coleman', 'United States', 1912
+union select 1932, 'Summer', 'Los Angeles, California', 'Diving', '10 Metre Platform', 'Bronze', 'Marion', 'Roper', 'United States', 1910
+union select 1932, 'Winter', 'Lake Placid, New York', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Birger', 'Ruud', 'Norway', 1911
+union select 1932, 'Winter', 'Lake Placid, New York', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Hans', 'Beck', 'Norway', 1911
+union select 1932, 'Winter', 'Lake Placid, New York', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Kaare', 'Walberg', 'Norway', 1912
+union select 1932, 'Winter', 'Lake Placid, New York', 'Nordic Combined', 'Men''s Individual', 'Gold', 'Johan', 'Grøttumsbråten', 'Norway', 1899
+union select 1932, 'Winter', 'Lake Placid, New York', 'Nordic Combined', 'Men''s Individual', 'Silver', 'Ole', 'Stenen', 'Norway', 1903
+union select 1932, 'Winter', 'Lake Placid, New York', 'Nordic Combined', 'Men''s Individual', 'Bronze', 'Hans', 'Vinjarengen', 'Norway', 1905
+union select 1932, 'Winter', 'Lake Placid, New York', 'Figure Skating', 'Men''s Singles', 'Gold', 'Karl', 'Schäfer', 'Austria', 1909
+union select 1932, 'Winter', 'Lake Placid, New York', 'Figure Skating', 'Men''s Singles', 'Silver', 'Gillis', 'Grafström', 'Sweden', 1893
+union select 1932, 'Winter', 'Lake Placid, New York', 'Figure Skating', 'Men''s Singles', 'Bronze', 'Montgomery', 'Wilson', 'Canada', 1909
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '50 Km', 'Gold', 'Elis', 'Wiklund', 'Sweden', 1909
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '50 Km', 'Silver', 'Axel', 'Wikström', 'Sweden', 1907
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '50 Km', 'Bronze', 'Nils-Joel', 'Englund', 'Sweden', 1907
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Figure Skating', 'Ladies'' Singles', 'Gold', 'Sonja', 'Henie', 'Norway', 1912
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Figure Skating', 'Ladies'' Singles', 'Silver', 'Cecilia', 'Colledge', 'Great Britian', 1920
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Figure Skating', 'Ladies'' Singles', 'Bronze', 'Vivi-Anne', 'Hultén', 'Sweden', 1911
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '18 Km', 'Gold', 'Erik', 'Larsson', 'Sweden', 1912
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '18 Km', 'Silver', 'Oddbjørn', 'Hagen', 'Norway', 1908
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Cross-country Skiing', '18 Km', 'Bronze', 'Pekka', 'Niemi', 'Finland', 1909
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Alpine Skiing', 'Women''s Combined', 'Gold', 'Christl', 'Cranz', 'Germany', 1914
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Alpine Skiing', 'Women''s Combined', 'Silver', 'Käthe', 'Grasegger', 'Germany', 1917
+union select 1936, 'Winter', 'Garmisch-Partenkirchen, Germany', 'Alpine Skiing', 'Women''s Combined', 'Bronze', 'Laila', 'Schou Nilsen', 'Norway', 1919
+union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Men''s 100 M', 'Gold', 'Harrison', 'Dillard', 'United States', 1923
+union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Men''s 100 M', 'Silver', 'Barney', 'Ewell', 'United States', 1918
+union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Men''s 100 M', 'Bronze', 'Lloyd', 'La Beach', 'Panama', 1922
+union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Women''s 80 M Hurdles', 'Gold', 'Fanny', 'Blankers-Koen', 'Netherlands', 1918
+union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Women''s 80 M Hurdles', 'Silver', 'Maureen', 'Gardner', 'Great Britian', 1928
+union select 1948, 'Summer', 'London, United Kingdom', 'Athletics', 'Women''s 80 M Hurdles', 'Bronze', 'Shirley', 'Strickland', 'Western Australia', 1925
+union select 1948, 'Summer', 'London, United Kingdom', 'Boxing', 'Flyweight', 'Gold', 'Pascual', 'Pérez', 'Argentina',1926 
+union select 1948, 'Summer', 'London, United Kingdom', 'Boxing', 'Flyweight', 'Silver', 'Spartaco', 'Bandinelli', 'Italy', 1921
+union select 1948, 'Summer', 'London, United Kingdom', 'Boxing', 'Flyweight', 'Bronze', 'Han', 'Soo-ann', 'South Korea', 1926
+union select 1948, 'Summer', 'London, United Kingdom', 'Diving', 'Women''s 3 Metre Springboard', 'Gold', 'Vicki', 'Draves', 'United States', 1924
+union select 1948, 'Summer', 'London, United Kingdom', 'Diving', 'Women''s 3 Metre Springboard', 'Silver', 'Zoe Ann', 'Olsen-Jensen', 'United States', 1931
+union select 1948, 'Summer', 'London, United Kingdom', 'Diving', 'Women''s 3 Metre Springboard', 'Bronze', 'Patsy', 'Elsener', 'United States', 1929
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Hedy', 'Schlunegger', 'Switzerland', 1923
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Trude', 'Beiser', 'Austria', 1927
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Resi', 'Hammerer', 'Austria', 1925
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Gold', 'Martin', 'Lundström', 'Sweden', 1918
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Silver', 'Nils', 'Östensson', 'Sweden', 1918
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Cross-country Skiing', '18 Km', 'Bronze', 'Gunnar', 'Eriksson', 'Sweden', 1921
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Figure Skating', 'Men''s Singles', 'Gold', 'Dick', 'Button', 'United States', 1929
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Figure Skating', 'Men''s Singles', 'Silver', 'Hans', 'Gerschwiler', 'Switzerland', 1920
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Figure Skating', 'Men''s Singles', 'Bronze', 'Edi', 'Rada', 'Austria', 1922
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Petter', 'Hugsted', 'Norway', 1921
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Birger', 'Ruud', 'Norway', 1911
+union select 1948, 'Winter', 'St. Moritz, Switzerland', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Thorleif', 'Schjelderup', 'Norway', 1920
+union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Men''s Giant Slalom', 'Gold', 'Stein', 'Eriksen', 'Norway', 1927
+union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Men''s Giant Slalom', 'Silver', 'Christian', 'Pravda', 'Austria', 1927
+union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Men''s Giant Slalom', 'Bronze', 'Toni', 'Spiss', 'Austria', 1930
+union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Women''s Slalom', 'Gold', 'Andrea Mead', 'Lawrence', 'United States', 1932
+union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Women''s Slalom', 'Silver', 'Ossi', 'Reichert', 'Germany', 1925
+union select 1952, 'Winter', 'Oslo, Norway', 'Alpine Skiing', 'Women''s Slalom', 'Bronze', 'Annemarie', 'Buchner', 'Germany', 1924
+union select 1952, 'Winter', 'Oslo, Norway', 'Nordic Combined', 'Men''s Individual', 'Gold', 'Simon', 'Slåttvik', 'Norway', 1917
+union select 1952, 'Winter', 'Oslo, Norway', 'Nordic Combined', 'Men''s Individual', 'Silver', 'Heikki', 'Hasu', 'Finland', 1926
+union select 1952, 'Winter', 'Oslo, Norway', 'Nordic Combined', 'Men''s Individual', 'Bronze', 'Sverre', 'Stenersen', 'Norway', 1926
+union select 1952, 'Winter', 'Oslo, Norway', 'Speed Skating', '5000 Metres', 'Gold', 'Hjalmar', 'Andersen', 'Norway', 1923
+union select 1952, 'Winter', 'Oslo, Norway', 'Speed Skating', '5000 Metres', 'Silver', 'Kees', 'Broekman', 'Netherlands', 1927
+union select 1952, 'Winter', 'Oslo, Norway', 'Speed Skating', '5000 Metres', 'Bronze', 'Sverre Ingolf', 'Haugli', 'Norway', 1925
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Madeleine', 'Berthod', 'Switzerland', 1931
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Frieda', 'Dänzer', 'Switzerland', 1930
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Lucile', 'Wheeler', 'Canada', 1935
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Antti', 'Hyvärinen', 'Finland', 1932
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Aulis', 'Kallakorpi', 'Finland', 1929
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Harry', 'Glaß', 'Germany', 1930
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Nordic Combined', 'Men''s Individual', 'Gold', 'Sverre', 'Stenersen', 'Norway', 1926
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Nordic Combined', 'Men''s Individual', 'Silver', 'Bengt', 'Eriksson', 'Sweden', 1931
+union select 1956, 'Winter', 'Cortina d''Ampezzo, Italy', 'Nordic Combined', 'Men''s Individual', 'Bronze', 'Franciszek', 'Gąsienica Groń', 'Poland', 1931
+union select 1960, 'Summer', 'Rome, Italy', 'Athletics', 'Marathon', 'Gold', 'Abebe', 'Bikila', 'Ethiopia', 1932
+union select 1960, 'Summer', 'Rome, Italy', 'Athletics', 'Marathon', 'Silver', 'Rhadi', 'Ben Abdesselam', 'Morocco', 1929
+union select 1960, 'Summer', 'Rome, Italy', 'Athletics', 'Marathon', 'Bronze', 'Barry', 'Magee', 'New Zealand', 1934
+union select 1960, 'Summer', 'Rome, Italy', 'Canoeing', 'C-1 1000 M', 'Gold', 'János', 'Parti', 'Hungary', 1932
+union select 1960, 'Summer', 'Rome, Italy', 'Canoeing', 'C-1 1000 M', 'Silver', 'Aleksandr', 'Silayev', 'Soviet Union', 1928
+union select 1960, 'Summer', 'Rome, Italy', 'Canoeing', 'C-1 1000 M', 'Bronze', 'Leon', 'Rotman', 'Romania', 1934
+union select 1960, 'Summer', 'Rome, Italy', 'Cycling', 'Road Race', 'Gold', ' Viktor', 'Kapitonov', 'Soviet Union', 1933
+union select 1960, 'Summer', 'Rome, Italy', 'Cycling', 'Road Race', 'Silver', 'Livio', 'Trapè', 'Italy', 1937
+union select 1960, 'Summer', 'Rome, Italy', 'Cycling', 'Road Race', 'Bronze', 'Willy', 'Vanden Berghen', 'Belgium', 1939
+union select 1960, 'Summer', 'Rome, Italy', 'Gymnastics', 'Vault', 'Gold', 'Margarita', 'Nikolaeva', 'Soviet Union', 1935
+union select 1960, 'Summer', 'Rome, Italy', 'Gymnastics', 'Vault', 'Silver', 'Sofia', 'Muratova', 'Soviet Union', 1929
+union select 1960, 'Summer', 'Rome, Italy', 'Gymnastics', 'Vault', 'Bronze', 'Larisa', 'Latynina', 'Soviet Union', 1934
+union select 1960, 'Winter', 'Squaw Valley, California', 'Alpine Skiing', 'Men''s Downhill', 'Gold', 'Jean', 'Vuarnet', 'France', 1933
+union select 1960, 'Winter', 'Squaw Valley, California', 'Alpine Skiing', 'Men''s Downhill', 'Silver', 'Hans-Peter', 'Lanig', 'Germany', 1935
+union select 1960, 'Winter', 'Squaw Valley, California', 'Alpine Skiing', 'Men''s Downhill', 'Bronze', 'Guy', 'Périllat', 'France', 1940
+union select 1960, 'Winter', 'Squaw Valley, California', 'Biathlon', 'Men''s 20 Km', 'Gold', 'Klas', 'Lestander', 'Sweden', 1931
+union select 1960, 'Winter', 'Squaw Valley, California', 'Biathlon', 'Men''s 20 Km', 'Silver', 'Antti', 'Tyrväinen', 'Finland', 1933
+union select 1960, 'Winter', 'Squaw Valley, California', 'Biathlon', 'Men''s 20 Km', 'Bronze', 'Aleksandr', 'Privalov', 'Soviet Union', 1933
+union select 1960, 'Winter', 'Squaw Valley, California', 'Cross-country Skiing', 'Women''s 10 Km', 'Gold', 'Maria', 'Gusakova', 'Soviet Union', 1931
+union select 1960, 'Winter', 'Squaw Valley, California', 'Cross-country Skiing', 'Women''s 10 Km', 'Silver', 'Lyubov', 'Kozyreva', 'Soviet Union', 1929
+union select 1960, 'Winter', 'Squaw Valley, California', 'Cross-country Skiing', 'Women''s 10 Km', 'Bronze', 'Radya', 'Yeroshina', 'Soviet Union', 1930
+union select 1960, 'Winter', 'Squaw Valley, California', 'Ski Jumping', 'Men''s Individual', 'Gold', 'Helmut', 'Recknagel', 'Germany',1937 
+union select 1960, 'Winter', 'Squaw Valley, California', 'Ski Jumping', 'Men''s Individual', 'Silver', 'Niilo', 'Halonen', 'Finland', 1940
+union select 1960, 'Winter', 'Squaw Valley, California', 'Ski Jumping', 'Men''s Individual', 'Bronze', 'Otto', 'Leodolter', 'Austria', 1936
+union select 1960, 'Winter', 'Squaw Valley, California', 'Speed Skating', 'Men''s 500 Metres', 'Gold', 'Yevgeny', 'Grishin', 'Soviet Union',1931
+union select 1960, 'Winter', 'Squaw Valley, California', 'Speed Skating', 'Men''s 500 Metres', 'Silver', 'Bill', 'Disney', 'United States', 1932
+union select 1960, 'Winter', 'Squaw Valley, California', 'Speed Skating', 'Men''s 500 Metres', 'Bronze', 'Rafayel', 'Grach', 'Soviet Union', 1932
+union select 1964, 'Summer', 'Tokyo, Japan', 'Athletics', '200 M', 'Gold', 'Henry', 'Carr', 'United States', 1941
+union select 1964, 'Summer', 'Tokyo, Japan', 'Athletics', '200 M', 'Silver', 'Paul', 'Drayton', 'United States', 1939
+union select 1964, 'Summer', 'Tokyo, Japan', 'Athletics', '200 M', 'Bronze', 'Edwin', 'Roberts', 'Trinidad and Tobago', 1941
+union select 1964, 'Summer', 'Tokyo, Japan', 'Canoeing', 'K-1 1000 Metres', 'Gold', 'Rolf', 'Peterson', 'Sweden', 1944
+union select 1964, 'Summer', 'Tokyo, Japan', 'Canoeing', 'K-1 1000 Metres', 'Silver', 'Mihály', 'Hesz', 'Hungary', 1943
+union select 1964, 'Summer', 'Tokyo, Japan', 'Canoeing', 'K-1 1000 Metres', 'Bronze', 'Aurel', 'Vernescu', 'Romania', 1939
+union select 1964, 'Summer', 'Tokyo, Japan', 'Cycling', 'Individual Road Race', 'Gold', 'Mario', 'Zanin', 'Italy', 1940
+union select 1964, 'Summer', 'Tokyo, Japan', 'Cycling', 'Individual Road Race', 'Silver', 'Kjell', 'Rodian', 'Denmark', 1942
+union select 1964, 'Summer', 'Tokyo, Japan', 'Cycling', 'Individual Road Race', 'Bronze', 'Walter', 'Godefroot', 'Belgium', 1943
+union select 1964, 'Summer', 'Tokyo, Japan', 'Diving', '3 M Springboard', 'Gold', 'Kenneth', 'Sitzberger', 'United States', 1945
+union select 1964, 'Summer', 'Tokyo, Japan', 'Diving', '3 M Springboard', 'Silver', 'Frank', 'Gorman', 'United States', 1937
+union select 1964, 'Summer', 'Tokyo, Japan', 'Diving', '3 M Springboard', 'Bronze', 'Lawrence', 'Andreasen', 'United States', 1945
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Ski Jumping', 'Men''s Normal Hill', 'Gold', 'Veikko', 'Kankkonen', 'Finland', 1940
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Ski Jumping', 'Men''s Normal Hill', 'Silver', 'Toralf', 'Engan', 'Norway', 1936
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Ski Jumping', 'Men''s Normal Hill', 'Bronze', 'Torgeir', 'Brandtzæg', 'Norway', 1941
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Biathlon', 'Men''s 20 Km', 'Gold', 'Vladimir', 'Melanin', 'Soviet Union', 1933
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Biathlon', 'Men''s 20 Km', 'Silver', 'Aleksandr', 'Privalov', 'Soviet Union', 1933
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Biathlon', 'Men''s 20 Km', 'Bronze', 'Olav', 'Jordet', 'Norway', 1939
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Cross-country Skiing', 'Women''s 10 Km', 'Gold', 'Klavdiya', 'Boyarskikh', 'Soviet Union', 1939
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Cross-country Skiing', 'Women''s 10 Km', 'Silver', 'Yevdokiya', 'Mekshilo', 'Soviet Union', 1931
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Cross-country Skiing', 'Women''s 10 Km', 'Bronze', 'Maria', 'Gusakova', 'Soviet Union', 1931
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Speed Skating', 'Women''s 1500 metres', 'Gold', 'Lidiya', 'Skoblikova', 'Soviet Union', 1939
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Speed Skating', 'Women''s 1500 metres', 'Silver', 'Kaija', 'Mustonen', 'Finland', 1941
+union select 1964, 'Winter', 'Innsbruck, Austria', 'Speed Skating', 'Women''s 1500 metres', 'Bronze', 'Berta', 'Kolokoltseva', 'Soviet Union', 1937
+union select 1968, 'Winter', 'Grenoble, France', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Olga', 'Pall', 'Austria', 1947
+union select 1968, 'Winter', 'Grenoble, France', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Isabelle', 'Mir', 'France', 1949
+union select 1968, 'Winter', 'Grenoble, France', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Christl', 'Haas', 'Austria', 1943
+union select 1968, 'Winter', 'Grenoble, France', 'Figure Skating', 'Ladies'' Singles', 'Gold', 'Peggy', 'Fleming', 'United States', 1948
+union select 1968, 'Winter', 'Grenoble, France', 'Figure Skating', 'Ladies'' Singles', 'Silver', 'Gabriele', 'Seyfert', 'East Germany', 1948
+union select 1968, 'Winter', 'Grenoble, France', 'Figure Skating', 'Ladies'' Singles', 'Bronze', 'Hana', 'Mašková', 'Czechoslovakia', 1949
+union select 1968, 'Winter', 'Grenoble, France', 'Speed Skating', 'Men''s 10000 Metres', 'Gold', 'Johnny', 'Höglin', 'Sweden', 1943
+union select 1968, 'Winter', 'Grenoble, France', 'Speed Skating', 'Men''s 10000 Metres', 'Silver', 'Fred', 'Anton Maier', 'Norway', 1938
+union select 1968, 'Winter', 'Grenoble, France', 'Speed Skating', 'Men''s 10000 Metres', 'Bronze', 'Örjan', 'Sandler', 'Sweden', 1940
+union select 1968, 'Winter', 'Grenoble, France', 'Cross-country Skiing', 'Men''s 15 Km', 'Gold', 'Harald', 'Grønningen', 'Norway', 1934
+union select 1968, 'Winter', 'Grenoble, France', 'Cross-country Skiing', 'Men''s 15 Km', 'Silver', 'Eero', 'Mäntyranta', 'Finland', 1937
+union select 1968, 'Winter', 'Grenoble, France', 'Cross-country Skiing', 'Men''s 15 Km', 'Bronze', 'Gunnar', 'Larsson', 'Sweden', 1944
+union select 1972, 'Winter', 'Sapporo, Japan', 'Biathlon', 'Men''s Individual', 'Gold', 'Magnar', 'Solberg', 'Norway', 1937
+union select 1972, 'Winter', 'Sapporo, Japan', 'Biathlon', 'Men''s Individual', 'Silver', 'Hansjörg', 'Knauthe', 'East Germany', 1944
+union select 1972, 'Winter', 'Sapporo, Japan', 'Biathlon', 'Men''s Individual', 'Bronze', 'Lars-Göran', 'Arwidson', 'Sweden', 1946
+union select 1972, 'Winter', 'Sapporo, Japan', 'Cross-country Skiing', '10 Km', 'Gold', 'Galina', 'Kulakova', 'Soviet Union', 1942
+union select 1972, 'Winter', 'Sapporo, Japan', 'Cross-country Skiing', '10 Km', 'Silver', 'Alevtina', 'Olyunina', 'Soviet Union', 1942
+union select 1972, 'Winter', 'Sapporo, Japan', 'Cross-country Skiing', '10 Km', 'Bronze', 'Marjatta', 'Kajosmaa', 'Finland', 1938
+union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Men''s Singles', 'Gold', 'Wolfgang', 'Scheidel', 'East Germany', 1943
+union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Men''s Singles', 'Silver', 'Harald', 'Ehrig', 'East Germany', 1949
+union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Men''s Singles', 'Bronze', 'Wolfram', 'Fiedler', 'East Germany', 1951
+union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Women''s Singles', 'Gold', 'Anna-Maria', 'Müller', 'East Germany', 1949
+union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Women''s Singles', 'Silver', 'Ute', 'Rührold', 'East Germany', 1954
+union select 1972, 'Winter', 'Sapporo, Japan', 'Luge', 'Women''s Singles', 'Bronze', 'Margit', 'Schumann', 'East Germany', 1952
+union select 1976, 'Summer', 'Montreal, Quebec', 'Swimming', '100 M Freestyle', 'Gold', 'Kornelia', 'Ender', 'East Germany', 1958
+union select 1976, 'Summer', 'Montreal, Quebec', 'Swimming', '100 M Freestyle', 'Silver', 'Petra', 'Priemer', 'East Germany', 1961
+union select 1976, 'Summer', 'Montreal, Quebec', 'Swimming', '100 M Freestyle', 'Bronze', 'Enith', 'Brigitha', 'Netherlands', 1955
+union select 1976, 'Summer', 'Montreal, Quebec', 'Archery', 'Mens''', 'Gold', 'Darrell', 'Pace', 'United States', 1956
+union select 1976, 'Summer', 'Montreal, Quebec', 'Archery', 'Mens''', 'Silver', 'Hiroshi', 'Michinaga', 'Japan', 1956
+union select 1976, 'Summer', 'Montreal, Quebec', 'Archery', 'Mens''', 'Bronze', 'Giancarlo', 'Ferrari', 'Italy', 1942
+union select 1976, 'Summer', 'Montreal, Quebec', 'Athletics', '100 M', 'Gold', 'Hasely', 'Crawford', 'Trinidad and Tobago', 1950
+union select 1976, 'Summer', 'Montreal, Quebec', 'Athletics', '100 M', 'Silver', 'Don', 'Quarrie', 'Jamaica', 1951
+union select 1976, 'Summer', 'Montreal, Quebec', 'Athletics', '100 M', 'Bronze', 'Valeriy', 'Borzov', 'Soviet Union', 1949
+union select 1976, 'Summer', 'Montreal, Quebec', 'Gymnastics', 'Uneven Bars', 'Gold', 'Nadia', 'Comăneci', 'Romania', 1961
+union select 1976, 'Summer', 'Montreal, Quebec', 'Gymnastics', 'Uneven Bars', 'Silver', 'Teodora', 'Ungureanu', 'Romania', 1960
+union select 1976, 'Summer', 'Montreal, Quebec', 'Gymnastics', 'Uneven Bars', 'Bronze', 'Márta', 'Egervári', 'Hungary', 1956
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Men''s Singles', 'Gold', 'John', 'Curry', 'Great Britian', 1949
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Men''s Singles', 'Silver', 'Vladimir', 'Kovalyov', 'Soviet Union', 1953
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Men''s Singles', 'Bronze', 'Toller', 'Cranston', 'Canada', 1949
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Women''s Singles', 'Gold', 'Dorothy', 'Hamill', 'United States', 1956
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Women''s Singles', 'Silver', 'Dianne', 'de Leeuw', 'Netherlands', 1955
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Figure Skating', 'Women''s Singles', 'Bronze', 'Christine', 'Errath', 'East Germany', 1956
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Men''s Singles', 'Gold', 'Dettlef', 'Günther', 'East Germany', 1954
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Men''s Singles', 'Silver', 'Josef', 'Fendt', 'West Germany', 1947
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Men''s Singles', 'Bronze', 'Hans', 'Rinn', 'East Germany', 1953
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Women''s Singles', 'Gold', 'Margit', 'Schumann', 'East Germany', 1952
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Women''s Singles', 'Silver', 'Ute', 'Rührold', 'East Germany', 1954
+union select 1976, 'Winter', 'Innsbruck, Austria', 'Luge', 'Women''s Singles', 'Bronze', 'Elisabeth', 'Demleitner', 'West Germany', 1952
+union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Men''s 5,000 Metres', 'Gold', 'Eric', 'Heiden', 'United States', 1958
+union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Men''s 5,000 Metres', 'Silver', 'Kay', 'Stenshjemmet', 'Norway', 1953
+union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Men''s 5,000 Metres', 'Bronze', 'Tom Erik', 'Oxholm', 'Norway', 1959
+union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Women''s 1,500 Metres', 'Gold', 'Annie', 'Borckink', 'Netherlands', 1951
+union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Women''s 1,500 Metres', 'Silver', 'Ria', 'Visser', 'Netherlands', 1961
+union select 1980, 'Winter', 'Lake Placid, New York', 'Speed Skating', 'Women''s 1,500 Metres', 'Bronze', 'Sabine', 'Becker', 'East Germany', 1959
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Downhill', 'Gold', 'Leonhard', 'Stock', 'Austria', 1958
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Downhill', 'Silver', 'Peter', 'Wirnsberger', 'Austria', 1958
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Downhill', 'Bronze', 'Steve', 'Podborski', 'Canada', 1957
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Women''s Downhill', 'Gold', 'Annemarie', 'Moser-Pröll', 'Austria', 1953
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Women''s Downhill', 'Silver', 'Hanni', 'Wenzel', 'Liechtenstein', 1956
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Women''s Downhill', 'Bronze', 'Marie-Theres', 'Nadig', 'Switzerland', 1954
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Slalom', 'Gold', 'Ingemar', 'Stenmark', 'Sweden', 1956
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Slalom', 'Silver', 'Phil', 'Mahre', 'United States', 1957
+union select 1980, 'Winter', 'Lake Placid, New York', 'Alpine Skiing', 'Men''s Slalom', 'Bronze', 'Jacques', 'Lüthy', 'Switzerland', 1959
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Alpine Skiing', 'Men''s Giant Slalom', 'Gold', 'Max', 'Julen', 'Switzerland', 1961
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Alpine Skiing', 'Men''s Giant Slalom', 'Silver', 'Jure', 'Franko', 'Yugoslavia', 1962
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Alpine Skiing', 'Men''s Giant Slalom', 'Bronze', 'Andreas', 'Wenzel', 'Liechtenstein', 1958
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Luge', 'Women''s Singles', 'Gold', 'Steffi', 'Martin', 'East Germany', 1962
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Luge', 'Women''s Singles', 'Silver', 'Bettina', 'Schmidt', 'East Germany', 1960
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Luge', 'Women''s Singles', 'Bronze', 'Ute', 'Oberhoffner', 'East Germany', 1961
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Speed Skating', 'Men''s 1,000 Metres', 'Gold', 'Gaétan', 'Boucher', 'Canada', 1958
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Speed Skating', 'Men''s 1,000 Metres', 'Silver', 'Sergey', 'Khlebnikov', 'Soviet Union', 1955
+union select 1984, 'Winter', 'Sarajevo, Yugoslavia', 'Speed Skating', 'Men''s 1,000 Metres', 'Bronze', 'Kai Arne', 'Engelstad', 'Norway', 1954
+union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Men''s 100 Metre Freestyle', 'Gold', 'Alexander', 'Popov', 'Unified Team', 1971
+union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Men''s 100 Metre Freestyle', 'Silver', 'Gustavo', 'Borges', 'Brazil', 1972
+union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Men''s 100 Metre Freestyle', 'Bronze', 'Stéphan', 'Caron', 'France', 1966
+union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Women''s 200 Metre Breaststroke', 'Gold', 'Kyoko', 'Iwasaki', 'Japan', 1978
+union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Women''s 200 Metre Breaststroke', 'Silver', 'Lin', 'Li', 'China', 1970
+union select 1992, 'Summer', 'Barcelona, Spain', 'Swimming', 'Women''s 200 Metre Breaststroke', 'Bronze', 'Anita', 'Nall', 'United States', 1976
+union select 1992, 'Summer', 'Barcelona, Spain', 'Archery', 'Women''s Individual', 'Gold', 'Cho', 'Youn-jeong', 'South Korea', 1969
+union select 1992, 'Summer', 'Barcelona, Spain', 'Archery', 'Women''s Individual', 'Silver', 'Kim', 'Soo-nyung', 'South Korea', 1971
+union select 1992, 'Summer', 'Barcelona, Spain', 'Archery', 'Women''s Individual', 'Bronze', 'Natalia', 'Valeeva', 'Unified Team', 1969
+union select 1992, 'Summer', 'Barcelona, Spain', 'Athletics', 'Men''s 800 M', 'Gold', 'William', 'Tanui', 'Kenya', 1964
+union select 1992, 'Summer', 'Barcelona, Spain', 'Athletics', 'Men''s 800 M', 'Silver', 'Nixon', 'Kiprotich', 'Kenya', 1962
+union select 1992, 'Summer', 'Barcelona, Spain', 'Athletics', 'Men''s 800 M', 'Bronze', 'Johnny', 'Gray', 'United States', 1960
+union select 1998, 'Winter', 'Nagano, Japan', 'Alpine Skiing', 'Women''s Combined', 'Gold', 'Katja', 'Seizinger', 'Germany', 1972
+union select 1998, 'Winter', 'Nagano, Japan', 'Alpine Skiing', 'Women''s Combined', 'Silver', 'Martina', 'Ertl-Renz', 'Germany', 1973
+union select 1998, 'Winter', 'Nagano, Japan', 'Alpine Skiing', 'Women''s Combined', 'Bronze', 'Hilde', 'Gerg', 'Germany', 1975
+union select 1998, 'Winter', 'Nagano, Japan', 'Biathlon', 'Men''s 20 Km', 'Gold', 'Halvard', 'Hanevold', 'Norway', 1969
+union select 1998, 'Winter', 'Nagano, Japan', 'Biathlon', 'Men''s 20 Km', 'Silver', 'Pieralberto', 'Carrara', 'Italy', 1966
+union select 1998, 'Winter', 'Nagano, Japan', 'Biathlon', 'Men''s 20 Km', 'Bronze', 'Alexei', 'Aidarov', 'Belarus', 1974
+union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Women''s Combined 5 Km + 10 km pursuit', 'Gold', 'Larisa', 'Lazutina', 'Russia', 1965
+union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Women''s Combined 5 Km + 10 km pursuit', 'Silver', 'Olga', 'Danilova', 'Russia', 1970
+union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Women''s Combined 5 Km + 10 km pursuit', 'Bronze', 'Kateřina', 'Neumannová', 'Czech Republic', 1973
+union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Men''s 50 Km freestyle', 'Gold', 'Bjørn', 'Dæhlie', 'Norway', 1967
+union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Men''s 50 Km freestyle', 'Silver', 'Niklas', 'Jonsson', 'Sweden', 1969
+union select 1998, 'Winter', 'Nagano, Japan', 'Cross-country Skiing', 'Men''s 50 Km freestyle', 'Bronze', 'Christian', 'Hoffmann', 'Austria', 1974
+union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '200 Metres', 'Gold', 'Konstantinos', 'Kenteris', 'Greece', 1973
+union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '200 Metres', 'Silver', 'Darren', 'Campbell', 'Great Britian', 1973
+union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '200 Metres', 'Bronze', 'Ato', 'Boldon', 'Trinidad and Tobago', 1973
+union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '5000 Metres', 'Gold', 'Million', 'Wolde', 'Ethiopia', 1979
+union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '5000 Metres', 'Silver', 'Ali', 'Saïdi-Sief', 'Algeria', 1978
+union select 2000, 'Summer', 'Sydney, Australia', 'Athletics', '5000 Metres', 'Bronze', 'Brahim', 'Lahlafi', 'Morocco', 1968
+union select 2000, 'Summer', 'Sydney, Australia', 'Road', 'Men''s Marathon', 'Gold', 'Gezahegne', 'Abera', 'Ethiopia', 1978
+union select 2000, 'Summer', 'Sydney, Australia', 'Road', 'Men''s Marathon', 'Silver', 'Erick', 'Wainaina', 'Kenya', 1973
+union select 2000, 'Summer', 'Sydney, Australia', 'Road', 'Men''s Marathon', 'Bronze', 'Tesfaye', 'Tola', 'Ethiopia', 1974
+union select 2000, 'Summer', 'Sydney, Australia', 'Field', 'High Jump', 'Gold', 'Sergey', 'Klyugin', 'Russia', 1974
+union select 2000, 'Summer', 'Sydney, Australia', 'Field', 'High Jump', 'Silver', 'Javier', 'Sotomayor', 'Cuba', 1967
+union select 2000, 'Summer', 'Sydney, Australia', 'Field', 'High Jump', 'Bronze', 'Abderrahmane', 'Hammad', 'Algeria', 1977
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Alpine Skiing', 'Women''s Super-G', 'Gold', 'Daniela', 'Ceccarelli', 'Italy', 1975
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Alpine Skiing', 'Women''s Super-G', 'Silver', 'Janica', 'Kostelić', 'Croatia', 1982
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Alpine Skiing', 'Women''s Super-G', 'Bronze', 'Karen', 'Putzer', 'Italy', 1978
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Figure Skating', 'Women''s Singles', 'Gold', 'Sarah', 'Hughes', 'United States', 1985
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Figure Skating', 'Women''s Singles', 'Silver', 'Irina', 'Slutskaya', 'Russia', 1979
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Figure Skating', 'Women''s Singles', 'Bronze', 'Michelle', 'Kwan', 'United States', 1980
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Men''s Moguls', 'Gold', 'Janne', 'Lahtela', 'Finland', 1974
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Men''s Moguls', 'Silver', 'Travis', 'Mayer', 'United States', 1982
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Women''s Aerials', 'Gold', 'Alisa', 'Camplin', 'Australia', 1974
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Women''s Aerials', 'Silver', 'Veronica', 'Brenner', 'Canada', 1974
+union select 2002, 'Winter', 'Salt Lake City, Utah', 'Freestyle Skiing', 'Women''s Aerials', 'Bronze', 'Deidra', 'Dionne', 'Canada', 1982
+union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Men''s Individual', 'Gold', 'Marco', 'Galiazzo', 'Italy', 1983
+union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Men''s Individual', 'Silver', 'Hiroshi', 'Yamamoto', 'Japan', 1962
+union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Men''s Individual', 'Bronze', 'Tim', 'Cuddihy', 'Australia', 1987
+union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Women''s Individual', 'Gold', 'Park', 'Sung-hyun', 'South Korea', 1983
+union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Women''s Individual', 'Silver', 'Lee', 'Sung-jin', 'South Korea', 1985
+union select 2004, 'Summer', 'Athens, Greece', 'Archery', 'Women''s Individual', 'Bronze', 'Alison', 'Williamson', 'Great Britian', 1971
+union select 2004, 'Summer', 'Athens, Greece', 'Road', 'Women''s Marathon', 'Gold', 'Mizuki', 'Noguchi', 'Japan', 1978
+union select 2004, 'Summer', 'Athens, Greece', 'Road', 'Women''s Marathon', 'Silver', 'Catherine', 'Ndereba', 'Kenya', 1972
+union select 2004, 'Summer', 'Athens, Greece', 'Road', 'Women''s Marathon', 'Bronze', 'Deena', 'Kastor', 'United States', 1973
+union select 2004, 'Summer', 'Athens, Greece', 'Field', 'Long Jump', 'Gold', 'Dwight', 'Phillips', 'United States', 1977
+union select 2004, 'Summer', 'Athens, Greece', 'Field', 'Long Jump', 'Silver', 'John', 'Moffitt', 'United States', 1980
+union select 2004, 'Summer', 'Athens, Greece', 'Field', 'Long Jump', 'Bronze', 'Joan Lino', 'Martínez', 'Spain', 1978
+union select 2006, 'Winter', 'Turin, Italy', 'Biathlon', 'Men''s Sprint', 'Gold', 'Sven', 'Fischer', 'Germany', 1971
+union select 2006, 'Winter', 'Turin, Italy', 'Biathlon', 'Men''s Sprint', 'Silver', 'Halvard', 'Hanevold', 'Norway', 1969
+union select 2006, 'Winter', 'Turin, Italy', 'Biathlon', 'Men''s Sprint', 'Bronze', 'Frode', 'Andresen', 'Norway', 1973
+union select 2006, 'Winter', 'Turin, Italy', 'Cross-country Skiing', 'Women''s 30 Km', 'Gold', 'Kateřina', 'Neumannová', 'Czech Republic', 1973
+union select 2006, 'Winter', 'Turin, Italy', 'Cross-country Skiing', 'Women''s 30 Km', 'Silver', 'Yuliya', 'Chepalova', 'Russia', 1976
+union select 2006, 'Winter', 'Turin, Italy', 'Cross-country Skiing', 'Women''s 30 Km', 'Bronze', 'Justyna', 'Kowalczyk-Tekieli', 'Poland', 1983
+union select 2006, 'Winter', 'Turin, Italy', 'Luge', 'Women''s Singles', 'Gold', 'Sylke', 'Otto', 'Germany', 1969
+union select 2006, 'Winter', 'Turin, Italy', 'Luge', 'Women''s Singles', 'Silver', 'Silke', 'Kraushaar-Pielach', 'Germany', 1970
+union select 2006, 'Winter', 'Turin, Italy', 'Luge', 'Women''s Singles', 'Bronze', 'Tatjana', 'Hüfner', 'Germany', 1983
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Athletics', 'Women''s Javelin Throw', 'Gold', 'Barbora', 'Špotáková', 'Czech Republic', 1981
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Athletics', 'Women''s Javelin Throw', 'Silver', 'Mariya', 'Abakumova', 'Russia', 1986
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Athletics', 'Women''s Javelin Throw', 'Bronze', 'Christina', 'Obergföll', 'Germany', 1981
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Cycling', 'Men''s Time Trial', 'Gold', 'Fabian', 'Cancellara', 'Switzerland', 1981
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Cycling', 'Men''s Time Trial', 'Silver', 'Gustav', 'Larsson', 'Sweden', 1980
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Cycling', 'Men''s Time Trial', 'Bronze', 'Levi', 'Leipheimer', 'United States', 1973
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Men''s', 'Gold', 'Lu', 'Chunlong', 'China', 1989
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Men''s', 'Silver', 'Jason', 'Burnett', 'Canada', 1986
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Men''s', 'Bronze', 'Dong', 'Dong', 'China', 1989
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Women''s', 'Gold', 'He', 'Wenna', 'China', 1989
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Women''s', 'Silver', 'Karen', 'Cockburn', 'Canada', 1980
+union select 2008, 'Summer', 'Beijing, People''s Republic of China', 'Trampoline', 'Women''s', 'Bronze', 'Ekaterina', 'Khilko', 'Uzbekistan', 1982
