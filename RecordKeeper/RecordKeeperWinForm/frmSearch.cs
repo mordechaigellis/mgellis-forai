@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Diagnostics;
-using CPUWindowsFormFramework;
-using RecordKeeperSystem;
+
 namespace RecordKeeperWinForm
 {
     public partial class frmSearch : Form

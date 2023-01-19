@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
-using CPUWindowsFormFramework;
-using RecordKeeperSystem;
-
 namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
