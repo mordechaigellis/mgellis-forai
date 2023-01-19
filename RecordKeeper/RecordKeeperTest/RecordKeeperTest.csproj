@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CPUFramework\CPUFramework.csproj" />
     <ProjectReference Include="..\RecordKeeperSystem\RecordKeeperSystem.csproj" />
   </ItemGroup>
 
