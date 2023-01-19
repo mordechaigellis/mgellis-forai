@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPUFramework", "..\..\CPUFr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPUWindowsFormFramework", "..\..\CPUWindowsFormFramework\CPUWindowsFormFramework.csproj", "{0EB16E82-2CDA-44DF-9F3C-2ED193A44E76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordKeeperSystem", "RecordKeeperSystem\RecordKeeperSystem.csproj", "{EF462DA6-AA8F-45D8-965E-929B511303D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordKeeperSystem", "RecordKeeperSystem\RecordKeeperSystem.csproj", "{EF462DA6-AA8F-45D8-965E-929B511303D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordKeeperTest", "RecordKeeperTest\RecordKeeperTest.csproj", "{AB668B51-289B-4B52-BF15-0D62F77D2012}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EF462DA6-AA8F-45D8-965E-929B511303D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF462DA6-AA8F-45D8-965E-929B511303D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF462DA6-AA8F-45D8-965E-929B511303D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB668B51-289B-4B52-BF15-0D62F77D2012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB668B51-289B-4B52-BF15-0D62F77D2012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB668B51-289B-4B52-BF15-0D62F77D2012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB668B51-289B-4B52-BF15-0D62F77D2012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
