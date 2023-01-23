@@ -59,9 +59,9 @@ go
       union select 41, 'George H. W.', 'Bush', 'Republican', '1924-06-12', '2018-11-30', 1989, 1993
       union select 42, 'William Jefferson', 'Clinton', 'Democrat', '1946-08-19', null, 1993, 2001
       union select 43, 'George W.', 'Bush', 'Republican', '1946-07-06', null, 2001, 2009
-      union select 44, 'Barack', 'Obama', 'Democrat', '1961-08-04', null, 2009, 2017
-      union select 45, 'Donald J.', 'Trump', 'Republican', '1946-06-14', null, 2016, 2021
-      union select 46, 'Joseph R.', 'Biden', 'Democrat', '1942-11-20', null, 2021, null
+      union select 44, 'Barack', 'Obama', 'Democrat', '1961-08-04', null, 2009, null
+      --union select 45, 'Donald J.', 'Trump', 'Republican', '1946-06-14', null, 2016, 2021
+      --union select 46, 'Joseph R.', 'Biden', 'Democrat', '1942-11-20', null, 2021, null
 
 )
 insert president(Num, FirstName, LastName, PartyId, DateBorn, DateDied, TermStart, TermEnd)
@@ -72,7 +72,7 @@ on p.PartyName = d.Party;
 go
 
 insert ExecutiveOrder(PresidentId, OrderNumber, PageNum, YearIssued, OrderName, UpheldByCourt)
-select (select p.PresidentId from president p where p.LastName = 'Trump'), 13765, 7619, 2017, 'Minimizing the Economic Burden', 1
-union select (select p.PresidentId from president p where p.LastName = 'Trump'), 13766, 7650, 2017, 'Reducing Regulation and Controlling Regulatory Costs ', 1
+select (select p.PresidentId from president p where p.LastName = 'Obama'), 13765, 7619, 2017, 'Minimizing the Economic Burden', 1
+union select (select p.PresidentId from president p where p.LastName = 'Obama'), 13766, 7650, 2017, 'Reducing Regulation and Controlling Regulatory Costs ', 1
 union select (select p.PresidentId from president p where p.LastName = 'Bush' and p.FirstName = 'George W.'), 13239, 6490, 2001, 'Designation of Afghanistan and the Airspace Above as a Combat Zone.', 0
 union select (select p.PresidentId from President p where p.LastName = 'Reagan'), 12288, 10135, 1981, 'Termination of the Wage and Price Regulatory Program', 1
