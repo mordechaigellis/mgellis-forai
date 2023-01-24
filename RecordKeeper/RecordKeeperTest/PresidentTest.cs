@@ -86,9 +86,28 @@ namespace RecordKeeperTest
             TestContext.WriteLine("existing president with id = " + presidentid);
             TestContext.WriteLine("Ensure that app loads president " + presidentid);
             DataTable dt = President.Load(presidentid);
-            int loadedid = (int)dt.Rows[0]["presidentid"];
-            Assert.IsTrue(loadedid == presidentid, (int)dt.Rows[0]["presidentid"] + " <> " + presidentid);
+            int loadedid = 0;
+            if (dt.Rows.Count > 0)
+            {
+                loadedid = (int)dt.Rows[0]["presidentid"];
+            }
+            Assert.IsTrue(loadedid == presidentid, loadedid + " <> " + presidentid);
             TestContext.WriteLine("Loaded president (" + loadedid + ")");
+        }
+
+        [Test]
+        public void SearchPresidents() {
+            string criteria = "a";
+            int num = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from president where lastname like '%" + criteria + "%'");
+            Assume.That(num > 0, "There no presidents that match the search for " + num);
+            TestContext.WriteLine(num + " presidents that match " + criteria);
+            TestContext.WriteLine("Ensure that president search returns " + num + " rows");
+
+            DataTable dt = President.SearchPresidents(criteria);
+            int results = dt.Rows.Count;
+
+            Assert.IsTrue(results == num, "Results of president search does not match number of presidents, " + results + " <> " + num);
+            TestContext.WriteLine ("Number of rows returned by president search is " + results);
         }
 
         [Test]

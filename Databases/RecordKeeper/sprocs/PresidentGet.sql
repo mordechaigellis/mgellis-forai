@@ -9,7 +9,7 @@ begin
 	from President p
 	where p.PresidentId = @PresidentId
 	or @All = 1
-	or (@LastName <> '' and p.LastName like '%' + @LastName + '%')
+	or p.LastName like '%' + @LastName + '%'
 	order by p.num
 end
 go
@@ -23,6 +23,8 @@ exec PresidentGet @LastName = null --no results
 exec PresidentGet @LastName = 'm'
 
 exec PresidentGet @All = 1
+
+exec PresidentGet @LastName = 'a', @All = null
 
 declare @PresidentId int 
 

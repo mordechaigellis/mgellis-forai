@@ -10,15 +10,37 @@ namespace RecordKeeperSystem
     public class President
     {
         public static DataTable SearchPresidents(string lastname) {
-            string sql = "select PresidentId, Num, LastName, FirstName from president p where p.lastname like '%" + lastname + "%'";
+            DataTable dt = new();
 
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            SqlConnection conn = new SqlConnection(SQLUtility.ConnectionString);
+            SqlCommand cmd = new SqlCommand("PresidentGet", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            conn.Open();
+            SqlCommandBuilder.DeriveParameters(cmd);
+
+            cmd.Parameters["@LastName"].Value = lastname;
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
             return dt;
         }
 
         public static DataTable Load(int presidentid) {
-            string sql = "select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
-            return SQLUtility.GetDataTable(sql);
+            DataTable dt = new();
+
+            SqlConnection conn = new SqlConnection(SQLUtility.ConnectionString);
+            SqlCommand cmd = new SqlCommand("PresidentGet", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            conn.Open();
+            SqlCommandBuilder.DeriveParameters(cmd);
+
+            cmd.Parameters["@PresidentId"].Value = presidentid;
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
+            return dt;
         }
 
         public static DataTable GetPartyList() {
