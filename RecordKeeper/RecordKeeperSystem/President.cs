@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -23,7 +22,22 @@ namespace RecordKeeperSystem
         }
 
         public static DataTable GetPartyList() {
-            return SQLUtility.GetDataTable("select PartyId, PartyName from party");
+            DataTable dt = new();
+            SqlConnection conn = new SqlConnection(SQLUtility.ConnectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "PartyGet";
+
+            conn.Open();
+            SqlCommandBuilder.DeriveParameters(cmd);
+
+            cmd.Parameters["@All"].Value = 1;
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
+
+            return dt;
         }
 
         public static void Save(DataTable dtpresident)
