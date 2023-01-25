@@ -11,60 +11,31 @@ namespace RecordKeeperSystem
     {
         public static DataTable SearchPresidents(string lastname) {
             DataTable dt = new();
-
-            SqlConnection conn = new SqlConnection(SQLUtility.ConnectionString);
-            SqlCommand cmd = new SqlCommand("PresidentGet", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            conn.Open();
-            SqlCommandBuilder.DeriveParameters(cmd);
-
+            SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentGet") ;
             cmd.Parameters["@LastName"].Value = lastname;
-
-            SqlDataReader dr = cmd.ExecuteReader();
-            dt.Load(dr);
+            dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
 
         public static DataTable Load(int presidentid) {
             DataTable dt = new();
-
-            SqlConnection conn = new SqlConnection(SQLUtility.ConnectionString);
-            SqlCommand cmd = new SqlCommand("PresidentGet", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            conn.Open();
-            SqlCommandBuilder.DeriveParameters(cmd);
-
+            SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentGet");
             cmd.Parameters["@PresidentId"].Value = presidentid;
-
-            SqlDataReader dr = cmd.ExecuteReader();
-            dt.Load(dr);
+            dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
 
         public static DataTable GetPartyList() {
             DataTable dt = new();
-            SqlConnection conn = new SqlConnection(SQLUtility.ConnectionString);
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "PartyGet";
-
-            conn.Open();
-            SqlCommandBuilder.DeriveParameters(cmd);
-
+            SqlCommand cmd = SQLUtility.GetSQLCommand("PartyGet");
             cmd.Parameters["@All"].Value = 1;
-
-            SqlDataReader dr = cmd.ExecuteReader();
-            dt.Load(dr);
-
+            dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
 
         public static void Save(DataTable dtpresident)
         {
-            SQLUtility.DebugPrintDataTable(dtpresident);
+            //SQLUtility.DebugPrintDataTable(dtpresident);
             DataRow r = dtpresident.Rows[0];
             int id = (int)r["PresidentId"];
             string sql = "";
