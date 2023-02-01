@@ -57,8 +57,6 @@ namespace RecordKeeperSystem
                 sql += $"select '{r["PartyId"]}', {r["Num"]}, '{r["FirstName"]}', '{r["LastName"]}', '{r["DateBorn"]}', {r["TermStart"]}";
             }
 
-            Debug.Print("--------------");
-
             SQLUtility.ExecuteSQL(sql);
         }
 
