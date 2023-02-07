@@ -34,40 +34,40 @@ namespace RecordKeeperWinForm
             this.Show();
         }
 
-        public void SetListBinding(ComboBox lst, DataTable dt, string tablename)
-        {
-            lst.DataSource = dt;
-            lst.ValueMember = tablename + "Id";
-            lst.DisplayMember = lst.Name.Substring(3);
-            lst.DataBindings.Add("SelectedValue", dtpresident, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
-        }
-        public void SetControlBinding(Control ctrl, DataTable dt)
-        {
-            string propertyname = "";
-            string columnname = "";
-            string controlname = ctrl.Name.ToLower();
-
-            if (controlname.StartsWith("txt") || controlname.StartsWith("lbl"))
-            {
-                propertyname = "Text";
-                columnname = controlname.Substring(3);
-            }
-
-            if (propertyname != "" && columnname != "")
-            {
-                ctrl.DataBindings.Add(propertyname, dt, columnname, true, DataSourceUpdateMode.OnPropertyChanged);
-            }
-        }
 
         private void Save()
         {
-            President.Save(dtpresident);
+            Application.UseWaitCursor = true;
+            try
+            {
+                President.Save(dtpresident);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Record Keeper");
+            }
+            finally {
+                Application.UseWaitCursor = false;
+            }
+            
         }
 
         private void Delete()
         {
-            President.Delete(dtpresident);
-            this.Close();
+            Application.UseWaitCursor = true;
+            try
+            {
+                President.Delete(dtpresident);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Record Keeper");
+            }
+            finally {
+                Application.UseWaitCursor = false;
+            }
+
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)
