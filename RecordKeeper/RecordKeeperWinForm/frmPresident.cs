@@ -1,12 +1,8 @@
-﻿using System.Data;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
-
-namespace RecordKeeperWinForm
+﻿namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
     {
-        DataTable dtpresident;
+        DataTable dtpresident = new DataTable();
         public frmPresident()
         {
             InitializeComponent();
