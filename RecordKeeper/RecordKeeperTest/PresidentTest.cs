@@ -61,6 +61,39 @@ namespace RecordKeeperTest
         }
 
         [Test]
+        public void ChangeExistingPresidentToInvalidTermStart()
+        {
+            int presidentid = GetExistingPresidentId();
+            int termstart = 0;
+            Assume.That(presidentid > 0, "No presidents in DB, can't run test");
+            int termend = SQLUtility.GetFirstColumnFirstRowValue("select termend from president where presidentid = " + presidentid);
+
+            TestContext.WriteLine("termend for presidentid " + presidentid + " is " + termend);
+            termstart = termstart + 1;
+            TestContext.WriteLine("change termstart to " + termstart);
+
+            DataTable dt = President.Load(presidentid);
+            dt.Rows[0]["termstart"] = termstart;
+            Exception ex = Assert.Throws<Exception>(()=> President.Save(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+
+        [Test]
+        public void ChangeExistingPresidentToInvalidNum()
+        {
+            int presidentid = GetExistingPresidentId();
+            Assume.That(presidentid > 0, "No presidents in DB, can't run test");
+            int num = SQLUtility.GetFirstColumnFirstRowValue("select top 1 num from president where presidentid <> " + presidentid);
+            int currentnum = SQLUtility.GetFirstColumnFirstRowValue("select top 1 num from president where presidentid = " + presidentid);
+            Assume.That(num > 0, "Cannot run test becuase there is no other president record in the table");
+            TestContext.WriteLine("Change presidentid " + presidentid + " num from " + currentnum +  " to " + num + " which belongs to a different president");
+            DataTable dt = President.Load(presidentid);
+            dt.Rows[0]["num"] = num;
+            Exception ex = Assert.Throws<Exception>(() => President.Save(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+
+        [Test]
         public void DeletePresident() {
             DataTable dt = SQLUtility.GetDataTable("select top 1 p.presidentid, Num, LastName from president p left join executiveorder e on e.presidentid = p.presidentid where e.executiveorderid is null");
             int presidentid = 0;
@@ -77,6 +110,26 @@ namespace RecordKeeperTest
             DataTable dtafterdelete = SQLUtility.GetDataTable("select * from president where presidentid = " + presidentid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0,"record with presidentid " + presidentid + " exists in db");
             TestContext.WriteLine("Record with presidentid " + presidentid + " does not exist in DB");
+        }
+
+        [Test]
+        public void DeletePresidentWithExecutiveOrder()
+        {
+            DataTable dt = SQLUtility.GetDataTable("select top 1 p.presidentid, Num, LastName from president p join executiveorder e on e.presidentid = p.presidentid");
+            int presidentid = 0;
+            string prezdesc = "";
+            if (dt.Rows.Count > 0)
+            {
+                presidentid = (int)dt.Rows[0]["presidentid"];
+                prezdesc = dt.Rows[0]["Num"] + " " + dt.Rows[0]["LastName"];
+            }
+            Assume.That(presidentid > 0, "No presidents with executive order in DB, can't run test");
+            TestContext.WriteLine("existing president with executive order, with id = " + presidentid + " " + prezdesc);
+            TestContext.WriteLine("ensure that app cannot delete " + presidentid);
+            
+            Exception ex = Assert.Throws<Exception>(()=> President.Delete(dt));
+            
+            TestContext.WriteLine(ex.Message);
         }
 
         [Test]
