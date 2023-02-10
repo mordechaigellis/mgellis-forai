@@ -3,8 +3,10 @@ as
 begin
 	select @PartyName = nullif(@PartyName,'')
 
-	select p.PartyId, p.PartyName, p.YearStart, p.PartyColor
+	select p.PartyId, p.PartyName, p.YearStart, p.ColorId, PartyColor = c.ColorName
 	from Party p
+	left join Color c
+	on c.ColorId = p.ColorId
 	where p.PartyId = @PartyId
 	or @All = 1
 	or p.PartyName like '%' + @PartyName + '%'
