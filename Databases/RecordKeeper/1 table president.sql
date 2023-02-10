@@ -1,17 +1,28 @@
 use RecordKeeperDB
 go
+drop table if exists PresidentMedal
+drop table if exists Medal
 drop table if exists ExecutiveOrder
 drop table if exists President
 drop table if exists Party
+drop table if exists Color
 go
-
+create table dbo.Color(
+      ColorId int not null identity primary key,
+      ColorName varchar(20) not null 
+            constraint u_Color_ColorName unique
+            constraint ck_Color_color_name_cannot_be_blank check(ColorName > '')
+)
+go
+go
 create table dbo.Party(
 	PartyId int not null identity primary key,
 	PartyName varchar(35) not null 
         constraint u_Party_PartyName unique,
         constraint ck_party_partyname_cannot_be_blank check(PartyName <> ''),
 	YearStart smallint not null constraint ck_party_year_start_must_be_after_1789_and_cannot_be_in_future check(YearStart between 1789 and year(getdate())),
-	PartyColor varchar(20) not null constraint ck_party_partycolor_cannot_be_blank check(PartyColor <> ''),
+	ColorId int null constraint f_Color_Party foreign key references Color(ColorId)
+
 )
 go
 
@@ -49,3 +60,19 @@ create table dbo.ExecutiveOrder(
 )
 go
 
+create table dbo.Medal(
+      MedalId int not null identity primary key,
+      MedalName varchar(100) not null 
+            constraint u_Medal_Name unique
+            constraint ck_Medal_Name_cannot_be_blank check(MedalName > '')
+)
+go
+
+create table dbo.PresidentMedal(
+      PresidentMedalId int not null identity primary key,
+      PresidentId int not null constraint f_President_PresidentMedal foreign key references President(PresidentId),
+      MedalId int not null constraint f_Medal_PresidentMedal foreign key references Medal(MedalId),
+      TimeRecieved datetime not null default getdate() constraint ck_PresidentMedal_time_recieved_cannot_be_in_future check(TimeRecieved <= getdate()),
+      constraint u_PresidentMedal_PresidentId_MedalId unique(PresidentId, MedalId)
+)
+go

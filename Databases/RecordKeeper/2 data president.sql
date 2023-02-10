@@ -1,18 +1,32 @@
 use RecordKeeperDB
 go
+
 delete ExecutiveOrder
+delete PresidentMedal
+delete Medal
 delete president
 delete Party
+delete color
+go
+insert Color(ColorName)
+select 'Red'
+union select 'Blue'
+union select 'Orange'
+union select 'Yellow'
+union select 'White'
+union select 'Green'
+union select 'Purple'
+union select 'Black'
 go
 
-insert Party(PartyName,YearStart,PartyColor)
-select 'Republican', 1854, 'Red' 
-union select 'Democrat', 1828, 'Blue'
-union select 'Federalist', 1791, 'Orange'
-union select 'Whig', 1833, 'Yellow' 
-union select 'None, Federalist', 1789, 'White'
-union select 'National Union', 1864, 'Green'
-union select 'Democratic-Republican', 1792, 'purple'
+insert Party(PartyName,YearStart,ColorId)
+select 'Republican', 1854, (select c.ColorId from Color c where c.ColorName = 'Red') 
+union select 'Democrat', 1828, (select c.ColorId from Color c where c.ColorName = 'Blue')
+union select 'Federalist', 1791, (select c.ColorId from Color c where c.ColorName = 'Orange')
+union select 'Whig', 1833, (select c.ColorId from Color c where c.ColorName = 'Yellow') 
+union select 'None, Federalist', 1789, (select c.ColorId from Color c where c.ColorName = 'White')
+union select 'National Union', 1864, (select c.ColorId from Color c where c.ColorName = 'Green')
+union select 'Democratic-Republican', 1792, null
 go
 
 ;with presidentData as (
@@ -60,8 +74,6 @@ go
       union select 42, 'William Jefferson', 'Clinton', 'Democrat', '1946-08-19', null, 1993, 2001
       union select 43, 'George W.', 'Bush', 'Republican', '1946-07-06', null, 2001, 2009
       union select 44, 'Barack', 'Obama', 'Democrat', '1961-08-04', null, 2009, null
-      --union select 45, 'Donald J.', 'Trump', 'Republican', '1946-06-14', null, 2016, 2021
-      --union select 46, 'Joseph R.', 'Biden', 'Democrat', '1942-11-20', null, 2021, null
 
 )
 insert president(Num, FirstName, LastName, PartyId, DateBorn, DateDied, TermStart, TermEnd)
@@ -76,3 +88,44 @@ select (select p.PresidentId from president p where p.LastName = 'Obama'), 13765
 union select (select p.PresidentId from president p where p.LastName = 'Obama'), 13766, 7650, 2017, 'Reducing Regulation and Controlling Regulatory Costs ', 1
 union select (select p.PresidentId from president p where p.LastName = 'Bush' and p.FirstName = 'George W.'), 13239, 6490, 2001, 'Designation of Afghanistan and the Airspace Above as a Combat Zone.', 0
 union select (select p.PresidentId from President p where p.LastName = 'Reagan'), 12288, 10135, 1981, 'Termination of the Wage and Price Regulatory Program', 1
+
+
+insert Medal(MedalName)
+select 'Made America Great'
+union select 'World Leader'
+union select 'Powerful'
+union select 'International Peace Maker'
+union select 'Helping Ukraine'
+union select 'Democracy Champion'
+go
+
+;with x as(
+      select pr.Num, Medal = 'World Leader'
+      from President pr
+      join Party pa
+      on pa.PartyId = pr.PartyId
+      where pa.PartyName = 'Republican'
+      and pr.TermStart between 1800 and 1900
+      union select pr.Num, Medal = 'Made America Great'
+      from President pr
+      join Party pa
+      on pa.PartyId = pr.PartyId
+      where pa.PartyName like '%Federalist'
+      union select pr.Num, Medal = 'Helping Ukraine'
+      from President pr
+      where pr.LastName = 'Biden'
+      union select pr.Num, Medal = 'International Peace Maker'
+      from President pr
+      where pr.LastName = 'Bush'
+      union select pr.Num, Medal = 'Democracy Champion'
+      from President pr
+      where pr.TermStart between 1789 and 1900
+)
+insert PresidentMedal(PresidentId, MedalId)
+select p.PresidentId, m.MedalId
+from x
+join President p
+on p.Num = x.Num
+join Medal m
+on m.MedalName = x.Medal
+go
