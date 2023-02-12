@@ -5,7 +5,7 @@
         public static DataTable SearchPresidents(string lastname) {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentGet") ;
-            cmd.Parameters["@LastName"].Value = lastname;
+            SQLUtility.SetParamValue(cmd,"@LastName", lastname);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -13,7 +13,7 @@
         public static DataTable Load(int presidentid) {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentGet");
-            cmd.Parameters["@PresidentId"].Value = presidentid;
+            SQLUtility.SetParamValue(cmd,"@PresidentId", presidentid);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -21,7 +21,7 @@
         public static DataTable GetPartyList() {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("PartyGet");
-            cmd.Parameters["@All"].Value = 1;
+            SQLUtility.SetParamValue(cmd, "@All", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -57,7 +57,7 @@
         {
             int id = (int)dtpresident.Rows[0]["PresidentId"];
             SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentDelete");
-            cmd.Parameters["@PresidentId"].Value = id;
+            SQLUtility.SetParamValue(cmd, "@PresidentId", id);
             SQLUtility.ExecuteSQL(cmd);
         }
     }
