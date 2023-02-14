@@ -10,7 +10,7 @@ begin
 		commit
 	end try
 	begin catch
-		rollback
+		rollback;
 		throw
 	end catch
 end
