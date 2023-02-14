@@ -84,8 +84,8 @@ on p.PartyName = d.Party;
 go
 
 insert ExecutiveOrder(PresidentId, OrderNumber, PageNum, YearIssued, OrderName, UpheldByCourt)
-select (select p.PresidentId from president p where p.LastName = 'Obama'), 13765, 7619, 2017, 'Minimizing the Economic Burden', 1
-union select (select p.PresidentId from president p where p.LastName = 'Obama'), 13766, 7650, 2017, 'Reducing Regulation and Controlling Regulatory Costs ', 1
+select (select p.PresidentId from president p where p.LastName = 'Obama'), 13765, 7619, 2017, 'Minimizing the Economic Burden', 0
+union select (select p.PresidentId from president p where p.LastName = 'Obama'), 13766, 7650, 2017, 'Reducing Regulation and Controlling Regulatory Costs ', 0
 union select (select p.PresidentId from president p where p.LastName = 'Bush' and p.FirstName = 'George W.'), 13239, 6490, 2001, 'Designation of Afghanistan and the Airspace Above as a Combat Zone.', 0
 union select (select p.PresidentId from President p where p.LastName = 'Reagan'), 12288, 10135, 1981, 'Termination of the Wage and Price Regulatory Program', 1
 union select (select p.PresidentId from President p where p.LastName = 'Carter'), 12287, 10134, 1975, 'Termination of Long Speeches in Government', 1
@@ -102,13 +102,14 @@ union select 'Democracy Champion'
 go
 
 ;with x as(
-      select pr.Num, Medal = 'World Leader'
-      from President pr
-      join Party pa
-      on pa.PartyId = pr.PartyId
-      where pa.PartyName = 'Republican'
-      and pr.TermStart between 1800 and 1900
-      union select pr.Num, Medal = 'Made America Great'
+      --select pr.Num, Medal = 'World Leader'
+      --from President pr
+      --join Party pa
+      --on pa.PartyId = pr.PartyId
+      --where pa.PartyName = 'Republican'
+      --and pr.TermStart between 1800 and 1900
+      --union 
+	  select pr.Num, Medal = 'Made America Great'
       from President pr
       join Party pa
       on pa.PartyId = pr.PartyId
