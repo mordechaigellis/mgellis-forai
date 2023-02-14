@@ -124,9 +124,16 @@ order by p.PresidentId
         }
 
         [Test]
-        public void DeletePresidentWithExecutiveOrder()
+        public void DeletePresidentWithUpheldExecutiveOrder()
         {
-            DataTable dt = SQLUtility.GetDataTable("select top 1 p.presidentid, Num, LastName from president p join executiveorder e on e.presidentid = p.presidentid");
+            string sql = @"
+select top 1 p.presidentid, Num, LastName 
+from president p 
+join executiveorder e 
+on e.presidentid = p.presidentid
+where e.UpheldByCourt = 1
+";
+            DataTable dt = SQLUtility.GetDataTable(sql);
             int presidentid = 0;
             string prezdesc = "";
             if (dt.Rows.Count > 0)
@@ -134,8 +141,8 @@ order by p.PresidentId
                 presidentid = (int)dt.Rows[0]["presidentid"];
                 prezdesc = dt.Rows[0]["Num"] + " " + dt.Rows[0]["LastName"];
             }
-            Assume.That(presidentid > 0, "No presidents with executive order in DB, can't run test");
-            TestContext.WriteLine("existing president with executive order, with id = " + presidentid + " " + prezdesc);
+            Assume.That(presidentid > 0, "No presidents with upheld executive orders in DB, can't run test");
+            TestContext.WriteLine("existing president with upheld executive order, with id = " + presidentid + " " + prezdesc);
             TestContext.WriteLine("ensure that app cannot delete " + presidentid);
             
             Exception ex = Assert.Throws<Exception>(()=> President.Delete(dt));
