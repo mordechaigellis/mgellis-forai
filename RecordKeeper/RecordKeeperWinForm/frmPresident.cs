@@ -19,7 +19,7 @@
                 dtpresident.Rows.Add();
             }
             DataTable dtparties = President.GetPartyList();
-            WindowsFormsUtility.SetListBinding(lstPartyName, dtparties, "Party");
+            WindowsFormsUtility.SetListBinding(lstPartyName, dtparties,dtpresident, "Party");
             WindowsFormsUtility.SetControlBinding(txtNum, dtpresident);
             WindowsFormsUtility.SetControlBinding(txtLastName, dtpresident);
             WindowsFormsUtility.SetControlBinding(txtFirstName, dtpresident);
