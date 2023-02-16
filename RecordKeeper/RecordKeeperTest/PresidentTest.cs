@@ -14,9 +14,9 @@ namespace RecordKeeperTest
 
 
         [Test]
-        [TestCase("Sam", "Test1", "2035-1-1", 2075)]
-        [TestCase("Sam", "Test2", "1800-1-1", 1836)]
-        public void InsertNewPresident(string firstname, string lastname, DateTime dateborn, int termstart) {
+        [TestCase("Sam", "Test1", "2035-1-1", 2075, 2079)]
+        [TestCase("Sam", "Test2", "1800-1-1", 1836, 1840)]
+        public void InsertNewPresident(string firstname, string lastname, DateTime dateborn, int termstart, int termend) {
             DataTable dt = SQLUtility.GetDataTable("select * from president where presidentid = 0");
             DataRow r = dt.Rows.Add();
             Assume.That(dt.Rows.Count == 1);
@@ -29,17 +29,23 @@ namespace RecordKeeperTest
             TestContext.WriteLine("insert president with num = " + maxnum);
 
             r["partyid"] = partyid;
-            r["Num"] = maxnum;
+            r["Num"] = 0;
             r["FirstName"] = firstname;
             r["LastName"] = lastname;
             r["DateBorn"] = dateborn;
             r["TermStart"] = termstart;
+            r["TermEnd"] = termend;
             President.Save(dt);
 
-            int newid = SQLUtility.GetFirstColumnFirstRowValue("select * from president where num = " + maxnum);
-
-            Assert.IsTrue(newid > 0, "president with num = " + maxnum + " is not found in db");
-            TestContext.WriteLine("President with " + maxnum + " is found in db with pk value = " + newid);
+            int newnum = SQLUtility.GetFirstColumnFirstRowValue("select * from president where num = " + maxnum);
+            int pkid = 0;
+            if (r["PresidentId"] != DBNull.Value) {
+                pkid = (int)r["PresidentId"];
+            }
+            Assert.IsTrue(newnum > 0, "president with num = " + maxnum + " is not found in db");
+            Assert.IsTrue(pkid > 0, "primary key not updated in datatable");
+            TestContext.WriteLine("President with " + maxnum + " is found in db with pk value = " + newnum);
+            TestContext.WriteLine("new primary key = " + pkid);
         }
 
         [Test]

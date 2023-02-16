@@ -1,7 +1,7 @@
 create or alter proc dbo.PresidentUpdate(
 	@PresidentId int output,
 	@PartyId int,
-	@Num int,
+	@Num int output,
 	@FirstName varchar (100),
 	@LastName varchar (100),
 	@DateBorn date,
@@ -14,7 +14,7 @@ as
 begin
 	declare @return int = 0
 
-	select @PresidentId = isnull(@PresidentId,0), @TermEnd = nullif(@TermEnd,0)
+	select @PresidentId = isnull(@PresidentId,0), @TermEnd = nullif(@TermEnd,0), @Num = isnull(@Num,0)
 
 	if @TermEnd is null and exists(select * from President p where p.TermEnd is null and p.Presidentid <> @PresidentId)
 	begin
@@ -24,6 +24,11 @@ begin
 
 	if @PresidentId = 0
 	begin
+		if @Num = 0
+		begin
+			select @Num = max(p.Num) + 1 from President p 
+		end
+
 		insert President(PartyId, Num, FirstName, LastName, DateBorn, DateDied, TermStart, TermEnd)
 		values(@PartyId, @Num, @FirstName, @LastName, @DateBorn, @DateDied, @TermStart, @TermEnd)
 
