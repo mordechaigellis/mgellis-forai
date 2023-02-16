@@ -3,6 +3,7 @@
     public partial class frmPresident : Form
     {
         DataTable dtpresident = new DataTable();
+        BindingSource bindsource = new BindingSource();
         public frmPresident()
         {
             InitializeComponent();
@@ -14,19 +15,20 @@
         public void ShowForm(int presidentid)
         {
             dtpresident = President.Load(presidentid);
+            bindsource.DataSource = dtpresident;
             if (presidentid == 0)
             {
                 dtpresident.Rows.Add();
             }
             DataTable dtparties = President.GetPartyList();
             WindowsFormsUtility.SetListBinding(lstPartyName, dtparties,dtpresident, "Party");
-            WindowsFormsUtility.SetControlBinding(txtNum, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtLastName, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtFirstName, dtpresident);
-            WindowsFormsUtility.SetControlBinding(dtpDateBorn, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtDateDied, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtTermStart, dtpresident);
-            WindowsFormsUtility.SetControlBinding(txtTermEnd, dtpresident);
+            WindowsFormsUtility.SetControlBinding(txtNum, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtLastName, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtFirstName, bindsource);
+            WindowsFormsUtility.SetControlBinding(dtpDateBorn, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDateDied, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtTermStart, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtTermEnd, bindsource);
             this.Show();
         }
 
@@ -37,7 +39,7 @@
             try
             {
                 President.Save(dtpresident);
-                
+                bindsource.ResetBindings(false);
             }
             catch (Exception ex)
             {
