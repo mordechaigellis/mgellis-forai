@@ -53,6 +53,14 @@
 
         private void Delete()
         {
+            if (dtpresident.Rows.Count > 0) {
+                string alloweddelete = "";
+                alloweddelete = dtpresident.Rows[0]["IsDeleteAllowed"].ToString();
+                if (alloweddelete != "") {
+                    MessageBox.Show(alloweddelete);
+                    return;
+                }
+            }
             var response = MessageBox.Show("Are you sure you want to delete this President?", "Record Keeper", MessageBoxButtons.YesNo);
             if (response == DialogResult.No) {
                 return;

@@ -4,9 +4,11 @@ create or alter procedure dbo.PresidentDelete(
 )
 as
 begin
-	declare @return int = 0
+	declare @return int = 0, @deleteallowed varchar(60) = ''
 
-	if exists(select * from ExecutiveOrder e where e.PresidentId = @PresidentId and e.UpheldByCourt = 1)
+	select @deleteallowed = isnull(dbo.IsPresidentDeleteAllowed(@PresidentId),'')
+
+	if @deleteallowed <> ''
 	begin
 		select @return = 1, @Message = 'Cannot delete president that has upheld executive orders.'
 		goto finished
