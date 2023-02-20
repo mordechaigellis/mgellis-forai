@@ -10,7 +10,7 @@ begin
 
 	if @deleteallowed <> ''
 	begin
-		select @return = 1, @Message = 'Cannot delete president that has upheld executive orders.'
+		select @return = 1, @Message = @deleteallowed
 		goto finished
 	end
 
