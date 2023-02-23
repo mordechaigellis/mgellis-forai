@@ -12,10 +12,10 @@ namespace RecordKeeperWinForm
             btnSearch.Click += BtnSearch_Click;
             gPresident.CellDoubleClick += GPresident_CellDoubleClick;
             btnNew.Click += BtnNew_Click;
-            FormatGrid();
+            WindowsFormsUtility.FormatGridForSearchResults(gPresident);
         }
 
-        
+
         private void SearchForPresident(string lastname)
         {
             string sql = "select PresidentId, Num, LastName, FirstName from president p where p.lastname like '%" + lastname + "%'";
