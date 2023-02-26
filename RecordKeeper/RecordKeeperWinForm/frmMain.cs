@@ -21,7 +21,62 @@ namespace RecordKeeperWinForm
             mnuWindowCascade.Click += MnuWindowCascade_Click;
         }
 
-       
+        public void OpenForm(Type frmtype)
+        {
+            bool b = WindowsFormsUtility.IsFormOpen(frmtype);
+            Form? newfrm = null;
+            if (b == false)
+            {
+                if (frmtype == typeof(frmPresident))
+                {
+                    frmPresident f = new();
+                    newfrm = f;
+                    f.ShowForm(0);
+                }
+                else if (frmtype == typeof(frmSearch))
+                {
+                    frmSearch f = new();
+                    newfrm = f;
+                    f.Show();
+                }
+                if (newfrm != null) {
+                    newfrm.MdiParent = this;
+                    newfrm.WindowState = FormWindowState.Maximized;
+                    newfrm.FormClosed += Frm_FormClosed;
+                }
+                SetupNav();
+            }
+        }
+
+        private void Frm_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            SetupNav();
+        }
+
+        public void SetupNav() {
+            tsMain.Items.Clear();
+            foreach (Form f in Application.OpenForms) {
+                if (f.IsMdiContainer == false)
+                {
+                    ToolStripButton btn = new();
+                    btn.Text = f.Text;
+                    btn.Tag = f;
+                    btn.Click += Btn_Click;
+                    tsMain.Items.Add(btn);
+                    tsMain.Items.Add(new ToolStripSeparator());
+                }
+            }
+        }
+
+        private void Btn_Click(object? sender, EventArgs e)
+        {
+            if (sender != null && sender is ToolStripButton) {
+                ToolStripButton btn = (ToolStripButton)sender;
+                if (btn.Tag != null && btn.Tag is Form) {
+                    ((Form)btn.Tag).Activate();
+                }
+            }
+        }
 
         private void MnuWindowCascade_Click(object? sender, EventArgs e)
         {
@@ -35,26 +90,13 @@ namespace RecordKeeperWinForm
 
         private void MnuNewPresident_Click(object? sender, EventArgs e)
         {
-            bool b = WindowsFormsUtility.IsFormOpen(typeof(frmPresident));
-            if (b == false)
-            {
-                frmPresident f = new frmPresident();
-                f.MdiParent = this;
-                f.ShowForm(0);
-            }
+            OpenForm(typeof(frmPresident));
         }
 
 
         private void MnuSearchPresident_Click(object? sender, EventArgs e)
         {
-            bool exists = WindowsFormsUtility.IsFormOpen(typeof(frmSearch));
-           
-            if (exists == false)
-            {
-                frmSearch f = new frmSearch();
-                f.MdiParent = this;
-                f.Show();
-            }
+            OpenForm(typeof(frmSearch));
         }
     }
 }

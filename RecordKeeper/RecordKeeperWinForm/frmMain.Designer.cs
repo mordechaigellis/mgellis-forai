@@ -35,6 +35,7 @@
             this.mnuWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowTile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowCascade = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsMain = new System.Windows.Forms.ToolStrip();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,11 +93,21 @@
             this.mnuWindowCascade.Size = new System.Drawing.Size(180, 26);
             this.mnuWindowCascade.Text = "Cascade";
             // 
+            // tsMain
+            // 
+            this.tsMain.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tsMain.Location = new System.Drawing.Point(0, 29);
+            this.tsMain.Name = "tsMain";
+            this.tsMain.Size = new System.Drawing.Size(1029, 25);
+            this.tsMain.TabIndex = 3;
+            this.tsMain.Text = "toolStrip1";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1029, 630);
+            this.Controls.Add(this.tsMain);
             this.Controls.Add(this.mnuMain);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.IsMdiContainer = true;
@@ -120,5 +131,6 @@
         private ToolStripMenuItem mnuWindow;
         private ToolStripMenuItem mnuWindowTile;
         private ToolStripMenuItem mnuWindowCascade;
+        private ToolStrip tsMain;
     }
 }

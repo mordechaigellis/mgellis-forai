@@ -1,4 +1,7 @@
-﻿namespace RecordKeeperWinForm
+﻿using CPUFramework;
+using Microsoft.SqlServer.Server;
+
+namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
     {
@@ -30,6 +33,7 @@
             WindowsFormsUtility.SetControlBinding(txtDateDied, bindsource);
             WindowsFormsUtility.SetControlBinding(txtTermStart, bindsource);
             WindowsFormsUtility.SetControlBinding(txtTermEnd, bindsource);
+            this.Text = GetPresidentDesc();
             this.Show();
         }
 
@@ -41,6 +45,7 @@
             {
                 President.Save(dtpresident);
                 bindsource.ResetBindings(false);
+                this.Text = GetPresidentDesc();
             }
             catch (Exception ex)
             {
@@ -82,6 +87,14 @@
 
         }
 
+        private string GetPresidentDesc() {
+            string value = "New President";
+            int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtpresident, "PresidentId");
+            if (pkvalue > 0) {
+                value = SQLUtility.GetValueFromFirstRowAsInt(dtpresident, "Num") + " " + SQLUtility.GetValueFromFirstRowAsString(dtpresident, "LastName");
+            }
+            return value;
+        }
         private void BtnDelete_Click(object? sender, EventArgs e)
         {
             Delete();
