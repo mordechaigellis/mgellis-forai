@@ -14,6 +14,7 @@
 
         public void ShowForm(int presidentid)
         {
+            this.Tag = presidentid;
             dtpresident = President.Load(presidentid);
             bindsource.DataSource = dtpresident;
             if (presidentid == 0)

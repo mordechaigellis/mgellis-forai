@@ -21,6 +21,8 @@ namespace RecordKeeperWinForm
             mnuWindowCascade.Click += MnuWindowCascade_Click;
         }
 
+       
+
         private void MnuWindowCascade_Click(object? sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
@@ -33,21 +35,20 @@ namespace RecordKeeperWinForm
 
         private void MnuNewPresident_Click(object? sender, EventArgs e)
         {
-            frmPresident f = new frmPresident();
-            f.MdiParent = this;
-            f.ShowForm(0);
+            bool b = WindowsFormsUtility.IsFormOpen(typeof(frmPresident));
+            if (b == false)
+            {
+                frmPresident f = new frmPresident();
+                f.MdiParent = this;
+                f.ShowForm(0);
+            }
         }
+
 
         private void MnuSearchPresident_Click(object? sender, EventArgs e)
         {
-            bool exists = false;
-            foreach (Form frm in Application.OpenForms) {
-                if (frm is frmSearch) {
-                    frm.Activate();
-                    exists = true;
-                    break;
-                }
-            }
+            bool exists = WindowsFormsUtility.IsFormOpen(typeof(frmSearch));
+           
             if (exists == false)
             {
                 frmSearch f = new frmSearch();
