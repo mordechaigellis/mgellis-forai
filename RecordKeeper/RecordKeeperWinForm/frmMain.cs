@@ -21,17 +21,18 @@ namespace RecordKeeperWinForm
             mnuWindowCascade.Click += MnuWindowCascade_Click;
         }
 
-        public void OpenForm(Type frmtype)
+        public void OpenForm(Type frmtype, int pkvalue = 0)
         {
             bool b = WindowsFormsUtility.IsFormOpen(frmtype);
-            Form? newfrm = null;
+            
             if (b == false)
             {
+                Form? newfrm = null;
                 if (frmtype == typeof(frmPresident))
                 {
                     frmPresident f = new();
                     newfrm = f;
-                    f.ShowForm(0);
+                    f.ShowForm(pkvalue);
                 }
                 else if (frmtype == typeof(frmSearch))
                 {
@@ -43,39 +44,20 @@ namespace RecordKeeperWinForm
                     newfrm.MdiParent = this;
                     newfrm.WindowState = FormWindowState.Maximized;
                     newfrm.FormClosed += Frm_FormClosed;
+                    newfrm.TextChanged += Newfrm_TextChanged;
                 }
-                SetupNav();
+                WindowsFormsUtility.SetupNav(tsMain);
             }
+        }
+
+        private void Newfrm_TextChanged(object? sender, EventArgs e)
+        {
+            WindowsFormsUtility.SetupNav(tsMain);
         }
 
         private void Frm_FormClosed(object? sender, FormClosedEventArgs e)
         {
-            SetupNav();
-        }
-
-        public void SetupNav() {
-            tsMain.Items.Clear();
-            foreach (Form f in Application.OpenForms) {
-                if (f.IsMdiContainer == false)
-                {
-                    ToolStripButton btn = new();
-                    btn.Text = f.Text;
-                    btn.Tag = f;
-                    btn.Click += Btn_Click;
-                    tsMain.Items.Add(btn);
-                    tsMain.Items.Add(new ToolStripSeparator());
-                }
-            }
-        }
-
-        private void Btn_Click(object? sender, EventArgs e)
-        {
-            if (sender != null && sender is ToolStripButton) {
-                ToolStripButton btn = (ToolStripButton)sender;
-                if (btn.Tag != null && btn.Tag is Form) {
-                    ((Form)btn.Tag).Activate();
-                }
-            }
+           WindowsFormsUtility.SetupNav(tsMain);
         }
 
         private void MnuWindowCascade_Click(object? sender, EventArgs e)

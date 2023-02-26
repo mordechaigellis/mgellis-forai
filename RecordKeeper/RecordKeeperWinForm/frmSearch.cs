@@ -28,12 +28,8 @@ namespace RecordKeeperWinForm
             {
                 id = (int)gPresident.Rows[rowindex].Cells["PresidentId"].Value;
             }
-            bool b = WindowsFormsUtility.IsFormOpen(typeof(frmPresident), id);
-            if (b == false)
-            {
-                frmPresident frm = new frmPresident();
-                frm.MdiParent = this.MdiParent;
-                frm.ShowForm(id);
+            if (this.MdiParent != null && this.MdiParent is frmMain) {
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmPresident), id);
             }
         }
 

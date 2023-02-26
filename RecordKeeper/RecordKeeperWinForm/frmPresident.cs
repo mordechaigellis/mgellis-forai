@@ -45,6 +45,7 @@ namespace RecordKeeperWinForm
             {
                 President.Save(dtpresident);
                 bindsource.ResetBindings(false);
+                this.Tag = SQLUtility.GetValueFromFirstRowAsInt(dtpresident, "PresidentId");
                 this.Text = GetPresidentDesc();
             }
             catch (Exception ex)
