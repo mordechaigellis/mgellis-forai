@@ -29,6 +29,7 @@ namespace RecordKeeperWinForm
                 id = (int)gPresident.Rows[rowindex].Cells["PresidentId"].Value;
             }
             frmPresident frm = new frmPresident();
+            frm.MdiParent = this.MdiParent;
             frm.ShowForm(id);
         }
 
