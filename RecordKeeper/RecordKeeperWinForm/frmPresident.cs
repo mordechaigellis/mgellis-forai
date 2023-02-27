@@ -1,7 +1,4 @@
-﻿using CPUFramework;
-using Microsoft.SqlServer.Server;
-
-namespace RecordKeeperWinForm
+﻿namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
     {
@@ -14,8 +11,6 @@ namespace RecordKeeperWinForm
             btnDelete.Click += BtnDelete_Click;
             this.FormClosing += FrmPresident_FormClosing;
         }
-
-        
 
         public void ShowForm(int presidentid)
         {
@@ -64,15 +59,13 @@ namespace RecordKeeperWinForm
 
         private void Delete()
         {
-            if (dtpresident.Rows.Count > 0) {
-                string alloweddelete = "";
-                alloweddelete = dtpresident.Rows[0]["IsDeleteAllowed"].ToString();
-                if (alloweddelete != "") {
-                    MessageBox.Show(alloweddelete);
-                    return;
-                }
+            string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtpresident, "IsDeleteAllowed");
+            if (alloweddelete != "") {
+                MessageBox.Show(alloweddelete, Application.ProductName);
+                return;
             }
-            var response = MessageBox.Show("Are you sure you want to delete this President?", "Record Keeper", MessageBoxButtons.YesNo);
+            
+            var response = MessageBox.Show("Are you sure you want to delete this President?", Application.ProductName, MessageBoxButtons.YesNo);
             if (response == DialogResult.No) {
                 return;
             }
@@ -84,12 +77,11 @@ namespace RecordKeeperWinForm
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Record Keeper");
+                MessageBox.Show(ex.Message, Application.ProductName);
             }
             finally {
                 Application.UseWaitCursor = false;
             }
-
         }
 
         private string GetPresidentDesc() {
@@ -114,7 +106,7 @@ namespace RecordKeeperWinForm
         {
             bindsource.EndEdit();
             if (SQLUtility.TableHasChanges(dtpresident)) {
-                var res = MessageBox.Show($"Do you want to save changes to {this.Text} before closing the form?", "Record Keeper", MessageBoxButtons.YesNoCancel);
+                var res = MessageBox.Show($"Do you want to save changes to {this.Text} before closing the form?", Application.ProductName, MessageBoxButtons.YesNoCancel);
                 switch (res) {
                     case DialogResult.Yes:
                         bool b = Save();
