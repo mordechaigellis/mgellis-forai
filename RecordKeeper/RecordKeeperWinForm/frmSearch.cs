@@ -11,15 +11,33 @@ namespace RecordKeeperWinForm
             btnSearch.Click += BtnSearch_Click;
             gPresident.CellDoubleClick += GPresident_CellDoubleClick;
             btnNew.Click += BtnNew_Click;
+            txtLastName.KeyDown += TxtLastName_KeyDown;
+            gPresident.KeyDown += GPresident_KeyDown;
             WindowsFormsUtility.FormatGridForSearchResults(gPresident);
         }
 
 
         private void SearchForPresident(string lastname)
         {
-            DataTable dt = President.SearchPresidents(lastname);
-            gPresident.DataSource = dt;
-            gPresident.Columns["PresidentId"].Visible = false;
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                DataTable dt = President.SearchPresidents(lastname);
+                gPresident.DataSource = dt;
+                gPresident.Columns["PresidentId"].Visible = false;
+                if (gPresident.Rows.Count > 0)
+                {
+                    gPresident.Focus();
+                    gPresident.Rows[0].Selected = true;
+                }
+            }
+            catch 
+            {
+                throw;
+            }
+            finally {
+                this.Cursor = Cursors.Default;
+            }
         }
 
         private void ShowPresidentForm(int rowindex) {
@@ -33,6 +51,9 @@ namespace RecordKeeperWinForm
             }
         }
 
+        private void DoSearch() {
+            SearchForPresident(txtLastName.Text);
+        }
        
 
         private void GPresident_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
@@ -42,12 +63,25 @@ namespace RecordKeeperWinForm
 
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
-            SearchForPresident(txtLastName.Text);
+            DoSearch();   
         }
 
         private void BtnNew_Click(object? sender, EventArgs e)
         {
             ShowPresidentForm(-1);
+        }
+        private void TxtLastName_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) {
+                DoSearch();
+            }
+        }
+        private void GPresident_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && gPresident.SelectedRows.Count > 0) {
+                ShowPresidentForm(gPresident.SelectedRows[0].Index);
+                e.SuppressKeyPress = true;
+            }
         }
 
     }

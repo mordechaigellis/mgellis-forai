@@ -33,8 +33,8 @@
             this.lblLastName = new System.Windows.Forms.Label();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.gPresident = new System.Windows.Forms.DataGridView();
             this.btnNew = new System.Windows.Forms.Button();
+            this.gPresident = new System.Windows.Forms.DataGridView();
             this.tblMain.SuspendLayout();
             this.tblSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gPresident)).BeginInit();
@@ -85,7 +85,7 @@
             this.lblLastName.Name = "lblLastName";
             this.lblLastName.Size = new System.Drawing.Size(84, 21);
             this.lblLastName.TabIndex = 0;
-            this.lblLastName.Text = "Last Name";
+            this.lblLastName.Text = "&Last Name";
             // 
             // txtLastName
             // 
@@ -106,16 +106,6 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
-            // gPresident
-            // 
-            this.gPresident.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gPresident.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gPresident.Location = new System.Drawing.Point(3, 48);
-            this.gPresident.Name = "gPresident";
-            this.gPresident.RowTemplate.Height = 25;
-            this.gPresident.Size = new System.Drawing.Size(700, 579);
-            this.gPresident.TabIndex = 1;
-            // 
             // btnNew
             // 
             this.btnNew.AutoSize = true;
@@ -125,6 +115,17 @@
             this.btnNew.TabIndex = 3;
             this.btnNew.Text = "&New";
             this.btnNew.UseVisualStyleBackColor = true;
+            // 
+            // gPresident
+            // 
+            this.gPresident.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gPresident.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gPresident.Location = new System.Drawing.Point(3, 48);
+            this.gPresident.Name = "gPresident";
+            this.gPresident.RowTemplate.Height = 25;
+            this.gPresident.Size = new System.Drawing.Size(700, 579);
+            this.gPresident.StandardTab = true;
+            this.gPresident.TabIndex = 1;
             // 
             // frmSearch
             // 
