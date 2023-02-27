@@ -12,8 +12,10 @@ namespace RecordKeeperWinForm
             InitializeComponent();
             btnSave.Click += BtnSave_Click;
             btnDelete.Click += BtnDelete_Click;
+            this.FormClosing += FrmPresident_FormClosing;
         }
 
+        
 
         public void ShowForm(int presidentid)
         {
@@ -38,12 +40,14 @@ namespace RecordKeeperWinForm
         }
 
 
-        private void Save()
+        private bool Save()
         {
+            bool b = false;
             Application.UseWaitCursor = true;
             try
             {
                 President.Save(dtpresident);
+                b = true;
                 bindsource.ResetBindings(false);
                 this.Tag = SQLUtility.GetValueFromFirstRowAsInt(dtpresident, "PresidentId");
                 this.Text = GetPresidentDesc();
@@ -55,7 +59,7 @@ namespace RecordKeeperWinForm
             finally {
                 Application.UseWaitCursor = false;
             }
-            
+            return b;
         }
 
         private void Delete()
@@ -104,6 +108,27 @@ namespace RecordKeeperWinForm
         private void BtnSave_Click(object? sender, EventArgs e)
         {
             Save();
+        }
+
+        private void FrmPresident_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            bindsource.EndEdit();
+            if (SQLUtility.TableHasChanges(dtpresident)) {
+                var res = MessageBox.Show($"Do you want to save changes to {this.Text} before closing the form?", "Record Keeper", MessageBoxButtons.YesNoCancel);
+                switch (res) {
+                    case DialogResult.Yes:
+                        bool b = Save();
+                        if (b == false) {
+                            e.Cancel = true;
+                            this.Activate();
+                        }
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        this.Activate();
+                        break;
+                }
+            }
         }
     }
 }
