@@ -79,18 +79,18 @@
             this.mnuWindowCascade});
             this.mnuWindow.Name = "mnuWindow";
             this.mnuWindow.Size = new System.Drawing.Size(80, 25);
-            this.mnuWindow.Text = "Window";
+            this.mnuWindow.Text = "&Window";
             // 
             // mnuWindowTile
             // 
             this.mnuWindowTile.Name = "mnuWindowTile";
-            this.mnuWindowTile.Size = new System.Drawing.Size(180, 26);
+            this.mnuWindowTile.Size = new System.Drawing.Size(137, 26);
             this.mnuWindowTile.Text = "Tile";
             // 
             // mnuWindowCascade
             // 
             this.mnuWindowCascade.Name = "mnuWindowCascade";
-            this.mnuWindowCascade.Size = new System.Drawing.Size(180, 26);
+            this.mnuWindowCascade.Size = new System.Drawing.Size(137, 26);
             this.mnuWindowCascade.Text = "Cascade";
             // 
             // tsMain
