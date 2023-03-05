@@ -13,7 +13,7 @@ namespace RecordKeeperWinForm
             btnNew.Click += BtnNew_Click;
             txtLastName.KeyDown += TxtLastName_KeyDown;
             gPresident.KeyDown += GPresident_KeyDown;
-            WindowsFormsUtility.FormatGridForSearchResults(gPresident);
+
         }
 
 
@@ -24,7 +24,7 @@ namespace RecordKeeperWinForm
                 this.Cursor = Cursors.WaitCursor;
                 DataTable dt = President.SearchPresidents(lastname);
                 gPresident.DataSource = dt;
-                gPresident.Columns["PresidentId"].Visible = false;
+                WindowsFormsUtility.FormatGridForSearchResults(gPresident, "President");
                 if (gPresident.Rows.Count > 0)
                 {
                     gPresident.Focus();

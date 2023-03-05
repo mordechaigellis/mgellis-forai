@@ -35,6 +35,8 @@
             this.mnuWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowTile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowCascade = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDataMaint = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDataMainEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
@@ -44,6 +46,7 @@
             this.mnuMain.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuPresident,
+            this.mnuDataMaint,
             this.mnuWindow});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
@@ -93,6 +96,20 @@
             this.mnuWindowCascade.Size = new System.Drawing.Size(137, 26);
             this.mnuWindowCascade.Text = "Cascade";
             // 
+            // mnuDataMaint
+            // 
+            this.mnuDataMaint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuDataMainEdit});
+            this.mnuDataMaint.Name = "mnuDataMaint";
+            this.mnuDataMaint.Size = new System.Drawing.Size(147, 25);
+            this.mnuDataMaint.Text = "Data Maintenance";
+            // 
+            // mnuDataMainEdit
+            // 
+            this.mnuDataMainEdit.Name = "mnuDataMainEdit";
+            this.mnuDataMainEdit.Size = new System.Drawing.Size(180, 26);
+            this.mnuDataMainEdit.Text = "Edit Data";
+            // 
             // tsMain
             // 
             this.tsMain.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -132,5 +149,7 @@
         private ToolStripMenuItem mnuWindowTile;
         private ToolStripMenuItem mnuWindowCascade;
         private ToolStrip tsMain;
+        private ToolStripMenuItem mnuDataMaint;
+        private ToolStripMenuItem mnuDataMainEdit;
     }
 }
