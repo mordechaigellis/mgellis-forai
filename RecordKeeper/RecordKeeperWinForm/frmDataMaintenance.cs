@@ -1,4 +1,6 @@
-﻿namespace RecordKeeperWinForm
+﻿using RecordKeeperSystem;
+
+namespace RecordKeeperWinForm
 {
     public partial class frmDataMaintenance : Form
     {
@@ -9,10 +11,12 @@
         {
             InitializeComponent();
             btnSave.Click += BtnSave_Click;
+            this.FormClosing += FrmDataMaintenance_FormClosing;
             SetupRadioButtons();
             BindData(currenttabletype);
 
         }
+
 
         private void BindData(TableTypeEnum tabletype)
         {
@@ -22,12 +26,14 @@
             WindowsFormsUtility.FormatGridForEdit(gData, currenttabletype.ToString());
         }
 
-        private void Save()
+        private bool Save()
         {
+            bool b = false;
             Cursor = Cursors.WaitCursor;
             try
             {
                 DataMaintenance.SaveDataList(dtlist, currenttabletype.ToString());
+                b = true;
             }
             catch (Exception ex)
             {
@@ -36,7 +42,7 @@
             finally {
                 Cursor = Cursors.Default;
             }
-            
+            return b;
         }
 
 
@@ -69,5 +75,30 @@
         {
             Save();
         }
+
+        private void FrmDataMaintenance_FormClosing(object? sender, FormClosingEventArgs e)
+{
+            if (SQLUtility.TableHasChanges(dtlist))
+            {
+                var res = MessageBox.Show($"Do you want to save changes to {this.Text} before closing the form?", Application.ProductName, MessageBoxButtons.YesNoCancel);
+                switch (res)
+                {
+                    case DialogResult.Yes:
+                        bool b = Save();
+                        if (b == false)
+                        {
+                            e.Cancel = true;
+                            this.Activate();
+                        }
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        this.Activate();
+                        break;
+                }
+            }
+
+        }
+
     }
 }
