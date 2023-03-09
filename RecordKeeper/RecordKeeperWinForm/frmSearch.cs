@@ -44,7 +44,7 @@ namespace RecordKeeperWinForm
             int id = 0;
             if (rowindex > -1)
             {
-                id = (int)gPresident.Rows[rowindex].Cells["PresidentId"].Value;
+                id = WindowsFormsUtility.GetIdFromGrid(gPresident,rowindex,"PresidentId");
             }
             if (this.MdiParent != null && this.MdiParent is frmMain) {
                 ((frmMain)this.MdiParent).OpenForm(typeof(frmPresident), id);

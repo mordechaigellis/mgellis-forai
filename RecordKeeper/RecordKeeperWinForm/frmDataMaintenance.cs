@@ -7,16 +7,17 @@ namespace RecordKeeperWinForm
         private enum TableTypeEnum { Country, City, OlympicMedal, Season, Sport, SportSubcategory }
         DataTable dtlist = new();
         TableTypeEnum currenttabletype = TableTypeEnum.Country;
+        string deletecolname = "deletecol";
         public frmDataMaintenance()
         {
             InitializeComponent();
             btnSave.Click += BtnSave_Click;
             this.FormClosing += FrmDataMaintenance_FormClosing;
+            gData.CellContentClick += GData_CellContentClick;
             SetupRadioButtons();
             BindData(currenttabletype);
 
         }
-
 
         private void BindData(TableTypeEnum tabletype)
         {
@@ -33,6 +34,7 @@ namespace RecordKeeperWinForm
                     break;
 
             }
+            gData.Columns.Add(new DataGridViewButtonColumn() {Text = "X", HeaderText = "Delete", Name = deletecolname,UseColumnTextForButtonValue = true});
             WindowsFormsUtility.FormatGridForEdit(gData, currenttabletype.ToString());
         }
 
@@ -55,6 +57,24 @@ namespace RecordKeeperWinForm
             return b;
         }
 
+        private void Delete(int rowindex)
+        {
+            int id = WindowsFormsUtility.GetIdFromGrid(gData, rowindex, currenttabletype.ToString() + "Id");
+            if (id != 0)
+            {
+                try
+                {
+                    DataMaintenance.DeleteRow(currenttabletype.ToString(), id);
+                    BindData(currenttabletype);
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message, Application.ProductName);
+                }
+            }
+            else if (id == 0 && rowindex < gData.Rows.Count) {
+                gData.Rows.Remove(gData.Rows[rowindex]);
+            }
+        }
 
         private void SetupRadioButtons()
         {
@@ -108,6 +128,12 @@ namespace RecordKeeperWinForm
                 }
             }
 
+        }
+        private void GData_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (gData.Columns[e.ColumnIndex].Name == deletecolname) {
+                Delete(e.RowIndex);
+            }
         }
 
     }
