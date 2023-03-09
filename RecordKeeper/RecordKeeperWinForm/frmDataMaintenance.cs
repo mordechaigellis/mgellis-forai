@@ -3,20 +3,42 @@
     public partial class frmDataMaintenance : Form
     {
         private enum TableTypeEnum { Country, City, OlympicMedal, Season, Sport, SportSubcategory }
+        DataTable dtlist = new();
+        TableTypeEnum currenttabletype = TableTypeEnum.Country;
         public frmDataMaintenance()
         {
             InitializeComponent();
+            btnSave.Click += BtnSave_Click;
             SetupRadioButtons();
-            BindData(TableTypeEnum.Country);
+            BindData(currenttabletype);
 
         }
 
         private void BindData(TableTypeEnum tabletype)
         {
-            DataTable dt = DataMaintenance.GetDataList(tabletype.ToString());
-            gData.DataSource = dt;
-            WindowsFormsUtility.FormatGridForEdit(gData, tabletype.ToString());
+            currenttabletype = tabletype;
+            dtlist = DataMaintenance.GetDataList(currenttabletype.ToString());
+            gData.DataSource = dtlist;
+            WindowsFormsUtility.FormatGridForEdit(gData, currenttabletype.ToString());
         }
+
+        private void Save()
+        {
+            Cursor = Cursors.WaitCursor;
+            try
+            {
+                DataMaintenance.SaveDataList(dtlist, currenttabletype.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName);
+            }
+            finally {
+                Cursor = Cursors.Default;
+            }
+            
+        }
+
 
         private void SetupRadioButtons()
         {
@@ -41,6 +63,11 @@
             {
                 BindData((TableTypeEnum)((Control)sender).Tag);
             }
+        }
+
+        private void BtnSave_Click(object? sender, EventArgs e)
+        {
+            Save();
         }
     }
 }

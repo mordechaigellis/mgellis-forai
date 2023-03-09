@@ -11,7 +11,8 @@
             return dt;
         }
 
-      
-
+        public static void SaveDataList(DataTable dt, string tablename) {
+            SQLUtility.SaveDataTable(dt, tablename + "Update");
+        }
     }
 }
