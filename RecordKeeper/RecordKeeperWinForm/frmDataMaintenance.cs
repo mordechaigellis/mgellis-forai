@@ -22,7 +22,17 @@ namespace RecordKeeperWinForm
         {
             currenttabletype = tabletype;
             dtlist = DataMaintenance.GetDataList(currenttabletype.ToString());
+            gData.Columns.Clear();
             gData.DataSource = dtlist;
+            switch (tabletype) {
+                case TableTypeEnum.City:
+                    WindowsFormsUtility.AddComboboxToGrid(gData, DataMaintenance.GetDataList(TableTypeEnum.Country.ToString()), "Country", "CountryName");
+                    break;
+                case TableTypeEnum.SportSubcategory:
+                    WindowsFormsUtility.AddComboboxToGrid(gData, DataMaintenance.GetDataList(TableTypeEnum.Sport.ToString()), "Sport", "SportName");
+                    break;
+
+            }
             WindowsFormsUtility.FormatGridForEdit(gData, currenttabletype.ToString());
         }
 
