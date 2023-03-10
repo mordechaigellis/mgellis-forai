@@ -53,15 +53,25 @@
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ttPresident = new System.Windows.Forms.ToolTip(this.components);
+            this.tbChildRecords = new System.Windows.Forms.TabControl();
+            this.tbMedal = new System.Windows.Forms.TabPage();
+            this.tbExecutiveOrder = new System.Windows.Forms.TabPage();
+            this.tblMedals = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSaveMedal = new System.Windows.Forms.Button();
+            this.gMedal = new System.Windows.Forms.DataGridView();
             this.tblMain.SuspendLayout();
             this.tsMain.SuspendLayout();
+            this.tbChildRecords.SuspendLayout();
+            this.tbMedal.SuspendLayout();
+            this.tblMedals.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gMedal)).BeginInit();
             this.SuspendLayout();
             // 
             // tblMain
             // 
             this.tblMain.ColumnCount = 2;
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.Controls.Add(this.lblCaptionParty, 0, 0);
             this.tblMain.Controls.Add(this.lblCaptionNum, 0, 1);
             this.tblMain.Controls.Add(this.lblCaptionFirstName, 0, 2);
@@ -78,25 +88,28 @@
             this.tblMain.Controls.Add(this.lstPartyName, 1, 0);
             this.tblMain.Controls.Add(this.txtNum, 1, 1);
             this.tblMain.Controls.Add(this.dtpDateBorn, 1, 4);
-            this.tblMain.Location = new System.Drawing.Point(0, 41);
+            this.tblMain.Controls.Add(this.tbChildRecords, 0, 8);
+            this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Name = "tblMain";
-            this.tblMain.RowCount = 8;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tblMain.Size = new System.Drawing.Size(582, 433);
+            this.tblMain.RowCount = 9;
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblMain.Size = new System.Drawing.Size(635, 584);
             this.tblMain.TabIndex = 0;
             // 
             // lblCaptionParty
             // 
             this.lblCaptionParty.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCaptionParty.AutoSize = true;
-            this.lblCaptionParty.Location = new System.Drawing.Point(3, 9);
+            this.lblCaptionParty.Location = new System.Drawing.Point(3, 7);
             this.lblCaptionParty.Name = "lblCaptionParty";
             this.lblCaptionParty.Size = new System.Drawing.Size(45, 21);
             this.lblCaptionParty.TabIndex = 0;
@@ -106,7 +119,7 @@
             // 
             this.lblCaptionNum.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCaptionNum.AutoSize = true;
-            this.lblCaptionNum.Location = new System.Drawing.Point(3, 49);
+            this.lblCaptionNum.Location = new System.Drawing.Point(3, 42);
             this.lblCaptionNum.Name = "lblCaptionNum";
             this.lblCaptionNum.Size = new System.Drawing.Size(45, 21);
             this.lblCaptionNum.TabIndex = 2;
@@ -116,7 +129,7 @@
             // 
             this.lblCaptionFirstName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCaptionFirstName.AutoSize = true;
-            this.lblCaptionFirstName.Location = new System.Drawing.Point(3, 89);
+            this.lblCaptionFirstName.Location = new System.Drawing.Point(3, 77);
             this.lblCaptionFirstName.Name = "lblCaptionFirstName";
             this.lblCaptionFirstName.Size = new System.Drawing.Size(86, 21);
             this.lblCaptionFirstName.TabIndex = 4;
@@ -126,7 +139,7 @@
             // 
             this.lblCaptionLastName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCaptionLastName.AutoSize = true;
-            this.lblCaptionLastName.Location = new System.Drawing.Point(3, 129);
+            this.lblCaptionLastName.Location = new System.Drawing.Point(3, 112);
             this.lblCaptionLastName.Name = "lblCaptionLastName";
             this.lblCaptionLastName.Size = new System.Drawing.Size(84, 21);
             this.lblCaptionLastName.TabIndex = 6;
@@ -136,7 +149,7 @@
             // 
             this.lblCaptionDateBorn.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCaptionDateBorn.AutoSize = true;
-            this.lblCaptionDateBorn.Location = new System.Drawing.Point(3, 169);
+            this.lblCaptionDateBorn.Location = new System.Drawing.Point(3, 147);
             this.lblCaptionDateBorn.Name = "lblCaptionDateBorn";
             this.lblCaptionDateBorn.Size = new System.Drawing.Size(79, 21);
             this.lblCaptionDateBorn.TabIndex = 8;
@@ -146,7 +159,7 @@
             // 
             this.lblCaptionDateDied.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCaptionDateDied.AutoSize = true;
-            this.lblCaptionDateDied.Location = new System.Drawing.Point(3, 209);
+            this.lblCaptionDateDied.Location = new System.Drawing.Point(3, 182);
             this.lblCaptionDateDied.Name = "lblCaptionDateDied";
             this.lblCaptionDateDied.Size = new System.Drawing.Size(78, 21);
             this.lblCaptionDateDied.TabIndex = 10;
@@ -156,7 +169,7 @@
             // 
             this.lblCaptionTermStart.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCaptionTermStart.AutoSize = true;
-            this.lblCaptionTermStart.Location = new System.Drawing.Point(3, 249);
+            this.lblCaptionTermStart.Location = new System.Drawing.Point(3, 217);
             this.lblCaptionTermStart.Name = "lblCaptionTermStart";
             this.lblCaptionTermStart.Size = new System.Drawing.Size(80, 21);
             this.lblCaptionTermStart.TabIndex = 12;
@@ -165,7 +178,7 @@
             // lblCaptionTermEnd
             // 
             this.lblCaptionTermEnd.AutoSize = true;
-            this.lblCaptionTermEnd.Location = new System.Drawing.Point(3, 287);
+            this.lblCaptionTermEnd.Location = new System.Drawing.Point(3, 252);
             this.lblCaptionTermEnd.Margin = new System.Windows.Forms.Padding(3, 7, 3, 0);
             this.lblCaptionTermEnd.Name = "lblCaptionTermEnd";
             this.lblCaptionTermEnd.Size = new System.Drawing.Size(74, 21);
@@ -175,42 +188,42 @@
             // txtFirstName
             // 
             this.txtFirstName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFirstName.Location = new System.Drawing.Point(95, 83);
+            this.txtFirstName.Location = new System.Drawing.Point(95, 73);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(484, 29);
+            this.txtFirstName.Size = new System.Drawing.Size(537, 29);
             this.txtFirstName.TabIndex = 5;
             // 
             // txtLastName
             // 
             this.txtLastName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLastName.Location = new System.Drawing.Point(95, 123);
+            this.txtLastName.Location = new System.Drawing.Point(95, 108);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(484, 29);
+            this.txtLastName.Size = new System.Drawing.Size(537, 29);
             this.txtLastName.TabIndex = 7;
             // 
             // txtDateDied
             // 
             this.txtDateDied.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDateDied.Location = new System.Drawing.Point(95, 203);
+            this.txtDateDied.Location = new System.Drawing.Point(95, 178);
             this.txtDateDied.Name = "txtDateDied";
-            this.txtDateDied.Size = new System.Drawing.Size(484, 29);
+            this.txtDateDied.Size = new System.Drawing.Size(537, 29);
             this.txtDateDied.TabIndex = 11;
             // 
             // txtTermStart
             // 
             this.txtTermStart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtTermStart.Location = new System.Drawing.Point(95, 243);
+            this.txtTermStart.Location = new System.Drawing.Point(95, 213);
             this.txtTermStart.Name = "txtTermStart";
-            this.txtTermStart.Size = new System.Drawing.Size(484, 29);
+            this.txtTermStart.Size = new System.Drawing.Size(537, 29);
             this.txtTermStart.TabIndex = 13;
             this.ttPresident.SetToolTip(this.txtTermStart, "Enter a Year not a Date");
             // 
             // txtTermEnd
             // 
             this.txtTermEnd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtTermEnd.Location = new System.Drawing.Point(95, 283);
+            this.txtTermEnd.Location = new System.Drawing.Point(95, 248);
             this.txtTermEnd.Name = "txtTermEnd";
-            this.txtTermEnd.Size = new System.Drawing.Size(484, 29);
+            this.txtTermEnd.Size = new System.Drawing.Size(537, 29);
             this.txtTermEnd.TabIndex = 15;
             this.ttPresident.SetToolTip(this.txtTermEnd, "Enter a Year not a Date");
             // 
@@ -225,15 +238,15 @@
             // txtNum
             // 
             this.txtNum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtNum.Location = new System.Drawing.Point(95, 43);
+            this.txtNum.Location = new System.Drawing.Point(95, 38);
             this.txtNum.Name = "txtNum";
-            this.txtNum.Size = new System.Drawing.Size(484, 29);
+            this.txtNum.Size = new System.Drawing.Size(537, 29);
             this.txtNum.TabIndex = 3;
             // 
             // dtpDateBorn
             // 
             this.dtpDateBorn.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateBorn.Location = new System.Drawing.Point(95, 163);
+            this.dtpDateBorn.Location = new System.Drawing.Point(95, 143);
             this.dtpDateBorn.Name = "dtpDateBorn";
             this.dtpDateBorn.Size = new System.Drawing.Size(124, 29);
             this.dtpDateBorn.TabIndex = 9;
@@ -249,7 +262,7 @@
             this.toolStripSeparator2});
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
-            this.tsMain.Size = new System.Drawing.Size(582, 28);
+            this.tsMain.Size = new System.Drawing.Size(635, 28);
             this.tsMain.TabIndex = 1;
             this.tsMain.TabStop = true;
             this.tsMain.Text = "toolStrip1";
@@ -282,12 +295,80 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
             // 
+            // tbChildRecords
+            // 
+            this.tblMain.SetColumnSpan(this.tbChildRecords, 2);
+            this.tbChildRecords.Controls.Add(this.tbMedal);
+            this.tbChildRecords.Controls.Add(this.tbExecutiveOrder);
+            this.tbChildRecords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbChildRecords.Location = new System.Drawing.Point(3, 283);
+            this.tbChildRecords.Name = "tbChildRecords";
+            this.tbChildRecords.SelectedIndex = 0;
+            this.tbChildRecords.Size = new System.Drawing.Size(629, 298);
+            this.tbChildRecords.TabIndex = 16;
+            // 
+            // tbMedal
+            // 
+            this.tbMedal.Controls.Add(this.tblMedals);
+            this.tbMedal.Location = new System.Drawing.Point(4, 30);
+            this.tbMedal.Name = "tbMedal";
+            this.tbMedal.Padding = new System.Windows.Forms.Padding(3);
+            this.tbMedal.Size = new System.Drawing.Size(621, 264);
+            this.tbMedal.TabIndex = 0;
+            this.tbMedal.Text = "Medals";
+            this.tbMedal.UseVisualStyleBackColor = true;
+            // 
+            // tbExecutiveOrder
+            // 
+            this.tbExecutiveOrder.Location = new System.Drawing.Point(4, 30);
+            this.tbExecutiveOrder.Name = "tbExecutiveOrder";
+            this.tbExecutiveOrder.Padding = new System.Windows.Forms.Padding(3);
+            this.tbExecutiveOrder.Size = new System.Drawing.Size(568, 113);
+            this.tbExecutiveOrder.TabIndex = 1;
+            this.tbExecutiveOrder.Text = "Executive Orders";
+            this.tbExecutiveOrder.UseVisualStyleBackColor = true;
+            // 
+            // tblMedals
+            // 
+            this.tblMedals.ColumnCount = 1;
+            this.tblMedals.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblMedals.Controls.Add(this.btnSaveMedal, 0, 0);
+            this.tblMedals.Controls.Add(this.gMedal, 0, 1);
+            this.tblMedals.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblMedals.Location = new System.Drawing.Point(3, 3);
+            this.tblMedals.Name = "tblMedals";
+            this.tblMedals.RowCount = 2;
+            this.tblMedals.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMedals.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblMedals.Size = new System.Drawing.Size(615, 258);
+            this.tblMedals.TabIndex = 0;
+            // 
+            // btnSaveMedal
+            // 
+            this.btnSaveMedal.AutoSize = true;
+            this.btnSaveMedal.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveMedal.Name = "btnSaveMedal";
+            this.btnSaveMedal.Size = new System.Drawing.Size(75, 31);
+            this.btnSaveMedal.TabIndex = 0;
+            this.btnSaveMedal.Text = "Save";
+            this.btnSaveMedal.UseVisualStyleBackColor = true;
+            // 
+            // gMedal
+            // 
+            this.gMedal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gMedal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gMedal.Location = new System.Drawing.Point(3, 40);
+            this.gMedal.Name = "gMedal";
+            this.gMedal.RowTemplate.Height = 25;
+            this.gMedal.Size = new System.Drawing.Size(609, 215);
+            this.gMedal.TabIndex = 1;
+            // 
             // frmPresident
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 474);
+            this.ClientSize = new System.Drawing.Size(635, 584);
             this.Controls.Add(this.tsMain);
             this.Controls.Add(this.tblMain);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -298,6 +379,11 @@
             this.tblMain.PerformLayout();
             this.tsMain.ResumeLayout(false);
             this.tsMain.PerformLayout();
+            this.tbChildRecords.ResumeLayout(false);
+            this.tbMedal.ResumeLayout(false);
+            this.tblMedals.ResumeLayout(false);
+            this.tblMedals.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gMedal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -328,5 +414,11 @@
         private TextBox txtNum;
         private DateTimePicker dtpDateBorn;
         private ToolTip ttPresident;
+        private TabControl tbChildRecords;
+        private TabPage tbMedal;
+        private TabPage tbExecutiveOrder;
+        private TableLayoutPanel tblMedals;
+        private Button btnSaveMedal;
+        private DataGridView gMedal;
     }
 }

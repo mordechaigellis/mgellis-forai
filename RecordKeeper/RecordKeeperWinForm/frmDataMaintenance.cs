@@ -34,7 +34,7 @@ namespace RecordKeeperWinForm
                     break;
 
             }
-            gData.Columns.Add(new DataGridViewButtonColumn() {Text = "X", HeaderText = "Delete", Name = deletecolname,UseColumnTextForButtonValue = true});
+            WindowsFormsUtility.AddDeleteButtonToGrid(gData, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gData, currenttabletype.ToString());
         }
 
