@@ -1,6 +1,5 @@
 create or alter procedure dbo.PresidentGet(
 	@PresidentId int = 0, 
-	@LastName varchar(100) = '',
 	@All bit = 0
 )
 as
@@ -11,18 +10,12 @@ begin
 	from President p
 	where p.PresidentId = @PresidentId
 	or @All = 1
-	or (@LastName <> '' and p.LastName like '%' + @LastName + '%')
 	order by p.num
 end
 go
 
 exec PresidentGet
 
-exec PresidentGet @LastName = '' --no results
-
-exec PresidentGet @LastName = null --no results
-
-exec PresidentGet @LastName = 'm'
 
 exec PresidentGet @All = 1
 

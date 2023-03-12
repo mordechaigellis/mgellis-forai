@@ -13,16 +13,21 @@ namespace RecordKeeperWinForm
             btnNew.Click += BtnNew_Click;
             txtLastName.KeyDown += TxtLastName_KeyDown;
             gPresident.KeyDown += GPresident_KeyDown;
-
+            this.BindForm();
         }
 
+        private void BindForm() {
+            lstParty.DataSource = President.GetPartyList(true);
+            lstParty.DisplayMember = "PartyName";
+            lstParty.ValueMember = "PartyId";
+        }
 
-        private void SearchForPresident(string lastname)
+        private void SearchForPresident(int partyid, string lastname, int begintermstart, int endtermstart)
         {
+            this.Cursor = Cursors.WaitCursor;
             try
             {
-                this.Cursor = Cursors.WaitCursor;
-                DataTable dt = President.SearchPresidents(lastname);
+                DataTable dt = President.SearchPresidents(partyid,lastname, begintermstart, endtermstart);
                 gPresident.DataSource = dt;
                 WindowsFormsUtility.FormatGridForSearchResults(gPresident, "President");
                 if (gPresident.Rows.Count > 0)
@@ -52,7 +57,17 @@ namespace RecordKeeperWinForm
         }
 
         private void DoSearch() {
-            SearchForPresident(txtLastName.Text);
+            int partyid = 0;
+            int begintermstart = 0;
+            int endtermstart = 0;
+
+            if (lstParty.SelectedValue != null && lstParty.SelectedValue is int)
+            {
+                partyid = (int)lstParty.SelectedValue;
+            }
+            int.TryParse(txtBeginTermStart.Text, out begintermstart);
+            int.TryParse(txtEndTermStart.Text, out endtermstart);
+            SearchForPresident(partyid,txtLastName.Text, begintermstart, endtermstart);
         }
        
 

@@ -180,7 +180,7 @@ where e.UpheldByCourt = 1
             TestContext.WriteLine(num + " presidents that match " + criteria);
             TestContext.WriteLine("Ensure that president search returns " + num + " rows");
 
-            DataTable dt = President.SearchPresidents(criteria);
+            DataTable dt = President.SearchPresidents(0,criteria,0,0);
             int results = dt.Rows.Count;
 
             Assert.IsTrue(results == num, "Results of president search does not match number of presidents, " + results + " <> " + num);
