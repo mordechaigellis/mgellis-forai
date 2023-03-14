@@ -17,11 +17,14 @@ namespace RecordKeeperWinForm
             InitializeComponent();
             mnuSearchPresident.Click += MnuSearchPresident_Click;
             mnuNewPresident.Click += MnuNewPresident_Click;
+            mnuDashboard.Click += MnuDashboard_Click;
             mnuWindowTile.Click += MnuWindowTile_Click;
             mnuWindowCascade.Click += MnuWindowCascade_Click;
             mnuDataMainEdit.Click += MnuDataMainEdit_Click;
+            OpenForm(typeof(frmDashboard));
         }
 
+        
 
         public void OpenForm(Type frmtype, int pkvalue = 0)
         {
@@ -42,8 +45,14 @@ namespace RecordKeeperWinForm
                     newfrm = f;
                     f.Show();
                 }
-                else if (frmtype == typeof(frmDataMaintenance)) {
+                else if (frmtype == typeof(frmDataMaintenance))
+                {
                     frmDataMaintenance f = new();
+                    newfrm = f;
+                    f.Show();
+                }
+                else if (frmtype == typeof(frmDashboard)) {
+                    frmDashboard f = new();
                     newfrm = f;
                     f.Show();
                 }
@@ -91,6 +100,9 @@ namespace RecordKeeperWinForm
         {
             OpenForm(typeof(frmDataMaintenance));
         }
-
+        private void MnuDashboard_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmDashboard));
+        }
     }
 }
