@@ -1,7 +1,7 @@
 use recordkeeperdb
 go
 
-drop table if exists OlympicMedalist
+drop table if exists OlympicSportSubCategoryOlympian
 drop table if exists OlympicSportSubCategory
 drop table if exists Olympian
 drop table if exists Olympics
@@ -35,7 +35,7 @@ go
 create table dbo.OlympicMedal(
 	OlympicMedalId int not null identity primary key,
 	OlympicMedalName varchar (10) constraint u_OlympicMedal_OlympicMedalName unique(OlympicMedalName),
-	OlympicMedalSequence int not null constraint u_One_sequence_per_OlympicMedal unique(OlympicMedalId,OlympicMedalSequence)
+	OlympicMedalSequence int not null constraint u_OlympicMedal_Sequence unique(OlympicMedalId,OlympicMedalSequence)
 )
 go 
 create table dbo.Olympics(
@@ -43,7 +43,7 @@ create table dbo.Olympics(
 	SeasonId  int not null constraint f_Season_Olympics foreign key references Season(SeasonId),
 	CityId  int not null constraint f_City_Olympics foreign key references City(CityId),
 	OlympicYear int not null 
-		constraint u_One_Olympics_per_Season_per_Year unique(OlympicsId, SeasonId, OlympicYear)
+		constraint u_OlympicsId_SeasonId_OlympicYear unique(OlympicsId, SeasonId, OlympicYear)
 )
 go 
 create table dbo.Olympian(
@@ -76,13 +76,12 @@ create table dbo.OlympicSportSubCategory(
 
 )
 go
-create table dbo.OlympicMedalist(
-	OlympicMedalistId int not null identity primary key,
-	OlympianId  int not null constraint f_Olympian_OlympicMedalist foreign key references Olympian(OlympianId),
-	OlympicMedalId  int not null constraint f_OlympicMedal_OlympicMedalist foreign key references OlympicMedal(OlympicMedalId),
-	OlympicSportSubCategoryId int not null constraint f_OlympicMedalist_OlympicSportSubCategory foreign key references OlympicSportSubCategory(OlympicSportSubCategoryId),
-	constraint u_OlympicSportSubCategoryId_OlympianId_OlympicMedalId unique(OlympicSportSubCategoryId, OlympianId, OlympicMedalId)
+create table dbo.OlympicSportSubCategoryOlympian(
+	OlympicSportSubCategoryOlympianId int not null identity primary key,
+	OlympicSportSubCategoryId int not null constraint f_OlympicSportSubCategory_OlympicSportSubCategoryOlympian foreign key references OlympicSportSubCategory(OlympicSportSubCategoryId),
+	OlympianId int not null constraint f_Olympian_OlympicSportSubCategoryOlympian foreign key references Olympian(OlympianId),
+	OlympicMedalId int null constraint f_OlympicMedal_OlympicSportSubCategoryOlympian foreign key references OlympicMedal(OlympicMedalId),
+	--one olympian can only compete once per olympics sport subcategory
+	constraint u_OlympicSportSubCategoryId_OlympianId unique(OlympicSportSubCategoryId, OlympianId)
 )
 go
-
-
