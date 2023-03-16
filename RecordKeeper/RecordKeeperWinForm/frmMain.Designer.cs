@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.mnuMain = new System.Windows.Forms.MenuStrip();
+            this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDashboard = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPresident = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSearchPresident = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNewPresident = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,8 +40,9 @@
             this.mnuWindowTile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowCascade = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain = new System.Windows.Forms.ToolStrip();
-            this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDashboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuOlympics = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuOlympicsList = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuOlympicsCreateNewBasedOn = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +52,7 @@
             this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFile,
             this.mnuPresident,
+            this.mnuOlympics,
             this.mnuDataMaint,
             this.mnuWindow});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
@@ -56,6 +60,20 @@
             this.mnuMain.Size = new System.Drawing.Size(1029, 29);
             this.mnuMain.TabIndex = 1;
             this.mnuMain.Text = "menuStrip1";
+            // 
+            // mnuFile
+            // 
+            this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuDashboard});
+            this.mnuFile.Name = "mnuFile";
+            this.mnuFile.Size = new System.Drawing.Size(46, 25);
+            this.mnuFile.Text = "File";
+            // 
+            // mnuDashboard
+            // 
+            this.mnuDashboard.Name = "mnuDashboard";
+            this.mnuDashboard.Size = new System.Drawing.Size(156, 26);
+            this.mnuDashboard.Text = "Dashboard";
             // 
             // mnuPresident
             // 
@@ -122,19 +140,26 @@
             this.tsMain.TabIndex = 3;
             this.tsMain.Text = "toolStrip1";
             // 
-            // mnuFile
+            // mnuOlympics
             // 
-            this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuDashboard});
-            this.mnuFile.Name = "mnuFile";
-            this.mnuFile.Size = new System.Drawing.Size(46, 25);
-            this.mnuFile.Text = "File";
+            this.mnuOlympics.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuOlympicsList,
+            this.mnuOlympicsCreateNewBasedOn});
+            this.mnuOlympics.Name = "mnuOlympics";
+            this.mnuOlympics.Size = new System.Drawing.Size(87, 25);
+            this.mnuOlympics.Text = "Olympics";
             // 
-            // mnuDashboard
+            // mnuOlympicsList
             // 
-            this.mnuDashboard.Name = "mnuDashboard";
-            this.mnuDashboard.Size = new System.Drawing.Size(180, 26);
-            this.mnuDashboard.Text = "Dashboard";
+            this.mnuOlympicsList.Name = "mnuOlympicsList";
+            this.mnuOlympicsList.Size = new System.Drawing.Size(292, 26);
+            this.mnuOlympicsList.Text = "List of Olympics";
+            // 
+            // mnuOlympicsCreateNewBasedOn
+            // 
+            this.mnuOlympicsCreateNewBasedOn.Name = "mnuOlympicsCreateNewBasedOn";
+            this.mnuOlympicsCreateNewBasedOn.Size = new System.Drawing.Size(292, 26);
+            this.mnuOlympicsCreateNewBasedOn.Text = "Create New based on Previous";
             // 
             // frmMain
             // 
@@ -170,5 +195,8 @@
         private ToolStripMenuItem mnuDataMainEdit;
         private ToolStripMenuItem mnuFile;
         private ToolStripMenuItem mnuDashboard;
+        private ToolStripMenuItem mnuOlympics;
+        private ToolStripMenuItem mnuOlympicsList;
+        private ToolStripMenuItem mnuOlympicsCreateNewBasedOn;
     }
 }
