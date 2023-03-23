@@ -47,28 +47,31 @@
             this.lstPartyName = new System.Windows.Forms.ComboBox();
             this.txtNum = new System.Windows.Forms.TextBox();
             this.dtpDateBorn = new System.Windows.Forms.DateTimePicker();
+            this.tbChildRecords = new System.Windows.Forms.TabControl();
+            this.tbMedal = new System.Windows.Forms.TabPage();
+            this.tblMedals = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSaveMedal = new System.Windows.Forms.Button();
+            this.gMedal = new System.Windows.Forms.DataGridView();
+            this.tbExecutiveOrder = new System.Windows.Forms.TabPage();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ttPresident = new System.Windows.Forms.ToolTip(this.components);
-            this.tbChildRecords = new System.Windows.Forms.TabControl();
-            this.tbMedal = new System.Windows.Forms.TabPage();
-            this.tbExecutiveOrder = new System.Windows.Forms.TabPage();
-            this.tblMedals = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSaveMedal = new System.Windows.Forms.Button();
-            this.gMedal = new System.Windows.Forms.DataGridView();
             this.tblMain.SuspendLayout();
-            this.tsMain.SuspendLayout();
             this.tbChildRecords.SuspendLayout();
             this.tbMedal.SuspendLayout();
             this.tblMedals.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gMedal)).BeginInit();
+            this.tsMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // tblMain
             // 
+            this.tblMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tblMain.ColumnCount = 2;
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -89,8 +92,7 @@
             this.tblMain.Controls.Add(this.txtNum, 1, 1);
             this.tblMain.Controls.Add(this.dtpDateBorn, 1, 4);
             this.tblMain.Controls.Add(this.tbChildRecords, 0, 8);
-            this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblMain.Location = new System.Drawing.Point(0, 0);
+            this.tblMain.Location = new System.Drawing.Point(0, 31);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 9;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -102,7 +104,7 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblMain.Size = new System.Drawing.Size(635, 584);
+            this.tblMain.Size = new System.Drawing.Size(635, 553);
             this.tblMain.TabIndex = 0;
             // 
             // lblCaptionParty
@@ -252,6 +254,74 @@
             this.dtpDateBorn.TabIndex = 9;
             this.dtpDateBorn.Value = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
             // 
+            // tbChildRecords
+            // 
+            this.tblMain.SetColumnSpan(this.tbChildRecords, 2);
+            this.tbChildRecords.Controls.Add(this.tbMedal);
+            this.tbChildRecords.Controls.Add(this.tbExecutiveOrder);
+            this.tbChildRecords.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbChildRecords.Location = new System.Drawing.Point(3, 283);
+            this.tbChildRecords.Name = "tbChildRecords";
+            this.tbChildRecords.SelectedIndex = 0;
+            this.tbChildRecords.Size = new System.Drawing.Size(629, 267);
+            this.tbChildRecords.TabIndex = 16;
+            // 
+            // tbMedal
+            // 
+            this.tbMedal.Controls.Add(this.tblMedals);
+            this.tbMedal.Location = new System.Drawing.Point(4, 30);
+            this.tbMedal.Name = "tbMedal";
+            this.tbMedal.Padding = new System.Windows.Forms.Padding(3);
+            this.tbMedal.Size = new System.Drawing.Size(621, 233);
+            this.tbMedal.TabIndex = 0;
+            this.tbMedal.Text = "Medals";
+            this.tbMedal.UseVisualStyleBackColor = true;
+            // 
+            // tblMedals
+            // 
+            this.tblMedals.ColumnCount = 1;
+            this.tblMedals.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblMedals.Controls.Add(this.btnSaveMedal, 0, 0);
+            this.tblMedals.Controls.Add(this.gMedal, 0, 1);
+            this.tblMedals.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblMedals.Location = new System.Drawing.Point(3, 3);
+            this.tblMedals.Name = "tblMedals";
+            this.tblMedals.RowCount = 2;
+            this.tblMedals.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMedals.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblMedals.Size = new System.Drawing.Size(615, 227);
+            this.tblMedals.TabIndex = 0;
+            // 
+            // btnSaveMedal
+            // 
+            this.btnSaveMedal.AutoSize = true;
+            this.btnSaveMedal.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveMedal.Name = "btnSaveMedal";
+            this.btnSaveMedal.Size = new System.Drawing.Size(75, 31);
+            this.btnSaveMedal.TabIndex = 0;
+            this.btnSaveMedal.Text = "Save";
+            this.btnSaveMedal.UseVisualStyleBackColor = true;
+            // 
+            // gMedal
+            // 
+            this.gMedal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gMedal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gMedal.Location = new System.Drawing.Point(3, 40);
+            this.gMedal.Name = "gMedal";
+            this.gMedal.RowTemplate.Height = 25;
+            this.gMedal.Size = new System.Drawing.Size(609, 184);
+            this.gMedal.TabIndex = 1;
+            // 
+            // tbExecutiveOrder
+            // 
+            this.tbExecutiveOrder.Location = new System.Drawing.Point(4, 24);
+            this.tbExecutiveOrder.Name = "tbExecutiveOrder";
+            this.tbExecutiveOrder.Padding = new System.Windows.Forms.Padding(3);
+            this.tbExecutiveOrder.Size = new System.Drawing.Size(621, 318);
+            this.tbExecutiveOrder.TabIndex = 1;
+            this.tbExecutiveOrder.Text = "Executive Orders";
+            this.tbExecutiveOrder.UseVisualStyleBackColor = true;
+            // 
             // tsMain
             // 
             this.tsMain.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -295,74 +365,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
             // 
-            // tbChildRecords
-            // 
-            this.tblMain.SetColumnSpan(this.tbChildRecords, 2);
-            this.tbChildRecords.Controls.Add(this.tbMedal);
-            this.tbChildRecords.Controls.Add(this.tbExecutiveOrder);
-            this.tbChildRecords.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbChildRecords.Location = new System.Drawing.Point(3, 283);
-            this.tbChildRecords.Name = "tbChildRecords";
-            this.tbChildRecords.SelectedIndex = 0;
-            this.tbChildRecords.Size = new System.Drawing.Size(629, 298);
-            this.tbChildRecords.TabIndex = 16;
-            // 
-            // tbMedal
-            // 
-            this.tbMedal.Controls.Add(this.tblMedals);
-            this.tbMedal.Location = new System.Drawing.Point(4, 30);
-            this.tbMedal.Name = "tbMedal";
-            this.tbMedal.Padding = new System.Windows.Forms.Padding(3);
-            this.tbMedal.Size = new System.Drawing.Size(621, 264);
-            this.tbMedal.TabIndex = 0;
-            this.tbMedal.Text = "Medals";
-            this.tbMedal.UseVisualStyleBackColor = true;
-            // 
-            // tbExecutiveOrder
-            // 
-            this.tbExecutiveOrder.Location = new System.Drawing.Point(4, 30);
-            this.tbExecutiveOrder.Name = "tbExecutiveOrder";
-            this.tbExecutiveOrder.Padding = new System.Windows.Forms.Padding(3);
-            this.tbExecutiveOrder.Size = new System.Drawing.Size(568, 113);
-            this.tbExecutiveOrder.TabIndex = 1;
-            this.tbExecutiveOrder.Text = "Executive Orders";
-            this.tbExecutiveOrder.UseVisualStyleBackColor = true;
-            // 
-            // tblMedals
-            // 
-            this.tblMedals.ColumnCount = 1;
-            this.tblMedals.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblMedals.Controls.Add(this.btnSaveMedal, 0, 0);
-            this.tblMedals.Controls.Add(this.gMedal, 0, 1);
-            this.tblMedals.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblMedals.Location = new System.Drawing.Point(3, 3);
-            this.tblMedals.Name = "tblMedals";
-            this.tblMedals.RowCount = 2;
-            this.tblMedals.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMedals.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblMedals.Size = new System.Drawing.Size(615, 258);
-            this.tblMedals.TabIndex = 0;
-            // 
-            // btnSaveMedal
-            // 
-            this.btnSaveMedal.AutoSize = true;
-            this.btnSaveMedal.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveMedal.Name = "btnSaveMedal";
-            this.btnSaveMedal.Size = new System.Drawing.Size(75, 31);
-            this.btnSaveMedal.TabIndex = 0;
-            this.btnSaveMedal.Text = "Save";
-            this.btnSaveMedal.UseVisualStyleBackColor = true;
-            // 
-            // gMedal
-            // 
-            this.gMedal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gMedal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gMedal.Location = new System.Drawing.Point(3, 40);
-            this.gMedal.Name = "gMedal";
-            this.gMedal.RowTemplate.Height = 25;
-            this.gMedal.Size = new System.Drawing.Size(609, 215);
-            this.gMedal.TabIndex = 1;
-            // 
             // frmPresident
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
@@ -377,13 +379,13 @@
             this.Text = "President";
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
-            this.tsMain.ResumeLayout(false);
-            this.tsMain.PerformLayout();
             this.tbChildRecords.ResumeLayout(false);
             this.tbMedal.ResumeLayout(false);
             this.tblMedals.ResumeLayout(false);
             this.tblMedals.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gMedal)).EndInit();
+            this.tsMain.ResumeLayout(false);
+            this.tsMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

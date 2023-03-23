@@ -42,36 +42,31 @@ namespace RecordKeeperWinForm
                 {
                     frmPresident f = new();
                     newfrm = f;
-                    f.ShowForm(pkvalue);
+                    f.LoadForm(pkvalue);
                 }
                 else if (frmtype == typeof(frmSearch))
                 {
                     frmSearch f = new();
                     newfrm = f;
-                    f.Show();
                 }
                 else if (frmtype == typeof(frmDataMaintenance))
                 {
                     frmDataMaintenance f = new();
                     newfrm = f;
-                    f.Show();
                 }
                 else if (frmtype == typeof(frmDashboard))
                 {
                     frmDashboard f = new();
                     newfrm = f;
-                    f.Show();
                 }
                 else if (frmtype == typeof(frmOlympicsCreateBasedOnPrevious))
                 {
                     frmOlympicsCreateBasedOnPrevious f = new();
                     newfrm = f;
-                    f.Show();
                 }
                 else if (frmtype == typeof(frmOlympicsSummary)) {
                     frmOlympicsSummary f = new();
                     newfrm = f;
-                    f.Show();
                 }
 
                 if (newfrm != null) {
@@ -79,6 +74,7 @@ namespace RecordKeeperWinForm
                     newfrm.WindowState = FormWindowState.Maximized;
                     newfrm.FormClosed += Frm_FormClosed;
                     newfrm.TextChanged += Newfrm_TextChanged;
+                    newfrm.Show();
                 }
                 WindowsFormsUtility.SetupNav(tsMain);
             }

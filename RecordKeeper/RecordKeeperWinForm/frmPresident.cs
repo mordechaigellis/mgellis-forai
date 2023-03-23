@@ -20,7 +20,7 @@ namespace RecordKeeperWinForm
         }
 
 
-        public void ShowForm(int presidentidval)
+        public void LoadForm(int presidentidval)
         {
             presidentid = presidentidval;
             this.Tag = presidentid;
@@ -41,7 +41,7 @@ namespace RecordKeeperWinForm
             WindowsFormsUtility.SetControlBinding(txtTermEnd, bindsource);
             this.Text = GetPresidentDesc();
             LoadPresidentMedals();
-            this.Show();
+            SetButtonsEnabledBasedOnNewRecord();
         }
 
         private void LoadPresidentMedals()
@@ -63,7 +63,9 @@ namespace RecordKeeperWinForm
                 President.Save(dtpresident);
                 b = true;
                 bindsource.ResetBindings(false);
-                this.Tag = SQLUtility.GetValueFromFirstRowAsInt(dtpresident, "PresidentId");
+                presidentid = SQLUtility.GetValueFromFirstRowAsInt(dtpresident, "PresidentId");
+                this.Tag = presidentid;
+                SetButtonsEnabledBasedOnNewRecord();
                 this.Text = GetPresidentDesc();
             }
             catch (Exception ex)
@@ -135,6 +137,11 @@ namespace RecordKeeperWinForm
             }
         }
 
+        private void SetButtonsEnabledBasedOnNewRecord() {
+            bool b = presidentid == 0 ? false : true;
+            btnDelete.Enabled = b;
+            btnSaveMedal.Enabled = b;
+        }
         private string GetPresidentDesc() {
             string value = "New President";
             int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtpresident, "PresidentId");
