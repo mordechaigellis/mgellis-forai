@@ -33,7 +33,7 @@ begin
 	return @return
 end
 go
-
+/*
 declare 	
 	@OlympicsId int,
 	@SeasonId int,
@@ -75,3 +75,4 @@ where s.OlympicsId = @OlympicsId
 
 delete OlympicSportSubCategory where OlympicsId = @OlympicsId
 delete Olympics where OlympicsId = @OlympicsId
+*/
