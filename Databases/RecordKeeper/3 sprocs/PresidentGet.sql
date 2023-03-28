@@ -13,9 +13,10 @@ begin
 	order by p.num
 end
 go
-
+grant execute on PresidentMedalGet to approle
+/*
+go
 exec PresidentGet
-
 
 exec PresidentGet @All = 1
 
@@ -24,3 +25,4 @@ declare @PresidentId int
 select top 1 @PresidentId = p.PresidentId from President p 
 
 exec PresidentGet @PresidentId = @PresidentId
+*/
