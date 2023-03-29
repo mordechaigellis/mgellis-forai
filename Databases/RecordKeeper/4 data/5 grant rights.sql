@@ -35,11 +35,8 @@ grant execute on PresidentDesc to approle
 grant execute on PartyDesc to approle
 grant execute on OlympicsCreateBasedOnPrevious to approle
 grant execute on IsPresidentDeleteAllowed to approle
---grant execute on PartyUpdate to approle
 grant execute on DashboardGet to approle
 grant execute on MedalGet to approle
---grant execute on ColorGet to approle
---grant execute on PartyDelete to approle
 grant execute on ExecutiveOrderGet to approle
 grant execute on CountryGet to approle
 grant execute on CountryDelete to approle
