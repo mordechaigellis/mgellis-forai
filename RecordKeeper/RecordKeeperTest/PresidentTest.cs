@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -8,7 +9,8 @@ namespace RecordKeeperTest
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString("Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true");
+            string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+            DBManager.SetConnectionString(connstring);
             
         }
 
