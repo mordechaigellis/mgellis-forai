@@ -19,7 +19,7 @@ namespace RecordKeeperWinForm
                 string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
                 DBManager.SetConnectionString(connstring);
             }
-            catch (Exception ex){
+            catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             }
             Application.Run(new frmMain());
