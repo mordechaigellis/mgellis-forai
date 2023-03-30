@@ -1,4 +1,6 @@
 using RecordKeeperSystem;
+using System.Configuration;
+
 namespace RecordKeeperWinForm
 {
     internal static class Program
@@ -12,7 +14,14 @@ namespace RecordKeeperWinForm
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            DBManager.SetConnectionString ("Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true");
+            try
+            {
+                string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+                DBManager.SetConnectionString(connstring);
+            }
+            catch (Exception ex){
+                MessageBox.Show(ex.Message);
+            }
             Application.Run(new frmMain());
         }
     }
