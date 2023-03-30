@@ -12,30 +12,30 @@ namespace RecordKeeperTest
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString(connstring);
+            DBManager.SetConnectionString(connstring, true);
             
         }
 
         private DataTable GetDataTable(string sql) {
             DataTable dt = new();
-            DBManager.SetConnectionString(testconnstring);
+            DBManager.SetConnectionString(testconnstring, false);
             dt = SQLUtility.GetDataTable(sql);
-            DBManager.SetConnectionString(connstring);
+            DBManager.SetConnectionString(connstring, false);
             return dt;
         }
 
         private int GetFirstColumnFirstRowValue(string sql) {
             int n = 0;
-            DBManager.SetConnectionString(testconnstring);
+            DBManager.SetConnectionString(testconnstring, false);
             n = SQLUtility.GetFirstColumnFirstRowValue(sql);
-            DBManager.SetConnectionString(connstring);
+            DBManager.SetConnectionString(connstring, false);
             return n;
         }
 
         private void ExecuteSQL(string sql) {
-            DBManager.SetConnectionString(testconnstring);
+            DBManager.SetConnectionString(testconnstring, false);
             SQLUtility.ExecuteSQL(sql);
-            DBManager.SetConnectionString(connstring);
+            DBManager.SetConnectionString(connstring, false);
         }
 
         [Test]
