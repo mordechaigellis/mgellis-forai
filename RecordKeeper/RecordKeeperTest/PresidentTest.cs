@@ -6,25 +6,48 @@ namespace RecordKeeperTest
 {
     public class PresidentTest
     {
+        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+
         [SetUp]
         public void Setup()
         {
-            string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
             DBManager.SetConnectionString(connstring);
             
         }
 
+        private DataTable GetDataTable(string sql) {
+            DataTable dt = new();
+            DBManager.SetConnectionString(testconnstring);
+            dt = SQLUtility.GetDataTable(sql);
+            DBManager.SetConnectionString(connstring);
+            return dt;
+        }
+
+        private int GetFirstColumnFirstRowValue(string sql) {
+            int n = 0;
+            DBManager.SetConnectionString(testconnstring);
+            n = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            DBManager.SetConnectionString(connstring);
+            return n;
+        }
+
+        private void ExecuteSQL(string sql) {
+            DBManager.SetConnectionString(testconnstring);
+            SQLUtility.ExecuteSQL(sql);
+            DBManager.SetConnectionString(connstring);
+        }
 
         [Test]
         [TestCase("Sam", "Test1", "2035-1-1", 2075, 2079)]
         [TestCase("Sam", "Test2", "1800-1-1", 1836, 1840)]
         public void InsertNewPresident(string firstname, string lastname, DateTime dateborn, int termstart, int termend) {
-            DataTable dt = SQLUtility.GetDataTable("select * from president where presidentid = 0");
+            DataTable dt = GetDataTable("select * from president where presidentid = 0");
             DataRow r = dt.Rows.Add();
             Assume.That(dt.Rows.Count == 1);
-            int partyid = SQLUtility.GetFirstColumnFirstRowValue("select top 1 partyid from party");
+            int partyid = GetFirstColumnFirstRowValue("select top 1 partyid from party");
             Assume.That(partyid > 0, "Can't run test no parties in the db");
-            int maxnum = SQLUtility.GetFirstColumnFirstRowValue("select max(num) from president");
+            int maxnum = GetFirstColumnFirstRowValue("select max(num) from president");
             
             maxnum = maxnum + 1;
 
@@ -39,7 +62,7 @@ namespace RecordKeeperTest
             r["TermEnd"] = termend;
             President.Save(dt);
 
-            int newnum = SQLUtility.GetFirstColumnFirstRowValue("select * from president where num = " + maxnum);
+            int newnum = GetFirstColumnFirstRowValue("select * from president where num = " + maxnum);
             int pkid = 0;
             if (r["PresidentId"] != DBNull.Value) {
                 pkid = (int)r["PresidentId"];
@@ -54,7 +77,7 @@ namespace RecordKeeperTest
         public void ChangeExistingPresidentTermStart() {
             int presidentid = GetExistingPresidentId();
             Assume.That(presidentid > 0, "No presidents in DB, can't run test");
-            int termstart = SQLUtility.GetFirstColumnFirstRowValue("select termstart from president where presidentid = " + presidentid);
+            int termstart = GetFirstColumnFirstRowValue("select termstart from president where presidentid = " + presidentid);
             TestContext.WriteLine("termstart for presidentid " + presidentid + " is " + termstart);
             termstart = termstart - 1;
             TestContext.WriteLine("change termstart to " + termstart);
@@ -63,7 +86,7 @@ namespace RecordKeeperTest
             dt.Rows[0]["termstart"] = termstart;
             President.Save(dt);
             
-            int newtermstart = SQLUtility.GetFirstColumnFirstRowValue("select termstart from president where presidentid = " + presidentid);
+            int newtermstart = GetFirstColumnFirstRowValue("select termstart from president where presidentid = " + presidentid);
             Assert.IsTrue(newtermstart == termstart,"termstart for president (" + presidentid + ") = " + newtermstart);
             TestContext.WriteLine("termstart for president(" + presidentid + ") = " + newtermstart);
         }
@@ -74,7 +97,7 @@ namespace RecordKeeperTest
             int presidentid = GetExistingPresidentId();
             int termstart = 0;
             Assume.That(presidentid > 0, "No presidents in DB, can't run test");
-            int termend = SQLUtility.GetFirstColumnFirstRowValue("select termend from president where presidentid = " + presidentid);
+            int termend = GetFirstColumnFirstRowValue("select termend from president where presidentid = " + presidentid);
 
             TestContext.WriteLine("termend for presidentid " + presidentid + " is " + termend);
             termstart = termstart + 1;
@@ -91,8 +114,8 @@ namespace RecordKeeperTest
         {
             int presidentid = GetExistingPresidentId();
             Assume.That(presidentid > 0, "No presidents in DB, can't run test");
-            int num = SQLUtility.GetFirstColumnFirstRowValue("select top 1 num from president where presidentid <> " + presidentid);
-            int currentnum = SQLUtility.GetFirstColumnFirstRowValue("select top 1 num from president where presidentid = " + presidentid);
+            int num = GetFirstColumnFirstRowValue("select top 1 num from president where presidentid <> " + presidentid);
+            int currentnum = GetFirstColumnFirstRowValue("select top 1 num from president where presidentid = " + presidentid);
             Assume.That(num > 0, "Cannot run test becuase there is no other president record in the table");
             TestContext.WriteLine("Change presidentid " + presidentid + " num from " + currentnum +  " to " + num + " which belongs to a different president");
             DataTable dt = President.Load(presidentid);
@@ -114,7 +137,7 @@ where e.ExecutiveOrderId is null
 and pm.PresidentMedalId is null
 order by p.PresidentId
 ";
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            DataTable dt = GetDataTable(sql);
             int presidentid = 0;
             string prezdesc = "";
             if (dt.Rows.Count > 0)
@@ -126,7 +149,7 @@ order by p.PresidentId
             TestContext.WriteLine("existing president without executive order and medal, with id = " + presidentid + " " + prezdesc);
             TestContext.WriteLine("ensure that app can delete " + presidentid);
             President.Delete(dt);
-            DataTable dtafterdelete = SQLUtility.GetDataTable("select * from president where presidentid = " + presidentid);
+            DataTable dtafterdelete = GetDataTable("select * from president where presidentid = " + presidentid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0,"record with presidentid " + presidentid + " exists in db");
             TestContext.WriteLine("Record with presidentid " + presidentid + " does not exist in DB");
         }
@@ -141,7 +164,7 @@ join executiveorder e
 on e.presidentid = p.presidentid
 where e.UpheldByCourt = 1
 ";
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            DataTable dt = GetDataTable(sql);
             int presidentid = 0;
             string prezdesc = "";
             if (dt.Rows.Count > 0)
@@ -177,7 +200,7 @@ where e.UpheldByCourt = 1
         [Test]
         public void SearchPresidents() {
             string criteria = "a";
-            int num = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from president where lastname like '%" + criteria + "%'");
+            int num = GetFirstColumnFirstRowValue("select total = count(*) from president where lastname like '%" + criteria + "%'");
             Assume.That(num > 0, "There no presidents that match the search for " + num);
             TestContext.WriteLine(num + " presidents that match " + criteria);
             TestContext.WriteLine("Ensure that president search returns " + num + " rows");
@@ -192,7 +215,7 @@ where e.UpheldByCourt = 1
         [Test]
         public void GetListOfParties()
         {
-            int partycount = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from party");
+            int partycount = GetFirstColumnFirstRowValue("select total = count(*) from party");
             Assume.That(partycount > 0, "No parties in DB, can't test");
             TestContext.WriteLine("Num of parties in DB = " + partycount);
             TestContext.WriteLine("Ensure that num of rows return by app matches " + partycount);
@@ -207,9 +230,9 @@ where e.UpheldByCourt = 1
         [Test]
         public void SaveMultipleRows() {
             string sql = "delete season where seasonname in ('TestSeason1','TestSeason2')";
-            SQLUtility.ExecuteSQL(sql);
+            ExecuteSQL(sql);
             sql = "update season set seasonname = 'OriginalSeason1' where seasonname = 'TestChange1'";
-            SQLUtility.ExecuteSQL(sql);
+            ExecuteSQL(sql);
 
             DataTable dt = DataMaintenance.GetDataList("Season");
             var dr = dt.Rows.Add();
@@ -219,13 +242,13 @@ where e.UpheldByCourt = 1
             dt.Rows[0]["SeasonName"] = "TestChange1";
             SQLUtility.SaveDataTable(dt,"SeasonUpdate");
             sql = "select * from season where seasonname in ('TestSeason1','TestSeason2', 'TestChange1')";
-            DataTable dtcheck = SQLUtility.GetDataTable(sql);
+            DataTable dtcheck = GetDataTable(sql);
             Assert.IsTrue(dtcheck.Rows.Count == 3, $"num rows of dtcheck is {dtcheck.Rows.Count} not 3 rows");
             TestContext.WriteLine($"num rows of dtcheck should be 3 and it is {dtcheck.Rows.Count}");
         }
 
         private int GetExistingPresidentId() {
-            return SQLUtility.GetFirstColumnFirstRowValue("select top 1 presidentid from president");
+            return GetFirstColumnFirstRowValue("select top 1 presidentid from president");
         }
     }
 }
