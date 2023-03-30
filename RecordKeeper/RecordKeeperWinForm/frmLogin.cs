@@ -14,6 +14,9 @@ namespace RecordKeeperWinForm
         }
 
         public bool ShowLogin() {
+#if DEBUG
+            this.Text = this.Text + " - DEV";
+#endif
             txtUserId.Text = Settings.Default.userid;
             this.ShowDialog();
             return loginsuccess;
@@ -23,7 +26,13 @@ namespace RecordKeeperWinForm
         {
             try
             {
-                string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+                string connstringkey = "";
+#if DEBUG
+                connstringkey = "devconn";
+#else
+                connstringkey = "liveconn";
+#endif
+                string connstring = ConfigurationManager.ConnectionStrings[connstringkey].ConnectionString;
                 DBManager.SetConnectionString(connstring, true, txtUserId.Text, txtPassword.Text);
                 loginsuccess = true; 
                 Settings.Default.userid = txtUserId.Text;
