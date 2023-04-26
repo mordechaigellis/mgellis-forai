@@ -56,7 +56,7 @@ namespace LanguageBasics
             btnList2.Click += BtnList2_Click;
             btnEnumerable1.Click += BtnEnumerable1_Click;
             btnEnumerable2.Click += BtnEnumerable2_Click;
-
+            btnArray.Click += BtnArray_Click;
             lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
         }
 
@@ -631,7 +631,7 @@ namespace LanguageBasics
             DisplayHeader("Display the count items with that letter");
             DisplayValueAndCaption(lstword.Count(s => s.ToLower().Contains("e")).ToString());
             DisplayHeader("Display true / false if any items contain that letter uppercase");
-            DisplayValueAndCaption(lstword.Exists(s=> s.Contains("E")).ToString());
+            DisplayValueAndCaption(lstword.Exists(s => s.Contains("E")).ToString());
             DisplayHeader("In one line of code change the all items that contain that letter.");
             lstword.
                 Where(s => s.ToLower().Contains("e"))
@@ -641,7 +641,8 @@ namespace LanguageBasics
             lstword.ForEach(ChangeWord);
         }
 
-        private void ChangeWord(string word) {
+        private void ChangeWord(string word)
+        {
             DisplayValueAndCaption(string.Concat(word.ToUpper().Replace("E", "0").Reverse()));
         }
         private void BtnEnumerable1_Click(object? sender, EventArgs e)
@@ -740,6 +741,22 @@ namespace LanguageBasics
             DisplayValueAndCaption(lstw.Count().ToString());
             DisplayValueAndCaption(lstw[101].Value);
             DisplayValueAndCaption(lstw[101].Definition);
+        }
+        private void BtnArray_Click(object? sender, EventArgs e)
+        {
+            Button[] btns = { btnArray, btnData };
+            DisplayValueAndCaption(btns.Length.ToString());
+            btns[0] = btnScope1;
+            foreach (var btn in btns) {
+                DisplayValueAndCaption(btn.Name);
+            }
+            var lst = btns.ToList<Button>();
+            lst.Add(btnSwitch);
+            lst.ForEach(b => DisplayValueAndCaption(b.Name));
+
+            Button[] btns2 = new Button[3];
+            btns2[0] = btnScope1;
+            btns2[1] = btnString;
         }
 
     }
