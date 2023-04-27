@@ -58,8 +58,10 @@ namespace LanguageBasics
             btnEnumerable2.Click += BtnEnumerable2_Click;
             btnArray.Click += BtnArray_Click;
             btnDictionary.Click += BtnDictionary_Click;
+            btnQueueStack.Click += BtnQueueStack_Click;
             lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
         }
+
 
         private void IncrementOutputMessageVariable()
         {
@@ -774,7 +776,8 @@ namespace LanguageBasics
             dibtns.Remove("scope");
             DisplayValueAndCaption(dibtns.Count.ToString());
 
-            foreach (KeyValuePair<string, Button> kv in dibtns) {
+            foreach (KeyValuePair<string, Button> kv in dibtns)
+            {
                 DisplayValueAndCaption(kv.Key);
                 DisplayValueAndCaption(kv.Value.Name);
                 DisplayValueAndCaption(kv.ToString());
@@ -787,10 +790,36 @@ namespace LanguageBasics
 
             //Dictionary<string, Button>
             Dictionary<string, Button> newdi = dibtns.Where(kv => kv.Key.Contains("i")).ToDictionary(kv2 => kv2.Key, kv2 => kv2.Value);
-            foreach (var kv in newdi) {
+            foreach (var kv in newdi)
+            {
                 DisplayValueAndCaption(kv.ToString());
             }
         }
+
+        private void BtnQueueStack_Click(object? sender, EventArgs e)
+        {
+            Queue<Button> qbtns = new();
+            qbtns.Enqueue(btnAddControl1);
+            qbtns.Enqueue(btnAddControl2);
+            qbtns.Enqueue(btnArray);
+            DisplayMessage("----------where");
+            var newq = new Queue<Button>(qbtns.Where(b=>b.Name.Contains("d")));
+
+            DisplayMessage("----------foreach on the new q");
+            foreach (var b in newq) {
+                DisplayValueAndCaption(b.Name);
+            }
+            DisplayMessage("--------------");
+            var btn = qbtns.Dequeue();
+            DisplayValueAndCaption(btn.Name);
+            DisplayMessage("--------------");
+            while (qbtns.Count > 0) {
+                DisplayValueAndCaption(qbtns.Dequeue().Name);
+            }
+
+
+        }
+
 
     }
 }
