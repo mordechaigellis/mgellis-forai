@@ -61,7 +61,6 @@ namespace LanguageBasics
             lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
         }
 
-
         private void IncrementOutputMessageVariable()
         {
             noutputincrementer = noutputincrementer + 1;
@@ -763,25 +762,35 @@ namespace LanguageBasics
         }
         private void BtnDictionary_Click(object? sender, EventArgs e)
         {
-            Dictionary<string, Button> d = new();
-            d.Add("scope", btnScope1);
-            d.Add("dictionary", btnDictionary);
+            Dictionary<string, Button> dibtns = new();
+            dibtns.Add("scope", btnScope1);
+            dibtns.Add("switch", btnSwitch);
+            dibtns.Add("if", btnIf1);
+            dibtns.Add("enumerable", btnEnumerable1);
 
-            var b = d["scope"];
-            DisplayValueAndCaption(b.Name);
-            DisplayValueAndCaption(d.Count.ToString());
+            Button btn = dibtns["scope"];
+            DisplayValueAndCaption(btn.Name);
+            DisplayValueAndCaption(dibtns.Count.ToString());
+            dibtns.Remove("scope");
+            DisplayValueAndCaption(dibtns.Count.ToString());
 
-            foreach (var x in d) {
-                DisplayValueAndCaption(x.Key);
+            foreach (KeyValuePair<string, Button> kv in dibtns) {
+                DisplayValueAndCaption(kv.Key);
+                DisplayValueAndCaption(kv.Value.Name);
+                DisplayValueAndCaption(kv.ToString());
             }
 
-            foreach (var x in d)
-            {
-                DisplayValueAndCaption(x.Value.Name);
+            DisplayMessage("------------");
+            dibtns.ToList().ForEach(kv => DisplayValueAndCaption(kv.ToString()));
+
+            DisplayMessage("------------");
+
+            //Dictionary<string, Button>
+            Dictionary<string, Button> newdi = dibtns.Where(kv => kv.Key.Contains("i")).ToDictionary(kv2 => kv2.Key, kv2 => kv2.Value);
+            foreach (var kv in newdi) {
+                DisplayValueAndCaption(kv.ToString());
             }
-            
         }
 
     }
-
 }
