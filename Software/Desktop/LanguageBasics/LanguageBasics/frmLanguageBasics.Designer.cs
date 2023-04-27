@@ -66,6 +66,7 @@
             btnEnumerable1 = new Button();
             btnEnumerable2 = new Button();
             btnArray = new Button();
+            btnDictionary = new Button();
             tblMain.SuspendLayout();
             tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gOutput).BeginInit();
@@ -116,6 +117,7 @@
             tblMain.Controls.Add(btnEnumerable1, 3, 8);
             tblMain.Controls.Add(btnEnumerable2, 0, 9);
             tblMain.Controls.Add(btnArray, 1, 9);
+            tblMain.Controls.Add(btnDictionary, 2, 9);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -512,6 +514,16 @@
             btnArray.Text = "Array";
             btnArray.UseVisualStyleBackColor = true;
             // 
+            // btnDictionary
+            // 
+            btnDictionary.Dock = DockStyle.Fill;
+            btnDictionary.Location = new Point(324, 640);
+            btnDictionary.Name = "btnDictionary";
+            btnDictionary.Size = new Size(153, 54);
+            btnDictionary.TabIndex = 35;
+            btnDictionary.Text = "Dictionary";
+            btnDictionary.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             AutoScaleDimensions = new SizeF(11F, 25F);
@@ -570,5 +582,6 @@
         private Button btnEnumerable1;
         private Button btnEnumerable2;
         private Button btnArray;
+        private Button btnDictionary;
     }
 }

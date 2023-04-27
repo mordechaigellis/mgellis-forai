@@ -57,8 +57,10 @@ namespace LanguageBasics
             btnEnumerable1.Click += BtnEnumerable1_Click;
             btnEnumerable2.Click += BtnEnumerable2_Click;
             btnArray.Click += BtnArray_Click;
+            btnDictionary.Click += BtnDictionary_Click;
             lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
         }
+
 
         private void IncrementOutputMessageVariable()
         {
@@ -747,7 +749,8 @@ namespace LanguageBasics
             Button[] btns = { btnArray, btnData };
             DisplayValueAndCaption(btns.Length.ToString());
             btns[0] = btnScope1;
-            foreach (var btn in btns) {
+            foreach (var btn in btns)
+            {
                 DisplayValueAndCaption(btn.Name);
             }
             var lst = btns.ToList<Button>();
@@ -757,6 +760,26 @@ namespace LanguageBasics
             Button[] btns2 = new Button[3];
             btns2[0] = btnScope1;
             btns2[1] = btnString;
+        }
+        private void BtnDictionary_Click(object? sender, EventArgs e)
+        {
+            Dictionary<string, Button> d = new();
+            d.Add("scope", btnScope1);
+            d.Add("dictionary", btnDictionary);
+
+            var b = d["scope"];
+            DisplayValueAndCaption(b.Name);
+            DisplayValueAndCaption(d.Count.ToString());
+
+            foreach (var x in d) {
+                DisplayValueAndCaption(x.Key);
+            }
+
+            foreach (var x in d)
+            {
+                DisplayValueAndCaption(x.Value.Name);
+            }
+            
         }
 
     }
