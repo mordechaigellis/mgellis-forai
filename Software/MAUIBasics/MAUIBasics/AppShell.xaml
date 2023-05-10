@@ -6,9 +6,16 @@
     xmlns:local="clr-namespace:MAUIBasics"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
+    <TabBar>
+        <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:Home}"
+        Route="Home" />
+
+        <ShellContent
         Title="Basic Controls"
         ContentTemplate="{DataTemplate local:BasicControls}"
         Route="BasicControls" />
-
+    
+    </TabBar>
 </Shell>
