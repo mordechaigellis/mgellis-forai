@@ -21,5 +21,10 @@
         Title="The Grid"
         ContentTemplate="{DataTemplate local:GridPage}"
         Route="GridPage"/>
+
+        <ShellContent
+        Title="Tic Tac Toe"
+        ContentTemplate="{DataTemplate local:TicTacToe}"
+        Route="TicTacToe"/>
     </TabBar>
 </Shell>
