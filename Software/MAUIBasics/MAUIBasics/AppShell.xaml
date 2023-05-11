@@ -16,6 +16,10 @@
         Title="Basic Controls"
         ContentTemplate="{DataTemplate local:BasicControls}"
         Route="BasicControls" />
-    
+
+        <ShellContent
+        Title="The Grid"
+        ContentTemplate="{DataTemplate local:GridPage}"
+        Route="GridPage"/>
     </TabBar>
 </Shell>
