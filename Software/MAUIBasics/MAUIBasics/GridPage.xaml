@@ -11,7 +11,7 @@
         <Button Text="3" Grid.Column="0" Grid.Row="1"/>
         <Button Text="4" Grid.Column="1" Grid.Row="1"/>
 
-        <Button Text="3" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <Button Text="3" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource Key=game-button}"/>
         
     </Grid>
 </ContentPage>

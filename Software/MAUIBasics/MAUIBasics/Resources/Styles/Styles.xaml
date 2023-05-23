@@ -23,7 +23,22 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
+    <Style TargetType="Button" x:Key="game-button">
+        <Setter Property="Background">
+            <LinearGradientBrush EndPoint="1,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="LightBlue" Offset=".3"/>
+                <GradientStop Color="Blue" Offset="1"/>
+            </LinearGradientBrush>
+        </Setter>
+    </Style>
     <Style TargetType="Button">
+        <Setter Property="BorderColor" Value="Gray"/>
+        <Setter Property="BorderWidth" Value="4"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Shadow">
+            <Shadow Brush="Black" Offset="10,10" Radius="20" Opacity=".8" />
+        </Setter>
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
