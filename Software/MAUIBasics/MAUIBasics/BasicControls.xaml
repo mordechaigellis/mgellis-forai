@@ -6,7 +6,9 @@
              BackgroundColor="Green">
     <VerticalStackLayout BackgroundColor="White" Margin="10" Spacing="10">
         <Frame BorderColor="Black">
-            <Label x:Name="lblMessage" Text="Message"/>
+            <Label x:Name="lblMessage" Text="Hi there is a Message!!!"
+                   FontFamily="WINGDING"
+                   />
         </Frame>
         <Label Text="Last Name" BackgroundColor="LightGreen"/>
         <Entry x:Name="txtLastName" Placeholder="Last Name"/>
