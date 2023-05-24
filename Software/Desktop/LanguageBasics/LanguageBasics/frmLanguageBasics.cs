@@ -56,9 +56,12 @@ namespace LanguageBasics
             btnList2.Click += BtnList2_Click;
             btnEnumerable1.Click += BtnEnumerable1_Click;
             btnEnumerable2.Click += BtnEnumerable2_Click;
-
+            btnArray.Click += BtnArray_Click;
+            btnDictionary.Click += BtnDictionary_Click;
+            btnQueueStack.Click += BtnQueueStack_Click;
             lstbtn = new() { btnEnumerable1, btnEnumerable2, btnFor1, btnList1, btnRandom };
         }
+
 
         private void IncrementOutputMessageVariable()
         {
@@ -631,7 +634,7 @@ namespace LanguageBasics
             DisplayHeader("Display the count items with that letter");
             DisplayValueAndCaption(lstword.Count(s => s.ToLower().Contains("e")).ToString());
             DisplayHeader("Display true / false if any items contain that letter uppercase");
-            DisplayValueAndCaption(lstword.Exists(s=> s.Contains("E")).ToString());
+            DisplayValueAndCaption(lstword.Exists(s => s.Contains("E")).ToString());
             DisplayHeader("In one line of code change the all items that contain that letter.");
             lstword.
                 Where(s => s.ToLower().Contains("e"))
@@ -641,7 +644,8 @@ namespace LanguageBasics
             lstword.ForEach(ChangeWord);
         }
 
-        private void ChangeWord(string word) {
+        private void ChangeWord(string word)
+        {
             DisplayValueAndCaption(string.Concat(word.ToUpper().Replace("E", "0").Reverse()));
         }
         private void BtnEnumerable1_Click(object? sender, EventArgs e)
@@ -741,7 +745,81 @@ namespace LanguageBasics
             DisplayValueAndCaption(lstw[101].Value);
             DisplayValueAndCaption(lstw[101].Definition);
         }
+        private void BtnArray_Click(object? sender, EventArgs e)
+        {
+            Button[] btns = { btnArray, btnData };
+            DisplayValueAndCaption(btns.Length.ToString());
+            btns[0] = btnScope1;
+            foreach (var btn in btns)
+            {
+                DisplayValueAndCaption(btn.Name);
+            }
+            var lst = btns.ToList<Button>();
+            lst.Add(btnSwitch);
+            lst.ForEach(b => DisplayValueAndCaption(b.Name));
+
+            Button[] btns2 = new Button[3];
+            btns2[0] = btnScope1;
+            btns2[1] = btnString;
+        }
+        private void BtnDictionary_Click(object? sender, EventArgs e)
+        {
+            Dictionary<string, Button> dibtns = new();
+            dibtns.Add("scope", btnScope1);
+            dibtns.Add("switch", btnSwitch);
+            dibtns.Add("if", btnIf1);
+            dibtns.Add("enumerable", btnEnumerable1);
+
+            Button btn = dibtns["scope"];
+            DisplayValueAndCaption(btn.Name);
+            DisplayValueAndCaption(dibtns.Count.ToString());
+            dibtns.Remove("scope");
+            DisplayValueAndCaption(dibtns.Count.ToString());
+
+            foreach (KeyValuePair<string, Button> kv in dibtns)
+            {
+                DisplayValueAndCaption(kv.Key);
+                DisplayValueAndCaption(kv.Value.Name);
+                DisplayValueAndCaption(kv.ToString());
+            }
+
+            DisplayMessage("------------");
+            dibtns.ToList().ForEach(kv => DisplayValueAndCaption(kv.ToString()));
+
+            DisplayMessage("------------");
+
+            //Dictionary<string, Button>
+            Dictionary<string, Button> newdi = dibtns.Where(kv => kv.Key.Contains("i")).ToDictionary(kv2 => kv2.Key, kv2 => kv2.Value);
+            foreach (var kv in newdi)
+            {
+                DisplayValueAndCaption(kv.ToString());
+            }
+        }
+
+        private void BtnQueueStack_Click(object? sender, EventArgs e)
+        {
+            Queue<Button> qbtns = new();
+            qbtns.Enqueue(btnAddControl1);
+            qbtns.Enqueue(btnAddControl2);
+            qbtns.Enqueue(btnArray);
+            DisplayMessage("----------where");
+            var newq = new Queue<Button>(qbtns.Where(b=>b.Name.Contains("d")));
+
+            DisplayMessage("----------foreach on the new q");
+            foreach (var b in newq) {
+                DisplayValueAndCaption(b.Name);
+            }
+            DisplayMessage("--------------");
+            var btn = qbtns.Dequeue();
+            DisplayValueAndCaption(btn.Name);
+            DisplayMessage("--------------");
+            while (qbtns.Count > 0) {
+                DisplayValueAndCaption(qbtns.Dequeue().Name);
+            }
+
+
+        }
+
 
     }
-
 }
