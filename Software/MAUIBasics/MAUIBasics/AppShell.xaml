@@ -26,5 +26,15 @@
         Title="Tic Tac Toe"
         ContentTemplate="{DataTemplate local:TicTacToe}"
         Route="TicTacToe"/>
+
+        <ShellContent
+        Title="Horizontal Stack Layout"
+        ContentTemplate="{DataTemplate local:HorizontalStackLayout}"
+        Route="HorizontalStackLayout"/>
+
+        <ShellContent
+        Title="Vertical Stack Layout"
+        ContentTemplate="{DataTemplate local:VerticalStackLayout}"
+        Route="Vertical Stack Layout"/>
     </TabBar>
 </Shell>
