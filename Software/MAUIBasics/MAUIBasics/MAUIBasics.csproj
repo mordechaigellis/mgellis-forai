@@ -50,6 +50,9 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\WINGDING.TTF" />
+	  <None Remove="Resources\Images\p1p.jpeg" />
+	  <None Remove="Resources\Images\p2p.jpeg" />
+	  <None Remove="Resources\Images\p3p.jpeg" />
 	</ItemGroup>
 
 	<ItemGroup>
