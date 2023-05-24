@@ -60,6 +60,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="AbsoluteLayoutPanel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="BasicControls.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

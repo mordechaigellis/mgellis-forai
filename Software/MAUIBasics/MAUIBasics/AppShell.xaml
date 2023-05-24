@@ -35,6 +35,13 @@
         <ShellContent
         Title="Vertical Stack Layout"
         ContentTemplate="{DataTemplate local:VerticalStackLayout}"
-        Route="Vertical Stack Layout"/>
+        Route="VerticalStackLayout"/>
+
+        <ShellContent
+        Title="Absolute Layout Panel"
+        ContentTemplate="{DataTemplate local:AbsoluteLayoutPanel}"
+        Route="AbsoluteLayoutPanel"/>
+
+        
     </TabBar>
 </Shell>
