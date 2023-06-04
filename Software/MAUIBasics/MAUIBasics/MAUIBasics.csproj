@@ -66,6 +66,9 @@
 	  <MauiXaml Update="BasicControls.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="CenteredPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="GridPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
