@@ -1,12 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System.Reflection;
-
-namespace RecordKeeperMAUI
-{
-    public static class MauiProgram
-    {
-        public static MauiApp CreateMauiApp()
+public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
 
@@ -37,5 +29,3 @@ namespace RecordKeeperMAUI
             App.ConnStringSetting = settingsval.devconn.ToString();
             return app;
         }
-    }
-}
