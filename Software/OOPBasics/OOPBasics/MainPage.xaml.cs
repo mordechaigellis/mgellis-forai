@@ -33,5 +33,16 @@ public partial class MainPage : ContentPage
 		DisplayLbl.Text = DisplayLbl.Text + Environment.NewLine + "--------" + Environment.NewLine + value;
 	}
 
+    private void FamilyBtn_Clicked(object sender, EventArgs e)
+    {
+		Family f = new Family();
+		f.Father = new Person() { FirstName = "John", LastName = "Smith", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35)};
+        f.Mother = new Person() { FirstName = "Sue", LastName = "Smith", Gender = Person.GenderEnum.Female, DOB = DateTime.Now.AddYears(-30) };
+		f.AddChild(new Person() { FirstName = "Adam", LastName = "Smith", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-1) });
+        f.AddChild(new Person() { FirstName = "Jane", LastName = "Smith", Gender = Person.GenderEnum.Female, DOB = DateTime.Now.AddYears(-1) });
+		f.AddPet(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
+		DisplayValue(f.Description);
+		
+    }
 }
 
