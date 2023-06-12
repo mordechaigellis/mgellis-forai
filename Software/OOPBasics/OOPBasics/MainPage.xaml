@@ -5,11 +5,11 @@
 
     <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
         <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*">
-            <Button x:Name="PersonBtn" Text="Person" Grid.Column="0" Grid.Row="0" />
+            <Button x:Name="PersonBtn" Text="Person" Grid.Column="0" Grid.Row="0" Clicked="PersonBtn_Clicked"/>
 
         </Grid>
         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
-            <Label BackgroundColor="LightYellow"/>
+            <Label x:Name="DisplayLbl" BackgroundColor="LightYellow"/>
         </Border>
     </Grid>
 
