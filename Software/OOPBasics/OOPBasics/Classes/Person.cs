@@ -9,7 +9,7 @@ namespace OOPBasics
     public class Person
     {
         public enum GenderEnum { Unknown, Male, Female}
-
+        private string _middlname = "";
         public Person(string lastnamevalue = "") {
             this.DOB = DateTime.Now;
             this.LastName = lastnamevalue;
@@ -17,6 +17,11 @@ namespace OOPBasics
         
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
+        public string MiddleName
+        {
+            get { return _middlname; }
+            set { _middlname = value; }
+        }
 
         public GenderEnum Gender { get; set; } = GenderEnum.Unknown;
 
@@ -26,14 +31,15 @@ namespace OOPBasics
         {
             get
             {
-                string desc = $"{this.FirstName} {this.LastName} {this.Gender.ToString()} {this.Age} years old";
+                string desc = $"{this.FirstName} {this.MiddleName} {this.LastName} {this.Gender.ToString()} {this.Age} years old";
 
                 return desc;
             }
         }
 
         public int Age { 
-            get { return DateTime.Now.Year - DOB.Year; } 
+            get { return DateTime.Now.Year - DOB.Year; }
+            set { this.DOB = DateTime.Now.AddYears(-value); }
         }
 
 

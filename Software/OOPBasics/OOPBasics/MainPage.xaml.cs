@@ -36,9 +36,9 @@ public partial class MainPage : ContentPage
     private void FamilyBtn_Clicked(object sender, EventArgs e)
     {
 		Family f = new Family();
-		f.Father = new Person("Jones") { FirstName = "John", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35)};
+		f.Father = new Person("Jones") { FirstName = "John", MiddleName = "Jack", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35)};
         f.Mother = new Person() { FirstName = "Sue", LastName = "Smith", Gender = Person.GenderEnum.Female, DOB = DateTime.Now.AddYears(-30) };
-		f.AddChild(new Person() { FirstName = "Adam", LastName = "Smith", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-1) });
+		f.AddChild(new Person() { FirstName = "Adam", LastName = "Smith", Gender = Person.GenderEnum.Male, Age = 1});
         f.AddChild(new Person() { FirstName = "Jane", LastName = "Smith", Gender = Person.GenderEnum.Female});
 		f.AddPet(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
 		DisplayValue(f.Description);
