@@ -9,6 +9,12 @@ namespace OOPBasics
     public class Person
     {
         public enum GenderEnum { Unknown, Male, Female}
+
+        public Person(string lastnamevalue = "") {
+            this.DOB = DateTime.Now;
+            this.LastName = lastnamevalue;
+        }
+        
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
 
