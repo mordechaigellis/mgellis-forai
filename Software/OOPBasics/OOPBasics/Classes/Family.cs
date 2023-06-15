@@ -29,7 +29,7 @@ namespace OOPBasics
             get {
                 string desc = "";
 
-                desc = $"Father: {this.Father.Description} Mother:{this.Mother.Description}";
+                desc = $"Father: {this.Father?.Description} Mother:{this.Mother.Description}";
                 this.Children.ForEach(c => desc = desc + Environment.NewLine + "Child: " + c.Description);
                 this.Pets.ForEach(p => desc = desc + Environment.NewLine + p.AnimalType.ToString());
                 return desc;

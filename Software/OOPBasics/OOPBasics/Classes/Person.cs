@@ -8,13 +8,14 @@ namespace OOPBasics
 {
     public class Person
     {
-        public enum GenderEnum { Unknown, Male, Female}
+        public enum GenderEnum { Unknown, Male, Female }
         private string _middlname = "";
-        public Person(string lastnamevalue = "") {
+        public Person(string lastnamevalue = "")
+        {
             this.DOB = DateTime.Now;
             this.LastName = lastnamevalue;
         }
-        
+
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         public string MiddleName
@@ -37,12 +38,13 @@ namespace OOPBasics
             }
         }
 
-        public int Age { 
-            get { return DateTime.Now.Year - DOB.Year; }
-            set { this.DOB = DateTime.Now.AddYears(-value); }
+        public int Age
+        {
+            get => DateTime.Now.Year - DOB.Year;
+            set => this.DOB = DateTime.Now.AddYears(-value);
         }
 
 
-      
+
     }
 }
