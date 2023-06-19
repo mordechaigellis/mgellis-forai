@@ -3,10 +3,13 @@
 public partial class MainPage : ContentPage
 {
     Family family = new Family();
+	Person person = new Person();
     public MainPage()
 	{
 		InitializeComponent();
         family.FamilyChanged += Family_FamilyChanged;
+		person.FirstName = "Amy";
+		this.BindingContext = person;
 	}
 
     private void Family_FamilyChanged(object sender, EventArgs e)
@@ -47,6 +50,12 @@ public partial class MainPage : ContentPage
 		family.AddChild(new Person() { FirstName = "Adam", LastName = "Smith", Gender = Person.GenderEnum.Male, Age = 1});
         family.AddChild(new Person() { FirstName = "Jane", LastName = "Smith", Gender = Person.GenderEnum.Female});
 		family.AddPet(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
+    }
+
+    private void BindBtn_Clicked(object sender, EventArgs e)
+    {
+		person.FirstName = "John" + DateTime.Now.Millisecond;
+		person.LastName = "Smith" + DateTime.Now.Millisecond;
     }
 }
 
