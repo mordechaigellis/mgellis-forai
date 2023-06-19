@@ -2,11 +2,17 @@
 
 public partial class MainPage : ContentPage
 {
-
-	public MainPage()
+    Family family = new Family();
+    public MainPage()
 	{
 		InitializeComponent();
+        family.FamilyChanged += Family_FamilyChanged;
 	}
+
+    private void Family_FamilyChanged(object sender, EventArgs e)
+    {
+		DisplayValue(family.Description);
+    }
 
     private void PersonBtn_Clicked(object sender, EventArgs e)
     {
@@ -36,14 +42,11 @@ public partial class MainPage : ContentPage
 
     private void FamilyBtn_Clicked(object sender, EventArgs e)
     {
-		Family f = new Family();
-		//f.Father = new Person("Jones") { FirstName = "John", MiddleName = "Jack", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35)};
-        f.Mother = new Person() { FirstName = "Sue", LastName = "Smith", Gender = Person.GenderEnum.Female, DOB = DateTime.Now.AddYears(-30) };
-		f.AddChild(new Person() { FirstName = "Adam", LastName = "Smith", Gender = Person.GenderEnum.Male, Age = 1});
-        f.AddChild(new Person() { FirstName = "Jane", LastName = "Smith", Gender = Person.GenderEnum.Female});
-		f.AddPet(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
-		DisplayValue(f.Description);
-		
+		family.Father = new Person("Jones") { FirstName = "John", MiddleName = "Jack", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35)};
+        family.Mother = new Person() { FirstName = "Sue", LastName = "Smith", Gender = Person.GenderEnum.Female, DOB = DateTime.Now.AddYears(-30) };
+		family.AddChild(new Person() { FirstName = "Adam", LastName = "Smith", Gender = Person.GenderEnum.Male, Age = 1});
+        family.AddChild(new Person() { FirstName = "Jane", LastName = "Smith", Gender = Person.GenderEnum.Female});
+		family.AddPet(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
     }
 }
 
