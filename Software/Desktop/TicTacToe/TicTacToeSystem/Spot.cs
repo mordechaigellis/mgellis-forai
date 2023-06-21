@@ -8,15 +8,6 @@ namespace TicTacToeSystem
 {
     public class Spot
     {
-        private GameStatusEnum _gamestatus;
-        public enum GameStatusEnum { NotStarted, Playing, Winner, Tie}
-
-        public GameStatusEnum GameStatus {
-            get => _gamestatus;
-            set {
-                _gamestatus = value;
-            }
-
-        }
+      
     }
 }
