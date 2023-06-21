@@ -14,4 +14,8 @@
     <Content Include="tac_tic_toe_icon_183167.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TicTacToeSystem\TicTacToeSystem.csproj" />
+  </ItemGroup>
+
 </Project>

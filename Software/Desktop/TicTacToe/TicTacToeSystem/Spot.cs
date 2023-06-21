@@ -1,22 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TicTacToeSystem
 {
-    public class Spot
+    public class Spot : INotifyPropertyChanged
     {
-        public Game.TurnEnum SpotValue { get; set; }
-        public string SpotValueDescription { get => ""; }
+        Game.TurnEnum _spotvalue = Game.TurnEnum.None;
+        System.Drawing.Color _backcolor;
 
-        public System.Drawing.Color BackColor { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public Game.TurnEnum SpotValue
+        {
+            get => _spotvalue;
+            set
+            {
+                _spotvalue = value;
+                this.InvokePropertyChanged();
+                this.InvokePropertyChanged("SpotValueDescription");
+            }
+        }
+        public string SpotValueDescription { get => this.SpotValue == Game.TurnEnum.None ? "" : this.SpotValue.ToString(); }
+
+        public System.Drawing.Color BackColor
+        {
+            get => _backcolor;
+            set
+            {
+                _backcolor = value;
+                this.InvokePropertyChanged();
+            }
+        }
 
         internal int Priority { get; set; }
 
-        public void Clear() { 
-        
+
+
+        public void Clear()
+        {
+            this.SpotValue = Game.TurnEnum.None;
+        }
+
+        private void InvokePropertyChanged([CallerMemberName] string propertyname = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
     }
 }

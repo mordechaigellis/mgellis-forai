@@ -1,14 +1,21 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace TicTacToeSystem
 {
-    public class Game
+    public class Game : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         public enum GameStatusEnum { NotStarted, Playing, Winner, Tie }
         public enum TurnEnum { None, X, O }
         List<List<Spot>> lstwinningsets = new();
         List<Spot> lstrankedbuttons;
         bool iscomputerturn;
+        GameStatusEnum _gamestatus = GameStatusEnum.NotStarted;
+        TurnEnum _currentturn = TurnEnum.None;
+
 
         public Game()
         {
@@ -16,7 +23,7 @@ namespace TicTacToeSystem
             {
                 this.Spots.Add(new Spot());
             }
-          
+
             lstwinningsets = new() {
                 new() {this.Spots[0], this.Spots[1], this.Spots[2] },
                 new() {this.Spots[3], this.Spots[4], this.Spots[5] },
@@ -28,12 +35,30 @@ namespace TicTacToeSystem
                 new() {this.Spots[2], this.Spots[4], this.Spots[6] }
             };
             lstrankedbuttons = new() { this.Spots[4], this.Spots[0], this.Spots[2], this.Spots[6], this.Spots[8] };
+            this.Spots.ForEach(b => b.BackColor = this.SpotNotStartedColor);
         }
 
         public List<Spot> Spots { get; private set; } = new();
-        public GameStatusEnum GameStatus { get; private set; }
-        public TurnEnum CurrentTurn { get; private set; }
-        public string GameStatusDescription { get => ""; }
+        public GameStatusEnum GameStatus
+        {
+            get => _gamestatus;
+            private set
+            {
+                _gamestatus = value;
+                this.InvokePropertyChanged();
+                this.InvokePropertyChanged("GameStatusDescription");
+            }
+        }
+        public TurnEnum CurrentTurn
+        {
+            get => _currentturn;
+            private set
+            {
+                _currentturn = value;
+                this.InvokePropertyChanged("GameStatusDescription");
+            }
+        }
+        public string GameStatusDescription { get => $"{this.GameStatus.ToString()} Current Turn: {this.CurrentTurn.ToString()}"; }
         public TurnEnum Winner { get; private set; }
         public bool PlayAgainstComputer { get; set; }
         public System.Drawing.Color SpotWinnerColor { get; set; } = System.Drawing.Color.Red;
@@ -43,7 +68,10 @@ namespace TicTacToeSystem
 
         public void StartGame()
         {
-            this.Spots.ForEach(b => b.Clear());
+            this.Spots.ForEach(b => { 
+                b.Clear();
+                b.BackColor = this.SpotPlayingColor;
+            });
             this.GameStatus = GameStatusEnum.Playing;
             this.CurrentTurn = TurnEnum.X;
 
@@ -103,6 +131,7 @@ namespace TicTacToeSystem
             {
                 this.GameStatus = GameStatusEnum.Winner;
                 this.Winner = this.CurrentTurn;
+                lst.ForEach(b => b.BackColor = this.SpotWinnerColor);
 
             }
         }
@@ -111,6 +140,7 @@ namespace TicTacToeSystem
             if (this.Spots.Count(b => b.SpotValue == TurnEnum.None) == 0)
             {
                 this.GameStatus = GameStatusEnum.Tie;
+                this.Spots.ForEach(b => b.BackColor = this.SpotTieColor);
             }
         }
         private void DoComputerTurnOffenseDefense()
@@ -125,5 +155,11 @@ namespace TicTacToeSystem
         {
 
         }
+
+        private void InvokePropertyChanged([CallerMemberName] string propertyname = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+
     }
 }
