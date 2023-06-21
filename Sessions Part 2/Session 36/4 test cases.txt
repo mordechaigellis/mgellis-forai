@@ -18,3 +18,6 @@ game.TakeSpot(7); //O
 game.TakeSpot(8); //X
 game.TakeSpot(4); //O
 game.TakeSpot(5); //X
+
+//params
+int x0, int o0, int x1, int o1, int x2

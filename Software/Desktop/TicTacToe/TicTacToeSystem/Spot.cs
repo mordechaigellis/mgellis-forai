@@ -8,6 +8,15 @@ namespace TicTacToeSystem
 {
     public class Spot
     {
-      
+        public Game.TurnEnum SpotValue { get; set; }
+        public string SpotValueDescription { get => ""; }
+
+        public System.Drawing.Color BackColor { get; set; }
+
+        internal int Priority { get; set; }
+
+        public void Clear() { 
+        
+        }
     }
 }
