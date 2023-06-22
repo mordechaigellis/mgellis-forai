@@ -14,7 +14,7 @@ namespace TicTacToeMaui
 
         private void StartBtn_Clicked(object sender, EventArgs e)
         {
-            game.StartGame();
+            game.StartGame(PlayAgainstComputerRb.IsChecked);
         }
 
         private void btn_Clicked(object sender, EventArgs e)

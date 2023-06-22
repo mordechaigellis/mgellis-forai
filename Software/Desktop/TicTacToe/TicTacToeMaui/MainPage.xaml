@@ -19,7 +19,7 @@
                     CornerRadius="0"
                     />
             <RadioButton Content="2 Player" Grid.Column="1" Grid.Row="0" IsChecked="True"/>
-            <RadioButton Content="Play Against the Computer" Grid.Column="2" Grid.Row="0"/>
+            <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" Grid.Column="2" Grid.Row="0"/>
             <Label Text="{Binding GameStatusDescription}" Grid.Column="3" Grid.Row="0"
                    VerticalOptions="Center" HorizontalOptions="Center"
                    />

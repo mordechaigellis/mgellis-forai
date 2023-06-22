@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace TicTacToeSystem
 {
@@ -66,9 +67,11 @@ namespace TicTacToeSystem
         public System.Drawing.Color SpotPlayingColor { get; set; } = System.Drawing.Color.Silver;
         public System.Drawing.Color SpotNotStartedColor { get; set; } = System.Drawing.Color.Black;
 
-        public void StartGame()
+        public void StartGame(bool playagainstcomputer = false)
         {
-            this.Spots.ForEach(b => { 
+            this.PlayAgainstComputer = playagainstcomputer;
+            this.Spots.ForEach(b =>
+            {
                 b.Clear();
                 b.BackColor = this.SpotPlayingColor;
             });
@@ -99,31 +102,35 @@ namespace TicTacToeSystem
                         {
                             this.CurrentTurn = TurnEnum.X;
                         }
-                        //if (IsComputerTurn())
-                        //{
-                        //    //1st step of algorithm - offense
-                        //    DoComputerTurnOffenseDefense(TurnEnum.O);
-                        //    if (IsComputerTurn())
-                        //    {
-                        //        //if turn not taken computer then defense
-                        //        DoComputerTurnOffenseDefense(TurnEnum.X);
-                        //        if (IsComputerTurn())
-                        //        {
-                        //            //if turn not taken computer then by rank
-                        //            DoComputerTurnRank();
+                        if (IsComputerTurn())
+                        {
+                            //1st step of algorithm - offense
+                            DoComputerTurnOffenseDefense(TurnEnum.O);
+                            if (IsComputerTurn())
+                            {
+                                //if turn not taken computer then defense
+                                DoComputerTurnOffenseDefense(TurnEnum.X);
+                                if (IsComputerTurn())
+                                {
+                                    //if turn not taken computer then by rank
+                                    DoComputerTurnRank();
 
-                        //            if (IsComputerTurn())
-                        //            {
-                        //                //if turn not taken computer then random available button
-                        //                DoComputerTurnRandom();
-                        //            }
-                        //        }
-                        //    }
-                        //}
-
+                                    if (IsComputerTurn())
+                                    {
+                                        //if turn not taken computer then random available button
+                                        DoComputerTurnRandom();
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
+        }
+
+        private bool IsComputerTurn()
+        {
+            return this.PlayAgainstComputer == true && this.GameStatus == GameStatusEnum.Playing && this.CurrentTurn == TurnEnum.O;
         }
         private void DetectWinner(List<Spot> lst)
         {
@@ -143,17 +150,41 @@ namespace TicTacToeSystem
                 this.Spots.ForEach(b => b.BackColor = this.SpotTieColor);
             }
         }
-        private void DoComputerTurnOffenseDefense()
+        private void DoComputerTurnOffenseDefense(TurnEnum turn)
         {
+            //find first set that has two buttongs with computer letter and one blank
+            //get the blank button out of the set
+            var lst = lstwinningsets.FirstOrDefault(l =>
+                l.Count(b => b.SpotValue == turn) == 2
+                &&
+                l.Count(b => b.SpotValue == TurnEnum.None) == 1
+                );
 
+            if (lst != null)
+            {
+                var spot = lst.First(b => b.SpotValue == TurnEnum.None);
+                DoComputerTurn(spot);
+            }
+        }
+
+        private void DoComputerTurn(Spot spot)
+        {
+            this.TakeSpot(this.Spots.IndexOf(spot));
         }
         private void DoComputerTurnRank()
         {
-
+            var spot = lstrankedbuttons.FirstOrDefault(b => b.SpotValue == TurnEnum.None);
+            if (spot != null)
+            {
+                DoComputerTurn(spot);
+            }
         }
+
         private void DoComputerTurnRandom()
         {
-
+            var lst = this.Spots.Where(b => b.SpotValue == TurnEnum.None).ToList();
+            var spot = lst[new Random().Next(0, lst.Count())];
+            DoComputerTurn(spot);
         }
 
         private void InvokePropertyChanged([CallerMemberName] string propertyname = "")
