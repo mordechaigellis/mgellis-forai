@@ -1,5 +1,5 @@
     <ContentPage.Resources>
-        <Style TargetType="Button">
+        <Style TargetType="Button" x:Key="game-button">
             <Setter Property="CornerRadius" Value="40" />
         </Style>
     </ContentPage.Resources>
@@ -8,7 +8,6 @@
             <Button Margin="20" Text="Start" 
                     Grid.Column="0" Grid.Row="0"
                     TextTransform="Uppercase"
-                    Rotation="10"
                     FontSize="Medium"
                     CharacterSpacing="10"
                     CornerRadius="0"
