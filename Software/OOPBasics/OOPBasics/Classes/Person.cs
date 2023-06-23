@@ -10,6 +10,7 @@ namespace OOPBasics
         private string _firstname = "";
         private string _lastname = "";
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler? PersonAdded; 
 
         private void InvokePropertyChanged([CallerMemberName] string propertyname = "") {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
@@ -17,9 +18,13 @@ namespace OOPBasics
 
         public Person(string lastnamevalue = "")
         {
+            Population++;
             this.DOB = DateTime.Now;
             this.LastName = lastnamevalue;
+            PersonAdded?.Invoke(this, new EventArgs());
         }
+
+        public static int Population { get; private set; }
 
         public string FirstName { get => _firstname;
             set {

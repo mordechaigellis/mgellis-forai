@@ -41,8 +41,12 @@ public partial class MainPage : ContentPage
 	}
 	private void DisplayValue(string value) {
 		DisplayLbl.Text = DisplayLbl.Text + Environment.NewLine + "--------" + Environment.NewLine + value;
+		DisplayPopulation();
 	}
 
+	private void DisplayPopulation() {
+		StaticLbl.Text = "Population: " + Person.Population;
+	}
     private void FamilyBtn_Clicked(object sender, EventArgs e)
     {
 		family.Father = new Person("Jones") { FirstName = "John", MiddleName = "Jack", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35)};
