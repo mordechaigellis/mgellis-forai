@@ -7,20 +7,28 @@
             <Setter Property="CornerRadius" Value="40" />
         </Style>
     </ContentPage.Resources>
-    <Grid  ColumnDefinitions="*" RowDefinitions="*,5*">
-        <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*" Grid.Column="0" Grid.Row="0">
+    <Grid  ColumnDefinitions="*" RowDefinitions="Auto,*">
+        <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*,*,*,*,*" Grid.Column="0" Grid.Row="0">
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+                <RadioButton x:Name="Game1Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
+                <RadioButton x:Name="Game2Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
+                <RadioButton x:Name="Game3Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
+            </HorizontalStackLayout>
+            <Label x:Name="ScoreLbl" Grid.Column="0" Grid.Row="1"/>
             <Button x:Name="StartBtn"
                     Clicked="StartBtn_Clicked"
                     Margin="20" Text="Start" 
-                    Grid.Column="0" Grid.Row="0"
+                    Grid.Column="1" Grid.Row="1"
                     TextTransform="Uppercase"
                     FontSize="Medium"
                     CharacterSpacing="10"
                     CornerRadius="0"
                     />
-            <RadioButton Content="2 Player" Grid.Column="1" Grid.Row="0" IsChecked="True"/>
-            <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" Grid.Column="2" Grid.Row="0"/>
-            <Label Text="{Binding GameStatusDescription}" Grid.Column="3" Grid.Row="0"
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="3">
+                <RadioButton Content="2 Player" IsChecked="True"/>
+                <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" />
+            </HorizontalStackLayout>
+            <Label Text="{Binding GameStatusDescription}" Grid.Column="3" Grid.Row="4"
                    VerticalOptions="Center" HorizontalOptions="Center"
                    />
         </Grid>

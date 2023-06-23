@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,6 +10,7 @@ namespace TicTacToeSystem
     public class Game : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler? ScoreChanged;
         public enum GameStatusEnum { NotStarted, Playing, Winner, Tie }
         public enum TurnEnum { None, X, O }
         List<List<Spot>> lstwinningsets = new();
@@ -17,6 +19,9 @@ namespace TicTacToeSystem
         GameStatusEnum _gamestatus = GameStatusEnum.NotStarted;
         TurnEnum _currentturn = TurnEnum.None;
 
+        private static int scorexwins;
+        private static int scoreowins;
+        private static int scoreties;
 
         public Game()
         {
@@ -59,13 +64,15 @@ namespace TicTacToeSystem
                 this.InvokePropertyChanged("GameStatusDescription");
             }
         }
-        public string GameStatusDescription { get => $"{this.GameStatus.ToString()} Current Turn: {this.CurrentTurn.ToString()}"; }
+        public string GameStatusDescription { get => (this.PlayAgainstComputer ? "Play Against Computer ":"2 Player ") + $"{this.GameStatus.ToString()} Current Turn: {this.CurrentTurn.ToString()}"; }
         public TurnEnum Winner { get; private set; }
         public bool PlayAgainstComputer { get; set; }
         public System.Drawing.Color SpotWinnerColor { get; set; } = System.Drawing.Color.Red;
         public System.Drawing.Color SpotTieColor { get; set; } = System.Drawing.Color.Gray;
         public System.Drawing.Color SpotPlayingColor { get; set; } = System.Drawing.Color.Silver;
         public System.Drawing.Color SpotNotStartedColor { get; set; } = System.Drawing.Color.Black;
+
+        public static string Score { get => $"X wins = {scorexwins}: O wins {scoreowins}: Ties {scoreties} "; }
 
         public void StartGame(bool playagainstcomputer = false)
         {
@@ -139,7 +146,14 @@ namespace TicTacToeSystem
                 this.GameStatus = GameStatusEnum.Winner;
                 this.Winner = this.CurrentTurn;
                 lst.ForEach(b => b.BackColor = this.SpotWinnerColor);
-
+                if (this.CurrentTurn == TurnEnum.X)
+                {
+                    scorexwins++;
+                }
+                else {
+                    scoreowins++;
+                }
+                ScoreChanged?.Invoke(this, new EventArgs());
             }
         }
         private void DetectTie()
@@ -148,6 +162,8 @@ namespace TicTacToeSystem
             {
                 this.GameStatus = GameStatusEnum.Tie;
                 this.Spots.ForEach(b => b.BackColor = this.SpotTieColor);
+                scoreties++;
+                ScoreChanged?.Invoke(this, new EventArgs());
             }
         }
         private void DoComputerTurnOffenseDefense(TurnEnum turn)
