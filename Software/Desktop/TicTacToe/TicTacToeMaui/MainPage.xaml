@@ -9,12 +9,12 @@
     </ContentPage.Resources>
     <Grid  ColumnDefinitions="*" RowDefinitions="Auto,*">
         <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*,*,*,*,*" Grid.Column="0" Grid.Row="0">
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+            <FlexLayout Grid.Column="0" Grid.Row="0" JustifyContent="SpaceBetween" Wrap="Wrap" Grid.ColumnSpan="4">
                 <RadioButton x:Name="Game1Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
                 <RadioButton x:Name="Game2Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
                 <RadioButton x:Name="Game3Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
-            </HorizontalStackLayout>
-            <Label x:Name="ScoreLbl" Grid.Column="0" Grid.Row="1"/>
+            </FlexLayout>
+            <Label x:Name="ScoreLbl" Grid.Column="1" Grid.Row="2" BackgroundColor="LightYellow"/>
             <Button x:Name="StartBtn"
                     Clicked="StartBtn_Clicked"
                     Margin="20" Text="Start" 
@@ -24,12 +24,12 @@
                     CharacterSpacing="10"
                     CornerRadius="0"
                     />
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="3">
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="1">
                 <RadioButton Content="2 Player" IsChecked="True"/>
                 <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" />
             </HorizontalStackLayout>
-            <Label Text="{Binding GameStatusDescription}" Grid.Column="3" Grid.Row="4"
-                   VerticalOptions="Center" HorizontalOptions="Center"
+            <Label Text="{Binding GameStatusDescription}" Grid.Column="0" Grid.Row="2"
+                   VerticalOptions="Center"
                    />
         </Grid>
         <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="1">
