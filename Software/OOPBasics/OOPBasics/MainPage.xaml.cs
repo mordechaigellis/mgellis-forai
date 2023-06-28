@@ -61,5 +61,21 @@ public partial class MainPage : ContentPage
 		person.FirstName = "John" + DateTime.Now.Millisecond;
 		person.LastName = "Smith" + DateTime.Now.Millisecond;
     }
+
+    private void InheritanceBtn_Clicked(object sender, EventArgs e)
+    {
+		Animal a = new();
+		a.AnimalType = Animal.AnimalTypeEnum.Cat;
+		a.Gender = Creature.GenderEnum.Female;
+		a.Age = 3;
+		DisplayLbl.Text = "";
+		DisplayValue(a.Description);
+
+		Alien i = new();
+		i.Planet = Alien.PlanetEnum.Venus;
+		i.Gender = Creature.GenderEnum.Male;
+		i.Age = 400;
+		DisplayValue(i.Description);
+    }
 }
 

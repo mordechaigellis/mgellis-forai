@@ -8,6 +8,7 @@
             <Button x:Name="PersonBtn" Text="Person" Grid.Column="0" Grid.Row="0" Clicked="PersonBtn_Clicked"/>
             <Button x:Name="FamilyBtn" Text="Family" Grid.Column="1" Grid.Row="0" Clicked="FamilyBtn_Clicked"/>
             <Button x:Name="BindBtn" Text="Bind" Grid.Column="0" Grid.Row="1" Clicked="BindBtn_Clicked"/>
+            <Button x:Name="InheritanceBtn" Text="Inheritance" Grid.Column="1" Grid.Row="1" Clicked="InheritanceBtn_Clicked"/>
         </Grid>
         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
             <Label x:Name="DisplayLbl" BackgroundColor="LightYellow"/>

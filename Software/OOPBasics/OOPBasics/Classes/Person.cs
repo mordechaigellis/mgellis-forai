@@ -3,9 +3,8 @@ using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Person : INotifyPropertyChanged
+    public class Person : Creature,INotifyPropertyChanged
     {
-        public enum GenderEnum { Unknown, Male, Female }
         private string _middlname = "";
         private string _firstname = "";
         private string _lastname = "";
@@ -45,10 +44,6 @@ namespace OOPBasics
             set { _middlname = value; }
         }
 
-        public GenderEnum Gender { get; set; } = GenderEnum.Unknown;
-
-        public DateTime DOB { get; set; }
-
         public string Description
         {
             get
@@ -58,14 +53,5 @@ namespace OOPBasics
                 return desc;
             }
         }
-
-        public int Age
-        {
-            get => DateTime.Now.Year - DOB.Year;
-            set => this.DOB = DateTime.Now.AddYears(-value);
-        }
-
-
-
     }
 }
