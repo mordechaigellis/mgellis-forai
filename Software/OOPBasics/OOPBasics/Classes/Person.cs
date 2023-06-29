@@ -3,17 +3,15 @@ using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Person : Creature,INotifyPropertyChanged
+    public class Person : Creature
     {
         private string _middlname = "";
         private string _firstname = "";
         private string _lastname = "";
-        public event PropertyChangedEventHandler? PropertyChanged;
+       
         public event EventHandler? PersonAdded; 
 
-        private void InvokePropertyChanged([CallerMemberName] string propertyname = "") {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
-        }
+       
 
         public Person(string lastnamevalue = "")
         {

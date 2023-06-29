@@ -4,12 +4,16 @@ public partial class MainPage : ContentPage
 {
     Family family = new Family();
 	Person person = new Person();
+	Animal animal = new();
+	Alien alien = new();
     public MainPage()
 	{
 		InitializeComponent();
         family.FamilyChanged += Family_FamilyChanged;
 		person.FirstName = "Amy";
 		this.BindingContext = person;
+		AnimalLbl.BindingContext = animal;
+		AlienLbl.BindingContext = alien;
 	}
 
     private void Family_FamilyChanged(object sender, EventArgs e)
@@ -60,6 +64,12 @@ public partial class MainPage : ContentPage
     {
 		person.FirstName = "John" + DateTime.Now.Millisecond;
 		person.LastName = "Smith" + DateTime.Now.Millisecond;
+		animal.Age = 3;
+		animal.Gender = Creature.GenderEnum.Female;
+		animal.AnimalType = animal.AnimalType == Animal.AnimalTypeEnum.Cat ? Animal.AnimalTypeEnum.Dog : Animal.AnimalTypeEnum.Cat;
+
+		alien.Age = 200;
+		alien.Planet = alien.Planet == Alien.PlanetEnum.Mars ? Alien.PlanetEnum.Venus : Alien.PlanetEnum.Mars;
     }
 
     private void InheritanceBtn_Clicked(object sender, EventArgs e)
