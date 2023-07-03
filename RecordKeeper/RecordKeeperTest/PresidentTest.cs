@@ -60,7 +60,8 @@ namespace RecordKeeperTest
             r["DateBorn"] = dateborn;
             r["TermStart"] = termstart;
             r["TermEnd"] = termend;
-            President.Save(dt);
+            bizPresident prez = new();
+            prez.Save(dt);
 
             int newnum = GetFirstColumnFirstRowValue("select * from president where num = " + maxnum);
             int pkid = 0;
@@ -148,7 +149,8 @@ order by p.PresidentId
             Assume.That(presidentid > 0, "No presidents without executive order in DB, can't run test");
             TestContext.WriteLine("existing president without executive order and medal, with id = " + presidentid + " " + prezdesc);
             TestContext.WriteLine("ensure that app can delete " + presidentid);
-            President.Delete(dt);
+            bizPresident prez = new();
+            prez.Delete(dt);
             DataTable dtafterdelete = GetDataTable("select * from president where presidentid = " + presidentid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0,"record with presidentid " + presidentid + " exists in db");
             TestContext.WriteLine("Record with presidentid " + presidentid + " does not exist in DB");
@@ -187,7 +189,8 @@ where e.UpheldByCourt = 1
             Assume.That(presidentid > 0, "No presidents in DB, can't run test");
             TestContext.WriteLine("existing president with id = " + presidentid);
             TestContext.WriteLine("Ensure that app loads president " + presidentid);
-            DataTable dt = President.Load(presidentid);
+            bizPresident prez = new();
+            DataTable dt = prez.Load(presidentid);
             int loadedid = 0;
             if (dt.Rows.Count > 0)
             {
