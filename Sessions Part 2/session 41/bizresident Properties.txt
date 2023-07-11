@@ -1,0 +1,126 @@
+private int _presidentId;
+private int _partyId;
+private int _num;
+private string _firstName = "";
+private string _lastName = "";
+private DateTime _dateBorn;
+private DateTime? _dateDied;
+private int _termStart;
+private int _termEnd;
+
+public int PresidentId
+{
+    get { return _presidentId; }
+    set
+    {
+        if (_presidentId != value)
+        {
+            _presidentId = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public int PartyId
+{
+    get { return _partyId; }
+    set
+    {
+        if (_partyId != value)
+        {
+            _partyId = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public int Num
+{
+    get { return _num; }
+    set
+    {
+        if (_num != value)
+        {
+            _num = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public string FirstName
+{
+    get { return _firstName; }
+    set
+    {
+        if (_firstName != value)
+        {
+            _firstName = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public string LastName
+{
+    get { return _lastName; }
+    set
+    {
+        if (_lastName != value)
+        {
+            _lastName = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public DateTime DateBorn
+{
+    get { return _dateBorn; }
+    set
+    {
+        if (_dateBorn != value)
+        {
+            _dateBorn = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public DateTime? DateDied
+{
+    get { return _dateDied; }
+    set
+    {
+        if (_dateDied != value)
+        {
+            _dateDied = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public int TermStart
+{
+    get { return _termStart; }
+    set
+    {
+        if (_termStart != value)
+        {
+            _termStart = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public int TermEnd
+{
+    get { return _termEnd; }
+    set
+    {
+        if (_termEnd != value)
+        {
+            _termEnd = value;
+            InvokePropertyChanged();
+        }
+    }
+}
