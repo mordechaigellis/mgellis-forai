@@ -87,5 +87,16 @@ public partial class MainPage : ContentPage
 		i.Age = 400;
 		DisplayValue(i.Description);
     }
+
+    private void RefectionBtn_Clicked(object sender, EventArgs e)
+    {
+		Creature c = new();
+		//c = new Person() {LastName= "Jones", Gender = Creature.GenderEnum.Female, Age = 10 };
+		c = new Animal() { Age = 5, AnimalType = Animal.AnimalTypeEnum.Cat };
+		DisplayLbl.Text = "";
+		DisplayValue(c.ReflectionInfo);
+
+
+    }
 }
 
