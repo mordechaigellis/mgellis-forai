@@ -55,7 +55,7 @@ namespace RecordKeeperTest
             prez.FirstName = firstname;
             prez.LastName = lastname;
             prez.DateBorn = dateborn;
-            prez.DateDied = dateborn.AddYears(80);
+            //prez.DateDied = dateborn.AddYears(80);
             prez.TermStart = termstart;
             prez.TermEnd = termend;
             
@@ -244,7 +244,7 @@ where e.UpheldByCourt = 1
         }
 
         private int GetExistingPresidentId() {
-            return GetFirstColumnFirstRowValue("select top 1 presidentid from president");
+            return GetFirstColumnFirstRowValue("select top 1 presidentid from president where DateDied is null");
         }
     }
 }
