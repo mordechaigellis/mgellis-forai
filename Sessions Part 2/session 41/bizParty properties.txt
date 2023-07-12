@@ -1,16 +1,16 @@
-private int _partyId;
-private string _partyName = "";
-private short _yearStart;
+private int _partyid;
+private string _partyname = "";
+private short _yearstart;
 private int _colorId;
 
 public int PartyId
 {
-    get { return _partyId; }
+    get { return _partyid; }
     set
     {
-        if (_partyId != value)
+        if (_partyid != value)
         {
-            _partyId = value;
+            _partyid = value;
             InvokePropertyChanged();
         }
     }
@@ -18,12 +18,12 @@ public int PartyId
 
 public string PartyName
 {
-    get { return _partyName; }
+    get { return _partyname; }
     set
     {
-        if (_partyName != value)
+        if (_partyname != value)
         {
-            _partyName = value;
+            _partyname = value;
             InvokePropertyChanged();
         }
     }
@@ -31,12 +31,12 @@ public string PartyName
 
 public short YearStart
 {
-    get { return _yearStart; }
+    get { return _yearstart; }
     set
     {
-        if (_yearStart != value)
+        if (_yearstart != value)
         {
-            _yearStart = value;
+            _yearstart = value;
             InvokePropertyChanged();
         }
     }

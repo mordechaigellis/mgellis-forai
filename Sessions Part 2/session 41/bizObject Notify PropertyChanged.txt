@@ -1,5 +1,4 @@
    protected void InvokePropertyChanged([CallerMemberName] string propertyname = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
-            _changed = true;
         }

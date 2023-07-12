@@ -42,9 +42,6 @@ namespace RecordKeeperTest
         [TestCase("Sam", "Test1", "2035-1-1", 2075, 2079)]
         [TestCase("Sam", "Test2", "1800-1-1", 1836, 1840)]
         public void InsertNewPresident(string firstname, string lastname, DateTime dateborn, int termstart, int termend) {
-            DataTable dt = GetDataTable("select * from president where presidentid = 0");
-            DataRow r = dt.Rows.Add();
-            Assume.That(dt.Rows.Count == 1);
             int partyid = GetFirstColumnFirstRowValue("select top 1 partyid from party");
             Assume.That(partyid > 0, "Can't run test no parties in the db");
             int maxnum = GetFirstColumnFirstRowValue("select max(num) from president");
@@ -52,22 +49,21 @@ namespace RecordKeeperTest
             maxnum = maxnum + 1;
 
             TestContext.WriteLine("insert president with num = " + maxnum);
-
-            r["partyid"] = partyid;
-            r["Num"] = 0;
-            r["FirstName"] = firstname;
-            r["LastName"] = lastname;
-            r["DateBorn"] = dateborn;
-            r["TermStart"] = termstart;
-            r["TermEnd"] = termend;
             bizPresident prez = new();
-            prez.Save(dt);
+            prez.PartyId = partyid;
+            prez.Num = 0;
+            prez.FirstName = firstname;
+            prez.LastName = lastname;
+            prez.DateBorn = dateborn;
+            prez.DateDied = dateborn.AddYears(80);
+            prez.TermStart = termstart;
+            prez.TermEnd = termend;
+            
+            prez.Save();
 
             int newnum = GetFirstColumnFirstRowValue("select * from president where num = " + maxnum);
-            int pkid = 0;
-            if (r["PresidentId"] != DBNull.Value) {
-                pkid = (int)r["PresidentId"];
-            }
+            int pkid = prez.PresidentId;
+          
             Assert.IsTrue(newnum > 0, "president with num = " + maxnum + " is not found in db");
             Assert.IsTrue(pkid > 0, "primary key not updated in datatable");
             TestContext.WriteLine("President with " + maxnum + " is found in db with pk value = " + newnum);
@@ -190,14 +186,11 @@ where e.UpheldByCourt = 1
             TestContext.WriteLine("existing president with id = " + presidentid);
             TestContext.WriteLine("Ensure that app loads president " + presidentid);
             bizPresident prez = new();
-            DataTable dt = prez.Load(presidentid);
-            int loadedid = 0;
-            if (dt.Rows.Count > 0)
-            {
-                loadedid = (int)dt.Rows[0]["presidentid"];
-            }
-            Assert.IsTrue(loadedid == presidentid, loadedid + " <> " + presidentid);
-            TestContext.WriteLine("Loaded president (" + loadedid + ")");
+            prez.Load(presidentid);
+            int loadedid = prez.PresidentId;
+            string lastname = prez.LastName;
+            Assert.IsTrue(loadedid == presidentid && lastname != "", loadedid + " <> " + presidentid + " LastName = " + lastname);
+            TestContext.WriteLine("Loaded president (" + loadedid + ") LastName = " + lastname);
         }
 
         [Test]
