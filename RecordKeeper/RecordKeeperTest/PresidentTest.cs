@@ -294,7 +294,7 @@ where e.UpheldByCourt = 1
         }
 
         private int GetExistingPresidentId() {
-            return GetFirstColumnFirstRowValue("select top 1 presidentid from president where DateDied is null");
+            return GetFirstColumnFirstRowValue("select top 1 presidentid from president where TermEnd is null");
         }
     }
 }
