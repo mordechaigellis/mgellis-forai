@@ -146,7 +146,8 @@ order by p.PresidentId
             TestContext.WriteLine("existing president without executive order and medal, with id = " + presidentid + " " + prezdesc);
             TestContext.WriteLine("ensure that app can delete " + presidentid);
             bizPresident prez = new();
-            prez.Delete(dt);
+            prez.Load(presidentid);
+            prez.Delete();
             DataTable dtafterdelete = GetDataTable("select * from president where presidentid = " + presidentid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0,"record with presidentid " + presidentid + " exists in db");
             TestContext.WriteLine("Record with presidentid " + presidentid + " does not exist in DB");
