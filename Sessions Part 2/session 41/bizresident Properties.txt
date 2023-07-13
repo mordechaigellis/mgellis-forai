@@ -1,5 +1,5 @@
-        private int _presidentId;
-        private int _partyId;
+        private int _presidentid;
+        private int _partyid;
         private int _num;
         private string _firstname = "";
         private string _lastname = "";
@@ -10,12 +10,12 @@
 
         public int PresidentId
         {
-            get { return _presidentId; }
+            get { return _presidentid; }
             set
             {
-                if (_presidentId != value)
+                if (_presidentid != value)
                 {
-                    _presidentId = value;
+                    _presidentid = value;
                     InvokePropertyChanged();
                 }
             }
@@ -23,12 +23,12 @@
 
         public int PartyId
         {
-            get { return _partyId; }
+            get { return _partyid; }
             set
             {
-                if (_partyId != value)
+                if (_partyid != value)
                 {
-                    _partyId = value;
+                    _partyid = value;
                     InvokePropertyChanged();
                 }
             }
