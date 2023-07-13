@@ -121,8 +121,7 @@ namespace RecordKeeperTest
             TestContext.WriteLine(ex.Message);
         }
 
-        [Test]
-        public void DeletePresident() {
+        private DataTable GetPrezForDelete() {
             string sql = @"
 select top 1 p.PresidentId, p.Num, p.LastName
 from President p
@@ -135,6 +134,13 @@ and pm.PresidentMedalId is null
 order by p.PresidentId
 ";
             DataTable dt = GetDataTable(sql);
+            return dt;
+        }
+
+        [Test]
+        public void DeletePresident() {
+            
+            DataTable dt = GetPrezForDelete();
             int presidentid = 0;
             string prezdesc = "";
             if (dt.Rows.Count > 0)
@@ -150,6 +156,49 @@ order by p.PresidentId
             prez.Delete();
             DataTable dtafterdelete = GetDataTable("select * from president where presidentid = " + presidentid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0,"record with presidentid " + presidentid + " exists in db");
+            TestContext.WriteLine("Record with presidentid " + presidentid + " does not exist in DB");
+        }
+
+        [Test]
+        public void DeletePresidentById()
+        {
+
+            DataTable dt = GetPrezForDelete();
+            int presidentid = 0;
+            string prezdesc = "";
+            if (dt.Rows.Count > 0)
+            {
+                presidentid = (int)dt.Rows[0]["presidentid"];
+                prezdesc = dt.Rows[0]["Num"] + " " + dt.Rows[0]["LastName"];
+            }
+            Assume.That(presidentid > 0, "No presidents without executive order in DB, can't run test");
+            TestContext.WriteLine("existing president without executive order and medal, with id = " + presidentid + " " + prezdesc);
+            TestContext.WriteLine("ensure that app can delete " + presidentid);
+            bizPresident prez = new();
+            prez.Delete(presidentid);
+            DataTable dtafterdelete = GetDataTable("select * from president where presidentid = " + presidentid);
+            Assert.IsTrue(dtafterdelete.Rows.Count == 0, "record with presidentid " + presidentid + " exists in db");
+            TestContext.WriteLine("Record with presidentid " + presidentid + " does not exist in DB");
+        }
+        [Test]
+        public void DeletePresidentByDataTable()
+        {
+
+            DataTable dt = GetPrezForDelete();
+            int presidentid = 0;
+            string prezdesc = "";
+            if (dt.Rows.Count > 0)
+            {
+                presidentid = (int)dt.Rows[0]["presidentid"];
+                prezdesc = dt.Rows[0]["Num"] + " " + dt.Rows[0]["LastName"];
+            }
+            Assume.That(presidentid > 0, "No presidents without executive order in DB, can't run test");
+            TestContext.WriteLine("existing president without executive order and medal, with id = " + presidentid + " " + prezdesc);
+            TestContext.WriteLine("ensure that app can delete " + presidentid);
+            bizPresident prez = new();
+            prez.Delete(dt);
+            DataTable dtafterdelete = GetDataTable("select * from president where presidentid = " + presidentid);
+            Assert.IsTrue(dtafterdelete.Rows.Count == 0, "record with presidentid " + presidentid + " exists in db");
             TestContext.WriteLine("Record with presidentid " + presidentid + " does not exist in DB");
         }
 
