@@ -3,16 +3,16 @@ using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Person : Creature
+    public class Person : Creature<Person>
     {
         private string _middlname = "";
         private string _firstname = "";
         private string _lastname = "";
        
-        public event EventHandler? PersonAdded; 
+        public event EventHandler? PersonAdded;
 
-       
 
+        public Person() { }
         public Person(string lastnamevalue = "")
         {
             Population++;

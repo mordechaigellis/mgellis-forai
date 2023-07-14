@@ -10,6 +10,7 @@
             <Button x:Name="BindBtn" Text="Bind" Grid.Column="0" Grid.Row="1" Clicked="BindBtn_Clicked"/>
             <Button x:Name="InheritanceBtn" Text="Inheritance" Grid.Column="1" Grid.Row="1" Clicked="InheritanceBtn_Clicked"/>
             <Button x:Name="RefectionBtn" Text="Reflection" Grid.Column="0" Grid.Row="2" Clicked="RefectionBtn_Clicked" />
+            <Button x:Name="GenericsBtn" Text="Generics" Grid.Column="1" Grid.Row="2" Clicked="GenericsBtn_Clicked" />
         </Grid>
         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
             <Label x:Name="DisplayLbl" BackgroundColor="LightYellow"/>

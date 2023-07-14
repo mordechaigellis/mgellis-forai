@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Creature : INotifyPropertyChanged
+    public class Creature<T> : INotifyPropertyChanged where T: Creature<T>, new()
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         public Creature(GenderEnum gender = GenderEnum.Unknown)
@@ -28,6 +28,11 @@ namespace OOPBasics
             set => this.DOB = DateTime.Now.AddYears(-value);
         }
 
+        public List<T> Children { get; set; } = new();
+
+        public void AddChild() {
+            this.Children.Add(new T());
+        }
         public string ReflectionInfo
         {
             get

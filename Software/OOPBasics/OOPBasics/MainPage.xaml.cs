@@ -65,7 +65,7 @@ public partial class MainPage : ContentPage
 		person.FirstName = "John" + DateTime.Now.Millisecond;
 		person.LastName = "Smith" + DateTime.Now.Millisecond;
 		animal.Age = 3;
-		animal.Gender = Creature.GenderEnum.Female;
+		animal.Gender = Animal.GenderEnum.Female;
 		animal.AnimalType = animal.AnimalType == Animal.AnimalTypeEnum.Cat ? Animal.AnimalTypeEnum.Dog : Animal.AnimalTypeEnum.Cat;
 
 		alien.Age = 200;
@@ -76,26 +76,46 @@ public partial class MainPage : ContentPage
     {
 		Animal a = new();
 		a.AnimalType = Animal.AnimalTypeEnum.Cat;
-		a.Gender = Creature.GenderEnum.Female;
+		a.Gender = Animal.GenderEnum.Female;
 		a.Age = 3;
 		DisplayLbl.Text = "";
 		DisplayValue(a.Description);
 
 		Alien i = new();
 		i.Planet = Alien.PlanetEnum.Venus;
-		i.Gender = Creature.GenderEnum.Male;
+		i.Gender = Alien.GenderEnum.Male;
 		i.Age = 400;
 		DisplayValue(i.Description);
     }
 
     private void RefectionBtn_Clicked(object sender, EventArgs e)
     {
-		Creature c = new();
+		Creature<Animal> c = new();
 		//c = new Person() {LastName= "Jones", Gender = Creature.GenderEnum.Female, Age = 10 };
 		c = new Animal() { Age = 5, AnimalType = Animal.AnimalTypeEnum.Cat };
 		DisplayLbl.Text = "";
 		DisplayValue(c.ReflectionInfo);
 
+
+    }
+
+    private void GenericsBtn_Clicked(object sender, EventArgs e)
+    {
+		DisplayLbl.Text = "";
+		var a = new Animal() { Age = 5, AnimalType = Animal.AnimalTypeEnum.Cat };
+
+		a.Children.Add(new Animal() { AnimalType = Animal.AnimalTypeEnum.Cat });
+        a.Children.Add(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
+		a.AddChild();
+		a.AddChild();
+
+        a.Children.ForEach(c => {
+			DisplayValue(a.GetType().Name + " " + c.AnimalType.ToString());
+		});
+
+  //      var p  = new Person() { LastName = "Jones", Gender = Person.GenderEnum.Female, Age = 10 };
+		//p.Children.Add(new Person());
+		
 
     }
 }
