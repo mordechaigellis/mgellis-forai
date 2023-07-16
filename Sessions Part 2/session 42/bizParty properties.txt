@@ -1,6 +1,6 @@
 private int _partyid;
 private string _partyname = "";
-private short _yearstart;
+private int _yearstart;
 private int _colorid;
 
 public int PartyId
@@ -29,7 +29,7 @@ public string PartyName
     }
 }
 
-public short YearStart
+public int YearStart
 {
     get { return _yearstart; }
     set
