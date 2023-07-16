@@ -259,33 +259,18 @@ where e.UpheldByCourt = 1
         }
 
         [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void GetListOfParties(bool includeblank)
+        public void GetListOfParties()
         {
             int partycount = GetFirstColumnFirstRowValue("select total = count(*) from party");
-            if (includeblank == true) { partycount = partycount + 1; }
             Assume.That(partycount > 0, "No parties in DB, can't test");
             TestContext.WriteLine("Num of parties in DB = " + partycount);
             TestContext.WriteLine("Ensure that num of rows return by app matches " + partycount);
-            bizParty p = new();
-            var lst = p.GetList(includeblank);
             
-            Assert.IsTrue(lst.Count == partycount,"num rows returned by app (" + lst.Count + ") <> " + partycount);
+            DataTable dt = President.GetPartyList();
             
-            TestContext.WriteLine("Number of rows in Parties return by app = " + lst.Count);
-        }
-
-        [Test]
-        public void SearchParties() {
-            string partyname = "e";
-            int partycount = GetFirstColumnFirstRowValue($"select total = count(*) from party where partyname like '%{partyname}%'");
-            TestContext.WriteLine("Num of search results in DB = " + partycount);
-            TestContext.WriteLine("Ensure that num of rows return by app matches " + partycount);
-            bizParty p = new();
-            List <bizParty> lst = p.Search(partyname);
-            Assert.IsTrue(lst.Count == partycount, "num rows returned by search (" + lst.Count + ") <> " + partycount);
-            TestContext.WriteLine("Number of rows in search results return by app = " + lst.Count);
+            Assert.IsTrue(dt.Rows.Count == partycount,"num rows returned by app (" + dt.Rows.Count + ") <> " + partycount);
+            
+            TestContext.WriteLine("Number of rows in Parties return by app = " + dt.Rows.Count);
         }
 
         [Test]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RecordKeeperSystem
 {
-    public class bizPresident : bizObject
+    public class bizPresident : bizObject<bizPresident>
     {
         public bizPresident() { 
         
