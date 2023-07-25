@@ -23,10 +23,10 @@
     </ContentPage.Resources>
     <Border Padding="10" MaximumWidthRequest="500">
         <Grid ColumnDefinitions="Auto,*,Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*,*" ColumnSpacing="5" RowSpacing="10">
-            <Label x:Name="lblmessage" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" TextColor="{StaticResource Key=Danger}" />
+            <Label x:Name="MessageLbl" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" TextColor="{StaticResource Key=Danger}" />
 
             <Label Grid.Column="0" Grid.Row="1" Text="Party" />
-            <Picker Grid.Column="1" Grid.Row="1" ItemsSource="{Binding PartyList}" ItemDisplayBinding="{Binding PartyName}"  />
+            <Picker Grid.Column="1" Grid.Row="1" ItemsSource="{Binding PartyList}" ItemDisplayBinding="{Binding PartyName}" SelectedItem="{Binding Party}"  />
             <Label Grid.Column="2" Grid.Row="1" Text="Num" />
             <Entry Text="{Binding Path=Num}" Grid.Column="3" Grid.Row="1" Placeholder="Num"/>
 
@@ -46,9 +46,9 @@
             <Label Grid.Column="2" Grid.Row="4" Text="Date Died" />
             <Entry Grid.Column="3" Grid.Row="4" Text="{Binding DateDied, StringFormat='{0:d}'}" />
             <HorizontalStackLayout Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" Spacing="10" HorizontalOptions="Center">
-                <Button x:Name="SaveBtn" Text="Save" />
-                <Button x:Name="DeleteBtn" Text="Delete" BackgroundColor="{StaticResource Key=Danger}"/>
-                <Button x:Name="CancelBtn" Text="Close" BackgroundColor="{StaticResource Key=Warning}"/>
+                <Button x:Name="SaveBtn" Text="Save" Clicked="SaveBtn_Clicked" />
+                <Button x:Name="DeleteBtn" Text="Delete" BackgroundColor="{StaticResource Key=Danger}" Clicked="DeleteBtn_Clicked"/>
+                <Button x:Name="CancelBtn" Text="Close" BackgroundColor="{StaticResource Key=Warning}" Clicked="CancelBtn_Clicked"/>
             </HorizontalStackLayout>
 
             <VerticalStackLayout Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4">

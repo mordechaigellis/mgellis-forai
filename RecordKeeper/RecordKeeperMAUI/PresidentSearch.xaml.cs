@@ -27,4 +27,9 @@ public partial class PresidentSearch : ContentPage
         bizPresident prez = (bizPresident)e.Item;
         await Navigation.PushAsync(new PresidentDetail(prez.PresidentId));
     }
+
+    private async void NewBtn_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new PresidentDetail(0));
+    }
 }

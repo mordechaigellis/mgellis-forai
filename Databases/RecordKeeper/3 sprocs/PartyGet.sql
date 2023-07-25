@@ -10,7 +10,7 @@ begin
 	where p.PartyId = @PartyId
 	or @All = 1
 	or p.PartyName like '%' + @PartyName + '%'
-	union select 0, '', 0, 0, ''
+	union select 0, ' ', 0, 0, ''
 	where @IncludeBlank = 1
 	order by p.PartyName
 end

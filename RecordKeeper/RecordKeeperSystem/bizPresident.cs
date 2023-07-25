@@ -13,13 +13,13 @@ namespace RecordKeeperSystem
         }
         private int _presidentId;
         private int _partyId;
-        private int _num;
+        private int? _num;
         private string _firstname = "";
         private string _lastname = "";
-        private DateTime _dateborn;
+        private DateTime? _dateborn;
         private DateTime? _datedied;
-        private int _termstart;
-        private int _termend;
+        private int? _termstart;
+        private int? _termend;
         private List<bizParty> _lstparty;
 
         public List<bizPresident> Search(int partyid, string lastname, int begintermstart, int endtermstart)
@@ -38,7 +38,7 @@ namespace RecordKeeperSystem
             get
             {
                 if (_lstparty == null) {
-                    _lstparty = new bizParty().GetList();
+                    _lstparty = new bizParty().GetList(true);
                 }
                 return _lstparty;
             }
@@ -47,8 +47,9 @@ namespace RecordKeeperSystem
         public bizParty? Party
         {
             get => _lstparty?.FirstOrDefault(p => p.PartyId == this.PartyId);
-            set { 
-            
+            set {
+                this.PartyId = value == null ? 0 : value.PartyId;
+                InvokePropertyChanged();
             }
         }
 
@@ -78,7 +79,7 @@ namespace RecordKeeperSystem
             }
         }
 
-        public int Num
+        public int? Num
         {
             get { return _num; }
             set
@@ -117,7 +118,7 @@ namespace RecordKeeperSystem
             }
         }
 
-        public DateTime DateBorn
+        public DateTime? DateBorn
         {
             get { return _dateborn; }
             set
@@ -143,7 +144,7 @@ namespace RecordKeeperSystem
             }
         }
 
-        public int TermStart
+        public int? TermStart
         {
             get { return _termstart; }
             set
@@ -156,7 +157,7 @@ namespace RecordKeeperSystem
             }
         }
 
-        public int TermEnd
+        public int? TermEnd
         {
             get { return _termend; }
             set
