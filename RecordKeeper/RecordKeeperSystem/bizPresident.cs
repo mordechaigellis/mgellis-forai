@@ -20,6 +20,7 @@ namespace RecordKeeperSystem
         private DateTime? _datedied;
         private int _termstart;
         private int _termend;
+        private List<bizParty> _lstparty;
 
         public List<bizPresident> Search(int partyid, string lastname, int begintermstart, int endtermstart)
         {
@@ -30,6 +31,25 @@ namespace RecordKeeperSystem
             SQLUtility.SetParamValue(cmd, "@EndTermStart", endtermstart);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
+        }
+
+        public List<bizParty> PartyList
+        {
+            get
+            {
+                if (_lstparty == null) {
+                    _lstparty = new bizParty().GetList();
+                }
+                return _lstparty;
+            }
+        }
+
+        public bizParty? Party
+        {
+            get => _lstparty?.FirstOrDefault(p => p.PartyId == this.PartyId);
+            set { 
+            
+            }
         }
 
         public int PresidentId
