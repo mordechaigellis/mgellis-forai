@@ -16,6 +16,15 @@ namespace RecordKeeperSystem
         private string _ordername = "";
         private bool _upheldbycourt;
         private string _reference = "";
+
+        public List<bizExecutiveOrder> LoadByPresidentId(int presidentid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("ExecutiveOrderGet");
+            cmd.Parameters["@PresidentId"].Value = presidentid;
+            var dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
+
         public int ExecutiveOrderId
         {
             get { return _executiveorderid; }

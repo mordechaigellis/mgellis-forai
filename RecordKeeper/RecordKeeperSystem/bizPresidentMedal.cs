@@ -13,6 +13,14 @@ namespace RecordKeeperSystem
         private int _medalid;
         private string _medalname = "";
 
+        public List<bizPresidentMedal> LoadByPresidentId(int presidentid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentMedalGet");
+            cmd.Parameters["@PresidentId"].Value = presidentid;
+            var dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
+
         public int PresidentMedalId
         {
             get { return _presidentmedalId; }

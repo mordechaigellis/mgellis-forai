@@ -4,12 +4,14 @@
 --on c.ColorId = p.ColorId
 --group by c.ColorName
 
-select count(distinct p.PresidentId)
+select p.PresidentId, p.Num, p.LastName, e.*
 from President p
 join ExecutiveOrder e
 on p.PresidentId = e.PresidentId
 
-select count(distinct PresidentId)
-from PresidentMedal
+select p.PresidentId, p.Num, p.LastName, pm.*
+from PresidentMedal pm
+join President p
+on p.PresidentId = pm.PresidentId
 
-select * from President order by 1 desc
+--select * from President order by 1 desc

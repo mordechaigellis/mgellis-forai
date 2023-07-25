@@ -53,14 +53,22 @@
 
             <VerticalStackLayout Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4">
                 <Label Text="Executive Orders" FontSize="Subtitle"/>
-                <VerticalStackLayout>
-
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding ExecutiveOrderList}" BindableLayout.EmptyView="No Executive Orders for this President">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Reference}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
                 </VerticalStackLayout>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4">
                 <Label Text="Medals" FontSize="Subtitle"/>
-                <VerticalStackLayout>
-
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding PresidentMedalList}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding MedalName}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </Grid>

@@ -21,6 +21,8 @@ namespace RecordKeeperSystem
         private int? _termstart;
         private int? _termend;
         private List<bizParty> _lstparty;
+        private List<bizPresidentMedal> _lstpresidentmedal;
+        private List<bizExecutiveOrder> _lstexecutiveorder;
 
         public List<bizPresident> Search(int partyid, string lastname, int begintermstart, int endtermstart)
         {
@@ -53,7 +55,25 @@ namespace RecordKeeperSystem
             }
         }
 
-        //public List<biz>
+        public List<bizPresidentMedal> PresidentMedalList
+        {
+            get {
+                if (_lstpresidentmedal == null) {
+                    _lstpresidentmedal = new bizPresidentMedal().LoadByPresidentId(this.PresidentId);
+                }
+                return _lstpresidentmedal;
+            }
+        }
+
+        public List<bizExecutiveOrder> ExecutiveOrderList
+        {
+            get {
+                if (_lstexecutiveorder == null) {
+                    _lstexecutiveorder = new bizExecutiveOrder().LoadByPresidentId(this.PresidentId);
+                }
+                return _lstexecutiveorder;
+            }
+        }
 
         public int PresidentId
         {
