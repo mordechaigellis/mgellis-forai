@@ -53,6 +53,8 @@ namespace RecordKeeperSystem
             }
         }
 
+        //public List<biz>
+
         public int PresidentId
         {
             get { return _presidentId; }
