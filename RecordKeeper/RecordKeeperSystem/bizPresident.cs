@@ -21,6 +21,17 @@ namespace RecordKeeperSystem
         private int _termstart;
         private int _termend;
 
+        public List<bizPresident> Search(int partyid, string lastname, int begintermstart, int endtermstart)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentSearch");
+            SQLUtility.SetParamValue(cmd, "@LastName", lastname);
+            SQLUtility.SetParamValue(cmd, "@PartyId", partyid);
+            SQLUtility.SetParamValue(cmd, "@BeginTermStart", begintermstart);
+            SQLUtility.SetParamValue(cmd, "@EndTermStart", endtermstart);
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
+
         public int PresidentId
         {
             get { return _presidentId; }

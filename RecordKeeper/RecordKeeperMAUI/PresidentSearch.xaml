@@ -7,14 +7,14 @@
         <Label Text="Last Name" Grid.Column="0" Grid.Row="0"/>
         <Entry x:Name="LastNameTxt" Grid.Column="1" Grid.Row="0" MinimumWidthRequest="200"/>
         <Button x:Name="SearchBtn" Text="Search" Grid.Column="2" Grid.Row="0" Clicked="SearchBtn_Clicked" />
-        <ListView x:Name="PresidentLst" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+        <ListView x:Name="PresidentLst" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" ItemTapped="PresidentLst_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,Auto,*" ColumnSpacing="10">
-                            <Image Grid.Row="0" Grid.Column="0" HeightRequest="75" Source="{Binding Path=[Num],StringFormat='p{0}p.jpeg'}"/>
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Path=[Num]}"/>
-                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding Path=[LastName]}"/>
+                            <Image Grid.Row="0" Grid.Column="0" HeightRequest="75" Source="{Binding Num,StringFormat='p{0}p.jpeg'}"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Num}"/>
+                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding LastName}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
