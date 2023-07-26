@@ -120,6 +120,9 @@
 	  <MauiXaml Update="Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="OlympicsList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="PresidentDetail.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

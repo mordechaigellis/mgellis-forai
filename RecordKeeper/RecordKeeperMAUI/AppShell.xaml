@@ -16,6 +16,12 @@
         Title="President Search"
         ContentTemplate="{DataTemplate local:PresidentSearch}"
         Route="PresidentSearch" />
+
+        <ShellContent
+            Title="Olympics List"
+            ContentTemplate="{DataTemplate local:OlympicsList}"
+            Route="OlympicsList"
+            />
     </TabBar>
     
     <ShellContent

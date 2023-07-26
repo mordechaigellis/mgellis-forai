@@ -14,7 +14,7 @@ begin
 		o.CityId, 
 		o.OlympicYear, 
 		s.SeasonName, 
-		OlympicsDec = concat(s.SeasonName,' ', c.CityName,' ', o.OlympicYear),
+		OlympicsDesc = concat(s.SeasonName,' ', c.CityName,' ', o.OlympicYear),
 		ListOrder = 1
 	from Olympics o
 	join Season s

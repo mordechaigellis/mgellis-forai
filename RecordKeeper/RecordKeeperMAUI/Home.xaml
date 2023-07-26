@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecordKeeperMAUI.Home"
              Title="Home">
-    <VerticalStackLayout>
-        <Label 
-            Text="Home"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout x:Name="DashboardLst" HorizontalOptions="Center">
+        <BindableLayout.ItemTemplate>
+            <DataTemplate>
+                <Button x:Name="DashboardBtn" Text="{Binding DashboardText}" Clicked="DashboardBtn_Clicked" />
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
     </VerticalStackLayout>
+
 </ContentPage>
