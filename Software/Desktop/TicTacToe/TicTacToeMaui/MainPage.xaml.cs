@@ -25,7 +25,13 @@ namespace TicTacToeMaui
 
         private void StartBtn_Clicked(object sender, EventArgs e)
         {
-            activegame.StartGame(PlayAgainstComputerRb.IsChecked);
+            if (activegame.GameStatus == Game.GameStatusEnum.NotStarted)
+            {
+                activegame.StartGame(PlayAgainstComputerRb.IsChecked);
+            }
+            else {
+                activegame.StopGame();
+            }
         }
 
         private void btn_Clicked(object sender, EventArgs e)

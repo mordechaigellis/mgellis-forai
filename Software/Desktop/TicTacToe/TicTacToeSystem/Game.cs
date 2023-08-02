@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace TicTacToeSystem
@@ -22,9 +23,12 @@ namespace TicTacToeSystem
         private static int scorexwins;
         private static int scoreowins;
         private static int scoreties;
+        private static int numgames;
 
         public Game()
         {
+            numgames++;
+            this.GameName = "Game " + numgames;
             for (int i = 0; i < 9; i++)
             {
                 this.Spots.Add(new Spot());
@@ -45,6 +49,8 @@ namespace TicTacToeSystem
         }
 
         public List<Spot> Spots { get; private set; } = new();
+
+        public string GameName { get; private set; }
         public GameStatusEnum GameStatus
         {
             get => _gamestatus;
@@ -53,6 +59,7 @@ namespace TicTacToeSystem
                 _gamestatus = value;
                 this.InvokePropertyChanged();
                 this.InvokePropertyChanged("GameStatusDescription");
+                this.InvokePropertyChanged("StartButtonText");
             }
         }
         public TurnEnum CurrentTurn
@@ -64,9 +71,54 @@ namespace TicTacToeSystem
                 this.InvokePropertyChanged("GameStatusDescription");
             }
         }
-        public string GameStatusDescription { get => (this.PlayAgainstComputer ? "Play Against Computer ":"2 Player ") + $"{this.GameStatus.ToString()} Current Turn: {this.CurrentTurn.ToString()}"; }
+        public string GameStatusDescription
+        {
+            get
+            {
+                string s = $"{this.GameName}, {this.GameMode}: ";
+                switch (this.GameStatus)
+                {
+                    case GameStatusEnum.NotStarted:
+                        s = s + " Click Start";
+                        break;
+                    case GameStatusEnum.Playing:
+                        s = s + "Current Turn " + this.CurrentTurn;
+                        break;
+                    case GameStatusEnum.Winner:
+                        s = s + this.GameStatus + " is " + this.CurrentTurn;
+                        break;
+                    case GameStatusEnum.Tie:
+                        s = s + this.GameStatus;
+                        break;
+                }
+
+                return s;
+            }
+        }
         public TurnEnum Winner { get; private set; }
         public bool PlayAgainstComputer { get; set; }
+        public string GameMode { get => this.PlayAgainstComputer ? "Play the Computer" : "2 Player"; }
+        public string GameModeHeader { get => "For " + this.GameName; }
+        public string StartButtonText
+        {
+            get
+            {
+                string s = "";
+                switch (this.GameStatus)
+                {
+                    case GameStatusEnum.NotStarted:
+                        s = "Start ";
+                        break;
+                    case GameStatusEnum.Playing:
+                    case GameStatusEnum.Winner:
+                    case GameStatusEnum.Tie:
+                        s = "Stop ";
+                        break;
+                }
+                s = s + this.GameName;
+                return s;
+            }
+        }
         public System.Drawing.Color SpotWinnerColor { get; set; } = System.Drawing.Color.Red;
         public System.Drawing.Color SpotTieColor { get; set; } = System.Drawing.Color.Gray;
         public System.Drawing.Color SpotPlayingColor { get; set; } = System.Drawing.Color.Silver;
@@ -77,14 +129,23 @@ namespace TicTacToeSystem
         public void StartGame(bool playagainstcomputer = false)
         {
             this.PlayAgainstComputer = playagainstcomputer;
+            ClearButtons();
+            this.GameStatus = GameStatusEnum.Playing;
+            this.CurrentTurn = TurnEnum.X;
+
+        }
+
+        public void StopGame() {
+            this.GameStatus = GameStatusEnum.NotStarted;
+            ClearButtons();
+        }
+
+        private void ClearButtons() {
             this.Spots.ForEach(b =>
             {
                 b.Clear();
                 b.BackColor = this.SpotPlayingColor;
             });
-            this.GameStatus = GameStatusEnum.Playing;
-            this.CurrentTurn = TurnEnum.X;
-
         }
         public void TakeSpot(int spotnum)
         {
@@ -150,7 +211,8 @@ namespace TicTacToeSystem
                 {
                     scorexwins++;
                 }
-                else {
+                else
+                {
                     scoreowins++;
                 }
                 ScoreChanged?.Invoke(this, new EventArgs());

@@ -8,29 +8,33 @@
         </Style>
     </ContentPage.Resources>
     <Grid  ColumnDefinitions="*" RowDefinitions="Auto,*">
-        <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*,*,*,*,*" Grid.Column="0" Grid.Row="0">
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" Grid.Column="0" Grid.Row="0">
+            <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="4">
+                <Label Text="3 simultaneous games." />
+                <Label Text="Choose which one to play" />
                 <RadioButton x:Name="Game1Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
                 <RadioButton x:Name="Game2Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
                 <RadioButton x:Name="Game3Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
-            </HorizontalStackLayout>
-            <Label x:Name="ScoreLbl" Grid.Column="0" Grid.Row="3" BackgroundColor="White"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1" Grid.Row="0">
+                <Label Text="{Binding GameModeHeader}" />
+                <RadioButton Content="2 Player"  />
+                <RadioButton x:Name="PlayAgainstComputerRb" Content="Play the Computer" />
+            </VerticalStackLayout>
+
             <Button x:Name="StartBtn"
                     Clicked="StartBtn_Clicked"
-                    Margin="20" Text="Start" 
-                    Grid.Column="1" Grid.Row="1"
+                    Text="{Binding StartButtonText}" 
+                    Grid.Column="2" Grid.Row="0"
                     TextTransform="Uppercase"
-                    FontSize="Medium"
-                    CharacterSpacing="10"
-                    CornerRadius="0"
+                    CornerRadius="5"
+                    MaximumWidthRequest="300"
+                    MaximumHeightRequest="100"
                     />
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="3">
-                <RadioButton Content="2 Player" IsChecked="True"/>
-                <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" />
-            </HorizontalStackLayout>
-            <Label Text="{Binding GameStatusDescription}" Grid.Column="0" Grid.Row="2"
-                   VerticalOptions="Center"
-                   />
+            <Line BackgroundColor="Black" StrokeThickness="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <Label x:Name="ScoreLbl" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding GameStatusDescription}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" HorizontalTextAlignment="Center" BackgroundColor="LightYellow"/>
         </Grid>
         <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="1">
             <Button x:Name="btn1" Grid.Column="0" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[0]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
