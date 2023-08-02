@@ -9,12 +9,12 @@
     </ContentPage.Resources>
     <Grid  ColumnDefinitions="*" RowDefinitions="Auto,*">
         <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*,*,*,*,*" Grid.Column="0" Grid.Row="0">
-            <FlexLayout Grid.Column="0" Grid.Row="0" JustifyContent="SpaceBetween" Wrap="Wrap" Grid.ColumnSpan="4">
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
                 <RadioButton x:Name="Game1Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
                 <RadioButton x:Name="Game2Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
                 <RadioButton x:Name="Game3Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
-            </FlexLayout>
-            <Label x:Name="ScoreLbl" Grid.Column="1" Grid.Row="2" BackgroundColor="LightYellow"/>
+            </HorizontalStackLayout>
+            <Label x:Name="ScoreLbl" Grid.Column="0" Grid.Row="3" BackgroundColor="White"/>
             <Button x:Name="StartBtn"
                     Clicked="StartBtn_Clicked"
                     Margin="20" Text="Start" 
@@ -24,7 +24,7 @@
                     CharacterSpacing="10"
                     CornerRadius="0"
                     />
-            <HorizontalStackLayout Grid.Column="0" Grid.Row="1">
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="3">
                 <RadioButton Content="2 Player" IsChecked="True"/>
                 <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" />
             </HorizontalStackLayout>
