@@ -25,7 +25,7 @@ begin
 	select @count = count(*) 
 	from @t 
 
-	if @count > 1000
+	if @count > 100
 	begin
 		select @Return = 1,@Message = concat('Search would return ', @count,' rows. You are only allowed to return 10 rows')
 		goto finished
