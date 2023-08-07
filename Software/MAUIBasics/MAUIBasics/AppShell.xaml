@@ -47,7 +47,11 @@
         ContentTemplate="{DataTemplate local:CenteredPage}"
         Route="CenteredPage"/>
 
-        
-        
+        <ShellContent
+        Title="FlexLayout Page"
+        ContentTemplate="{DataTemplate local:FlexLayoutPage}"
+        Route="FlexLayoutPage"/>
+
+
     </TabBar>
 </Shell>
