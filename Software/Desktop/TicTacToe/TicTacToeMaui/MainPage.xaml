@@ -5,24 +5,24 @@
     <ContentPage.Resources>
         <Style TargetType="Button" x:Key="game-button">
             <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="FontSize" Value="36"/>
         </Style>
     </ContentPage.Resources>
     <Grid  ColumnDefinitions="*" RowDefinitions="Auto,Auto,*">
-        <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" Grid.Column="0" Grid.Row="0">
-            <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="4">
+        <FlexLayout Wrap="Wrap" Grid.Column="0" Grid.Row="0" JustifyContent="SpaceAround" AlignItems="Start">
+            <VerticalStackLayout Margin="4">
                 <Label Text="3 simultaneous games." />
                 <Label Text="Choose which one to play" />
-                <RadioButton x:Name="Game1Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
-                <RadioButton x:Name="Game2Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
-                <RadioButton x:Name="Game3Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
+                <RadioButton x:Name="Game1Rb" Content="{OnIdiom {Binding GameName},Desktop={Binding GameStatusDescription},Tablet={Binding GameStatusDescription}}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
+                <RadioButton x:Name="Game2Rb" Content="{OnIdiom {Binding GameName},Desktop={Binding GameStatusDescription},Tablet={Binding GameStatusDescription}}" CheckedChanged="Game_CheckedChanged"/>
+                <RadioButton x:Name="Game3Rb" Content="{OnIdiom {Binding GameName},Desktop={Binding GameStatusDescription},Tablet={Binding GameStatusDescription}}" CheckedChanged="Game_CheckedChanged"/>
             </VerticalStackLayout>
-
-            <VerticalStackLayout Grid.Column="1" Grid.Row="0">
+            <VerticalStackLayout>
                 <Label Text="{Binding GameModeHeader}" />
                 <RadioButton Content="2 Player"  />
                 <RadioButton x:Name="PlayAgainstComputerRb" Content="Play the Computer" />
             </VerticalStackLayout>
-            <HorizontalStackLayout Grid.Column="2" Grid.Row="0" VerticalOptions="Center">
+            <HorizontalStackLayout VerticalOptions="Center">
                 <Button x:Name="StartBtn"
                     Clicked="StartBtn_Clicked"
                     Text="{Binding StartButtonText}" 
@@ -32,7 +32,7 @@
                     MaximumHeightRequest="100"
                     />
             </HorizontalStackLayout>
-        </Grid>
+        </FlexLayout>
         <VerticalStackLayout Grid.Row="1" Grid.Column="0">
             <Line BackgroundColor="Black" StrokeThickness="1" />
             <Label x:Name="ScoreLbl" HorizontalTextAlignment="Center"/>
