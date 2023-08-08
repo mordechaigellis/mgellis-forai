@@ -7,7 +7,7 @@
             <Setter Property="CornerRadius" Value="40" />
         </Style>
     </ContentPage.Resources>
-    <Grid  ColumnDefinitions="*" RowDefinitions="Auto,*">
+    <Grid  ColumnDefinitions="*" RowDefinitions="Auto,Auto,*">
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" Grid.Column="0" Grid.Row="0">
             <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="4">
                 <Label Text="3 simultaneous games." />
@@ -22,21 +22,23 @@
                 <RadioButton Content="2 Player"  />
                 <RadioButton x:Name="PlayAgainstComputerRb" Content="Play the Computer" />
             </VerticalStackLayout>
-
-            <Button x:Name="StartBtn"
+            <HorizontalStackLayout Grid.Column="2" Grid.Row="0" VerticalOptions="Center">
+                <Button x:Name="StartBtn"
                     Clicked="StartBtn_Clicked"
                     Text="{Binding StartButtonText}" 
-                    Grid.Column="2" Grid.Row="0"
                     TextTransform="Uppercase"
                     CornerRadius="5"
                     MaximumWidthRequest="300"
                     MaximumHeightRequest="100"
                     />
-            <Line BackgroundColor="Black" StrokeThickness="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
-            <Label x:Name="ScoreLbl" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" HorizontalTextAlignment="Center"/>
-            <Label Text="{Binding GameStatusDescription}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" HorizontalTextAlignment="Center" BackgroundColor="LightYellow"/>
+            </HorizontalStackLayout>
         </Grid>
-        <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="1">
+        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+            <Line BackgroundColor="Black" StrokeThickness="1" />
+            <Label x:Name="ScoreLbl" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding GameStatusDescription}" HorizontalTextAlignment="Center" BackgroundColor="LightYellow"/>
+        </VerticalStackLayout>
+        <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="2">
             <Button x:Name="btn1" Grid.Column="0" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[0]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
             <Button x:Name="btn2" Grid.Column="1" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[1]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
             <Button x:Name="btn3" Grid.Column="2" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[2]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
