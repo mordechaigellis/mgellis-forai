@@ -49,7 +49,8 @@ begin
 	return @return
 end
 go
-
+grant execute on PresidentSearch to approle
+go
 declare @i int, @m varchar(1000)
 exec @i = PresidentSearch @BeginTermStart = 1950, @EndTermStart = 0, @Message = @m output
 

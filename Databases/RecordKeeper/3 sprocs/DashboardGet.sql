@@ -5,9 +5,9 @@ as
 begin
 	declare @return int = 0
 
-	select DashboardType = 'president', DashBoardText = concat('Click here to search from among ',count(*),' Presidents') from President p
+	select DashboardType = 'president', DashBoardText = concat('Search ',count(*),' Presidents') from President p
 	union 
-	select DashboardType = 'olympics', DashBoardText = concat('Click here to search from among ',count(*),' Olympic Games') from Olympics p
+	select DashboardType = 'olympics', DashBoardText = concat('Search ',count(*),' Olympic Games') from Olympics p
 
 	return @return
 end
