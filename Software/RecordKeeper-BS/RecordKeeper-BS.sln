@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordKeeper-BS", "RecordKeeper-BS\RecordKeeper-BS.csproj", "{205578A5-A063-4EF9-82FC-452C1302111A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{205578A5-A063-4EF9-82FC-452C1302111A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205578A5-A063-4EF9-82FC-452C1302111A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205578A5-A063-4EF9-82FC-452C1302111A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205578A5-A063-4EF9-82FC-452C1302111A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5154F1ED-5AF0-4791-ABBC-32D15A622484}
+	EndGlobalSection
+EndGlobal
