@@ -34,8 +34,11 @@ let d = null;
 logit(d);
 //console.log(d.toString());
 p = 12;
-logit(p,"p")
+let l = logit(p,"p");
+logit(l,"l");
 //logit(q,"q");
 function logit(value, desc){
-    console.log(`${desc}: value = ${value}`)
+    let s = `${desc}: value = ${value}`;
+    console.log(s);
+    return s;
 }
