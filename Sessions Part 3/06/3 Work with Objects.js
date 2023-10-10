@@ -14,8 +14,10 @@
 
 //8 create new instance of person and merge into it soldier and athlete
 
-//9 same as 8 but show what happens if you do not use the spread operator
+//9 create an array called roles that contains soldier and athlete, merge roles into a new instace of Person
+//10 same as 9 but show what happens if you do not use the spread operator
 
-//10 create an array called people, add to it new instances of person, and put soldier and athlete into an array called roles
+//11 create an array called people, add to it new instances of person, and put soldier and athlete into an array called roles
 
-//11 merge roles into all persons in people
+//12 merge roles into all persons in people
+//13 create a copy of people array that contains copy of persons not a reference
