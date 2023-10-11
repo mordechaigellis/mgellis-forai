@@ -12,4 +12,24 @@ We got another order similar to 344, but split in half, 5 items should also have
 --add Board game to the last five items
 Output a description of all orders
 */
+function Widget(orderNumber,sequenceNumber){
+    return {orderNumber, sequenceNumber }
+}
+const videogame = {videoController:"Joystick"};
+const boardgame = {boardsize:100};
+const wordgame = {wordLanguage:"English"};
+const widgets  = [];
+for(let i = 1;i < 11;i++){
+    widgets.push(new Widget(344,i));
+}
 
+const components = [videogame, boardgame];
+widgets.forEach(w => Object.assign(w,...components));
+widgets2 = [];
+widgets.forEach(w => widgets2.push({...w}));
+widgets2.forEach(w => w.orderNumber++);
+widgets2.slice(5,10).forEach(w => Object.assign(w,wordgame));
+
+widgets.forEach(w => console.log(w));
+console.log("---------");
+widgets2.forEach(w => console.log(w));
