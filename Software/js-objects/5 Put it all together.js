@@ -1,6 +1,6 @@
 /*
 You are working in a toy factory that produces one toy called widget, that can have multiple components.
-The widget's props are order number and item sequence number in order.
+The widget's props are order number and item sequence number in the order.
 The order number and item sequence can be specified upon initialization.
 The components that can be added to the widget are Video Game, Board Game, and Word Game, use your imagination for props for each, you can code these as object literal
 We have an order for 10 widgets with Video and Word. 
