@@ -3,9 +3,7 @@ You are tasked with creating a student record system for a school.
 Each student has specific information that needs to be managed.
 Your goal is to create, manipulate, and display student records using JavaScript objects.
 1) You need to create student objects with the following properties.
-    name (string): Name of the student.
-    age (number): Age of the student.
-    grade (string): Grade or class of the student.
+    name, age, grade (this is a number indicating the class level, like 11th grade)
     subjects (array): An array of the student's favorite subjects.
     name, age, grade can be specified when student is created.
 2) A student may enroll in one or more majors, each major has a set of subjects.
