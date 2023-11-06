@@ -7,4 +7,83 @@
     <div class="col-12">
         <h1>Basics</h1>
     </div>
+    <div class="row">
+        <div class="col-2"><button id="btn1" class="btn btn-primary">Change 1st p tag</button></div>
+        <div class="col-2"><button id="btn2" class="btn btn-primary">Change all P tags</button></div>
+        <div class="col-2"><button id="btn3" class="btn btn-primary">Change all all with class siteinfo</button></div>
+        <div class="col-2"><button id="btn4" class="btn btn-primary">Change Images</button></div>
+        <div class="col-2"><input type="text" class="form-control" /></div>
+        <div class="col-2">
+            <input type="radio" class="" name="choice" value="1" id="opt1" checked />
+            <label for="opt1">Choice 1</label><br />
+            <input type="radio" class="" name="choice" value="2" id="opt2" />
+            <label for="opt2">Choice 2</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12  bg-info text-light"  id="msg">
+            
+        </div>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p class="siteinfo" id="p1">
+                Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+            </p>
+        </div>
+        <div class="col-3">
+            <p class="siteinfo">
+                Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+            </p>
+        </div>
+        <div class="col-3">
+            <p class="siteinfo">
+                Consectetur adipiscing elit fusce vel.
+            </p>
+        </div>
+        <div class="col-3">
+            <div class="siteinfo">
+                Urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3"><img src="images/p1p.jpg" alt="" class="img-fluid imgchange" /></div>
+        <div class="col-3"><img src="images/p1p.jpg" alt="" class="img-fluid imgchange" /></div>
+        <div class="col-3"><img src="images/p1p.jpg" alt="" class="img-fluid imgchange" /></div>
+    </div>
 </div>
+
+<script>
+    document.querySelector("#btn1").addEventListener("click", changeP1);
+    document.querySelector("#btn2").addEventListener("click", changeAllPtags);
+    document.querySelector("#btn3").addEventListener("click", changeByClass);
+    document.querySelector("#btn4").addEventListener("click", changeImages);
+
+    const msg = document.querySelector("#msg");
+    let imgnum = 0;
+
+    function changeP1(){
+        const p = document.querySelector("#p1");
+        p.innerHTML = "I was changed because of my id";
+    }
+
+    function changeAllPtags(){
+    const lst = document.querySelectorAll("p");
+    msg.innerHTML = `${lst.length} p tags found`;
+    lst.forEach(p => p.innerHTML = "I was changed!!!");
+    }
+
+    function changeByClass(){
+        const lst = document.querySelectorAll(".siteinfo");
+        msg.innerHTML = `${lst.length} tags found with call = siteinfo`;
+        lst.forEach(p => p.innerHTML = "I was changed because of class = siteinfo");
+    }
+    function changeImages(){
+        const lst = document.querySelectorAll(".imgchange");
+        if(imgnum >= 9){imgnum = 0}
+        lst.forEach(i => i.src = `images/p${++imgnum}p.jpg`);
+        
+    }
+</script>
