@@ -83,7 +83,12 @@
     function changeImages(){
         const lst = document.querySelectorAll(".imgchange");
         if(imgnum >= 9){imgnum = 0}
-        lst.forEach(i => i.src = `images/p${++imgnum}p.jpg`);
+        lst.forEach(
+            i =>{
+                i.src = `images/p${++imgnum}p.jpg`;
+                console.log(i.src);
+            }
+        );
         
     }
 </script>
