@@ -1,37 +1,14 @@
 /*
-You are writing softare to transmit data over a network that has the following rules:
-a) First trasmit the number of chars in the string to be transmitted followed by :
-b) The data has to be sent in packets of no more than 3 chars at a time. Each char should be separated by a -
-c) After every packet transmit ---
-d) when finished transmit :end
-d) Beware of undefined, null, and NaN that may be passed to your system for transmitting. If you receive that then transmit "INVALID".
-
-Write a JS function that take a string and transmits the data following the specified rules.
-In place of sending the data on the network console.log it.
+You are writing software for a submarine console. 
+Your job is to write a function that receives different types of reports about the enironment surrounding the submarine.
+Report types are weather, obstacle, fun-fact.
+The reports come in from different instruments and can string or numeric.
+The reports will come in with their report type indicated with a single letter, and that is the first letter of the type.
+Each report type has to be output in a differt format.
+    weather: ****W**** report;
+    obstacle !!!!!!!!! report;
+    fun-fact :) report :)
+For the submarine's black box You need to keep a log of all the reports and write a function that outputs that log upon demand.
+    tech note: each report should be in a tuple, and keep an array of those tuples, for output loop through the array
 */
 
-let s = "12345678981234abcdef asdasd sdsf";
-transmit(s);
-//transmit(undefined);
-//transmit(null);
-//transmit(NaN);
-
-function transmit(val){
-    if(val == null || Number.isNaN(val)){
-        console.log("INVALID");
-        return;
-    }
-
-    let a = val.split("");
-    console.log(`${a.length}:`);   
-    while(a.length > 0){
-        let a2 = a.splice(0,3);
-        let s = a2.join("-")
-        console.log(s);
-        console.log("---");
-        if(a.length == 0){
-            console.log(":end");
-        }
-    }
-    
-}
