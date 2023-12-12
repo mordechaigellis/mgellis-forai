@@ -17,3 +17,6 @@ dotnet add package Microsoft.TypeScript.MSBuild
 <ItemGroup>
   <TypeScriptCompile Include="**/*.ts" />
 </ItemGroup>
+
+//jquery
+cmd line npm i --save-dev @types/jquery
