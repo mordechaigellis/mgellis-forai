@@ -43,3 +43,5 @@ function drawOnScreen(e: MouseEvent | KeyboardEvent) {
     d.style.left = x + "px"
     document.querySelector("body").appendChild(d);
 }
+
+export { };
