@@ -1,11 +1,11 @@
-﻿const x = "X";
+const x = "X";
 const o = "O";
 let currentTurn = x;
 let gameover = false;
-let msg: Element;
-let allspots: Element[] = [];
-const winningSets: Element[][] = [];
-let checkPlayComputer = () => (document.querySelector("#rdPlayComputer") as HTMLInputElement).checked;
+let msg;
+let allspots = [];
+const winningSets = [];
+let checkPlayComputer = () => document.querySelector("#rdPlayComputer").checked;
 $(document).ready(function () {
     msg = document.querySelector("#msg");
     allspots = [...document.querySelectorAll(".spot")];
@@ -13,34 +13,29 @@ $(document).ready(function () {
     setupWinningSets();
     startGame();
 });
-
 function setupWinningSets() {
     for (let i = 1; i < 4; i++) {
-        winningSets.push([...$(`.r${i}`)])
-        winningSets.push([...$(`.c${i}`)])
+        winningSets.push([...$(`.r${i}`)]);
+        winningSets.push([...$(`.c${i}`)]);
         if (i < 3) {
-            winningSets.push([...$(`.d${i}`)])
+            winningSets.push([...$(`.d${i}`)]);
         }
     }
 }
-
 function startGame() {
     gameover == false;
     currentTurn = x;
     showCurrentTurn();
     $(allspots).text("").removeClass("tie").removeClass("winner");
 }
-
-function takeSpot(event: Event) {
-    const btn = event.target as Element;
+function takeSpot(event) {
+    const btn = event.target;
     doTakeSpot(btn);
 }
-
-function doTakeSpot(btn: Element) {
+function doTakeSpot(btn) {
     if (btn.textContent != "") {
         return;
     }
-
     btn.textContent = currentTurn;
     CheckWinnerTie();
     if (gameover == false) {
@@ -51,14 +46,12 @@ function doTakeSpot(btn: Element) {
         }
     }
 }
-
 function doComputerTurn() {
     const btn = allspots.find(s => s.textContent == "");
     if (btn) {
         doTakeSpot(btn);
     }
 }
-
 function CheckWinnerTie() {
     winningSets.forEach(w => {
         if (w.every(s => s.textContent == x) || w.every(s => s.textContent == o)) {
@@ -74,9 +67,8 @@ function CheckWinnerTie() {
             $(allspots).addClass("tie");
         }
     }
-
 }
-
 function showCurrentTurn() {
     msg.textContent = "Current turn is " + currentTurn;
 }
+//# sourceMappingURL=tictactoeJquery.js.map
