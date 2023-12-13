@@ -31,7 +31,7 @@ function startGame() {
     $(allspots).text("").removeClass("tie").removeClass("winner");
 }
 
-function takeSpot(event: JQuery.Event) {
+function takeSpot(event: Event) {
     const btn = event.target as Element;
     doTakeSpot(btn);
 }
