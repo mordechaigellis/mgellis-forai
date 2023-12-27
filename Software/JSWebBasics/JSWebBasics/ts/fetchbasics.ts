@@ -25,7 +25,7 @@ function addPostcard(p: post): string {
   <img class="card-img-top" src="/images/p${picnum}p.jpg" alt="${p.title}">
   <div class="card-body">
     <h5 class="card-title">${p.title}</h5>
-    <p class="card-text">${p.body}</p>
+    <p class="card-text">${p.body || "body coming soon...."}</p>
     <a href="#" class="btn btn-primary">See card ${p.id}</a>
   </div>
 </div>`
