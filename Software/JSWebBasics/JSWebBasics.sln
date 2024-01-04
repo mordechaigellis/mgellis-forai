@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSWebBasics", "JSWebBasics\JSWebBasics.csproj", "{FACFF32F-BCDD-413B-A354-81CF65FA1609}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIBasics", "APIBasics\APIBasics\APIBasics.csproj", "{F3DD00A0-BE64-4BAE-A0BD-A32E58976DFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FACFF32F-BCDD-413B-A354-81CF65FA1609}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACFF32F-BCDD-413B-A354-81CF65FA1609}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACFF32F-BCDD-413B-A354-81CF65FA1609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3DD00A0-BE64-4BAE-A0BD-A32E58976DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3DD00A0-BE64-4BAE-A0BD-A32E58976DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3DD00A0-BE64-4BAE-A0BD-A32E58976DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3DD00A0-BE64-4BAE-A0BD-A32E58976DFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

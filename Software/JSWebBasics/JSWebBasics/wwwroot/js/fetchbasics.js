@@ -14,7 +14,7 @@ let msg2 = document.querySelector("#msg");
 document.querySelector("#btn").addEventListener("click", btnclick);
 function btnclick() {
     return __awaiter(this, void 0, void 0, function* () {
-        p = yield fetchFromAPI(`https://jsonplaceholder.typicode.com/albums/${num}`);
+        p = yield fetchFromAPI(`https://jsonplaceholder.typicode.com/posts/${num}`);
         num++;
         msg2.innerHTML = p.body;
         const newdiv = document.createElement("div");
