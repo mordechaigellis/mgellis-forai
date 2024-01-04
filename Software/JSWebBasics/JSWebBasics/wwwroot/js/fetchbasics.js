@@ -7,13 +7,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-let p; //= { id: 1, body: "hello world", userId: 10 };
 let num = 1;
 let picnum = 1;
 let msg2 = document.querySelector("#msg");
-document.querySelector("#btn").addEventListener("click", btnclick);
+document.querySelector("#btn").addEventListener("click", btnWeatherclick);
+function btnWeatherclick() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let w; //= { id: 1, body: "hello world", userId: 10 };
+        let wlist = yield fetchFromAPI(`https://ccapibasics.azurewebsites.net/WeatherForecast`);
+        w = wlist[0];
+        num++;
+        msg2.innerHTML = w.summary;
+        const newdiv = document.createElement("div");
+        newdiv.className = "col";
+        newdiv.innerHTML = addWeatherPostcard(w);
+        document.querySelector("#dvcards").appendChild(newdiv);
+    });
+}
 function btnclick() {
     return __awaiter(this, void 0, void 0, function* () {
+        let p; //= { id: 1, body: "hello world", userId: 10 };
         p = yield fetchFromAPI(`https://jsonplaceholder.typicode.com/posts/${num}`);
         num++;
         msg2.innerHTML = p.body;
@@ -22,6 +35,23 @@ function btnclick() {
         newdiv.innerHTML = addPostcard(p);
         document.querySelector("#dvcards").appendChild(newdiv);
     });
+}
+function addWeatherPostcard(w) {
+    let s = "";
+    if (picnum > 9) {
+        picnum = 1;
+    }
+    s =
+        `<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="/images/p${picnum}p.jpg" alt="${w.temperatureC}">
+  <div class="card-body">
+    <h5 class="card-title">${w.temperatureC}</h5>
+    <p class="card-text">${w.summary || "body coming soon...."}</p>
+    <a href="#" class="btn btn-primary">See card ${w.temperatureF}</a>
+  </div>
+</div>`;
+    picnum++;
+    return s;
 }
 function addPostcard(p) {
     let s = "";
