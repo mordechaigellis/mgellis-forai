@@ -35,7 +35,7 @@ namespace RecordKeeperSystem
             return this.GetListFromDataTable(dt);
         }
 
-        public List<bizParty> PartyList
+        private List<bizParty> PartyList
         {
             get
             {
@@ -46,7 +46,7 @@ namespace RecordKeeperSystem
             }
         }
 
-        public bizParty? Party
+        private bizParty? Party
         {
             get => _lstparty?.FirstOrDefault(p => p.PartyId == this.PartyId);
             set {
