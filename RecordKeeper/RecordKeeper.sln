@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordKeeperSystem", "Recor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordKeeperTest", "RecordKeeperTest\RecordKeeperTest.csproj", "{AB668B51-289B-4B52-BF15-0D62F77D2012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordKeeperMAUI", "RecordKeeperMAUI\RecordKeeperMAUI.csproj", "{860A2925-1F04-446C-BA3D-975A242DA515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordKeeperMAUI", "RecordKeeperMAUI\RecordKeeperMAUI.csproj", "{860A2925-1F04-446C-BA3D-975A242DA515}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordKeeperAPI", "RecordKeeperAPI\RecordKeeperAPI.csproj", "{2B829660-7F35-4473-AAD6-563C0770C842}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{860A2925-1F04-446C-BA3D-975A242DA515}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{860A2925-1F04-446C-BA3D-975A242DA515}.Release|Any CPU.Build.0 = Release|Any CPU
 		{860A2925-1F04-446C-BA3D-975A242DA515}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2B829660-7F35-4473-AAD6-563C0770C842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B829660-7F35-4473-AAD6-563C0770C842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B829660-7F35-4473-AAD6-563C0770C842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B829660-7F35-4473-AAD6-563C0770C842}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

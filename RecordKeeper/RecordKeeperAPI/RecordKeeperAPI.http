@@ -1,0 +1,6 @@
+@RecordKeeperAPI_HostAddress = http://localhost:5086
+
+GET {{RecordKeeperAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
