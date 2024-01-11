@@ -3,11 +3,52 @@ type weather = {
     date: Date, temperatureC: number, temperatureF: number, readOnly: boolean,summary:string
 };
 
+type party = {
+    partyId: number;
+    partyName: string;
+    yearStart: number;
+    colorId: number;
+}
+type president = {
+    presidentId: number;
+    partyId: number;
+    num: number | null;
+    firstName: string;
+    lastName: string;
+    dateBorn: Date | null;
+    dateDied: Date | null;
+    termStart: number | null;
+    termEnd: number | null;
+}
+
+let rkurl = "https://localhost:7286/api/";
 let num = 1;
 let picnum = 1;
 let msg2: HTMLElement = document.querySelector("#msg") ;
-document.querySelector("#btn").addEventListener("click", btnWeatherclick)
+document.querySelector("#btn").addEventListener("click", btnWeatherclick);
+document.querySelector("#btnParty").addEventListener("click", btnPartyclick);
+document.querySelector("#btnPresident").addEventListener("click", btnPresidentclick);
 
+async function btnPresidentclick() {
+    let wprez: president[] = await fetchFromAPI(`${rkurl}president`);
+    for (let p of wprez) {
+        const newdiv = document.createElement("div");
+        newdiv.className = "col";
+        newdiv.innerHTML = addPresidentPostcard(p);
+        document.querySelector("#dvcards").appendChild(newdiv);
+    }
+}
+async function btnPartyclick() {
+    let wparties: party[] = await fetchFromAPI(`${rkurl}party`);
+    let dvcards = document.querySelector("#dvcards");
+    dvcards.innerHTML = "";
+    for (let p of wparties) {
+        const newdiv = document.createElement("div");
+        newdiv.className = "col";
+        newdiv.innerHTML = addPartyPostcard(p);
+        dvcards.appendChild(newdiv);
+    }
+}
 async function btnWeatherclick() {
     let w: weather; //= { id: 1, body: "hello world", userId: 10 };
     let wlist: weather[] = await fetchFromAPI(`https://ccapibasics.azurewebsites.net/WeatherForecast`);
@@ -31,6 +72,38 @@ async function btnclick() {
     newdiv.innerHTML = addPostcard(p);
     document.querySelector("#dvcards").appendChild(newdiv);
     
+}
+
+function addPartyPostcard(p: party): string {
+    let s = "";
+    if (picnum > 9) { picnum = 1; }
+    s =
+        `<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="/images/p${picnum}p.jpeg" alt="${p.partyName}">
+  <div class="card-body">
+    <h5 class="card-title">${p.partyName}</h5>
+    <p class="card-text">${p.partyName + " " + p.yearStart || "body coming soon...."}</p>
+    <a href="#" class="btn btn-primary">See card ${p.partyName}</a>
+  </div>
+</div>`
+    picnum++;
+    return s;
+}
+
+function addPresidentPostcard(p: president): string {
+    let s = "";
+    if (picnum > 9) { picnum = 1; }
+    s =
+        `<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="/images/p${p.num}p.jpeg" alt="${p.num}">
+  <div class="card-body">
+    <h5 class="card-title">${p.firstName + " " + p.lastName}</h5>
+    <p class="card-text">${p.firstName + " " + p.lastName + ", " + p.termStart || "body coming soon...."}</p>
+    <a href="#" class="btn btn-primary">See card ${p.num}</a>
+  </div>
+</div>`
+    picnum++;
+    return s;
 }
 
 function addWeatherPostcard(w: weather): string {
