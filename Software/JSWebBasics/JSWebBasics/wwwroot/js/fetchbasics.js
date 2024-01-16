@@ -7,14 +7,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-let rkurl = "https://localhost:7286/api/";
+const domain = window.location.hostname;
+console.log(window.Location);
+console.log(domain);
+let rkurl = "https://mgrecordkeeperapi.azurewebsites.net/api/";
+if (domain.toLowerCase() == "localhost") {
+    rkurl = "https://localhost:7286/api/";
+}
 let num = 1;
 let picnum = 1;
 let msg2 = document.querySelector("#msg");
 document.querySelector("#btn").addEventListener("click", btnWeatherclick);
 document.querySelector("#btnParty").addEventListener("click", btnPartyclick);
 document.querySelector("#btnPresident").addEventListener("click", btnPresidentclick);
-//https://localhost:7286/api/President/getbyparty/15
 function btnPresidentclick() {
     return __awaiter(this, void 0, void 0, function* () {
         getAndDisplayPresidents("president");
@@ -54,7 +59,6 @@ function btnPartyCardClick() {
     return __awaiter(this, void 0, void 0, function* () {
         const partyid = this.id;
         getAndDisplayPresidents(`President/getbyparty/${partyid}`);
-        //https://localhost:7286/api/President/getbyparty/15
     });
 }
 function btnWeatherclick() {

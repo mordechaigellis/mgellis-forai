@@ -22,8 +22,15 @@ type president = {
     termStart: number | null;
     termEnd: number | null;
 }
+const domain = window.location.hostname;
+console.log(window.Location);
+console.log(domain);
+let rkurl = "https://mgrecordkeeperapi.azurewebsites.net/api/";
 
-let rkurl = "https://localhost:7286/api/";
+if (domain.toLowerCase() == "localhost") {
+    rkurl = "https://localhost:7286/api/";
+}
+
 let num = 1;
 let picnum = 1;
 let msg2: HTMLElement = document.querySelector("#msg") ;
@@ -31,7 +38,7 @@ document.querySelector("#btn").addEventListener("click", btnWeatherclick);
 document.querySelector("#btnParty").addEventListener("click", btnPartyclick);
 document.querySelector("#btnPresident").addEventListener("click", btnPresidentclick);
 
-//https://localhost:7286/api/President/getbyparty/15
+
 
 async function btnPresidentclick() {
     getAndDisplayPresidents("president");
@@ -67,7 +74,6 @@ async function btnPartyclick() {
 async function btnPartyCardClick() {
     const partyid = this.id;
     getAndDisplayPresidents(`President/getbyparty/${partyid}`)
-    //https://localhost:7286/api/President/getbyparty/15
 }
 async function btnWeatherclick() {
     let w: weather; //= { id: 1, body: "hello world", userId: 10 };
