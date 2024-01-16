@@ -47,7 +47,7 @@ function btnPartyclick() {
             newdiv.innerHTML = addPartyPostcard(p);
             dvcards.appendChild(newdiv);
         }
-        document.querySelector(".partycard").addEventListener("click", btnPartyCardClick);
+        $(".partycard").click(btnPartyCardClick);
     });
 }
 function btnPartyCardClick() {
