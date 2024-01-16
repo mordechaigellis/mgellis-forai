@@ -12,5 +12,10 @@ namespace RecordKeeperAPI
         public List<bizPresident> Get() {
             return new bizPresident().GetList();
         }
+
+        [HttpGet("getbyparty/{partyid:int:min(1)}")]
+        public List<bizPresident> GetByParty(int partyid) {
+            return new bizPresident().Search(partyid, "", 0, 0);
+        }
     }
 }

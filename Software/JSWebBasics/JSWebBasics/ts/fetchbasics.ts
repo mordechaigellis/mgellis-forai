@@ -31,8 +31,15 @@ document.querySelector("#btn").addEventListener("click", btnWeatherclick);
 document.querySelector("#btnParty").addEventListener("click", btnPartyclick);
 document.querySelector("#btnPresident").addEventListener("click", btnPresidentclick);
 
+//https://localhost:7286/api/President/getbyparty/15
+
 async function btnPresidentclick() {
-    let wprez: president[] = await fetchFromAPI(`${rkurl}president`);
+    getAndDisplayPresidents("president");
+}
+
+async function getAndDisplayPresidents(actionvalue: string) {
+    clearCardDiv();
+    let wprez: president[] = await fetchFromAPI(`${rkurl + actionvalue}`);
     for (let p of wprez) {
         const newdiv = document.createElement("div");
         newdiv.className = "col";
@@ -40,16 +47,27 @@ async function btnPresidentclick() {
         document.querySelector("#dvcards").appendChild(newdiv);
     }
 }
-async function btnPartyclick() {
-    let wparties: party[] = await fetchFromAPI(`${rkurl}party`);
+function clearCardDiv() {
     let dvcards = document.querySelector("#dvcards");
     dvcards.innerHTML = "";
+}
+async function btnPartyclick() {
+    let wparties: party[] = await fetchFromAPI(`${rkurl}party`);
+    clearCardDiv();
+    let dvcards = document.querySelector("#dvcards");
     for (let p of wparties) {
         const newdiv = document.createElement("div");
         newdiv.className = "col";
         newdiv.innerHTML = addPartyPostcard(p);
         dvcards.appendChild(newdiv);
     }
+    document.querySelector(".partycard").addEventListener("click", btnPartyCardClick)
+}
+
+async function btnPartyCardClick() {
+    const partyid = this.id;
+    getAndDisplayPresidents(`President/getbyparty/${partyid}`)
+    //https://localhost:7286/api/President/getbyparty/15
 }
 async function btnWeatherclick() {
     let w: weather; //= { id: 1, body: "hello world", userId: 10 };
@@ -85,7 +103,7 @@ function addPartyPostcard(p: party): string {
   <div class="card-body" style="background-color:${p.partyColor}">
     <h5 class="card-title">${p.partyName}</h5>
     <p class="card-text">${p.partyName + " " + p.yearStart || "body coming soon...."}</p>
-    <a href="#" class="btn btn-primary">See card ${p.partyName}</a>
+    <a href="#" class="btn btn-primary partycard" id="${p.partyId}">See card ${p.partyName}</a>
   </div>
 </div>`
     picnum++;

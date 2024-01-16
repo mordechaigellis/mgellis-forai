@@ -14,9 +14,16 @@ let msg2 = document.querySelector("#msg");
 document.querySelector("#btn").addEventListener("click", btnWeatherclick);
 document.querySelector("#btnParty").addEventListener("click", btnPartyclick);
 document.querySelector("#btnPresident").addEventListener("click", btnPresidentclick);
+//https://localhost:7286/api/President/getbyparty/15
 function btnPresidentclick() {
     return __awaiter(this, void 0, void 0, function* () {
-        let wprez = yield fetchFromAPI(`${rkurl}president`);
+        getAndDisplayPresidents("president");
+    });
+}
+function getAndDisplayPresidents(actionvalue) {
+    return __awaiter(this, void 0, void 0, function* () {
+        clearCardDiv();
+        let wprez = yield fetchFromAPI(`${rkurl + actionvalue}`);
         for (let p of wprez) {
             const newdiv = document.createElement("div");
             newdiv.className = "col";
@@ -25,17 +32,29 @@ function btnPresidentclick() {
         }
     });
 }
+function clearCardDiv() {
+    let dvcards = document.querySelector("#dvcards");
+    dvcards.innerHTML = "";
+}
 function btnPartyclick() {
     return __awaiter(this, void 0, void 0, function* () {
         let wparties = yield fetchFromAPI(`${rkurl}party`);
+        clearCardDiv();
         let dvcards = document.querySelector("#dvcards");
-        dvcards.innerHTML = "";
         for (let p of wparties) {
             const newdiv = document.createElement("div");
             newdiv.className = "col";
             newdiv.innerHTML = addPartyPostcard(p);
             dvcards.appendChild(newdiv);
         }
+        document.querySelector(".partycard").addEventListener("click", btnPartyCardClick);
+    });
+}
+function btnPartyCardClick() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const partyid = this.id;
+        getAndDisplayPresidents(`President/getbyparty/${partyid}`);
+        //https://localhost:7286/api/President/getbyparty/15
     });
 }
 function btnWeatherclick() {
@@ -74,7 +93,7 @@ function addPartyPostcard(p) {
   <div class="card-body" style="background-color:${p.partyColor}">
     <h5 class="card-title">${p.partyName}</h5>
     <p class="card-text">${p.partyName + " " + p.yearStart || "body coming soon...."}</p>
-    <a href="#" class="btn btn-primary">See card ${p.partyName}</a>
+    <a href="#" class="btn btn-primary partycard" id="${p.partyId}">See card ${p.partyName}</a>
   </div>
 </div>`;
     picnum++;
