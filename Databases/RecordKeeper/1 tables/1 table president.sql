@@ -25,7 +25,6 @@ create table dbo.Party(
 
 )
 go
-
 create table dbo.President(
 		PresidentId int not null identity (1000,1) primary key,
 		PartyId int not null constraint f_Party_President foreign key references Party(PartyId),

@@ -12,6 +12,9 @@ namespace RecordKeeperSystem
         private string _partyname = "";
         private int _yearstart;
         private int _colorid;
+        private string _partycolor = "";
+        private string _partydesc = "";
+
 
         public List<bizParty> Search(string partynameval) {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
@@ -72,5 +75,30 @@ namespace RecordKeeperSystem
             }
         }
 
+        public string PartyDesc
+        {
+            get { return _partydesc; }
+            set
+            {
+                if (_partydesc != value)
+                {
+                    _partydesc = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public string PartyColor
+        {
+            get { return _partycolor; }
+            set
+            {
+                if (_partycolor != value)
+                {
+                    _partycolor = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
     }
 }

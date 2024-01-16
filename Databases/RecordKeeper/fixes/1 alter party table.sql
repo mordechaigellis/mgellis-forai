@@ -1,0 +1,1 @@
+alter table party add PartyDesc varchar(500) not null default ''

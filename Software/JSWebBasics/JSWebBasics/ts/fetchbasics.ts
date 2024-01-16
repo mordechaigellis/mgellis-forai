@@ -8,6 +8,8 @@ type party = {
     partyName: string;
     yearStart: number;
     colorId: number;
+    partyColor: string;
+    partDesc: string;
 }
 type president = {
     presidentId: number;
@@ -80,7 +82,7 @@ function addPartyPostcard(p: party): string {
     s =
         `<div class="card" style="width: 18rem;">
   <img class="card-img-top" src="/images/p${picnum}p.jpeg" alt="${p.partyName}">
-  <div class="card-body">
+  <div class="card-body" style="background-color:${p.partyColor}">
     <h5 class="card-title">${p.partyName}</h5>
     <p class="card-text">${p.partyName + " " + p.yearStart || "body coming soon...."}</p>
     <a href="#" class="btn btn-primary">See card ${p.partyName}</a>
