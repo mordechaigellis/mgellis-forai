@@ -14,12 +14,17 @@ let rkurl = "https://mgrecordkeeperapi.azurewebsites.net/api/";
 //if (domain.toLowerCase() == "localhost") {
 //    rkurl = "https://localhost:7286/api/";
 //}
+const params = new URLSearchParams(window.location.search);
+let partyid = params.get("partyid");
 let num = 1;
 let picnum = 1;
 let msg2 = document.querySelector("#msg");
 document.querySelector("#btn").addEventListener("click", btnWeatherclick);
 document.querySelector("#btnParty").addEventListener("click", btnPartyclick);
 document.querySelector("#btnPresident").addEventListener("click", btnPresidentclick);
+if (partyid) {
+    getAndDisplayPresidents(`President/getbyparty/${partyid}`);
+}
 function btnPresidentclick() {
     return __awaiter(this, void 0, void 0, function* () {
         getAndDisplayPresidents("president");
@@ -97,7 +102,7 @@ function addPartyPostcard(p) {
   <div class="card-body" style="background-color:${p.partyColor}">
     <h5 class="card-title">${p.partyName}</h5>
     <p class="card-text">${p.partyName + " " + p.yearStart || "body coming soon...."}</p>
-    <a href="#" class="btn btn-primary partycard" id="${p.partyId}">See card ${p.partyName}</a>
+    <a href="fetchbasics?partyid=${p.partyId}" class="btn btn-primary partycard">See card ${p.partyName}</a>
   </div>
 </div>`;
     picnum++;
