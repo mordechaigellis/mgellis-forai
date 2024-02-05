@@ -11,9 +11,9 @@ const domain = window.location.hostname;
 console.log(window.Location);
 console.log(domain);
 let rkurl = "https://mgrecordkeeperapi.azurewebsites.net/api/";
-if (domain.toLowerCase() == "localhost") {
-    rkurl = "https://localhost:7286/api/";
-}
+//if (domain.toLowerCase() == "localhost") {
+//    rkurl = "https://localhost:7286/api/";
+//}
 let num = 1;
 let picnum = 1;
 let msg2 = document.querySelector("#msg");
@@ -52,7 +52,7 @@ function btnPartyclick() {
             newdiv.innerHTML = addPartyPostcard(p);
             dvcards.appendChild(newdiv);
         }
-        $(".partycard").click(btnPartyCardClick);
+        //$(".partycard").click(btnPartyCardClick);   
     });
 }
 function btnPartyCardClick() {
