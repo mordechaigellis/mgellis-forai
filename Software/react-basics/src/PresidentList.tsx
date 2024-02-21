@@ -12,15 +12,13 @@ function PresidentList(props: Props) {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    {
-                        props.presidents.map(p => 
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-
-                        )
-                    }
-                </tr>
+                {
+                    props.presidents.map(p =>
+                        <tr key={p.num}>
+                            <td >{p.num}</td>
+                            <td>{p.lastName}</td>
+                        </tr>)
+                }
             </tbody>
         </table>
     </>)
