@@ -47,7 +47,7 @@
         "firstName": "John Quincy",
         "lastName": "Adams",
         "party": "Democratic-Republican",
-        "executiveOrders": [] // Assuming no executive orders for demonstration
+        "executiveOrders": []
     },
     {
         "num": 7,

@@ -17,7 +17,7 @@ function App() {
         <div className="col-6">
           <div className="row">
             <div className="col-12">
-              <PresidentSummary />
+              <PresidentSummary presidents={presidentdata} />
             </div>
           </div>
           <div className="row">
