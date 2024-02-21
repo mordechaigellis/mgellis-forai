@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import PresidentSummary from "./PresidentSummary"
 import PresidentList from "./PresidentList"
 import PresidentFeature from "./PresidentFeature"
+import presidentdata from "./PresidentData.json"
 
 function App() {
   return (
