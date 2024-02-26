@@ -1,9 +1,9 @@
 import { IPresident } from "./PresidentTypes";
 type Props = { presidents: IPresident[] }
 
-function PresidentSummary(props: Props) {
+function PresidentSummary({ presidents }: Props) {
     return (<>
-        <h2>{props.presidents.length} Presidents</h2>
+        <h2>{presidents.length} Presidents</h2>
     </>)
 }
 

@@ -2,7 +2,7 @@ import { IPresident } from "./PresidentTypes";
 
 type Props = { presidents: IPresident[] }
 
-function PresidentList(props: Props) {
+function PresidentList({ presidents }: Props) {
     return (<>
         <table className="table">
             <thead>
@@ -13,7 +13,7 @@ function PresidentList(props: Props) {
             </thead>
             <tbody>
                 {
-                    props.presidents.map(p =>
+                    presidents.map(p =>
                         <tr key={p.num}>
                             <td >{p.num}</td>
                             <td>{p.lastName}</td>
