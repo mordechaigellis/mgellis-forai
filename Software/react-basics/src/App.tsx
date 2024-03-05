@@ -33,10 +33,9 @@ function App() {
     }
   };
 
-  const handleChangeFeatured = () => {
-    let newFeatured = featured;
-    newFeatured++;
-    if (newFeatured <= presidents.length - 1) {
+  const handleChangeFeatured = (value: number) => {
+    let newFeatured = featured + value;
+    if (newFeatured > -1 && newFeatured <= presidents.length - 1) {
       setFeatured(newFeatured);
     }
 
@@ -75,8 +74,8 @@ function App() {
         </div>
         <div className="col-6">
           <div className="row">
-            <div className="col-4"><button className="btn btn-success">Back</button></div>
-            <div className="col-4"><button onClick={handleChangeFeatured} className="btn btn-success">Next {featured}</button></div>
+            <div className="col-4"><button disabled={featured == 0} onClick={() => handleChangeFeatured(-1)} className="btn btn-success">Back</button></div>
+            <div className="col-4"><button disabled={featured == presidents.length - 1} onClick={() => handleChangeFeatured(1)} className="btn btn-success">Next {featured}</button></div>
           </div>
           <div className="row">
             <div className="col-12">
