@@ -11,6 +11,15 @@ function App() {
 
   const getCopyOfPresidents = () => presidents.map(p => ({ ...p }));
 
+  const deletePresident = (num: number) => {
+    const newPresidents = getCopyOfPresidents();
+    const index = newPresidents.findIndex(p => p.num == num);
+    if (index > -1) {
+      newPresidents.splice(index, 1);
+      setPresidents(newPresidents);
+    }
+  };
+
   const handleChangePrez = () => {
     const newPresidents = getCopyOfPresidents();
     if (newPresidents.length > 0) {
@@ -68,7 +77,7 @@ function App() {
           </div>
           <div className="row">
             <div className="col-12">
-              <PresidentList presidents={presidents} />
+              <PresidentList presidents={presidents} onPresidentDelete={deletePresident} />
             </div>
           </div>
         </div>
@@ -79,12 +88,12 @@ function App() {
           </div>
           <div className="row">
             <div className="col-12">
-              <PresidentFeature president={presidents[featured]} />
+              {presidents.length - 1 >= featured && <PresidentFeature president={presidents[featured]} />}
             </div>
           </div>
           <div className="row">
             <div className="col-12">
-              <PresidentFeature president={presidents[2]} />
+              {presidents.length - 1 >= featured + 1 && <PresidentFeature president={presidents[featured + 1]} />}
             </div>
           </div>
         </div>
