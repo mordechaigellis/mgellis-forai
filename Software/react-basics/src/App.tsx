@@ -2,12 +2,24 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import PresidentSummary from "./PresidentSummary"
 import PresidentList from "./PresidentList"
 import PresidentFeature from "./PresidentFeature"
-import initialPresidents from "./PresidentData.json"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { IPresident } from "./PresidentTypes"
 
 function App() {
-  const [presidents, setPresidents] = useState(initialPresidents);
+  const [presidents, setPresidents] = useState<IPresident[]>([]);
   const [featured, setFeatured] = useState(0);
+  const baseurl = "https://recordkeeperapi2.azurewebsites.net/api/";
+  useEffect(
+    () => {
+      const fetchPresidents = async () => {
+        const r = await fetch(baseurl + "president");
+        const initialPresidents = await r.json();
+        setPresidents(initialPresidents);
+      };
+      fetchPresidents();
+    }
+    , []
+  );
 
   const getCopyOfPresidents = () => presidents.map(p => ({ ...p }));
 
@@ -88,12 +100,12 @@ function App() {
           </div>
           <div className="row">
             <div className="col-12">
-              {presidents.length - 1 >= featured && <PresidentFeature president={presidents[featured]} />}
+              {/* {presidents.length - 1 >= featured && <PresidentFeature president={presidents[featured]} />} */}
             </div>
           </div>
           <div className="row">
             <div className="col-12">
-              {presidents.length - 1 >= featured + 1 && <PresidentFeature president={presidents[featured + 1]} />}
+              {/* {presidents.length - 1 >= featured + 1 && <PresidentFeature president={presidents[featured + 1]} />} */}
             </div>
           </div>
         </div>
