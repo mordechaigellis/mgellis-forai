@@ -3,6 +3,6 @@ export type IPresident = {
     firstName: string;
     lastName: string;
     party: string,
-    executiveOrders: string[]
+    executiveOrderList: string[]
 }
 

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { IPresident } from "./PresidentTypes"
 
 function App() {
+  const [refresh, setRefresh] = useState(0);
   const [presidents, setPresidents] = useState<IPresident[]>([]);
   const [featured, setFeatured] = useState(0);
   const baseurl = "https://recordkeeperapi2.azurewebsites.net/api/";
@@ -18,7 +19,7 @@ function App() {
       };
       fetchPresidents();
     }
-    , []
+    , [refresh]
   );
 
   const getCopyOfPresidents = () => presidents.map(p => ({ ...p }));
@@ -85,7 +86,9 @@ function App() {
             <div className="col-3">
               <button onClick={handleAddPresident} className="btn btn-primary">Add Prez</button>
             </div>
-
+            <div className="col-3">
+              <button onClick={() => setRefresh(refresh + 1)} className="btn btn-success">Refresh</button>
+            </div>
           </div>
           <div className="row">
             <div className="col-12">
@@ -100,7 +103,7 @@ function App() {
           </div>
           <div className="row">
             <div className="col-12">
-              {/* {presidents.length - 1 >= featured && <PresidentFeature president={presidents[featured]} />} */}
+              {presidents.length - 1 >= featured && <PresidentFeature president={presidents[featured]} />}
             </div>
           </div>
           <div className="row">

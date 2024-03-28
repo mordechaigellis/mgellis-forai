@@ -6,10 +6,10 @@ function PresidentExecutiveOrders({ executiveOrders }: Props) {
             <h6>Executive Orders</h6>
             <hr />
             <ul className="list-group border border-2">
-                {executiveOrders.map((e, index) =>
+                {/* {executiveOrders.map((e, index) =>
                     <li key={index} className="list-group-item">{e}</li>
-                )
-                }
+                )} */}
+
             </ul>
         </>
 

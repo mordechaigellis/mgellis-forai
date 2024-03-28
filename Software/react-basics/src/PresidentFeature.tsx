@@ -11,7 +11,7 @@ function PresidentFeature({ president }: Props) {
                 <h5 className="card-title">{prez.lastName}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{prez.party}</h6>
                 <p className="card-text">{prez.firstName} {prez.lastName}</p>
-                {prez.executiveOrders.length > 0 && <PresidentExecutiveOrders executiveOrders={president.executiveOrders} />}
+                {prez.executiveOrderList.length > 0 && <PresidentExecutiveOrders executiveOrders={president.executiveOrders} />}
             </div>
         </div>
     </>)
