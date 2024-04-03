@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ccd558cd-232e-49d0-925b-6d98f4e492f9/resourceGroups/recordkeeper-react-mg/providers/Microsoft.Web/sites/recordkeeper-react-mg",
+    "appService.deploySubpath": "dist"
+}

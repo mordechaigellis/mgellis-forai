@@ -1,0 +1,3 @@
+https://recordkeeperapi2.azurewebsites.net/api/
+
+https://recordkeeper-react-mg.azurewebsites.net/
