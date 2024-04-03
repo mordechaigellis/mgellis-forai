@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { IParty } from "./DataInterfaces";
 import { fetchParties } from "./DataUtil";
+import PartyButton from "./PartyButton";
 
 export default function Sidebar() {
     const [partylist, setPartyList] = useState<IParty[]>([]);
@@ -14,7 +15,7 @@ export default function Sidebar() {
         , []);
     return (
         <>
-            <h2>{partylist.map(p => <h2>{p.partyName}</h2>)}</h2>
+            <h2>{partylist.map(p => <PartyButton party={p} />)}</h2>
         </>
     )
 }
