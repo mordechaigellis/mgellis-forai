@@ -6,3 +6,15 @@ export interface IParty {
     partyDesc: string;
     partyColor: string;
 }
+
+export interface IPresident {
+    presidentId: number;
+    partyId: number;
+    num: number;
+    firstName: string;
+    lastName: string;
+    dateBorn: string;
+    dateDied: string;
+    termStart: number;
+    termEnd: string | null;
+}

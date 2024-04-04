@@ -1,8 +1,14 @@
+import { useState } from 'react'
 import MainScreen from './MainScreen'
 import Navbar from './Navbar'
 import Sidebar from './SideBar'
 import './assets/css/bootstrap.min.css'
 function App() {
+  const [selectedPartyId, setSelectedPartyId] = useState(1);
+
+  const handlePartySelected = (partyId: number) => {
+    setSelectedPartyId(partyId);
+  };
 
   return (
     <div className='container'>
@@ -13,10 +19,10 @@ function App() {
       </div>
       <div className="row">
         <div className="col-3">
-          <Sidebar />
+          <Sidebar onPartySelected={handlePartySelected} />
         </div>
         <div className="col-9 bg-primary">
-          <MainScreen />
+          <MainScreen partyId={selectedPartyId} />
         </div>
       </div>
 

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import { IParty } from "./DataInterfaces";
 import { fetchParties } from "./DataUtil";
 import PartyButton from "./PartyButton";
-
-export default function Sidebar() {
+interface Props {
+    onPartySelected: (partyId: number) => void;
+}
+export default function Sidebar({ onPartySelected }: Props) {
     const [partylist, setPartyList] = useState<IParty[]>([]);
     const [selectedPartyId, setSelectedPartyId] = useState(0);
 
@@ -21,6 +23,7 @@ export default function Sidebar() {
 
     function handleSelectedParty(partyId: number) {
         setSelectedPartyId(partyId);
+        onPartySelected(partyId);
     }
 
     return (
