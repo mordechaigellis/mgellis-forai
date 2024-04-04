@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import Sidebar from './SideBar'
 import './assets/css/bootstrap.min.css'
 function App() {
-  const [selectedPartyId, setSelectedPartyId] = useState(1);
+  const [selectedPartyId, setSelectedPartyId] = useState(0);
 
   const handlePartySelected = (partyId: number) => {
     setSelectedPartyId(partyId);
