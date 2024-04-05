@@ -20,9 +20,13 @@ export default function MainScreen({ partyId }: Props) {
     }
         , [partyId]);
     return (
-        <div className={isLoading ? "placeholder-glow" : ""}>
-            <h2 className="mt-2 bg-light placeholder">{prezlist.length} Presidents</h2>
+        <>
+            <div className={isLoading ? "placeholder-glow" : ""}>
+                <h2 className="mt-2 bg-light">
+                    <span className={isLoading ? "placeholder" : ""}>{prezlist.length} Presidents</span>
+                </h2>
+            </div>
             {prezlist.map(p => <PresidentCard key={p.presidentId} president={p} />)}
-        </div>
+        </>
     )
 }
