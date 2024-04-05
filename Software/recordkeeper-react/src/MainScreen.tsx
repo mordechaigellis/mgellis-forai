@@ -31,7 +31,7 @@ export default function MainScreen({ partyId }: Props) {
             <div className="row">
                 {
                     prezlist.map(p =>
-                        <div className="col-3 mb-2">
+                        <div className="col-md-6 col-lg-3 mb-2">
                             <PresidentCard key={p.presidentId} president={p} />
                         </div>
                     )
