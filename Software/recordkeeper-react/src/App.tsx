@@ -18,10 +18,10 @@ function App() {
         </div>
       </div>
       <div className="row">
-        <div className="col-3">
+        <div className="col-3 col-lg-2 border boder-light">
           <Sidebar onPartySelected={handlePartySelected} />
         </div>
-        <div className="col-9 bg-primary">
+        <div className="col-9 col-lg-10 bg-primary">
           <MainScreen partyId={selectedPartyId} />
         </div>
       </div>
