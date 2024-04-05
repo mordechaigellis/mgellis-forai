@@ -13,7 +13,7 @@ function App() {
   return (
     <div className='container'>
       <div className="row">
-        <div className="col-12">
+        <div className="col-12 px-0">
           <Navbar />
         </div>
       </div>
