@@ -19,5 +19,30 @@ namespace RecordKeeperAPI
             p.Load(id);
             return p;
         }
+
+        [HttpPost]
+        public IActionResult Post(bizParty party) {
+            try {
+                party.Save();
+                return Ok();
+            }
+            catch (Exception ex) {
+                return BadRequest(new { ex.Message });
+            }
+            
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id) {
+            try {
+                bizParty p = new();
+                p.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex) {
+                return BadRequest(new {ex.Message});
+            }
+            
+        }
     }
 }

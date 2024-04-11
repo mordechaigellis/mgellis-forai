@@ -23,11 +23,11 @@ var app = builder.Build();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
+
 string settingname = "Settings:liveconn";
 #if DEBUG
     settingname = "Settings:devconn-local";
