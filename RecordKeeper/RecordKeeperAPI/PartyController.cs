@@ -21,10 +21,10 @@ namespace RecordKeeperAPI
         }
 
         [HttpPost]
-        public IActionResult Post(bizParty party) {
+        public IActionResult Post([FromForm] bizParty party) {
             try {
                 party.Save();
-                return Ok();
+                return Ok(new {message= "party saved"});
             }
             catch (Exception ex) {
                 return BadRequest(new { ex.Message });
