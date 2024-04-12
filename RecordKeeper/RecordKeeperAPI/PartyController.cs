@@ -24,7 +24,7 @@ namespace RecordKeeperAPI
         public IActionResult Post([FromForm] bizParty party) {
             try {
                 party.Save();
-                return Ok(new {message= "party saved"});
+                return Ok(new {message= "party saved", partyid = party.PartyId});
             }
             catch (Exception ex) {
                 return BadRequest(new { ex.Message });
@@ -37,7 +37,7 @@ namespace RecordKeeperAPI
             try {
                 bizParty p = new();
                 p.Delete(id);
-                return Ok();
+                return Ok(new {message =  "party deleted"});
             }
             catch (Exception ex) {
                 return BadRequest(new {ex.Message});
