@@ -28,7 +28,8 @@
 
                 <div class="mb-3">
                     <label for="colorId" class="form-label">Color ID:</label>
-                    <input type="number" id="colorId" name="colorId" value="17" class="form-control" required>
+                    <select name="colorId" id="lstcolor" class="form-select"></select>
+
                 </div>
 
                 <div class="mb-3">
@@ -53,6 +54,21 @@
     const frm = document.getElementById("frm");
     const txtpartyid = document.getElementById("txtpartyid");
     const hmsg = document.getElementById("hmsg");
+
+    document.addEventListener("DOMContentLoaded", () => {
+        (async () => {
+            const response = await fetch("http://localhost:5086/api/Party/colors");
+            const data = await response.json();
+            const lst = document.getElementById("lstcolor");
+            data.forEach(c => {
+                const option = document.createElement("option");
+                option.value = c.colorId;
+                option.text = c.colorName;
+                lst.appendChild(option);
+            })
+        })();
+
+    });
     frm.addEventListener("submit", (event) => {
         event.preventDefault();
         hmsg.innerHTML = "";
