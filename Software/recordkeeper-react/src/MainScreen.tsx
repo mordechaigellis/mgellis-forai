@@ -10,13 +10,15 @@ export default function MainScreen({ partyId }: Props) {
     const [prezlist, setPrezList] = useState<IPresident[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        setIsLoading(true);
-        const fetchdata = async () => {
-            const data = await fetchPresidentByPartyId(partyId);
-            setPrezList(data);
-            setIsLoading(false);
-        };
-        fetchdata();
+        if (partyId > 0) {
+            setIsLoading(true);
+            const fetchdata = async () => {
+                const data = await fetchPresidentByPartyId(partyId);
+                setPrezList(data);
+                setIsLoading(false);
+            };
+            fetchdata();
+        }
     }
         , [partyId]);
     return (
@@ -31,8 +33,8 @@ export default function MainScreen({ partyId }: Props) {
             <div className="row">
                 {
                     prezlist.map(p =>
-                        <div className="col-md-6 col-lg-3 mb-2">
-                            <PresidentCard key={p.presidentId} president={p} />
+                        <div key={p.presidentId} className="col-md-6 col-lg-3 mb-2">
+                            <PresidentCard president={p} />
                         </div>
                     )
                 }
