@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function PartyEdit({ party }: Props) {
-    const { register, handleSubmit } = useForm({ defaultValues: party });
+    const { register, handleSubmit, reset } = useForm({ defaultValues: party });
     const [colors, setColors] = useState<IColor[]>([]);
 
     useEffect(() => {
@@ -18,6 +18,10 @@ export function PartyEdit({ party }: Props) {
         fetchdata();
     }
         , []);
+
+    useEffect(() => {
+        reset(party);
+    }, [party, reset]);
 
     const submitForm = (data: FieldValues) => {
         console.log(data);
