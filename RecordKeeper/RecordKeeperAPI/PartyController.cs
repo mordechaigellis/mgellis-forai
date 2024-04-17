@@ -19,15 +19,18 @@ namespace RecordKeeperAPI
             p.Load(id);
             return p;
         }
+        
+        //[FromForm] 
 
         [HttpPost]
-        public IActionResult Post([FromForm] bizParty party) {
+        public IActionResult Post(bizParty party) {
             try {
                 party.Save();
-                return Ok(new {message= "party saved", partyid = party.PartyId});
+                return Ok(party);
             }
             catch (Exception ex) {
-                return BadRequest(new { ex.Message });
+                party.ErrorMessage = ex.Message;
+                return BadRequest(party);
             }
             
         }

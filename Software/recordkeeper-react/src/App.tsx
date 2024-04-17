@@ -14,7 +14,8 @@ function App() {
     partyColor: "",
     colorId: 0,
     yearStart: 0,
-    partyDesc: ""
+    partyDesc: "",
+    errorMessage: ""
   };
 
   const [partyforedit, setPartyforedit] = useState(initialparty);

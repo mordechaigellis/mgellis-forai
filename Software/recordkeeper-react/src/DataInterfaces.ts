@@ -5,6 +5,7 @@ export interface IParty {
     colorId: number;
     partyDesc: string;
     partyColor: string;
+    errorMessage: string;
 }
 
 export interface IPresident {
@@ -17,6 +18,7 @@ export interface IPresident {
     dateDied: string;
     termStart: number;
     termEnd: string | null;
+    errorMessage: string
 }
 
 export interface IColor {

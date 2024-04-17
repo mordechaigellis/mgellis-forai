@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form"
-import { fetchColors } from "./DataUtil";
+import { fetchColors, postParty } from "./DataUtil";
 import { IColor, IParty } from "./DataInterfaces";
 interface Props {
     party: IParty
@@ -9,6 +9,7 @@ interface Props {
 export function PartyEdit({ party }: Props) {
     const { register, handleSubmit, reset } = useForm({ defaultValues: party });
     const [colors, setColors] = useState<IColor[]>([]);
+    const [errormsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         const fetchdata = async () => {
@@ -23,15 +24,18 @@ export function PartyEdit({ party }: Props) {
         reset(party);
     }, [party, reset]);
 
-    const submitForm = (data: FieldValues) => {
-        console.log(data);
+    const submitForm = async (data: FieldValues) => {
+        //console.log(data);
+        const r = await postParty(data);
+        setErrorMsg(r.errorMessage)
+        reset(r);
     };
 
     return (
         <div className="bg-light mt-4 p-4">
             <div className="row">
                 <div className="col-12">
-                    <h2 id="hmsg"></h2>
+                    <h2 id="hmsg">{errormsg}</h2>
                 </div>
             </div>
             <div className="row">
