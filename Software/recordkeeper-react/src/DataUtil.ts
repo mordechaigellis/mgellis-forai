@@ -1,7 +1,7 @@
 import { IParty, IPresident } from "./DataInterfaces";
 
-const baseurl = "https://recordkeeperapi2.azurewebsites.net/api/";
-
+let baseurl = "https://recordkeeperapi2.azurewebsites.net/api/";
+baseurl = "http://localhost:5086/api/";
 async function fetchData<T>(url: string): Promise<T> {
     url = baseurl + url;
     const r = await fetch(url);
