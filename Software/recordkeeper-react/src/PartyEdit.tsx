@@ -1,4 +1,27 @@
-export function PartyEdit() {
+import { useEffect, useState } from "react";
+import { FieldValues, useForm } from "react-hook-form"
+import { fetchColors } from "./DataUtil";
+import { IColor, IParty } from "./DataInterfaces";
+interface Props {
+    party: IParty
+}
+
+export function PartyEdit({ party }: Props) {
+    const { register, handleSubmit } = useForm({ defaultValues: party });
+    const [colors, setColors] = useState<IColor[]>([]);
+
+    useEffect(() => {
+        const fetchdata = async () => {
+            const data = await fetchColors();
+            setColors(data);
+        }
+        fetchdata();
+    }
+        , []);
+
+    const submitForm = (data: FieldValues) => {
+        console.log(data);
+    };
 
     return (
         <div className="bg-light mt-4 p-4">
@@ -9,40 +32,43 @@ export function PartyEdit() {
             </div>
             <div className="row">
                 <div className="col-12">
-                    <form id="frm" action="" method="post" className="needs-validation">
+                    <form onSubmit={handleSubmit(submitForm)} className="needs-validation">
                         <div className="mb-3">
                             <label htmlFor="partyId" className="form-label">Party ID:</label>
-                            <input type="number" id="txtpartyid" name="partyId" value="0" className="form-control" required />
+                            <input type="number"  {...register("partyId")} className="form-control" required />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="partyName" className="form-label">Party Name:</label>
-                            <input type="text" id="partyName" name="partyName" value="coffee party" className="form-control" required />
+                            <input type="text" {...register("partyName")} className="form-control" required />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="yearStart" className="form-label">Year Start:</label>
-                            <input type="number" id="yearStart" name="yearStart" value="2000" className="form-control" required />
+                            <input type="number" {...register("yearStart")} className="form-control" required />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="colorId" className="form-label">Color ID:</label>
-                            <select name="colorId" id="lstcolor" className="form-select"></select>
+                            <select {...register("colorId")} className="form-select">
+                                <option value="0"></option>
+                                {colors.map(c => <option key={c.colorId} value={c.colorId}>{c.colorName}</option>)}
+                            </select>
 
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="partyDesc" className="form-label">Party Description:</label>
-                            <input type="text" id="partyDesc" name="partyDesc" value="drink coffee" className="form-control" required />
+                            <input type="text" {...register("partyDesc")} className="form-control" required />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="partyColor" className="form-label">Party Color:</label>
-                            <input type="text" id="partyColor" name="partyColor" value="black" className="form-control" required />
+                            <input type="text" {...register("partyColor")} className="form-control" />
                         </div>
 
                         <button type="submit" className="btn btn-primary">Submit</button>
-                        <button id="btndelete" className="btn btn-danger">Delete</button>
+                        <button type="button" id="btndelete" className="btn btn-danger">Delete</button>
                     </form>
                 </div>
             </div>

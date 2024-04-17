@@ -4,8 +4,9 @@ import { fetchParties } from "./DataUtil";
 import PartyButton from "./PartyButton";
 interface Props {
     onPartySelected: (partyId: number) => void;
+    onPartySelectedForEdit: (party: IParty) => void;
 }
-export default function Sidebar({ onPartySelected }: Props) {
+export default function Sidebar({ onPartySelected, onPartySelectedForEdit }: Props) {
     const [partylist, setPartyList] = useState<IParty[]>([]);
     const [selectedPartyId, setSelectedPartyId] = useState(0);
 
@@ -28,8 +29,13 @@ export default function Sidebar({ onPartySelected }: Props) {
 
     return (
         <>
-            <h2>{partylist.map(p =>
-                <PartyButton key={p.partyId} party={p} onSelected={handleSelectedParty} isSelected={p.partyId == selectedPartyId} />)}</h2>
+
+            {partylist.map(p =>
+                <div key={p.partyId}>
+                    <PartyButton party={p} onSelected={handleSelectedParty} isSelected={p.partyId == selectedPartyId} />
+                    <button onClick={() => onPartySelectedForEdit(p)} className="btn btn-outline-primary">Edit</button>
+                </div>
+            )}
         </>
     )
 }

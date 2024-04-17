@@ -18,3 +18,8 @@ export interface IPresident {
     termStart: number;
     termEnd: string | null;
 }
+
+export interface IColor {
+    colorId: number;
+    colorName: string;
+}

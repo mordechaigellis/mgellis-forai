@@ -1,4 +1,4 @@
-import { IParty, IPresident } from "./DataInterfaces";
+import { IColor, IParty, IPresident } from "./DataInterfaces";
 
 let baseurl = "https://recordkeeperapi2.azurewebsites.net/api/";
 baseurl = "http://localhost:5086/api/";
@@ -11,9 +11,12 @@ async function fetchData<T>(url: string): Promise<T> {
 
 export async function fetchParties() {
     return await fetchData<IParty[]>("party");
-
 }
 
 export async function fetchPresidentByPartyId(partyId: number) {
     return await fetchData<IPresident[]>(`president/getbyparty/${partyId}`);
+}
+
+export async function fetchColors() {
+    return await fetchData<IColor[]>("Party/colors");
 }
