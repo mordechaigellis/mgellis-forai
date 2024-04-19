@@ -1,8 +1,8 @@
 import { FieldValues } from "react-hook-form";
 import { IColor, IParty, IPresident } from "./DataInterfaces";
 
-let baseurl = "https://recordkeeperapi2.azurewebsites.net/api/";
-baseurl = "http://localhost:5086/api/";
+let baseurl = import.meta.env.VITE_API_URL;
+
 async function fetchData<T>(url: string): Promise<T> {
     url = baseurl + url;
     const r = await fetch(url);
