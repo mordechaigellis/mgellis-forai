@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form"
-import { deleteParty, fetchColors, postParty } from "./DataUtil";
+import { blankParty, deleteParty, fetchColors, postParty } from "./DataUtil";
 import { IColor, IParty } from "./DataInterfaces";
 interface Props {
     party: IParty
@@ -35,6 +35,9 @@ export function PartyEdit({ party }: Props) {
     const handleDelete = async () => {
         const r = await deleteParty(party.partyId);
         setErrorMsg(r.errorMessage);
+        if (r.errorMessage == "") {
+            reset(blankParty);
+        }
     };
 
     return (

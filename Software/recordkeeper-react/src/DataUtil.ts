@@ -50,3 +50,13 @@ export async function deleteParty(partyId: number) {
     return deleteData<IParty>(`party?id=${partyId}`);
 
 }
+
+export const blankParty: IParty = {
+    partyId: 0,
+    partyName: "",
+    partyColor: "",
+    colorId: 0,
+    yearStart: 0,
+    partyDesc: "",
+    errorMessage: ""
+};
