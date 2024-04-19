@@ -15,6 +15,7 @@ export function PartyEdit({ party }: Props) {
         const fetchdata = async () => {
             const data = await fetchColors();
             setColors(data);
+            reset(party)
         }
         fetchdata();
     }

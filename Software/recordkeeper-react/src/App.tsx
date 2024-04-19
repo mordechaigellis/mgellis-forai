@@ -40,7 +40,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col-3 col-lg-2 border boder-light">
-          <button onClick={() => setIsPartyEdit(true)} className="btn btn-outline-primary">New Party</button>
+          <button onClick={() => handlePartySelectedForEdit(initialparty)} className="btn btn-outline-primary">New Party</button>
           <Sidebar onPartySelected={handlePartySelected} onPartySelectedForEdit={handlePartySelectedForEdit} />
         </div>
         <div className="col-9 col-lg-10 bg-primary">
