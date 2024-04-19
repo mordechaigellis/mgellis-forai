@@ -37,13 +37,14 @@ namespace RecordKeeperAPI
 
         [HttpDelete]
         public IActionResult Delete(int id) {
+            bizParty p = new();
             try {
-                bizParty p = new();
                 p.Delete(id);
-                return Ok(new {message =  "party deleted"});
+                return Ok(p);
             }
             catch (Exception ex) {
-                return BadRequest(new {ex.Message});
+                p.ErrorMessage = ex.Message;
+                return BadRequest(p);
             }
             
         }

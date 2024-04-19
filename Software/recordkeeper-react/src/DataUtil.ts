@@ -10,6 +10,13 @@ async function fetchData<T>(url: string): Promise<T> {
     return data;
 }
 
+async function deleteData<T>(url: string): Promise<T> {
+    url = baseurl + url;
+    const r = await fetch(url, { method: "DELETE" });
+    const data = await r.json();
+    return data;
+}
+
 async function postData<T>(url: string, form: FieldValues): Promise<T> {
     url = baseurl + url;
     const r = await fetch(url, {
@@ -37,4 +44,9 @@ export async function fetchColors() {
 
 export async function postParty(form: FieldValues) {
     return postData<IParty>("party", form);
+}
+
+export async function deleteParty(partyId: number) {
+    return deleteData<IParty>(`party?id=${partyId}`);
+
 }
