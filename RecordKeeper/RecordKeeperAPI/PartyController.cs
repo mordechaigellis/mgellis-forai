@@ -50,7 +50,7 @@ namespace RecordKeeperAPI
         [HttpGet("colors")]
         public List<bizColor> GetColors()
         {
-            return new bizColor().GetList();
+            return new bizColor().GetList(true);
         }
     }
 }

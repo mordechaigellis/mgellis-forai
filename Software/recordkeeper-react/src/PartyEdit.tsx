@@ -59,7 +59,6 @@ export function PartyEdit({ party }: Props) {
                         <div className="mb-3">
                             <label htmlFor="colorId" className="form-label">Color ID:</label>
                             <select {...register("colorId")} className="form-select">
-                                <option value="0"></option>
                                 {colors.map(c => <option key={c.colorId} value={c.colorId}>{c.colorName}</option>)}
                             </select>
 
