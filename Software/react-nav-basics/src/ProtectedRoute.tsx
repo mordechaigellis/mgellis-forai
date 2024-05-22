@@ -1,7 +1,18 @@
+import Login from "./Login";
+import { useUserStore } from "./user/userstore"
 
-export default function ProtectedRoute() {
+interface Props { element: React.ReactNode }
+
+export default function ProtectedRoute({ element }: Props) {
+    const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
     return (
-        <div>ProtectedRoute</div>
+        <>
+            {isLoggedIn ?
+                <>{element}</>
+                :
+                <Login />
+            }
+        </>
     )
 }
