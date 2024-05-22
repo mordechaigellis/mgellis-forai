@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useUserStore } from "./user/userstore"
 
 
@@ -8,7 +9,10 @@ export default function UserPanel() {
     const logout = useUserStore(state => state.logout);
     return (
         <>
-
+            {isLoggedIn ?
+                (<><span>{username}, {role}</span> <button onClick={logout}>Logout</button></>)
+                :
+                (<Link to="/login">Login</Link>)}
         </>
     )
 }

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import UserPanel from "./UserPanel";
 
 
 export default function Navbar() {
@@ -21,7 +22,8 @@ export default function Navbar() {
             <a href="/screen2">Screen with A tag</a>
             <NavLink to="/screen2?val=hello">Screen 2 with Query String</NavLink>
             <NavLink to="/screen3/hello">Screen 3 with Dynamic Path</NavLink>
-            <NavLink to="/login">Login</NavLink>
+
+            <UserPanel />
         </>
     )
 }
