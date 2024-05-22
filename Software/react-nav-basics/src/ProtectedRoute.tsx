@@ -7,7 +7,7 @@ export default function ProtectedRoute({ element }: Props) {
     const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
     return (
-        <>
+            <>
             {isLoggedIn ?
                 <>{element}</>
                 :
