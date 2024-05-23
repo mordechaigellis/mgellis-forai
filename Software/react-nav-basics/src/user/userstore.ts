@@ -7,14 +7,26 @@ interface User {
     login: (username: string, password: string) => Promise<void>,
     logout: () => void,
 }
-
+const keyname = "userstore";
 export const useUserStore = create<User>(
-    (set) => ({
-        username: "", role: "", isLoggedIn: false,
-        logout: () => { set({ username: "", role: "", isLoggedIn: false }) },
-        login: async (username: string, password: string) => {
-            const roleval = username.toLowerCase().startsWith("a") ? "admin" : "user";
-            set({ username: username, role: roleval, isLoggedIn: true })
+    (set) => {
+        const storedvalue = sessionStorage.getItem(keyname);
+        const initialvals = storedvalue ?
+            JSON.parse(storedvalue)
+            : { username: "", role: "", isLoggedIn: false, }
+        return {
+            ...initialvals,
+            logout: () => {
+                const newstate = { username: "", role: "", isLoggedIn: false };
+                sessionStorage.setItem(keyname, JSON.stringify(newstate))
+                set(newstate);
+            },
+            login: async (username: string, password: string) => {
+                const roleval = username.toLowerCase().startsWith("a") ? "admin" : "user";
+                const newstate = { username: username, role: roleval, isLoggedIn: true };
+                sessionStorage.setItem(keyname, JSON.stringify(newstate));
+                set(newstate);
+            }
         }
-    })
+    }
 );
