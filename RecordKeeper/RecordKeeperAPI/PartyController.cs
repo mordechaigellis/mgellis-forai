@@ -23,6 +23,7 @@ namespace RecordKeeperAPI
         //[FromForm] 
 
         [HttpPost]
+        [AuthPermission(1)] 
         public IActionResult Post(bizParty party) {
             try {
                 party.Save();
@@ -36,6 +37,7 @@ namespace RecordKeeperAPI
         }
 
         [HttpDelete]
+        [AuthPermission(3)]
         public IActionResult Delete(int id) {
             bizParty p = new();
             try {

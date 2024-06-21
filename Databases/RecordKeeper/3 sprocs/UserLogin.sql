@@ -12,10 +12,6 @@ begin
 
 	if isnull(@userid,0) > 0
 	begin
-		update users
-		set sessionkey = newid(), sessionkeyDate = getdate()
-		where userId = @userid
-
 		select u.userId, u.roleId, u.username, u.sessionkey, r.rolename, r.rolerank
 		from users u
 		join roles r
