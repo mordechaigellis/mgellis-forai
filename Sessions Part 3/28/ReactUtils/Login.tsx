@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { useUserStore } from "@charliecpu/reactutils";
+import { useUserStore } from "./UserStore";
 
 type forminput = { username: string, password: string }
 
