@@ -4,3 +4,5 @@
 		on r.roleId = u.roleId
 
 --select * from party	
+
+exec UserLogout @username = 'admin', @message = ''
