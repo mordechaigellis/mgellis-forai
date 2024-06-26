@@ -1,9 +1,10 @@
 import { FieldValues } from "react-hook-form";
 import { IColor, IParty, IPresident } from "./DataInterfaces";
-import { createAPI } from "@charliecpu/reactutils";
+import { createAPI, getUserStore } from "@charliecpu/reactutils";
 
 let baseurl = import.meta.env.VITE_API_URL;
-const api = createAPI(baseurl);
+const sessionkey = getUserStore(baseurl).getState().sessionKey;
+const api = createAPI(baseurl, sessionkey);
 
 export async function fetchParties() {
     return await api.fetchData<IParty[]>("party");
