@@ -1,12 +1,14 @@
 import Login from "./Login";
-import { useUserStore } from "@charliecpu/reactutils"
+import { getUserStore } from "@charliecpu/reactutils"
 
-interface Props { element: React.ReactNode, requiredrole: string }
+interface Props { element: React.ReactNode, requiredrole: number }
 
 export default function ProtectedRoute({ element, requiredrole }: Props) {
+    const apiurl = import.meta.env.VITE_API_URL;
+    const useUserStore = getUserStore(apiurl);
     const isLoggedIn = useUserStore((state) => state.isLoggedIn);
-    const role = useUserStore((state) => state.role);
-    const hasprivilege = requiredrole == "" || requiredrole == role;
+    const rolerank = useUserStore((state) => state.roleRank);
+    const hasprivilege = rolerank >= requiredrole;
 
     if (!isLoggedIn) {
         return <Login />;
