@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { IParty } from "./DataInterfaces";
 import { fetchParties } from "./DataUtil";
 import PartyButton from "./PartyButton";
+import { getUserStore } from "@charliecpu/reactutils";
 interface Props {
     onPartySelected: (partyId: number) => void;
     onPartySelectedForEdit: (party: IParty) => void;
@@ -9,6 +10,9 @@ interface Props {
 export default function Sidebar({ onPartySelected, onPartySelectedForEdit }: Props) {
     const [partylist, setPartyList] = useState<IParty[]>([]);
     const [selectedPartyId, setSelectedPartyId] = useState(0);
+    const apiurl = import.meta.env.VITE_API_URL;
+    const useUserStore = getUserStore(apiurl);
+    const isloggedin = useUserStore(state => state.isLoggedIn);
 
     useEffect(() => {
         const fetchdata = async () => {
@@ -33,7 +37,9 @@ export default function Sidebar({ onPartySelected, onPartySelectedForEdit }: Pro
             {partylist.map(p =>
                 <div key={p.partyId}>
                     <PartyButton party={p} onSelected={handleSelectedParty} isSelected={p.partyId == selectedPartyId} />
-                    <button onClick={() => onPartySelectedForEdit(p)} className="btn btn-outline-primary">Edit</button>
+                    {isloggedin ?
+                        <button onClick={() => onPartySelectedForEdit(p)} className="btn btn-outline-primary">Edit</button>
+                        : null}
                 </div>
             )}
         </>

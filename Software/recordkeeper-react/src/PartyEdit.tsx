@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form"
 import { blankParty, deleteParty, fetchColors, postParty } from "./DataUtil";
 import { IColor, IParty } from "./DataInterfaces";
+import { getUserStore } from "@charliecpu/reactutils";
 interface Props {
     party: IParty
 }
@@ -10,6 +11,9 @@ export function PartyEdit({ party }: Props) {
     const { register, handleSubmit, reset } = useForm({ defaultValues: party });
     const [colors, setColors] = useState<IColor[]>([]);
     const [errormsg, setErrorMsg] = useState("");
+    const apiurl = import.meta.env.VITE_API_URL;
+    const useUserStore = getUserStore(apiurl);
+    const rolerank = useUserStore(state => state.roleRank);
 
     useEffect(() => {
         const fetchdata = async () => {
@@ -33,10 +37,19 @@ export function PartyEdit({ party }: Props) {
     };
 
     const handleDelete = async () => {
-        const r = await deleteParty(party.partyId);
-        setErrorMsg(r.errorMessage);
-        if (r.errorMessage == "") {
-            reset(blankParty);
+        try {
+            const r = await deleteParty(party.partyId);
+            setErrorMsg(r.errorMessage);
+            if (r.errorMessage == "") {
+                reset(blankParty);
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                setErrorMsg(error.message);
+            }
+            else {
+                setErrorMsg("error happened");
+            }
         }
     };
 
@@ -84,7 +97,8 @@ export function PartyEdit({ party }: Props) {
                         </div>
 
                         <button type="submit" className="btn btn-primary">Submit</button>
-                        <button onClick={handleDelete} type="button" id="btndelete" className="btn btn-danger">Delete</button>
+                        {rolerank >= 3 ? <button onClick={handleDelete} type="button" id="btndelete" className="btn btn-danger">Delete</button> : null}
+
                     </form>
                 </div>
             </div>

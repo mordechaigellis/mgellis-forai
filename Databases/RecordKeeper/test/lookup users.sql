@@ -2,7 +2,8 @@
 		from users u
 		join roles r
 		on r.roleId = u.roleId
+--01952AEB-014E-4F8D-9F79-E00356D23776
 
 --select * from party	
 
-exec UserLogout @username = 'admin', @message = ''
+--exec UserLogout @username = 'admin', @message = ''
