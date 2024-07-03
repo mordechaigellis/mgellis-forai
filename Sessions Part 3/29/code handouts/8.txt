@@ -41,6 +41,7 @@ export default function MainScreen({ partyId }: Props) {
         } else {
             setPrezList([...prezlist, updatedPresident]);
         }
+        //setPresidentId(0);
     }
 
     return (

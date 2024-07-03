@@ -32,6 +32,7 @@ begin
 	end
 
 	select p.PresidentId, p.PartyId, p.Num, y.PartyName, p.FirstName, p.LastName, p.DateBorn, p.DateDied,
+	p.TermStart, p.TermEnd,
 	NumExecutiveOrders = count(e.ExecutiveOrderId)
 	from @t t
 	join President p
@@ -40,7 +41,7 @@ begin
 	on y.PartyId = p.PartyId
 	left join ExecutiveOrder e
 	on e.PresidentId = p.PresidentId
-	group by p.PresidentId, p.PartyId, y.PartyName, p.Num, p.FirstName, p.LastName, p.DateBorn, p.DateDied
+	group by p.PresidentId, p.PartyId, y.PartyName, p.Num, p.FirstName, p.LastName, p.DateBorn, p.DateDied, p.TermStart, p.TermEnd
 	order by p.num
 
 
