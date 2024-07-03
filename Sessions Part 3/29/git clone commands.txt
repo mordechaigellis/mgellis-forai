@@ -1,0 +1,25 @@
+cd C:\Users\mgellis\source\repos
+
+rmdir /s /q mgellis-cloned
+rmdir /s /q CPUFramework-cloned
+rmdir /s /q ReactUtils-cloned
+
+git -C mgellis switch main
+git -C CPUFramework switch main
+git -C ReactUtils switch main
+
+git -C mgellis fetch --all
+git -C CPUFramework fetch --all
+git -C ReactUtils fetch --all
+
+git -C mgellis pull
+git -C CPUFramework pull
+git -C ReactUtils pull
+
+git clone mgellis mgellis-cloned
+git clone CPUFramework CPUFramework-cloned
+git clone ReactUtils ReactUtils-cloned
+
+git -C mgellis-cloned switch prep/3-29
+git -C CPUFramework-cloned switch prep/3-29
+git -C ReactUtils-cloned switch prep/3-29
