@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getUserStore } from "@charliecpu/reactutils"
+import { getUserStore, useSessionTimeout } from "@charliecpu/reactutils"
 
 
 export default function UserPanel() {
@@ -9,6 +9,13 @@ export default function UserPanel() {
     const username = useUserStore(state => state.userName);
     const rolename = useUserStore(state => state.roleName);
     const logout = useUserStore(state => state.logout);
+
+    useSessionTimeout({
+        apiUrl: apiurl,
+        timeout: 1000 * 60 * 10,
+        pathtologin: "/login"
+    })
+
     return (
         <>
             {isLoggedIn ?

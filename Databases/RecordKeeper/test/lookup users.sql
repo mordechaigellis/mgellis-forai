@@ -6,4 +6,4 @@
 
 --select * from party	
 
---exec UserLogout @username = 'admin', @message = ''
+--exec UserLogout @sessionkey = 'admin', @message = ''
