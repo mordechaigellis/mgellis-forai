@@ -38,7 +38,7 @@ const ActionCellRenderer = <T,>({ params, setError, updateObject, deleteObject, 
 
     const handleSave = async () => {
         try {
-            console.log("Save row: ", params.data);
+            //console.log("Save row: ", params.data);
             setError("");
             const r = await updateObject(params.data);
             if ((r as any).errorMessage) {
@@ -51,7 +51,7 @@ const ActionCellRenderer = <T,>({ params, setError, updateObject, deleteObject, 
     };
 
     const handleDelete = async () => {
-        console.log("Delete row: ", params.data);
+        //console.log("Delete row: ", params.data);
         try {
             setError("");
             const r = await deleteObject(params.data);
