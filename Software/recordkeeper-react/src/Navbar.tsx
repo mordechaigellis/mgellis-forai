@@ -17,7 +17,7 @@ export default function Navbar() {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <NavLink className="nav-link active" aria-current="page" to="/">U.S. Gov</NavLink>
+                                    <NavLink className="nav-link active" aria-current="page" to="usgov">U.S. Gov</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to="/olympics">Olympics</NavLink>
