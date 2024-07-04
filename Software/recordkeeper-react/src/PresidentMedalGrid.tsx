@@ -33,7 +33,7 @@ export default function PresidentMedalGrid({ president, onChanged }: Props) {
         editable: true,
     };
 
-    const colDefs: ColDef[] = [
+    const colDefs: ColDef<IPresidentMedal>[] = [
         {
             field: "medalName",
             editable: true,
@@ -42,14 +42,16 @@ export default function PresidentMedalGrid({ president, onChanged }: Props) {
                 values: medals.map(medal => medal.medalName),
             },
             valueGetter: (params) => {
-                const medal = medals.find(m => m.medalId === params.data.medalId);
-                return medal ? medal.medalName : params.data.medalName;
+                const data = params.data as IPresidentMedal;
+                const medal = medals.find(m => m.medalId === data.medalId);
+                return medal ? medal.medalName : data.medalName;
             },
             valueSetter: (params) => {
+                const data = params.data as IPresidentMedal;
                 const selectedMedal = medals.find(medal => medal.medalName === params.newValue);
                 if (selectedMedal) {
-                    params.data.medalId = selectedMedal.medalId;
-                    params.data.medalName = selectedMedal.medalName;
+                    data.medalId = selectedMedal.medalId;
+                    data.medalName = selectedMedal.medalName;
                     return true;
                 }
                 return false;
