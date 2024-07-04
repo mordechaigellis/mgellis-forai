@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { blankPresident, deletePresident, fetchParties, postPresident } from "./DataUtil";
-import { IParty, IPresident } from "./DataInterfaces";
+import { IExecutiveOrder, IParty, IPresident } from "./DataInterfaces";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { ExecutiveOrderGrid } from "./ExecutiveOrderGrid";
 
 
 
@@ -76,7 +77,17 @@ export function PresidentEdit({ president, onCancel, onPresidentUpdate, onPresid
             }
         }
     };
+    const handleExecutiveOrderChange = (value: IExecutiveOrder, fordelete: boolean) => {
+        const updatedExecutiveOrders = fordelete
+            ? president.executiveOrderList.filter(order => order.executiveOrderId !== value.executiveOrderId)
+            : president.executiveOrderList.map(order => order.executiveOrderId === value.executiveOrderId ? value : order);
 
+        const updatedPresident = {
+            ...president,
+            executiveOrderList: updatedExecutiveOrders
+        };
+        onPresidentUpdate(updatedPresident);
+    };
     return (
         <div className="bg-light mt-4 p-4">
             <ToastContainer />
@@ -161,10 +172,10 @@ export function PresidentEdit({ president, onCancel, onPresidentUpdate, onPresid
 
             <div className="tab-pane fade show active" id="executive-orders" role="tabpanel" aria-labelledby="executive-orders-tab">
                 <div className="row">
-                    {/* <ExecutiveOrderGrid
-                            president={president}
-                            onChanged={handleExecutiveOrderChange}
-                        /> */}
+                    <ExecutiveOrderGrid
+                        president={president}
+                        onChanged={handleExecutiveOrderChange}
+                    />
                 </div>
             </div>
             <div className="tab-pane fade" id="medals" role="tabpanel" aria-labelledby="medals-tab">

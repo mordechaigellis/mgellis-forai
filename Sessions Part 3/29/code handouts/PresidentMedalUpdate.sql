@@ -30,4 +30,3 @@ begin
 end
 go
 
-grant execute on PresidentMedalUpdate to approle
