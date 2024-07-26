@@ -1,3 +1,4 @@
+using NUnit.Framework.Legacy;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -64,8 +65,9 @@ namespace RecordKeeperTest
             int newnum = GetFirstColumnFirstRowValue("select * from president where num = " + maxnum);
             int pkid = prez.PresidentId;
           
-            Assert.IsTrue(newnum > 0, "president with num = " + maxnum + " is not found in db");
-            Assert.IsTrue(pkid > 0, "primary key not updated in datatable");
+            
+            ClassicAssert.IsTrue(newnum > 0, "president with num = " + maxnum + " is not found in db");
+            ClassicAssert.IsTrue(pkid > 0, "primary key not updated in datatable");
             TestContext.WriteLine("President with " + maxnum + " is found in db with pk value = " + newnum);
             TestContext.WriteLine("new primary key = " + pkid);
         }
